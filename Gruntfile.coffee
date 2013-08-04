@@ -12,7 +12,7 @@ module.exports = (grunt) ->
     filetime = random_string(32)
     # Project configuration
     project_config =
-        app: 'app'
+        app: 'public'
         test: 'test'
         dist: 'dist/public'
         release: 'dist'
@@ -60,7 +60,7 @@ module.exports = (grunt) ->
                 tasks: ['coffee']
                 events: true
             php:
-                files: ['<%= pkg.app %>/**/*.php', 'system/**/*.php', 'sparks/**/*.php', 'application/**/*.php'],
+                files: ['**/*.php'],
                 tasks: ['livereload']
                 events: true
             handlebars:

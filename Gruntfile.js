@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   };
   filetime = random_string(32);
   project_config = {
-    app: 'app',
+    app: 'public',
     test: 'test',
     dist: 'dist/public',
     release: 'dist',
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
         events: true
       },
       php: {
-        files: ['<%= pkg.app %>/**/*.php', 'system/**/*.php', 'sparks/**/*.php', 'application/**/*.php'],
+        files: ['**/*.php'],
         tasks: ['livereload'],
         events: true
       },
