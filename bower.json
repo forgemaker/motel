@@ -1,0 +1,20 @@
+{
+  "name": "html5-template-engine",
+  "version": "1.0.0",
+  "dependencies": {
+    "handlebars": "~1.0.0",
+    "jquery": "~1.10.2",
+    "jquery-migrate": "~1.2.1",
+    "normalize-scss": "~2.1.2",
+    "backbone-amd": "~1.0.0",
+    "modernizr": "~2.6.2",
+    "requirejs": "~2.1.6",
+    "underscore-amd": "~1.4.4",
+    "scrollup": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
