@@ -1,25 +1,29 @@
 # Filename: main.js
 require.config
     paths:
-        jquery: "../vendor/jquery/jquery"
-        underscore: "../vendor/underscore-amd/underscore"
-        backbone: "../vendor/backbone-amd/backbone"
-        handlebars: "../vendor/handlebars/handlebars.runtime"
-        templates: "../templates/template"
+        jquery: '../vendor/jquery/jquery'
+        underscore: '../vendor/underscore-amd/underscore'
+        backbone: '../vendor/backbone-amd/backbone'
+        handlebars: '../vendor/handlebars/handlebars.runtime'
+        templates: '../templates/template'
+        'jquery.serialize': '../vendor/jquery-serialize-object/jquery.serialize-object'
+        'jquery.tablesorter': '../vendor/jquery.tablesorter/js/jquery.tablesorter'
+        'jquery.equalHeight': 'libs/jquery/jquery.equalHeight'
+        'bootstrap.modal': '../vendor/bootstrap/js/modal'
+        'bootstrap.tab': '../vendor/bootstrap/js/tab'
+        'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min'
+        'moment': '../vendor/moment/moment'
     shim:
-        "../vendor/jquery-serialize-object/jquery.serialize-object": ["jquery"]
-        "../vendor/jquery.tablesorter/js/jquery.tablesorter": ["jquery"]
-        "libs/jquery/jquery-ui-1.8.18.custom.min": ["jquery"]
-        "libs/jquery/bootstrap-modal": ["jquery"]
-        "libs/jquery/swfobject": ["jquery"]
-        "libs/jquery/jquery.uploadify.v2.1.4.min": ["jquery"]
-        "libs/jquery/jquery.equalHeight": ["jquery"]
-        "libs/twitter/bootstrap-tab": ["jquery"]
-        "ckeditor/ckeditor.js": ["jquery"]
-        "libs/hideshow.js": ["jquery"]
-        "libs/handlebars-helper": ["handlebars"]
-        "templates": ["handlebars"]
+        'jquery.serialize': ['jquery']
+        'jquery.tablesorter': ['jquery']
+        'bootstrap.modal': ['jquery']
+        'bootstrap.tab': ['jquery']
+        'jquery.equalHeight': ['jquery']
+        'jquery.ui': ['jquery']
+        'ckeditor/ckeditor.js': ['jquery']
+        'libs/handlebars-helper': ['handlebars']
+        'templates': ['handlebars']
     urlArgs: (new Date()).getTime()
 
-require ["app"], (App) ->
+require ['app'], (App) ->
     App.initialize()

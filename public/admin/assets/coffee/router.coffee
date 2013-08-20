@@ -71,48 +71,31 @@ define ["jquery",
         "backbone",
         "models/me",
         "models/user",
-        "models/websync",
-        "models/application",
-        "models/group",
-        "models/privilege",
-        "models/log",
+        #"models/motel",
         "views/view",
         "views/users/list",
         "views/users/edit",
-        "views/websyncs/list",
-        "views/applications/list",
-        "views/groups/list",
-        "views/privileges/list",
-        "views/logs/list",
-        "../vendor/moment/moment",
-        "../vendor/jquery-serialize-object/jquery.serialize-object",
-        "../vendor/jquery.tablesorter/js/jquery.tablesorter",
-        "libs/jquery/jquery-ui-1.8.18.custom.min",
-        "libs/jquery/bootstrap-modal",
-        "libs/jquery/swfobject",
-        "libs/jquery/jquery.uploadify.v2.1.4.min",
-        "libs/jquery/jquery.equalHeight",
-        "libs/twitter/bootstrap-tab",
+        #"views/motels/list",
+        #"views/motels/edit",
+        "moment",
+        "jquery.serialize",
+        "jquery.tablesorter",
+        "jquery.ui",
+        "bootstrap.modal",
+        "bootstrap.tab",
+        "jquery.equalHeight",
         "handlebars",
         "libs/handlebars-helper",
-        "templates"], ($, _, Backbone, ModelMe, ModelUser, ModelWebsync, ModelApplication, ModelGroup, ModelPrivilege, ModelLog, View, ViewUsersList, ViewUser, ViewWebsyncsList, ViewApplicationsList, ViewGroupsList, ViewPrivilegesList, ViewLogsList) ->
+        "templates"], ($, _, Backbone, ModelMe, ModelUser, View, ViewUsersList, ViewUser) ->
     AppRouter = Backbone.Router.extend(
-        site_name: "WebSync 後台管理"
+        site_name: "Motel 後台管理"
         routes:
             "": "home"
             "!/home": "home"
-            "!/websync/:action": "websync"
+            "!/motel/:action": "motel"
+            "!/motel/:action/:id": "motel"
             "!/user/:action": "user"
-            "!/websync/:action/:id": "websync"
             "!/user/:action/:id": "user"
-            "!/application/:action": "application"
-            "!/application/:action/:id": "application"
-            "!/group/:action": "group"
-            "!/group/:action/:id": "group"
-            "!/privilege/:action": "privilege"
-            "!/privilege/:action/:id": "privilege"
-            "!/log/:action": "log"
-            "!/log/:action/:id": "log"
 
         initialize: ->
             @me = new ModelMe()
@@ -121,15 +104,10 @@ define ["jquery",
 
             # load model
             @user_model = new ModelUser()  unless @user_model
-            @websync_model = new ModelWebsync()  unless @websync_model
-            @app_model = new ModelApplication()  unless @app_model
-            @group_model = new ModelGroup()  unless @group_model
-            @privilege_model = new ModelPrivilege()  unless @privilege_model
-            @log_model = new ModelLog()  unless @log_model
 
         update_title: (title) ->
             if title
-                document.title = @site_name + "::" + title
+                document.title = title + " | " + @site_name
                 $(".section_title").text title
             else
                 document.title = @site_name
@@ -215,134 +193,6 @@ define ["jquery",
                     @websync_model.id = id
                     @websync_model.fetch()
 
-        application: (action, id) ->
-            RT.dialogs.loading "open"
-            $("#main").html ""
-            switch action
-              when "list"
-                    @page = id or 1
-                    @update_title "軟體列表"
-                    unless @view_apps_list
-                        @view_apps_list = new ViewApplicationsList(
-                            el: "#main"
-                            collection: @app_model.lists
-                            model_name: @app_model
-                            page: @page
-                        )
-                    @view_apps_list.options.page = @page
-                    @app_model.set_params page: @page
-                    @app_model.lists.fetch()
-              when "add"
-                    @update_title "新增軟體"
-                    unless @view_app_add
-                        @view_app_add = new View(
-                            template_name: "application_edit"
-                            el: "#main"
-                        )
-                    @view_app_add.render()
-              when "edit"
-                    @update_title "修改軟體"
-                    unless @view_app
-                        @view_app = new View(
-                            template_name: "application_edit"
-                            el: "#main"
-                            model: @app_model
-                        )
-                    else
-
-                        # trigger change event if model is not changed
-                        @app_model.trigger "change"  unless @app_model.hasChanged()
-                    @app_model.id = id
-                    @app_model.fetch()
-
-        group: (action, id) ->
-            RT.dialogs.loading "open"
-            $("#main").html ""
-            switch action
-              when "list"
-                    @page = id or 1
-                    @update_title "群組列表"
-                    unless @view_groups_list
-                        @view_groups_list = new ViewGroupsList(
-                            el: "#main"
-                            collection: @group_model.lists
-                            model_name: @group_model
-                            page: @page
-                        )
-                    @view_groups_list.options.page = @page
-                    @group_model.set_params page: @page
-                    @group_model.lists.fetch()
-              when "add"
-                    @update_title "新增群組"
-                    unless @view_group_add
-                        @view_group_add = new View(
-                            template_name: "group_edit"
-                            el: "#main"
-                        )
-                    @view_group_add.render()
-              when "edit"
-                    @update_title "修改群組"
-                    unless @view_group
-                        @view_group = new View(
-                            template_name: "group_edit"
-                            el: "#main"
-                            model: @group_model
-                        )
-                    else
-
-                        # trigger change event if model is not changed
-                        @group_model.trigger "change"  unless @group_model.hasChanged()
-                    @group_model.id = id
-                    @group_model.fetch()
-
-        privilege: (action, id) ->
-            RT.dialogs.loading "open"
-            $("#main").html ""
-            switch action
-              when "list"
-                    @page = id or 1
-                    @update_title "權限列表"
-                    unless @view_privilege_list
-                        @view_privilege_list = new ViewPrivilegesList(
-                            el: "#main"
-                            collection: @privilege_model.lists
-                            page: @page
-                        )
-                    @view_privilege_list.options.page = @page
-                    @privilege_model.set_params page: @page
-                    @privilege_model.lists.fetch()
-              when "add"
-                    @update_title "新增權限"
-                    unless @view_privilege_add
-                        @view_privilege_add = new View(
-                            template_name: "privilege_edit"
-                            el: "#main"
-                            model: @privilege_model
-                        )
-                    else
-
-                        # trigger change event if model is not changed
-                        @privilege_model.trigger "change"  unless @privilege_model.hasChanged()
-                    @privilege_model.fetch()
-
-        log: (action, id) ->
-            RT.dialogs.loading "open"
-            $("#main").html ""
-            switch action
-              when "list"
-                    @page = id or 1
-                    @update_title "前端錯誤列表"
-                    unless @view_log_list
-                        @view_log_list = new ViewLogsList(
-                            el: "#main"
-                            collection: @log_model.lists
-                            model_name: @log_model
-                            page: @page
-                        )
-                    @view_log_list.options.page = @page
-                    @log_model.set_params page: @page
-                    @log_model.lists.fetch()
-
         update_user: ->
             new View(
                 template_name: "user_me"
@@ -360,12 +210,10 @@ define ["jquery",
                     keyboard: false
 
         home: ->
-            @update_title "管理首頁"
             RT.dialogs.loading "close"
 
         reset: ->
             @user.reset()  if typeof @user isnt "undefined" and typeof @user.reset isnt "undefined"
-            @websync.reset()  if typeof @websync isnt "undefined" and typeof @websync.reset isnt "undefined"
     )
     initialize = ->
         # click left menu list
@@ -373,51 +221,6 @@ define ["jquery",
             ev.preventDefault()
             url = '!/' + $(this).data('url')
             RT.Router.navigate(url, {trigger: true})
-        ).on("mouseenter", ".privilege", (ev) ->
-            ev.preventDefault()
-            id = $(this).data("id")
-            action = $(this).data("action")
-            if action is "deny"
-                $(this).removeClass("btn-danger").addClass "btn-primary"
-                $(this).text "允許"
-            else
-                $(this).removeClass("btn-primary").addClass "btn-danger"
-                $(this).text "禁止"
-        ).on("mouseleave", ".privilege", (ev) ->
-            ev.preventDefault()
-            id = $(this).data("id")
-            action = $(this).data("action")
-            if action is "deny"
-                $(this).removeClass("btn-primary").addClass "btn-danger"
-                $(this).text "禁止"
-            else
-                $(this).removeClass("btn-danger").addClass "btn-primary"
-                $(this).text "允許"
-        ).on("click", ".privilege", (ev) ->
-            ev.preventDefault()
-            id = $(this).data("id")
-            priview_action = $(this).data("action")
-            current_action = (if (priview_action is "deny") then "allow" else "deny")
-            form_info =
-                id: id
-                action: current_action
-
-            form_id = $(this).data("form")
-            if priview_action is "deny"
-                $(this).data "action", "allow"
-            else
-                $(this).data "action", "deny"
-            $.ajax
-                url: root_path + "WebAPI/index.php/API/Acl/UpdateAcl"
-                dataType: "json"
-                type: "POST"
-                data: form_info
-                success: (response) ->
-                    if response.error_text
-                        RT.show_message form_id, "alert-error", "修改失敗"
-                        RT.dialogs.loading "close"
-                    RT.show_message form_id, "alert-success", "修改成功"  if response.success_text
-
         ).on("click", ".auto_generate", (ev) ->
             ev.preventDefault()
             name = $(this).data("field")
@@ -426,7 +229,6 @@ define ["jquery",
         ).on("click", ".close", (ev) ->
             ev.preventDefault()
             $(this).parent().fadeOut "slow"
-        ).on("click", ".toggle > li > a", (ev) ->
         ).on "click", ".check_all", (ev) ->
             ev.preventDefault()
             $("input[type=checkbox]").each ->
@@ -436,21 +238,6 @@ define ["jquery",
                 else
                     $(this).attr "checked", true
 
-
-        $("#websync_user_add_form").on "submit", (ev) ->
-            ev.preventDefault()
-            model = $(this).data("model")
-            switch model
-              when "websync_user"
-                    websync_user_info = $("#websync_user_add_form").serializeObject()
-                    if not $.trim(websync_user_info.websync_id) or not $.trim(websync_user_info.password)
-                        for name of websync_user_info
-                            unless $.trim(websync_user_info[name])
-                                $("#websync_user_add_form input[name=" + name + "]").parent().addClass "error"
-                                $("#websync_user_add_form input[name=" + name + "]").parent().find(".help-inline").text "此欄位務必填寫"
-                        return false
-
-
         # pass the headers argument and assing a object
         $(".tablesorter").tablesorter headers:
             # assign the secound column (we start counting zero)
@@ -459,12 +246,12 @@ define ["jquery",
                 sorter: false
 
 
-        #When page loads...
+        # When page loads...
         $(".tab_content").hide() #Hide all content
         $("ul.tabs li:first").addClass("active").show() #Activate first tab
         $(".tab_content:first").show() #Show first tab content
 
-        #On Click Event
+        # On Click Event
         $("ul.tabs li").click ->
             $("ul.tabs li").removeClass "active" #Remove any "active" class
             $(this).addClass "active" #Add "active" class to selected tab
@@ -491,4 +278,3 @@ define ["jquery",
         Backbone.history.start()
 
     initialize: initialize
-

@@ -1,13 +1,17 @@
 {
-    "name": "RequireJS Starter",
-    "version": "1.0.0",
-    "dependencies": {
-        "jquery": "~1.10.2",
-        "backbone-amd": "~1.0.0",
-        "underscore-amd": "~1.5.1",
-        "requirejs": "~2.1.8",
-        "handlebars": "~1.0.0",
-        "moment": "~2.1.0",
-        "jquery-serialize-object": "~1.0.0"
-    }
+  "name": "Motel Admin Project",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "~1.10.2",
+    "backbone-amd": "~1.0.0",
+    "underscore-amd": "~1.5.1",
+    "requirejs": "~2.1.8",
+    "handlebars": "~1.0.0",
+    "moment": "~2.1.0",
+    "jquery-serialize-object": "~1.0.0",
+    "jquery.tablesorter": "~2.10.8",
+    "alertify": "~0.3.10",
+    "bootstrap": "~3.0.0",
+    "blueimp-file-upload": "~8.7.1"
+  }
 }
