@@ -1,9 +1,7 @@
 /bootstrap/compiled.php
-/vendor
 node_modules/
-public/assets/vendor/
+vendor
 composer.phar
 composer.lock
 .DS_Store
 app/config/database.php
-public/admin/assets/vendor
