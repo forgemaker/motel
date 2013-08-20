@@ -6,3 +6,4 @@ composer.phar
 composer.lock
 .DS_Store
 app/config/database.php
+public/admin/assets/vendor
