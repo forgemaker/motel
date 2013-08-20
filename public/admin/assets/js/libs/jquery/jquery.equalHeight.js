@@ -10,9 +10,9 @@
             thisHeight = $(this).height();
             windowHeight = $(window).height();
             if( windowHeight > thisHeight)
-                tallest = windowHeight;
+                tallest = windowHeight - $(this).offset().top;
             else
-                tallest = thisHeight;
+                tallest = thisHeight - $(this).offset().top;
         });
 
         // set each items height to use the tallest value found

@@ -15,5 +15,5 @@ Route::get('/', function() {
     return View::make('hello');
 });
 
-Route::get('user/{id}', 'AuthController@showProfile');
+Route::get('user/CurrentData', 'UserController@showProfile');
 Route::resource('user', 'UserController');

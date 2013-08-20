@@ -3,7 +3,7 @@
 #
 
 RT.API =
-    me: root_path + "WebAPI/index.php/API/Auth/getUserData"
+    me: root_path + "user/CurrentData"
     getUser: root_path + "WebAPI/index.php/API/Auth/getUser"
     getUserList: root_path + "WebAPI/index.php/API/Auth/getUserList"
     getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList"
@@ -65,6 +65,67 @@ RT.generateSerial = (len) ->
             randomstring += chars.substring(rnum, rnum + 1)
         x++
     randomstring
+
+ajaxSettings = dataType: "json"
+api_req = (name, callback, settings) ->
+    settings = (if (not settings) then {} else settings)
+    $.ajax $.extend({}, ajaxSettings,
+        url: name
+        type: (if (settings.data) then "POST" else "GET")
+        success: callback
+        error: (xhr, status, errorThrown) ->
+            message = "Unknown error. Please try again later."
+            switch status
+                when "timeout"
+                    message = "Server timeout. Please try again later."
+                when "error", "parsererror"
+                    message = "Server experienced some difficulty. Please try again later."
+                when "abort"
+                    message = "Aborted."
+            try
+                alertify.error($.parseJSON(xhr.responseText).error_text)
+            catch error
+                alertify.error message
+    , settings)
+
+RT.api =
+    GET: (path, data, callback, settings) ->
+        settings = settings or {}
+        data = data or {}
+
+        # fixed ie ajax cache
+        unless navigator.userAgent.indexOf("MSIE") is -1
+            $.extend settings,
+                cache: false
+
+        api_req path, callback, $.extend
+            type: "GET"
+            data: data
+        , settings
+
+    POST: (path, data, callback, settings) ->
+        settings = settings or {}
+        data = data or {}
+        api_req path, callback, $.extend
+            type: "POST"
+            data: data
+        , settings
+
+    PUT: (path, data, callback, settings) ->
+        settings = settings or {}
+        data = data or {}
+        api_req path, callback, $.extend
+            type: "PUT"
+            data: data
+        , settings
+
+    DELETE: (path, data, callback, settings) ->
+        settings = settings or {}
+        data = data or {}
+        api_req path, callback, $.extend
+            type: "DELETE"
+            data: data
+        , settings
 
 define ["jquery",
         "underscore",
@@ -153,46 +214,6 @@ define ["jquery",
                     @user_model.id = id
                     @user_model.fetch()
 
-        websync: (action, id) ->
-            @reset()
-            RT.dialogs.loading "open"
-            $("#main").html ""
-            switch action
-              when "list"
-                    @page = id or 1
-                    @update_title "WebSync 帳號列表"
-                    unless @view_websyncs_list
-                        @view_websyncs_list = new ViewWebsyncsList(
-                            el: "#main"
-                            collection: @websync_model.lists
-                            model_name: @websync_model
-                            page: @page
-                        )
-                    @view_websyncs_list.options.page = @page
-                    @websync_model.set_params page: @page
-                    @websync_model.lists.fetch()
-              when "add"
-                    @update_title "新增 WebSync 帳號"
-                    unless @view_websyncs_add
-                        @view_websyncs_add = new View(
-                            template_name: "websync_edit"
-                            el: "#main"
-                        )
-                    @view_websyncs_add.render()
-              when "edit"
-                    @update_title "修改 WebSync 帳號"
-                    unless @view_websync
-                        @view_websync = new View(
-                            template_name: "websync_edit"
-                            el: "#main"
-                            model: @websync_model
-                        )
-                    else
-                        # trigger change event if model is not changed
-                        @websync_model.trigger "change"  unless @websync_model.hasChanged()
-                    @websync_model.id = id
-                    @websync_model.fetch()
-
         update_user: ->
             new View(
                 template_name: "user_me"
@@ -200,8 +221,8 @@ define ["jquery",
                 model: @me
             ).render()
 
-            if @me.get "logged_in" and $.inArray('Admin', @me.get "user_groups") != '-1'
-                window.location.href = '../app/main/index.html'
+            #if @me.get "logged_in" and $.inArray('Admin', @me.get "user_groups") != '-1'
+            #    window.location.href = '../app/main/index.html'
 
             # show login page if not login
             unless @me.get("logged_in")

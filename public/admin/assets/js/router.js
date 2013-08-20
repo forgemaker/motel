@@ -1,5 +1,7 @@
+var ajaxSettings, api_req;
+
 RT.API = {
-  me: root_path + "WebAPI/index.php/API/Auth/getUserData",
+  me: root_path + "user/CurrentData",
   getUser: root_path + "WebAPI/index.php/API/Auth/getUser",
   getUserList: root_path + "WebAPI/index.php/API/Auth/getUserList",
   getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList",
@@ -73,6 +75,80 @@ RT.generateSerial = function(len) {
     x++;
   }
   return randomstring;
+};
+
+ajaxSettings = {
+  dataType: "json"
+};
+
+api_req = function(name, callback, settings) {
+  settings = (!settings ? {} : settings);
+  return $.ajax($.extend({}, ajaxSettings, {
+    url: name,
+    type: (settings.data ? "POST" : "GET"),
+    success: callback,
+    error: function(xhr, status, errorThrown) {
+      var error, message;
+      message = "Unknown error. Please try again later.";
+      switch (status) {
+        case "timeout":
+          message = "Server timeout. Please try again later.";
+          break;
+        case "error":
+        case "parsererror":
+          message = "Server experienced some difficulty. Please try again later.";
+          break;
+        case "abort":
+          message = "Aborted.";
+      }
+      try {
+        return alertify.error($.parseJSON(xhr.responseText).error_text);
+      } catch (_error) {
+        error = _error;
+        return alertify.error(message);
+      }
+    }
+  }, settings));
+};
+
+RT.api = {
+  GET: function(path, data, callback, settings) {
+    settings = settings || {};
+    data = data || {};
+    if (navigator.userAgent.indexOf("MSIE") !== -1) {
+      $.extend(settings, {
+        cache: false
+      });
+    }
+    return api_req(path, callback, $.extend({
+      type: "GET",
+      data: data
+    }, settings));
+  },
+  POST: function(path, data, callback, settings) {
+    settings = settings || {};
+    data = data || {};
+    return api_req(path, callback, $.extend({
+      type: "POST",
+      data: data
+    }, settings));
+  },
+  PUT: function(path, data, callback, settings) {
+    settings = settings || {};
+    data = data || {};
+    return api_req(path, callback, $.extend({
+      type: "PUT",
+      data: data
+    }, settings));
+  },
+  DELETE: function(path, data, callback, settings) {
+    settings = settings || {};
+    data = data || {};
+    return api_req(path, callback, $.extend({
+      type: "DELETE",
+      data: data
+    }, settings));
+  }
 };
 
 define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, ModelMe, ModelUser, View, ViewUsersList, ViewUser) {
@@ -150,62 +226,12 @@ define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/v
           return this.user_model.fetch();
       }
     },
-    websync: function(action, id) {
-      this.reset();
-      RT.dialogs.loading("open");
-      $("#main").html("");
-      switch (action) {
-        case "list":
-          this.page = id || 1;
-          this.update_title("WebSync 帳號列表");
-          if (!this.view_websyncs_list) {
-            this.view_websyncs_list = new ViewWebsyncsList({
-              el: "#main",
-              collection: this.websync_model.lists,
-              model_name: this.websync_model,
-              page: this.page
-            });
-          }
-          this.view_websyncs_list.options.page = this.page;
-          this.websync_model.set_params({
-            page: this.page
-          });
-          return this.websync_model.lists.fetch();
-        case "add":
-          this.update_title("新增 WebSync 帳號");
-          if (!this.view_websyncs_add) {
-            this.view_websyncs_add = new View({
-              template_name: "websync_edit",
-              el: "#main"
-            });
-          }
-          return this.view_websyncs_add.render();
-        case "edit":
-          this.update_title("修改 WebSync 帳號");
-          if (!this.view_websync) {
-            this.view_websync = new View({
-              template_name: "websync_edit",
-              el: "#main",
-              model: this.websync_model
-            });
-          } else {
-            if (!this.websync_model.hasChanged()) {
-              this.websync_model.trigger("change");
-            }
-          }
-          this.websync_model.id = id;
-          return this.websync_model.fetch();
-      }
-    },
     update_user: function() {
       new View({
         template_name: "user_me",
         el: "#display_username",
         model: this.me
       }).render();
-      if (this.me.get("logged_in" && $.inArray('Admin', this.me.get("user_groups")) !== '-1')) {
-        window.location.href = '../app/main/index.html';
-      }
       if (!this.me.get("logged_in")) {
         return $("#login_pannel").modal({
           backdrop: "static",

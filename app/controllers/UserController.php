@@ -13,6 +13,27 @@ class UserController extends \BaseController
     }
 
     /**
+     * Show the profile for the given user.
+     */
+    public function showProfile()
+    {
+        Session::put('logged_in', true);
+        Session::put('first_name', 'Bo-Yi');
+        Session::put('last_name', 'Wu');
+        Session::put('user_groups', array('Admin', 'User'));
+        $data = array(
+            'item' => array(
+                'logged_in' => Session::get('logged_in'),
+                'user_groups' => Session::get('user_groups'),
+                'first_name' => Session::get('first_name'),
+                'last_name' => Session::get('last_name')
+            )
+        );
+
+        echo json_encode($data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
