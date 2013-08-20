@@ -1,0 +1,67 @@
+<article class="module width_full">
+<div style="width:97%;margin:0 auto;">
+
+    <div class="menu">
+        <a class="btn btn-primary search_app" data-form="#application_list_form" data-model="application" style="color: white;"><i class="icon-ok icon-white"></i> 搜尋列表</a>
+        <a class="btn btn-primary check_all" data-model="application" style="color: white;"><i class="icon-ok icon-white"></i> 全選列表</a>
+        <a class="btn btn-primary" data-model="application" href="#!/application/add" style="color: white;"><i class="icon-edit icon-white"></i> 新增軟體</a>
+        <a class="btn btn-danger delete_all" data-form="#application_list_form" data-model="application" style="color: white;"><i class="icon-trash icon-white"></i> 刪除軟體</a>
+
+    </div>
+    <form action="#" method="post" id="application_list_form">
+    <table id="application_list" class="table table-striped table-bordered table-condensed tablesorter">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>編號</th>
+                <th>檔名</th>
+                <th>縮寫</th>
+                <th>縮圖</th>
+                <th>網址</th>
+                <th>啟用</th>
+                <th>動作</th>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><input type="text" name="app_title" class="span2" placeholder="search title" /></td>
+                <td><input type="text" name="app_name" class="span2" placeholder="search name" /></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>
+                    <select name="app_enabled" style="width: 75px">
+                        <option value="">請選擇</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
+        <tbody>
+        {{#items}}
+        <tr>
+            <td><input type="checkbox" name="app_id[]" value="{{app_id}}"></td>
+            <td>{{app_id}}</td>
+            <td>{{app_title}}</td>
+            <td>{{app_name}}</td>
+            <td style="text-align: center"><img src="{{app_cover}}" width="40" /></td>
+            <td style="text-align: center"><a href="{{app_url}}">點選開啟</a></td>
+            <td>
+                {{#if is_enabled}}
+                    <span style="color: blue">是</span>
+                {{else}}
+                    <span style="color: red">否</span>
+                {{/if}}
+            </td>
+            <td>
+                <a class="btn btn-primary" data-model="application" data-id="{{app_id}}" href="#!/application/edit/{{app_id}}" style="color: white;"><i class="icon-edit icon-white"></i> 編輯</a>&nbsp;
+                <a class="btn btn-danger delete" data-model="application" data-id="{{app_id}}" href="#" style="color: white;"><i class="icon-trash icon-white"></i> 刪除</a>
+            </td>
+        </tr>
+        {{/items}}
+        </tbody>
+    </table>
+    </form>
+</div>
+</article>

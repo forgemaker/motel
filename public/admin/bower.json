@@ -1,0 +1,14 @@
+{
+    "name": "RequireJS Starter",
+    "version": "1.0.0",
+    "dependencies": {
+        "jquery": "1.10.2",
+        "backbone-amd": "0.9.10",
+        "underscore-amd": "latest",
+        "requirejs": "latest",
+        "handlebars": "latest",
+        "moment": "latest",
+        "jquery-serialize-object": "latest",
+        "jquery.tablesorter": "latest"
+    }
+}
