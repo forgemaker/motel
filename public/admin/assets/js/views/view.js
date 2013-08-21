@@ -79,89 +79,31 @@ define([
             var model = $(e.currentTarget).data('model');
             var length = $("input:checked").length;
             if (length == 0) {
-                RT.show_message(form_id, 'alert-danger', '尚未選取任何項目');
+                alertify.error('尚未選取任何項目');
                 e.stopImmediatePropagation();
                 return false;
             }
-
+            console.log(form_info);
             if (confirm("確定刪除選取資料?")) {
                 switch (model) {
-                case "privilege":
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Acl/DeleteAcl',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: form_info,
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(form_id, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(form_id, 'alert-success', '刪除成功');
-                                // remove checkbox tag
-                                $("input:checked").each(
-
-                                function() {
-                                    $(this).parent().parent().remove();
-                                });
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "websync_user":
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteWebSync',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: form_info,
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(form_id, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(form_id, 'alert-success', '刪除成功');
-                                // remove checkbox tag
-                                $("input:checked").each(
-
-                                function() {
-                                    $(this).parent().parent().remove();
-                                });
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
                 case "user":
                     $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteUser',
+                        url: RT.API.DeleteUser + '/all',
                         dataType: 'json',
-                        type: 'POST',
+                        type: 'DELETE',
                         data: form_info,
                         beforeSend: function(jqXHR, settings) {
                             RT.dialogs.loading('open');
                         },
                         success: function(response) {
                             if (response.error_text) {
-                                RT.show_message(form_id, 'alert-danger', '刪除失敗');
+                                alertify.error('刪除失敗');
                                 RT.dialogs.loading('close');
                             }
                             if (response.success_text) {
-                                RT.show_message(form_id, 'alert-success', '刪除成功');
+                                alertify.success('刪除成功');
                                 // remove checkbox tag
-                                $("input:checked").each(
-
-                                function() {
+                                $("input:checked").each(function() {
                                     $(this).parent().parent().remove();
                                 });
                                 RT.update_table();

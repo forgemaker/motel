@@ -114,9 +114,10 @@ class UserController extends \BaseController
      * @param  int      $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id = null)
     {
-        $id = intval($id);
+        $id = (Input::has('id') and is_array(Input::get('id'))) ? Input::get('id') : intval($id);
+
         User::destroy($id);
         echo json_encode(array('success_text' => 'ok'));
     }
