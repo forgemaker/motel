@@ -19,7 +19,7 @@ define([
         },
 
         url: function() {
-            return RT.API.getUser + '?id=' + this.id;
+            return RT.API.getUser + '/' + this.id + '/edit';
         },
 
         parse: function(response) {

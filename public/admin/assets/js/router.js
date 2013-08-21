@@ -2,6 +2,7 @@ var ajaxSettings, api_req;
 
 RT.API = {
   me: root_path + "user/CurrentData",
+  User: root_path + "user",
   getUser: root_path + "user",
   getUserList: root_path + "user",
   addUser: root_path + "user",
@@ -228,7 +229,9 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             }
           }
           this.user_model.id = id;
-          return this.user_model.fetch();
+          return this.user_model.fetch({
+            reset: true
+          });
       }
     },
     update_user: function() {

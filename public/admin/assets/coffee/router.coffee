@@ -4,6 +4,7 @@
 
 RT.API =
     me: root_path + "user/CurrentData"
+    User: root_path + "user"
     getUser: root_path + "user"
     getUserList: root_path + "user"
     addUser: root_path + "user"
@@ -212,11 +213,10 @@ define ["jquery",
                             model: @user_model
                         )
                     else
-
                         # trigger change event if model is not changed
                         @user_model.trigger "change"  unless @user_model.hasChanged()
                     @user_model.id = id
-                    @user_model.fetch()
+                    @user_model.fetch({reset: true})
 
         update_user: ->
             new View(

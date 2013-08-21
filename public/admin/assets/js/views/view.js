@@ -22,7 +22,6 @@ define([
                 this.model.on("change", this.render, this);
             }
             if (this.collection) {
-                console.log('bind on collection');
                 this.collection.on("reset", this.render, this);
             }
             this.debug = true;
@@ -83,7 +82,6 @@ define([
                 e.stopImmediatePropagation();
                 return false;
             }
-            console.log(form_info);
             if (confirm("確定刪除選取資料?")) {
                 switch (model) {
                 case "user":
@@ -130,7 +128,6 @@ define([
                 var form_id = "#user_add_form";
                 var form_info = $("#user_add_form").serializeObject();
                 var error = false;
-                console.log(form_info);
                 if (!$.trim(form_info.username) || !$.trim(form_info.password)) {
                     for (var name in form_info) {
                         if (!$.trim(form_info[name])) {
@@ -161,7 +158,6 @@ define([
                         RT.dialogs.loading('open');
                     },
                     success: function(response) {
-                        console.log(response);
                         if (response.error_text) {
                             alertify.error(response.error_text);
                             RT.dialogs.loading('close');
@@ -187,105 +183,8 @@ define([
             $('.form-group').removeClass('has-error');
             $('.help-block').text('');
             var model = $(e.currentTarget).data('model');
+            var id = $(e.currentTarget).data('id');
             switch (model) {
-            case 'websync_user':
-                var form_id = "#websync_user_add_form";
-                var form_info = $(form_id).serializeObject();
-                if ($.trim(form_info.password) != '' && $.trim(form_info.password) != $.trim(form_info.confirm_password)) {
-                    $(form_id + ' input[name=password]').parent().addClass('has-error');
-                    $(form_id + ' input[name=confirm_password]').parent().addClass('has-error');
-                    RT.show_message(form_id, 'alert-danger', '修改密碼跟確認密碼必須相等');
-                    e.stopImmediatePropagation();
-                    return false;
-                }
-
-                $.ajax({
-                    url: root_path + 'WebAPI/index.php/API/Auth/UpdateWebSync',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: form_info,
-                    beforeSend: function(jqXHR, settings) {
-                        RT.dialogs.loading('open');
-                    },
-                    success: function(response) {
-                        if (response.error_text) {
-                            RT.show_message(form_id, 'alert-danger', '帳號修改失敗');
-                            RT.dialogs.loading('close');
-                        }
-                        if (response.success_text) {
-                            RT.show_message(form_id, 'alert-success', form_info.websync_id + ' 帳號修改成功');
-                            RT.dialogs.loading('close');
-                        }
-                    }
-                });
-                break;
-            case 'group':
-                var form_id = "#group_form";
-                var form_info = $(form_id).serializeObject();
-                for (var name in form_info) {
-                    if (!$.trim(form_info[name])) {
-                        $('input[name=' + name + ']').parent().addClass('has-error');
-                        RT.show_message(form_id, 'alert-danger', '紅色欄位務必填寫');
-                        e.stopImmediatePropagation();
-                        return false;
-                    }
-                }
-
-                $.ajax({
-                    url: root_path + 'WebAPI/index.php/API/Auth/UpdateGroup',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: form_info,
-                    beforeSend: function(jqXHR, settings) {
-                        RT.dialogs.loading('open');
-                    },
-                    success: function(response) {
-                        if (response.error_text) {
-                            RT.show_message(form_id, 'alert-danger', '修改失敗');
-                            RT.dialogs.loading('close');
-                        }
-                        if (response.success_text) {
-                            RT.show_message(form_id, 'alert-success', form_info.name + ' 修改成功');
-                            RT.dialogs.loading('close');
-                        }
-                    }
-                });
-                break;
-            case 'application':
-                var form_id = "#application_form";
-                var form_info = $(form_id).serializeObject();
-                for (var name in form_info) {
-                    if (!$.trim(form_info[name])) {
-                        $(form_id + ' input[name=' + name + ']').parent().addClass('has-error');
-                        RT.show_message(form_id, 'alert-danger', '紅色欄位務必填寫');
-                        e.stopImmediatePropagation();
-                        return false;
-                    }
-                }
-                // checkbox is null
-                if (form_info.app_enabled == undefined || form_info.app_enabled == "") {
-                    form_info.app_enabled = 0;
-                }
-                $.ajax({
-                    url: root_path + 'WebAPI/index.php/API/App/UpdateAppInfo',
-                    dataType: 'json',
-                    type: 'POST',
-                    data: form_info,
-                    beforeSend: function(jqXHR, settings) {
-                        RT.dialogs.loading('open');
-                    },
-                    success: function(response) {
-                        if (response.error_text) {
-                            RT.show_message(form_id, 'alert-danger', '修改失敗');
-                            RT.dialogs.loading('close');
-                        }
-                        if (response.success_text) {
-                            RT.show_message(form_id, 'alert-success', form_info.app_name + ' 修改成功');
-                            RT.dialogs.loading('close');
-                        }
-                    }
-                });
-                break;
             case 'user':
                 var form_id = "#user_add_form";
                 var form_info = $(form_id).serializeObject();
@@ -297,21 +196,22 @@ define([
                     e.stopImmediatePropagation();
                     return false;
                 }
+
                 $.ajax({
-                    url: root_path + 'WebAPI/index.php/API/Auth/UpdateUser',
+                    url: RT.API.User + '/' + id,
                     dataType: 'json',
-                    type: 'POST',
+                    type: 'PUT',
                     data: form_info,
                     beforeSend: function(jqXHR, settings) {
                         RT.dialogs.loading('open');
                     },
                     success: function(response) {
                         if (response.error_text) {
-                            RT.show_message(form_id, 'alert-danger', '帳號修改失敗');
+                            alertify.error('帳號修改失敗');
                             RT.dialogs.loading('close');
                         }
                         if (response.success_text) {
-                            RT.show_message(form_id, 'alert-success', form_info.email + ' 帳號修改成功');
+                            alertify.success(form_info.username + ' 帳號修改成功');
                             RT.dialogs.loading('close');
                         }
                     }

@@ -94,7 +94,16 @@ class UserController extends \BaseController
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $data = array(
+            'item' => array(
+                'id' => $user->id,
+                'username' => $user->username,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name
+            )
+        );
+        echo json_encode($data);
     }
 
     /**
@@ -105,7 +114,14 @@ class UserController extends \BaseController
      */
     public function update($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->username = Input::get('username');
+        $user->first_name = Input::get('first_name');
+        $user->last_name = Input::get('last_name');
+
+        $user->save();
+        echo json_encode(array('success_text' => 'ok'));
     }
 
     /**
