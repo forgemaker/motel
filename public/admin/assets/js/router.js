@@ -3,7 +3,7 @@ var ajaxSettings, api_req;
 RT.API = {
   me: root_path + "user/CurrentData",
   getUser: root_path + "WebAPI/index.php/API/Auth/getUser",
-  getUserList: root_path + "WebAPI/index.php/API/Auth/getUserList",
+  getUserList: root_path + "user",
   getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList",
   getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList",
   getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync",
@@ -151,7 +151,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, ModelMe, ModelUser, View, ViewUsersList, ViewUser) {
+define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, ModelMe, ModelUser, View, ViewUsers, ViewUser) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -189,7 +189,7 @@ define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/v
           this.page = id || 1;
           this.update_title("帳號列表");
           if (!this.view_users_list) {
-            this.view_users_list = new ViewUsersList({
+            this.view_users_list = new ViewUsers({
               el: "#main",
               collection: this.user_model.lists,
               model_name: this.user_model,
@@ -200,7 +200,10 @@ define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/v
           this.user_model.set_params({
             page: this.page
           });
-          return this.user_model.lists.fetch();
+          this.user_model.lists.fetch({
+            reset: true
+          });
+          return console.log('a');
         case "add":
           this.update_title("新增帳號");
           if (!this.view_users_add) {

@@ -9,7 +9,13 @@ class UserController extends \BaseController
      */
     public function index()
     {
-        //
+        // get user list
+        $users = DB::table('users')->get();
+
+        $data = array(
+            'items' => $users
+        );
+        echo json_encode($data);
     }
 
     /**

@@ -6,10 +6,9 @@ define([
   'underscore',
   'backbone'
 ], function($, _, Backbone){
-    RT.CollectionUsers = Backbone.Collection.extend({
+    return Backbone.Collection.extend({
         parse: function(response) {
             return response.items;
         }
     });
-    return RT.CollectionUsers;
 });

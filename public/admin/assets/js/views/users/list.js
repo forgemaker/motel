@@ -10,6 +10,17 @@ define([
             'click .search_user': 'search'
         }, View.prototype.events),
 
+        initialize: function() {
+            var self = this;
+            if (self.model) {
+                self.model.on("change", this.render, this);
+            }
+            if (self.collection) {
+                console.log('bind on collection');
+                self.collection.on("reset", this.render, this);
+            }
+        },
+
         search: function(e) {
             (this.debug) && console.log('search');
             e.preventDefault();
@@ -20,25 +31,13 @@ define([
                 params;
 
             switch (model) {
-            case "user":
-                params = {
-                    first_name: form_info.first_name,
-                    last_name: form_info.last_name,
-                    email: form_info.email
-                };
-                break;
-            case "websync":
-                params = {
-                    websync_id: form_info.websync_id
-                };
-                break;
-            case "application":
-                params = {
-                    app_title: form_info.app_title,
-                    app_name: form_info.app_name,
-                    app_enabled: form_info.app_enabled
-                };
-                break;
+                case "user":
+                    params = {
+                        first_name: form_info.first_name,
+                        last_name: form_info.last_name,
+                        email: form_info.email
+                    };
+                    break;
             }
             self.options.model_name.set_params(params);
             self.collection.fetch();
@@ -67,7 +66,7 @@ define([
                 data = this.options.data || {};
             data.items = [];
             $(parent_view.el).empty();
-
+            console.log('show user list');
             this.collection.each(function(item) {
                 data.items.push(item.attributes);
             });

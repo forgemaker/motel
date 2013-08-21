@@ -8,13 +8,10 @@ define([
     'collections/users',
     'collections/applications'
     ], function($, _, Backbone, CollectionUsers, CollectionApplications) {
-    RT.ModelUser = Backbone.Model.extend({
-        //idAttribute: "user_id",
+    return Backbone.Model.extend({
         initialize: function() {
             this.lists = new CollectionUsers();
             this.lists.url = RT.API.getUserList;
-            this.apps = new CollectionApplications();
-            this.apps.url = RT.API.getUserApps + '?id=' + this.id;
         },
 
         set_params: function(params) {
@@ -33,5 +30,4 @@ define([
             return response.item;
         }
     });
-    return RT.ModelUser;
 });

@@ -5,7 +5,7 @@
 RT.API =
     me: root_path + "user/CurrentData"
     getUser: root_path + "WebAPI/index.php/API/Auth/getUser"
-    getUserList: root_path + "WebAPI/index.php/API/Auth/getUserList"
+    getUserList: root_path + "user"
     getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList"
     getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList"
     getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync"
@@ -147,7 +147,7 @@ define ["jquery",
         "jquery.equalHeight",
         "handlebars",
         "libs/handlebars-helper",
-        "templates"], ($, _, Backbone, ModelMe, ModelUser, View, ViewUsersList, ViewUser) ->
+        "templates"], ($, _, Backbone, ModelMe, ModelUser, View, ViewUsers, ViewUser) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
@@ -183,7 +183,7 @@ define ["jquery",
                     @page = id or 1
                     @update_title "帳號列表"
                     unless @view_users_list
-                        @view_users_list = new ViewUsersList(
+                        @view_users_list = new ViewUsers(
                             el: "#main"
                             collection: @user_model.lists
                             model_name: @user_model
@@ -191,7 +191,8 @@ define ["jquery",
                         )
                     @view_users_list.options.page = @page
                     @user_model.set_params page: @page
-                    @user_model.lists.fetch()
+                    @user_model.lists.fetch({reset: true})
+                    console.log 'a'
               when "add"
                     @update_title "新增帳號"
                     unless @view_users_add

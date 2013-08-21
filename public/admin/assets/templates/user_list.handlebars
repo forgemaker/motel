@@ -30,22 +30,23 @@
                 <th>編號</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Email</th>
+                <th>帳號</th>
                 <th>建立日期</th>
                 <th>最後登入</th>
                 <th>動作</th>
             </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td></td>
-                <td><input type="text" name="last_name" placeholder="search data" class="span2" /></td>
-                <td><input type="text" name="email" placeholder="search data" class="span2" /></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
         </thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th><input type="text" class="form-control" name="first_name" placeholder="search.." /></th>
+                <th><input type="text" class="form-control" name="last_name" placeholder="search.." /></td>
+                <th><input type="text" class="form-control" name="email" placeholder="search.." /></td>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+
         <tbody>
         {{#items}}
         <tr>
@@ -53,7 +54,7 @@
             <td>{{id}}</td>
             <td>{{first_name}}</td>
             <td>{{last_name}}</td>
-            <td>{{email}}</td>
+            <td>{{username}}</td>
             <td>{{date_time created_on}}</td>
             <td>{{date_time last_login}}</td>
             <td>

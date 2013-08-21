@@ -21,9 +21,10 @@ define([
                 this.model.on("change", this.render, this);
             }
             if (this.collection) {
+                console.log('bind on collection');
                 this.collection.on("reset", this.render, this);
             }
-            this.debug = false;
+            this.debug = true;
         },
 
         events: {
