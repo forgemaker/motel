@@ -10,17 +10,6 @@ define([
             'click .search_user': 'search'
         }, View.prototype.events),
 
-        initialize: function() {
-            var self = this;
-            if (self.model) {
-                self.model.on("change", this.render, this);
-            }
-            if (self.collection) {
-                console.log('bind on collection');
-                self.collection.on("reset", this.render, this);
-            }
-        },
-
         search: function(e) {
             (this.debug) && console.log('search');
             e.preventDefault();

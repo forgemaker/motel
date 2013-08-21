@@ -56,7 +56,22 @@ class UserController extends \BaseController
      */
     public function store()
     {
-        //
+        $count = User::where('username', Input::get('username'))->count();
+        if ($count > 0) {
+            echo json_encode(array('error_text' => '帳號已存在'));
+            exit();
+        }
+
+        // insert user account.
+        $user = User::create(array(
+            'username' => Input::get('username'),
+            'password' => Input::get('password'),
+            'first_name' => Input::get('first_name'),
+            'last_name' => Input::get('last_name'),
+            'created_on' => time()
+        ));
+
+        echo json_encode(array('success_text' => 'ok'));
     }
 
     /**

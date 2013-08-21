@@ -13,33 +13,33 @@
     <div class="tab-content">
         <div class="tab-pane active" id="profile">
             <form action="#" method="post" class="well" id="user_add_form">
-                <div class="control-group">
-                    <label>登入帳號(email)</label>
-                    <input type="text" name="email" class="span3" placeholder="Please enter user email" value="{{email}}">
-                    <span class="help-inline"></span>
+                <div class="form-group">
+                    <label class="control-label">登入帳號</label>
+                    <input type="text" name="username" class="form-control" placeholder="Please enter user email" value="{{email}}">
+                    <span class="help-block">僅輸入英文+數字帳號</span>
                 </div>
-                <div class="control-group">
-                    <label>{{^is_edit}}登入密碼{{/is_edit}}{{#is_edit}}修改密碼{{/is_edit}}</label>
-                    <input type="password" name="password" class="span3" placeholder="Please enter password">
+                <div class="form-group">
+                    <label class="control-label">{{^is_edit}}登入密碼{{/is_edit}}{{#is_edit}}修改密碼{{/is_edit}}</label>
+                    <input type="password" name="password" class="form-control" placeholder="Please enter password">
                     <p class="help-block">{{#is_edit}}不需要修改密碼，請留空白{{/is_edit}}</p>
                 </div>
-                <div class="control-group">
-                    <label>確認密碼</label>
-                    <input type="password" name="confirm_password" class="span3" placeholder="Confirm Password">
-                    <span class="help-inline"></span>
+                <div class="form-group">
+                    <label class="control-label">確認密碼</label>
+                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                    <span class="help-block"></span>
                 </div>
-                <div class="control-group">
-                    <label>名字(First name)</label>
-                    <input type="text" name="first_name" class="span3" placeholder="Please enter user first name" value="{{first_name}}">
-                    <span class="help-inline"></span>
+                <div class="form-group">
+                    <label class="control-label">名字(First name)</label>
+                    <input type="text" name="first_name" class="form-control" placeholder="Please enter user first name" value="{{first_name}}">
+                    <span class="help-block"></span>
                 </div>
-                <div class="control-group">
-                    <label>姓氏(Last name)</label>
-                    <input type="text" name="last_name" class="span3" placeholder="Please enter user last name" value="{{last_name}}">
-                    <span class="help-inline"></span>
+                <div class="form-group">
+                    <label class="control-label">姓氏(Last name)</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Please enter user last name" value="{{last_name}}">
+                    <span class="help-block"></span>
                 </div>
                 {{#is_edit}}
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">群組:</label>
                     <div class="controls">
                         {{#all_groups}}

@@ -4,8 +4,9 @@
 
 RT.API =
     me: root_path + "user/CurrentData"
-    getUser: root_path + "WebAPI/index.php/API/Auth/getUser"
+    getUser: root_path + "user"
     getUserList: root_path + "user"
+    addUser: root_path + "user"
     getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList"
     getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList"
     getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync"
@@ -130,6 +131,7 @@ RT.api =
 define ["jquery",
         "underscore",
         "backbone",
+        'alertify',
         "models/me",
         "models/user",
         #"models/motel",
@@ -147,7 +149,7 @@ define ["jquery",
         "jquery.equalHeight",
         "handlebars",
         "libs/handlebars-helper",
-        "templates"], ($, _, Backbone, ModelMe, ModelUser, View, ViewUsers, ViewUser) ->
+        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, View, ViewUsers, ViewUser) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:

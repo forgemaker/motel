@@ -2,8 +2,9 @@ var ajaxSettings, api_req;
 
 RT.API = {
   me: root_path + "user/CurrentData",
-  getUser: root_path + "WebAPI/index.php/API/Auth/getUser",
+  getUser: root_path + "user",
   getUserList: root_path + "user",
+  addUser: root_path + "user",
   getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList",
   getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList",
   getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync",
@@ -151,7 +152,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, ModelMe, ModelUser, View, ViewUsers, ViewUser) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, View, ViewUsers, ViewUser) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",

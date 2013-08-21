@@ -5,13 +5,14 @@ require.config({
     backbone: '../vendor/backbone-amd/backbone',
     handlebars: '../vendor/handlebars/handlebars.runtime',
     templates: '../templates/template',
+    moment: '../vendor/moment/moment',
+    alertify: '../vendor/alertify/alertify',
     'jquery.serialize': '../vendor/jquery-serialize-object/jquery.serialize-object',
     'jquery.tablesorter': '../vendor/jquery.tablesorter/js/jquery.tablesorter',
     'jquery.equalHeight': 'libs/jquery/jquery.equalHeight',
     'bootstrap.modal': '../vendor/bootstrap/js/modal',
     'bootstrap.tab': '../vendor/bootstrap/js/tab',
-    'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min',
-    'moment': '../vendor/moment/moment'
+    'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min'
   },
   shim: {
     'jquery.serialize': ['jquery'],
