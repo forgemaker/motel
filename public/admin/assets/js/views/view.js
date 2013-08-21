@@ -42,132 +42,23 @@ define([
             var model = $(e.currentTarget).data('model');
             if (confirm("確定刪除此筆資料?")) {
                 switch (model) {
-                case "privilege":
-                    var el = "#privilege_list_form";
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Acl/DeleteAcl',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'id': id
-                        },
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(el, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(el, 'alert-success', '刪除成功');
-                                $(e.currentTarget).parent().parent().remove();
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "websync_user":
-                    var el = "#websync_user_list";
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteWebSync',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'id': id
-                        },
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            var el = "#websync_user_list";
-                            if (response.error_text) {
-                                RT.show_message(el, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(el, 'alert-success', '刪除成功');
-                                $(e.currentTarget).parent().parent().remove();
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
                 case "user":
                     var el = "#user_list";
                     $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteUser',
+                        url: RT.API.DeleteUser + '/' + id,
                         dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'id': id
-                        },
+                        type: 'DELETE',
                         beforeSend: function(jqXHR, settings) {
                             RT.dialogs.loading('open');
                         },
                         success: function(response) {
                             if (response.error_text) {
-                                RT.show_message(el, 'alert-danger', '刪除失敗');
+                                alertify.error('刪除失敗');
                                 RT.dialogs.loading('close');
                             }
                             if (response.success_text) {
-                                RT.show_message(el, 'alert-success', '刪除成功');
+                                alertify.success('帳號 ' + $(e.currentTarget).data('username') + ' 已被刪除');
                                 $(e.currentTarget).parent().parent().remove();
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "application":
-                    var el = "#application_list";
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/App/DeleteApp',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'app_id': id
-                        },
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(el, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(el, 'alert-success', '刪除成功');
-                                $(e.currentTarget).parent().parent().remove();
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "group":
-                    var el = "#group_list";
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteGroup',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'id': id
-                        },
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(el, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(el, 'alert-success', '刪除成功');
-                                $(e.currentTarget).parent().parent().remove();
-                                RT.update_table();
                                 RT.dialogs.loading('close');
                             }
                         }
@@ -254,62 +145,6 @@ define([
                 case "user":
                     $.ajax({
                         url: root_path + 'WebAPI/index.php/API/Auth/DeleteUser',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: form_info,
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(form_id, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(form_id, 'alert-success', '刪除成功');
-                                // remove checkbox tag
-                                $("input:checked").each(
-
-                                function() {
-                                    $(this).parent().parent().remove();
-                                });
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "application":
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/App/DeleteApp',
-                        dataType: 'json',
-                        type: 'POST',
-                        data: form_info,
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                RT.show_message(form_id, 'alert-danger', '刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                RT.show_message(form_id, 'alert-success', '刪除成功');
-                                // remove checkbox tag
-                                $("input:checked").each(
-
-                                function() {
-                                    $(this).parent().parent().remove();
-                                });
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
-                        }
-                    });
-                    break;
-                case "group":
-                    $.ajax({
-                        url: root_path + 'WebAPI/index.php/API/Auth/DeleteGroup',
                         dataType: 'json',
                         type: 'POST',
                         data: form_info,

@@ -225,19 +225,19 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\r\n    <img src=\"";
+  buffer += "<div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\n    <img src=\"";
   if (stack1 = helpers.app_cover) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.app_cover; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" width=\"100\" /><br />\r\n    ";
+    + "\" width=\"100\" /><br />\n    ";
   if (stack1 = helpers.app_title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.app_title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "<br />\r\n    <input type=\"checkbox\" name=\"app_id[]\" value=\"";
+    + "<br />\n    <input type=\"checkbox\" name=\"app_id[]\" value=\"";
   if (stack1 = helpers.app_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.app_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" />\r\n</div>";
+    + "\" />\n</div>";
   return buffer;
   });
 
@@ -247,19 +247,19 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\r\n    <img src=\"";
+  buffer += "<div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\n    <img src=\"";
   if (stack1 = helpers.app_cover) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.app_cover; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" width=\"100\" /><br />\r\n    ";
+    + "\" width=\"100\" /><br />\n    ";
   if (stack1 = helpers.app_title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.app_title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "<br />\r\n    <input type=\"checkbox\" name=\"id[]\" value=\"";
+    + "<br />\n    <input type=\"checkbox\" name=\"id[]\" value=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" />\r\n</div>";
+    + "\" />\n</div>";
   return buffer;
   });
 
@@ -903,15 +903,19 @@ function program5(depth0,data) {
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 編輯</a>&nbsp;\n                <a class=\"btn btn-danger delete\" data-model=\"user\" data-id=\"";
+    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\n                <a class=\"btn btn-danger delete\" data-model=\"user\" data-username=\"";
+  if (stack2 = helpers.username) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.username; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" data-id=\"";
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash icon-white\"></i> 刪除</a>\n            </td>\n        </tr>\n        ";
+    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\n            </td>\n        </tr>\n        ";
   return buffer;
   }
 
-  buffer += "<article class=\"module width_full\">\n<div style=\"width:97%;margin:0 auto;\">\n\n    <div class=\"menu\">\n        <a class=\"btn btn-primary search_user\" data-form=\"#user_list_form\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-ok icon-white\"></i> 搜尋列表</a>\n        <a class=\"btn btn-primary check_all\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-ok icon-white\"></i> 全選列表</a>\n        <a class=\"btn btn-primary\" data-model=\"user\" href=\"#!/user/add\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 新增帳號</a>\n        <a class=\"btn btn-danger delete_all\" data-form=\"#user_list_form\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-trash icon-white\"></i> 刪除帳號</a>\n    </div>\n    <ul class=\"pager\">\n        ";
+  buffer += "<article class=\"module width_full\">\n<div style=\"width:97%;margin:0 auto;\">\n\n    <div class=\"menu\">\n        <a class=\"btn btn-primary search_user\" data-form=\"#user_list_form\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-search\"></i> 搜尋列表</a>\n        <a class=\"btn btn-primary check_all\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\n        <a class=\"btn btn-primary\" data-model=\"user\" href=\"#!/user/add\" style=\"color: white;\"><i class=\"icon-edit\"></i> 新增帳號</a>\n        <a class=\"btn btn-danger delete_all\" data-form=\"#user_list_form\" data-model=\"user\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除帳號</a>\n    </div>\n    <ul class=\"pager\">\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
   if (stack1 = helpers.previous_show) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.previous_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }

@@ -68,7 +68,8 @@ class UserController extends \BaseController
             'password' => Input::get('password'),
             'first_name' => Input::get('first_name'),
             'last_name' => Input::get('last_name'),
-            'created_on' => time()
+            'created_on' => time(),
+            'last_login' => null
         ));
 
         echo json_encode(array('success_text' => 'ok'));
@@ -77,7 +78,7 @@ class UserController extends \BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function show($id)
@@ -88,7 +89,7 @@ class UserController extends \BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function edit($id)
@@ -99,7 +100,7 @@ class UserController extends \BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function update($id)
@@ -110,12 +111,14 @@ class UserController extends \BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function destroy($id)
     {
-        //
+        $id = intval($id);
+        User::destroy($id);
+        echo json_encode(array('success_text' => 'ok'));
     }
 
 }

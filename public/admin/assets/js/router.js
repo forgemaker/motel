@@ -5,6 +5,7 @@ RT.API = {
   getUser: root_path + "user",
   getUserList: root_path + "user",
   addUser: root_path + "user",
+  DeleteUser: root_path + "user",
   getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList",
   getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList",
   getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync",
