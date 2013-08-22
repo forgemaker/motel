@@ -128,3 +128,39 @@ CREATE TABLE IF NOT EXISTS `acl` (
   FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`resource_id`) REFERENCES `acl_resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `motels`
+--
+
+DROP TABLE IF EXISTS `motels`;
+CREATE TABLE IF NOT EXISTS `motels` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `city` varchar(16) NOT NULL,
+  `area` varchar(16) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone_1` varchar(32) NOT NULL,
+  `phone_2` varchar(32) NOT NULL,
+  `fax` varchar(16) NOT NULL,
+  `contact` varchar(16) NOT NULL,
+  `mobile_1` varchar(32) NOT NULL,
+  `mobile_2` varchar(32) NOT NULL,
+  `commission` varchar(8) NOT NULL,
+  `contract_start` varchar(10) NOT NULL,
+  `contract_end` varchar(10) NOT NULL,
+  `rest_time_1` varchar(8) NOT NULL,
+  `rest_time_2` varchar(8) NOT NULL,
+  `stay_time_1` varchar(16) NOT NULL,
+  `stay_time_2` varchar(16) NOT NULL,
+  `introduction` varchar(140) NOT NULL,
+  `equipment` varchar(60) NOT NULL,
+  `feature` varchar(60) NOT NULL,
+  `raw_name` varchar(64) NOT NULL,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
