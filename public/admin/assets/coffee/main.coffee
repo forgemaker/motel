@@ -13,8 +13,10 @@ require.config
         'jquery.equalHeight': 'libs/jquery/jquery.equalHeight'
         'bootstrap.modal': '../vendor/bootstrap/js/modal'
         'bootstrap.tab': '../vendor/bootstrap/js/tab'
-        'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min'
+        'jquery.ui.core': '../vendor/jquery-ui/ui/jquery.ui.core'
+        'jquery.ui.datepicker': '../vendor/jquery-ui/ui/jquery.ui.datepicker'
         'jquery.twzipcode': 'libs/jquery/jquery.twzipcode-1.5.2'
+        'jquery.ui.timepicker': '../vendor/jquery-timepicker-addon/jquery-ui-timepicker-addon'
     shim:
         'jquery.serialize': ['jquery']
         'jquery.tablesorter': ['jquery']
@@ -23,7 +25,9 @@ require.config
         'jquery.equalHeight': ['jquery']
         'jquery.ui': ['jquery']
         'jquery.twzipcode': ['jquery']
-        'ckeditor/ckeditor.js': ['jquery']
+        'jquery.ui.core': ['jquery']
+        'jquery.ui.datepicker': ['jquery.ui.core', 'jquery']
+        'jquery.ui.timepicker': ['jquery.ui.datepicker']
         'libs/handlebars-helper': ['handlebars']
         'templates': ['handlebars']
     urlArgs: (new Date()).getTime()

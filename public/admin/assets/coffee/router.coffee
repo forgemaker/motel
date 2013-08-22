@@ -146,7 +146,8 @@ define ["jquery",
         "jquery.twzipcode",
         "jquery.serialize",
         "jquery.tablesorter",
-        "jquery.ui",
+        "jquery.ui.datepicker",
+        "jquery.ui.timepicker",
         "bootstrap.modal",
         "bootstrap.tab",
         "jquery.equalHeight",
@@ -246,9 +247,11 @@ define ["jquery",
                             el: "#main"
                         )
                     @view_motels_add.render()
-                    $('#twzipcode').twzipcode(
+                    $('#twzipcode').twzipcode
                         'readonly': true
-                    )
+                    $('#contract_start, #contract_end').datepicker
+                        dateFormat: 'yy-mm-dd'
+                    $('#stay_time_1, #stay_time_2').timepicker()
               when "edit"
                     @update_title "修改摩鐵"
                     unless @view_motel

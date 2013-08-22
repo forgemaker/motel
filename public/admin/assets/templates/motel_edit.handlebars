@@ -14,17 +14,17 @@
             <div class="tab-pane active" id="introduction">
                 <div class="form-group">
                     <label class="control-label">簡介設定</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="introduction" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                     <span class="help-block">140字文字說明</span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">設備</label>
-                    <input type="password" name="password" class="form-control" placeholder="Please enter password">
+                    <input type="text" name="equipment" class="form-control" placeholder="Please enter password">
                     <p class="help-block">60字文字說明</p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">特色</label>
-                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                    <input type="text" name="feature" class="form-control" placeholder="Confirm Password">
                     <span class="help-block">60字文字說明</span>
                 </div>
                 {{#is_edit}}
@@ -34,7 +34,7 @@
             <div class="tab-pane" id="time">
                 <div class="form-group">
                     <label class="control-label">平日休息時間</label>
-                    <select class="form-control">
+                    <select class="form-control" name="rest_time_1">
                         <option value="2H">2H</option>
                         <option value="2.5H">2.5H</option>
                         <option value="3H">3H</option>
@@ -42,21 +42,29 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">假日休息時間</label>
-                    <select class="form-control">
+                    <select class="form-control" name="rest_time_2">
                         <option value="2H">2H</option>
                         <option value="2.5H">2.5H</option>
                         <option value="3H">3H</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="control-label">平日住宿進房時間</label>
+                    <input type="text" name="stay_time_1" id="stay_time_1" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">假日住宿進房時間</label>
+                    <input type="text" name="stay_time_2" id="stay_time_2" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
             </div>
             <div class="tab-pane" id="profile">
                 <div class="form-group">
                     <label class="control-label">名稱</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="title" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">官方網址</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="url" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">縣市</label>
@@ -69,39 +77,42 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">地址</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="address" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">室內電話1</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="phone_1" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">室內電話2</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="phone_2" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">傳真</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="fax" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">聯絡人員</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="contact" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">行動電話1</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="mobile_1" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">行動電話2</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="mobile_2" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">單筆佣金</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <input type="text" name="commission" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
                 </div>
                 <div class="form-group">
                     <label class="control-label">合約日期</label>
-                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                    <div class="row">
+                        <div class="col-lg-2"><input type="text" id="contract_start" name="contract_start" class="form-control" placeholder="起始日期" value="{{contract_start}}"></div>
+                        <div class="col-lg-2"><input type="text" id="contract_end" name="contract_end" class="form-control" placeholder="結束日期" value="{{contract_end}}"></div>
+                    </div>
                 </div>
             </div>
         </div>

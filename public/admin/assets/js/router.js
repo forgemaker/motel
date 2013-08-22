@@ -154,7 +154,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -269,9 +269,13 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             });
           }
           this.view_motels_add.render();
-          return $('#twzipcode').twzipcode({
+          $('#twzipcode').twzipcode({
             'readonly': true
           });
+          $('#contract_start, #contract_end').datepicker({
+            dateFormat: 'yy-mm-dd'
+          });
+          return $('#stay_time_1, #stay_time_2').timepicker();
         case "edit":
           this.update_title("修改摩鐵");
           if (!this.view_motel) {
