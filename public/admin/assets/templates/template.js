@@ -4,68 +4,9 @@ this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 this["Handlebars"]["templates"]["motel_edit"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
-  
-  
-  return "登入密碼";
-  }
-
-function program3(depth0,data) {
-  
-  
-  return "修改密碼";
-  }
-
-function program5(depth0,data) {
-  
-  
-  return "不需要修改密碼，請留空白";
-  }
-
-function program7(depth0,data) {
-  
-  var buffer = "", stack1, options;
-  buffer += "\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">群組:</label>\r\n                    <div class=\"controls\">\r\n                        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
-  if (stack1 = helpers.all_groups) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.all_groups; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.all_groups) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                    </div>\r\n                </div>\r\n                ";
-  return buffer;
-  }
-function program8(depth0,data) {
-  
-  var buffer = "", stack1, stack2, options;
-  buffer += "\r\n                        <label class=\"checkbox\">\r\n                            <input type=\"checkbox\" name=\"motel_groups[]\" value=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" ";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.group_active || depth0.group_active),stack1 ? stack1.call(depth0, depth0.active, options) : helperMissing.call(depth0, "group_active", depth0.active, options)))
-    + " />";
-  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "\r\n                        </label>\r\n                        ";
-  return buffer;
-  }
-
-function program10(depth0,data) {
-  
-  var buffer = "", stack1;
-  buffer += "\r\n                    <input type=\"hidden\" name=\"id\" value=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\r\n                ";
-  return buffer;
-  }
-
-function program12(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "data-id=\"";
@@ -76,164 +17,124 @@ function program12(depth0,data) {
   return buffer;
   }
 
-function program14(depth0,data) {
+function program3(depth0,data) {
   
   
   return "add";
   }
 
-function program16(depth0,data) {
+function program5(depth0,data) {
   
   
   return "edit";
   }
 
-function program18(depth0,data) {
+function program7(depth0,data) {
   
   
-  return "建立帳號";
+  return "建立摩鐵";
   }
 
-function program20(depth0,data) {
+function program9(depth0,data) {
   
   
-  return "編輯帳號";
+  return "編輯摩鐵";
   }
 
-function program22(depth0,data) {
-  
-  
-  return "重新填寫";
-  }
-
-function program24(depth0,data) {
-  
-  
-  return "取消編輯";
-  }
-
-function program26(depth0,data) {
-  
-  var buffer = "", stack1, options;
-  buffer += "\r\n        <div class=\"tab-pane\" id=\"software\">\r\n            <form action=\"#\" method=\"post\" class=\"well\" id=\"app_lists_form\">\r\n                <div class=\"menu menu_left\">\r\n                    <a class=\"btn btn-primary add_apps\" data-form=\"#app_lists_form\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 新增軟體</a>\r\n                </div>\r\n                <p style=\"clear:both;\">&nbsp;</p>\r\n                <div id=\"app_list\">\r\n                </div>\r\n                <p style=\"clear:both;\">&nbsp;</p>\r\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\r\n            </form>\r\n        </div>\r\n        <div class=\"tab-pane\" id=\"motel_apps\">\r\n            <form action=\"#\" method=\"post\" class=\"well\" id=\"motel_apps_form\">\r\n                <div class=\"menu menu_left\">\r\n                    <a class=\"btn btn-danger delete_apps\" data-form=\"#motel_apps_form\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 刪除軟體</a>\r\n                </div>\r\n                <div id=\"motel_app_list\">\r\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(27, program27, data),data:data};
-  if (stack1 = helpers.apps) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.apps; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.apps) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                </div>\r\n                <p style=\"clear:both;\">&nbsp;</p>\r\n            </form>\r\n        </div>\r\n        ";
-  return buffer;
-  }
-function program27(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\r\n                <div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\r\n                    <img src=\"";
-  if (stack1 = helpers.app_cover) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.app_cover; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" width=\"100\" /><br />\r\n                    ";
-  if (stack1 = helpers.app_title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.app_title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "<br />\r\n                    <input type=\"checkbox\" name=\"id[]\" value=\"";
+  buffer += "\r\n                    <input type=\"hidden\" name=\"id\" value=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" />\r\n                </div>\r\n                ";
+    + "\">\r\n                ";
   return buffer;
   }
 
-  buffer += "<article class=\"module width_full\">\r\n<div style=\"width:97%;margin:0 auto;\">\r\n    <div class=\"menu\">\r\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/list\" style=\"color: white;\"><i class=\"icon-list icon-white\"></i> 檢視帳號列表</a>\r\n    </div>\r\n    <ul id=\"mytab\" class=\"nav nav-tabs\">\r\n        <li class=\"active\"><a href=\"#profile\" data-toggle=\"tab\">個人資料</a></li>\r\n    </ul>\r\n    <div class=\"tab-content\">\r\n        <div class=\"tab-pane active\" id=\"profile\">\r\n            <form action=\"#\" method=\"post\" class=\"well\" id=\"motel_add_form\">\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">登入帳號</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
-  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\r\n                    <span class=\"help-block\">僅支援英文+數字帳號</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">";
-  options = {hash:{},inverse:self.program(1, program1, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</label>\r\n                    <input type=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Please enter password\">\r\n                    <p class=\"help-block\">";
-  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</p>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">確認密碼</label>\r\n                    <input type=\"password\" name=\"confirm_password\" class=\"form-control\" placeholder=\"Confirm Password\">\r\n                    <span class=\"help-block\"></span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">名字(First name)</label>\r\n                    <input type=\"text\" name=\"first_name\" class=\"form-control\" placeholder=\"Please enter motel first name\" value=\"";
-  if (stack1 = helpers.first_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.first_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\r\n                    <span class=\"help-block\"></span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">姓氏(Last name)</label>\r\n                    <input type=\"text\" name=\"last_name\" class=\"form-control\" placeholder=\"Please enter motel last name\" value=\"";
-  if (stack1 = helpers.last_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.last_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\r\n                    <span class=\"help-block\"></span>\r\n                </div>\r\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\r\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                <button type=\"button\" ";
-  options = {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data};
+  buffer += "<article class=\"module width_full\">\r\n<div style=\"width:97%;margin:0 auto;\">\r\n    <div class=\"menu\">\r\n        <button type=\"button\" ";
+  options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " data-model=\"motel\" class=\"btn btn-primary ";
-  options = {hash:{},inverse:self.program(14, program14, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(3, program3, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\">";
-  options = {hash:{},inverse:self.program(18, program18, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(7, program7, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</button>\r\n                <button class=\"btn\" type=\"reset\">";
-  options = {hash:{},inverse:self.program(22, program22, data),fn:self.noop,data:data};
+  buffer += "</button>\r\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/list\" style=\"color: white;\"><i class=\"icon-list icon-white\"></i> 檢視摩鐵列表</a>\r\n    </div>\r\n    <ul id=\"mytab\" class=\"nav nav-tabs\">\r\n        <li class=\"active\"><a href=\"#introduction\" data-toggle=\"tab\">簡介設定</a></li>\r\n        <li><a href=\"#time\" data-toggle=\"tab\">時間設定</a></li>\r\n        <li><a href=\"#profile\" data-toggle=\"tab\">基本資料</a></li>\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" class=\"well\" id=\"motel_add_form\">\r\n        <div class=\"tab-content\">\r\n            <div class=\"tab-pane active\" id=\"introduction\">\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">簡介設定</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                    <span class=\"help-block\">140字文字說明</span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">設備</label>\r\n                    <input type=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Please enter password\">\r\n                    <p class=\"help-block\">60字文字說明</p>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">特色</label>\r\n                    <input type=\"password\" name=\"confirm_password\" class=\"form-control\" placeholder=\"Confirm Password\">\r\n                    <span class=\"help-block\">60字文字說明</span>\r\n                </div>\r\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(24, program24, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</button>\r\n            </form>\r\n        </div>\r\n        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(26, program26, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n    </div>\r\n</div>\r\n</article>\r\n<script>\r\n(function($){\r\n    $('#myTab').tab('show');\r\n    $('a[data-toggle=\"tab\"]').on('shown', function (e) {\r\n        console.log(e);\r\n        console.log(e.target.hash); // activated tab\r\n        console.log(e.relatedTarget.hash); // previous tab\r\n    });\r\n}(jQuery));\r\n</script>\r\n";
+  buffer += "\r\n            </div>\r\n            <div class=\"tab-pane\" id=\"time\">\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">平日休息時間</label>\r\n                    <select class=\"form-control\">\r\n                        <option value=\"2H\">2H</option>\r\n                        <option value=\"2.5H\">2.5H</option>\r\n                        <option value=\"3H\">3H</option>\r\n                    </select>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">假日休息時間</label>\r\n                    <select class=\"form-control\">\r\n                        <option value=\"2H\">2H</option>\r\n                        <option value=\"2.5H\">2.5H</option>\r\n                        <option value=\"3H\">3H</option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n            <div class=\"tab-pane\" id=\"profile\">\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">名稱</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">官方網址</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">縣市</label>\r\n                    <div id=\"twzipcode\" class=\"row\">\r\n                        <div class=\"col-lg-2\" data-role=\"county\" data-style=\"form-control\"></div>\r\n                        <div class=\"col-lg-2\" data-role=\"district\" data-style=\"form-control\"></div>\r\n                        <div class=\"col-lg-2\" data-role=\"zipcode\" data-style=\"form-control\"></div>\r\n                    </div>\r\n                    <div style=\"clear:both\"></div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">地址</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">室內電話1</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">室內電話2</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">傳真</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">聯絡人員</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">行動電話1</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">行動電話2</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">單筆佣金</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">合約日期</label>\r\n                    <input type=\"text\" name=\"motelname\" class=\"form-control\" placeholder=\"Please enter motel email\" value=\"";
+  if (stack1 = helpers.motelname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motelname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n</article>\r\n<script>\r\n(function($){\r\n    $('#myTab').tab('show');\r\n    $('a[data-toggle=\"tab\"]').on('shown', function (e) {\r\n        console.log(e);\r\n        console.log(e.target.hash); // activated tab\r\n        console.log(e.relatedTarget.hash); // previous tab\r\n    });\r\n}(jQuery));\r\n</script>\r\n";
   return buffer;
   });
 

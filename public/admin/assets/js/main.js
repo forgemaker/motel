@@ -12,7 +12,8 @@ require.config({
     'jquery.equalHeight': 'libs/jquery/jquery.equalHeight',
     'bootstrap.modal': '../vendor/bootstrap/js/modal',
     'bootstrap.tab': '../vendor/bootstrap/js/tab',
-    'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min'
+    'jquery.ui': 'libs/jquery/jquery-ui-1.8.18.custom.min',
+    'jquery.twzipcode': 'libs/jquery/jquery.twzipcode-1.5.2'
   },
   shim: {
     'jquery.serialize': ['jquery'],
@@ -21,6 +22,7 @@ require.config({
     'bootstrap.tab': ['jquery'],
     'jquery.equalHeight': ['jquery'],
     'jquery.ui': ['jquery'],
+    'jquery.twzipcode': ['jquery'],
     'ckeditor/ckeditor.js': ['jquery'],
     'libs/handlebars-helper': ['handlebars'],
     'templates': ['handlebars']

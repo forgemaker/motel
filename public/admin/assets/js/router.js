@@ -154,7 +154,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -244,7 +244,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       switch (action) {
         case "list":
           this.page = id || 1;
-          this.update_title("帳號列表");
+          this.update_title("摩鐵列表");
           if (!this.view_motels_list) {
             this.view_motels_list = new ViewMotels({
               el: "#main",
@@ -257,21 +257,23 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           this.motel_model.set_params({
             page: this.page
           });
-          this.motel_model.lists.fetch({
+          return this.motel_model.lists.fetch({
             reset: true
           });
-          return console.log('a');
         case "add":
-          this.update_title("新增帳號");
+          this.update_title("新增摩鐵");
           if (!this.view_motels_add) {
             this.view_motels_add = new View({
               template_name: "motel_edit",
               el: "#main"
             });
           }
-          return this.view_motels_add.render();
+          this.view_motels_add.render();
+          return $('#twzipcode').twzipcode({
+            'readonly': true
+          });
         case "edit":
-          this.update_title("修改帳號");
+          this.update_title("修改摩鐵");
           if (!this.view_motel) {
             this.view_motel = new ViewMotel({
               el: "#main",

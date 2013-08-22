@@ -143,6 +143,7 @@ define ["jquery",
         "views/motels/list",
         "views/motels/edit",
         "moment",
+        "jquery.twzipcode",
         "jquery.serialize",
         "jquery.tablesorter",
         "jquery.ui",
@@ -226,7 +227,7 @@ define ["jquery",
             switch action
               when "list"
                     @page = id or 1
-                    @update_title "帳號列表"
+                    @update_title "摩鐵列表"
                     unless @view_motels_list
                         @view_motels_list = new ViewMotels(
                             el: "#main"
@@ -237,17 +238,19 @@ define ["jquery",
                     @view_motels_list.options.page = @page
                     @motel_model.set_params page: @page
                     @motel_model.lists.fetch({reset: true})
-                    console.log 'a'
               when "add"
-                    @update_title "新增帳號"
+                    @update_title "新增摩鐵"
                     unless @view_motels_add
                         @view_motels_add = new View(
                             template_name: "motel_edit"
                             el: "#main"
                         )
                     @view_motels_add.render()
+                    $('#twzipcode').twzipcode(
+                        'readonly': true
+                    )
               when "edit"
-                    @update_title "修改帳號"
+                    @update_title "修改摩鐵"
                     unless @view_motel
                         @view_motel = new ViewMotel(
                             el: "#main"

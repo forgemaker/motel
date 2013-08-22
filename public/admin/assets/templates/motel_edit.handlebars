@@ -1,91 +1,111 @@
 <article class="module width_full">
 <div style="width:97%;margin:0 auto;">
     <div class="menu">
-        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list icon-white"></i> 檢視帳號列表</a>
+        <button type="button" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</button>
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list icon-white"></i> 檢視摩鐵列表</a>
     </div>
     <ul id="mytab" class="nav nav-tabs">
-        <li class="active"><a href="#profile" data-toggle="tab">個人資料</a></li>
+        <li class="active"><a href="#introduction" data-toggle="tab">簡介設定</a></li>
+        <li><a href="#time" data-toggle="tab">時間設定</a></li>
+        <li><a href="#profile" data-toggle="tab">基本資料</a></li>
     </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="profile">
-            <form action="#" method="post" class="well" id="motel_add_form">
+    <form action="#" method="post" class="well" id="motel_add_form">
+        <div class="tab-content">
+            <div class="tab-pane active" id="introduction">
                 <div class="form-group">
-                    <label class="control-label">登入帳號</label>
+                    <label class="control-label">簡介設定</label>
                     <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
-                    <span class="help-block">僅支援英文+數字帳號</span>
+                    <span class="help-block">140字文字說明</span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">{{^is_edit}}登入密碼{{/is_edit}}{{#is_edit}}修改密碼{{/is_edit}}</label>
+                    <label class="control-label">設備</label>
                     <input type="password" name="password" class="form-control" placeholder="Please enter password">
-                    <p class="help-block">{{#is_edit}}不需要修改密碼，請留空白{{/is_edit}}</p>
+                    <p class="help-block">60字文字說明</p>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">確認密碼</label>
+                    <label class="control-label">特色</label>
                     <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
-                    <span class="help-block"></span>
+                    <span class="help-block">60字文字說明</span>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">名字(First name)</label>
-                    <input type="text" name="first_name" class="form-control" placeholder="Please enter motel first name" value="{{first_name}}">
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">姓氏(Last name)</label>
-                    <input type="text" name="last_name" class="form-control" placeholder="Please enter motel last name" value="{{last_name}}">
-                    <span class="help-block"></span>
-                </div>
-                {{#is_edit}}
-                <div class="form-group">
-                    <label class="control-label">群組:</label>
-                    <div class="controls">
-                        {{#all_groups}}
-                        <label class="checkbox">
-                            <input type="checkbox" name="motel_groups[]" value="{{id}}" {{group_active active}} />{{description}}
-                        </label>
-                        {{/all_groups}}
-                    </div>
-                </div>
-                {{/is_edit}}
-                <p class="help-block">*上面欄位務必填寫.</p>
                 {{#is_edit}}
                     <input type="hidden" name="id" value="{{id}}">
                 {{/is_edit}}
-                <button type="button" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立帳號{{/is_edit}}{{#is_edit}}編輯帳號{{/is_edit}}</button>
-                <button class="btn" type="reset">{{^is_edit}}重新填寫{{/is_edit}}{{#is_edit}}取消編輯{{/is_edit}}</button>
-            </form>
+            </div>
+            <div class="tab-pane" id="time">
+                <div class="form-group">
+                    <label class="control-label">平日休息時間</label>
+                    <select class="form-control">
+                        <option value="2H">2H</option>
+                        <option value="2.5H">2.5H</option>
+                        <option value="3H">3H</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">假日休息時間</label>
+                    <select class="form-control">
+                        <option value="2H">2H</option>
+                        <option value="2.5H">2.5H</option>
+                        <option value="3H">3H</option>
+                    </select>
+                </div>
+            </div>
+            <div class="tab-pane" id="profile">
+                <div class="form-group">
+                    <label class="control-label">名稱</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">官方網址</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">縣市</label>
+                    <div id="twzipcode" class="row">
+                        <div class="col-lg-2" data-role="county" data-style="form-control"></div>
+                        <div class="col-lg-2" data-role="district" data-style="form-control"></div>
+                        <div class="col-lg-2" data-role="zipcode" data-style="form-control"></div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">地址</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">室內電話1</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">室內電話2</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">傳真</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">聯絡人員</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">行動電話1</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">行動電話2</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">單筆佣金</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">合約日期</label>
+                    <input type="text" name="motelname" class="form-control" placeholder="Please enter motel email" value="{{motelname}}">
+                </div>
+            </div>
         </div>
-        {{#is_edit}}
-        <div class="tab-pane" id="software">
-            <form action="#" method="post" class="well" id="app_lists_form">
-                <div class="menu menu_left">
-                    <a class="btn btn-primary add_apps" data-form="#app_lists_form" style="color: white;"><i class="icon-edit icon-white"></i> 新增軟體</a>
-                </div>
-                <p style="clear:both;">&nbsp;</p>
-                <div id="app_list">
-                </div>
-                <p style="clear:both;">&nbsp;</p>
-                <input type="hidden" name="motel_id" value="{{id}}">
-            </form>
-        </div>
-        <div class="tab-pane" id="motel_apps">
-            <form action="#" method="post" class="well" id="motel_apps_form">
-                <div class="menu menu_left">
-                    <a class="btn btn-danger delete_apps" data-form="#motel_apps_form" style="color: white;"><i class="icon-edit icon-white"></i> 刪除軟體</a>
-                </div>
-                <div id="motel_app_list">
-                {{#apps}}
-                <div style="float:left; width:150px; height:150px; margin: 0 auto; text-align: center">
-                    <img src="{{app_cover}}" width="100" /><br />
-                    {{app_title}}<br />
-                    <input type="checkbox" name="id[]" value="{{id}}" />
-                </div>
-                {{/apps}}
-                </div>
-                <p style="clear:both;">&nbsp;</p>
-            </form>
-        </div>
-        {{/is_edit}}
-    </div>
+    </form>
 </div>
 </article>
 <script>
