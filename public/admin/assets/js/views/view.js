@@ -192,7 +192,7 @@ define([
                 if ($.trim(form_info.password) != '' && $.trim(form_info.password) != $.trim(form_info.confirm_password)) {
                     $(form_id + ' input[name=password]').parent().addClass('has-error');
                     $(form_id + ' input[name=confirm_password]').parent().addClass('has-error');
-                    RT.show_message(form_id, 'alert-danger', '修改密碼跟確認密碼必須相等');
+                    alertify.error('修改密碼跟確認密碼必須相等');
                     e.stopImmediatePropagation();
                     return false;
                 }

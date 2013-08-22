@@ -116,6 +116,14 @@ class UserController extends \BaseController
     {
         $user = User::find($id);
 
+        if (Input::has('password')) {
+            $password = Input::get('password');
+            $confirm_password = Input::get('confirm_password');
+            if (!empty($password) and ($password == $confirm_password)) {
+                $user->password = Input::get('password');
+            }
+        }
+
         $user->username = Input::get('username');
         $user->first_name = Input::get('first_name');
         $user->last_name = Input::get('last_name');
