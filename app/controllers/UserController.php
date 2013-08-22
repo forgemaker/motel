@@ -15,7 +15,7 @@ class UserController extends \BaseController
         $data = array(
             'items' => $users
         );
-        echo json_encode($data);
+        return Response::json($data);
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends \BaseController
             )
         );
 
-        echo json_encode($data);
+        return Response::json($data);
     }
 
     /**
@@ -58,21 +58,22 @@ class UserController extends \BaseController
     {
         $count = User::where('username', Input::get('username'))->count();
         if ($count > 0) {
-            echo json_encode(array('error_text' => '帳號已存在'));
+            return Response::json(array('error_text' => '帳號已存在'));
             exit();
         }
 
         // insert user account.
         $user = User::create(array(
             'username' => Input::get('username'),
-            'password' => Input::get('password'),
+            'password' => Hash::make(Input::get('password')),
             'first_name' => Input::get('first_name'),
             'last_name' => Input::get('last_name'),
             'created_on' => time(),
-            'last_login' => null
+            'last_login' => null,
+            'ip_address' => Request::getClientIp()
         ));
 
-        echo json_encode(array('success_text' => 'ok'));
+        return Response::json(array('success_text' => 'ok'));
     }
 
     /**
@@ -103,7 +104,7 @@ class UserController extends \BaseController
                 'last_name' => $user->last_name
             )
         );
-        echo json_encode($data);
+        return Response::json($data);
     }
 
     /**
@@ -120,7 +121,7 @@ class UserController extends \BaseController
             $password = Input::get('password');
             $confirm_password = Input::get('confirm_password');
             if (!empty($password) and ($password == $confirm_password)) {
-                $user->password = Input::get('password');
+                $user->password = Hash::make($password);
             }
         }
 
@@ -129,7 +130,7 @@ class UserController extends \BaseController
         $user->last_name = Input::get('last_name');
 
         $user->save();
-        echo json_encode(array('success_text' => 'ok'));
+        return Response::json(array('success_text' => 'ok'));
     }
 
     /**
@@ -143,7 +144,7 @@ class UserController extends \BaseController
         $id = (Input::has('id') and is_array(Input::get('id'))) ? Input::get('id') : intval($id);
 
         User::destroy($id);
-        echo json_encode(array('success_text' => 'ok'));
+        return Response::json(array('success_text' => 'ok'));
     }
 
 }
