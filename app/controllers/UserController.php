@@ -59,7 +59,12 @@ class UserController extends \BaseController
         $count = User::where('username', Input::get('username'))->count();
         if ($count > 0) {
             return Response::json(array('error_text' => '帳號已存在'));
-            exit();
+        }
+
+        $password = Input::get('password');
+        $confirm_password = Input::get('confirm_password');
+        if (empty($password) or empty($confirm_password)) {
+            return Response::json(array('error_text' => '兩次密碼輸入不同'));
         }
 
         // insert user account.
@@ -72,6 +77,10 @@ class UserController extends \BaseController
             'last_login' => null,
             'ip_address' => Request::getClientIp()
         ));
+
+        $id = User::where('username', Input::get('username'))->first()->id;
+        // add default group id
+        DB::insert('insert into users_groups (user_id, group_id) values (?, ?)', array($id, '2'));
 
         return Response::json(array('success_text' => 'ok'));
     }
