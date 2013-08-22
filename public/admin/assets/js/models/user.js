@@ -5,9 +5,8 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'collections/users',
-    'collections/applications'
-    ], function($, _, Backbone, CollectionUsers, CollectionApplications) {
+    'collections/users'
+    ], function($, _, Backbone, CollectionUsers) {
     return Backbone.Model.extend({
         initialize: function() {
             this.lists = new CollectionUsers();

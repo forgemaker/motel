@@ -154,7 +154,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "views/view", "views/users/list", "views/users/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, View, ViewUsers, ViewUser) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.serialize", "jquery.tablesorter", "jquery.ui", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -171,7 +171,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       this.me.bind("change", this.update_user, this);
       this.me.fetch();
       if (!this.user_model) {
-        return this.user_model = new ModelUser();
+        this.user_model = new ModelUser();
+      }
+      if (!this.motel_model) {
+        return this.motel_model = new ModelMotel();
       }
     },
     update_title: function(title) {
@@ -230,6 +233,57 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.user_model.id = id;
           return this.user_model.fetch({
+            reset: true
+          });
+      }
+    },
+    motel: function(action, id) {
+      this.reset();
+      RT.dialogs.loading("open");
+      $("#main").html("");
+      switch (action) {
+        case "list":
+          this.page = id || 1;
+          this.update_title("帳號列表");
+          if (!this.view_motels_list) {
+            this.view_motels_list = new ViewMotels({
+              el: "#main",
+              collection: this.motel_model.lists,
+              model_name: this.motel_model,
+              page: this.page
+            });
+          }
+          this.view_motels_list.options.page = this.page;
+          this.motel_model.set_params({
+            page: this.page
+          });
+          this.motel_model.lists.fetch({
+            reset: true
+          });
+          return console.log('a');
+        case "add":
+          this.update_title("新增帳號");
+          if (!this.view_motels_add) {
+            this.view_motels_add = new View({
+              template_name: "motel_edit",
+              el: "#main"
+            });
+          }
+          return this.view_motels_add.render();
+        case "edit":
+          this.update_title("修改帳號");
+          if (!this.view_motel) {
+            this.view_motel = new ViewMotel({
+              el: "#main",
+              model: this.motel_model
+            });
+          } else {
+            if (!this.motel_model.hasChanged()) {
+              this.motel_model.trigger("change");
+            }
+          }
+          this.motel_model.id = id;
+          return this.motel_model.fetch({
             reset: true
           });
       }

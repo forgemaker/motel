@@ -136,12 +136,12 @@ define ["jquery",
         'alertify',
         "models/me",
         "models/user",
-        #"models/motel",
+        "models/motel",
         "views/view",
         "views/users/list",
         "views/users/edit",
-        #"views/motels/list",
-        #"views/motels/edit",
+        "views/motels/list",
+        "views/motels/edit",
         "moment",
         "jquery.serialize",
         "jquery.tablesorter",
@@ -151,7 +151,7 @@ define ["jquery",
         "jquery.equalHeight",
         "handlebars",
         "libs/handlebars-helper",
-        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, View, ViewUsers, ViewUser) ->
+        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
@@ -169,6 +169,7 @@ define ["jquery",
 
             # load model
             @user_model = new ModelUser()  unless @user_model
+            @motel_model = new ModelMotel()  unless @motel_model
 
         update_title: (title) ->
             if title
@@ -217,6 +218,46 @@ define ["jquery",
                         @user_model.trigger "change"  unless @user_model.hasChanged()
                     @user_model.id = id
                     @user_model.fetch({reset: true})
+
+        motel: (action, id) ->
+            @reset()
+            RT.dialogs.loading "open"
+            $("#main").html ""
+            switch action
+              when "list"
+                    @page = id or 1
+                    @update_title "帳號列表"
+                    unless @view_motels_list
+                        @view_motels_list = new ViewMotels(
+                            el: "#main"
+                            collection: @motel_model.lists
+                            model_name: @motel_model
+                            page: @page
+                        )
+                    @view_motels_list.options.page = @page
+                    @motel_model.set_params page: @page
+                    @motel_model.lists.fetch({reset: true})
+                    console.log 'a'
+              when "add"
+                    @update_title "新增帳號"
+                    unless @view_motels_add
+                        @view_motels_add = new View(
+                            template_name: "motel_edit"
+                            el: "#main"
+                        )
+                    @view_motels_add.render()
+              when "edit"
+                    @update_title "修改帳號"
+                    unless @view_motel
+                        @view_motel = new ViewMotel(
+                            el: "#main"
+                            model: @motel_model
+                        )
+                    else
+                        # trigger change event if model is not changed
+                        @motel_model.trigger "change"  unless @motel_model.hasChanged()
+                    @motel_model.id = id
+                    @motel_model.fetch({reset: true})
 
         update_user: ->
             new View(
