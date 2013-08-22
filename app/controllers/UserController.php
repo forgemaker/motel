@@ -10,7 +10,7 @@ class UserController extends \BaseController
     public function index()
     {
         // get user list
-        $users = DB::table('users')->get();
+        $users = User::all()->toArray();
 
         $data = array(
             'items' => $users
@@ -75,6 +75,7 @@ class UserController extends \BaseController
             'last_name' => Input::get('last_name'),
             'created_on' => time(),
             'last_login' => null,
+            'active' => 1,
             'ip_address' => Request::getClientIp()
         ));
 
