@@ -17,3 +17,4 @@ Route::get('/', function() {
 
 Route::get('user/CurrentData', 'UserController@showProfile');
 Route::resource('user', 'UserController');
+Route::resource('motel', 'MotelController');
