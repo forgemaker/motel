@@ -136,11 +136,11 @@ CREATE TABLE IF NOT EXISTS `acl` (
 DROP TABLE IF EXISTS `motels`;
 CREATE TABLE IF NOT EXISTS `motels` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
   `title` varchar(64) NOT NULL,
   `url` varchar(128) NOT NULL,
-  `city` varchar(16) NOT NULL,
-  `area` varchar(16) NOT NULL,
+  `county` varchar(12) NOT NULL,
+  `district` varchar(12) NOT NULL,
+  `zipcode` varchar(5) NOT NULL,
   `address` varchar(255) NOT NULL,
   `phone_1` varchar(32) NOT NULL,
   `phone_2` varchar(32) NOT NULL,
