@@ -19,6 +19,10 @@ RT.API = {
   getLogList: root_path + "WebAPI/index.php/API/Log/List"
 };
 
+String.prototype.ucFirst = function() {
+  return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
+};
+
 RT.dialogs = {
   loading: function(action) {
     if (action !== "close") {

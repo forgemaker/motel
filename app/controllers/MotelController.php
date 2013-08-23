@@ -104,7 +104,10 @@ class MotelController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        $id = (Input::has('id') and is_array(Input::get('id'))) ? Input::get('id') : intval($id);
+
+        Motel::destroy($id);
+        return Response::json(array('success_text' => 'ok'));
     }
 
 }

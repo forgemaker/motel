@@ -37,17 +37,6 @@
                 <th>動作</th>
             </tr>
         </thead>
-            <tr>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th><input type="text" class="form-control" style="width:80px;" name="first_name" placeholder="search.." /></th>
-                <th><input type="text" class="form-control" style="width:80px;"name="last_name" placeholder="search.." /></td>
-                <th><input type="text" class="form-control" style="width:120px;" name="username" placeholder="search.." /></td>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-            </tr>
-
         <tbody>
         {{#items}}
         <tr>
@@ -60,7 +49,7 @@
             <td>{{date_time last_login}}</td>
             <td>
                 <a class="btn btn-primary" data-model="user" data-id="{{id}}" href="#!/user/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
-                <a class="btn btn-danger delete" data-model="user" data-username="{{username}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
+                <a class="btn btn-danger delete" data-model="user" data-title="{{username}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
             </td>
         </tr>
         {{/items}}

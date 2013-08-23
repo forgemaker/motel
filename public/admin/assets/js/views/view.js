@@ -39,31 +39,27 @@ define([
             e.preventDefault();
             var id = $(e.currentTarget).data("id");
             var model = $(e.currentTarget).data('model');
+            var api_url = RT.API[model.ucFirst()] + '/' + id;
             if (confirm("確定刪除此筆資料?")) {
-                switch (model) {
-                case "user":
-                    var el = "#user_list";
-                    $.ajax({
-                        url: RT.API.DeleteUser + '/' + id,
-                        dataType: 'json',
-                        type: 'DELETE',
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                alertify.error('刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                alertify.success('帳號 ' + $(e.currentTarget).data('username') + ' 已被刪除');
-                                $(e.currentTarget).parent().parent().remove();
-                                RT.dialogs.loading('close');
-                            }
+                $.ajax({
+                    url: api_url,
+                    dataType: 'json',
+                    type: 'DELETE',
+                    beforeSend: function(jqXHR, settings) {
+                        RT.dialogs.loading('open');
+                    },
+                    success: function(response) {
+                        if (response.error_text) {
+                            alertify.error('刪除失敗');
+                            RT.dialogs.loading('close');
                         }
-                    });
-                    break;
-                }
+                        if (response.success_text) {
+                            alertify.success($(e.currentTarget).data('title') + ' 已被刪除');
+                            $(e.currentTarget).parent().parent().remove();
+                            RT.dialogs.loading('close');
+                        }
+                    }
+                });
             }
             // call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation();
@@ -77,40 +73,37 @@ define([
             var form_info = $(form_id).serializeObject();
             var model = $(e.currentTarget).data('model');
             var length = $("input:checked").length;
+            var api_url = RT.API[model.ucFirst()] + '/all';
             if (length == 0) {
                 alertify.error('尚未選取任何項目');
                 e.stopImmediatePropagation();
                 return false;
             }
+
             if (confirm("確定刪除選取資料?")) {
-                switch (model) {
-                case "user":
-                    $.ajax({
-                        url: RT.API.DeleteUser + '/all',
-                        dataType: 'json',
-                        type: 'DELETE',
-                        data: form_info,
-                        beforeSend: function(jqXHR, settings) {
-                            RT.dialogs.loading('open');
-                        },
-                        success: function(response) {
-                            if (response.error_text) {
-                                alertify.error('刪除失敗');
-                                RT.dialogs.loading('close');
-                            }
-                            if (response.success_text) {
-                                alertify.success('刪除成功');
-                                // remove checkbox tag
-                                $("input:checked").each(function() {
-                                    $(this).parent().parent().remove();
-                                });
-                                RT.update_table();
-                                RT.dialogs.loading('close');
-                            }
+                $.ajax({
+                    url: api_url,
+                    dataType: 'json',
+                    type: 'DELETE',
+                    data: form_info,
+                    beforeSend: function(jqXHR, settings) {
+                        RT.dialogs.loading('open');
+                    },
+                    success: function(response) {
+                        if (response.error_text) {
+                            alertify.error('刪除失敗');
+                            RT.dialogs.loading('close');
                         }
-                    });
-                    break;
-                }
+                        if (response.success_text) {
+                            alertify.success('刪除成功');
+                            // remove checkbox tag
+                            $("input:checked").each(function() {
+                                $(this).parent().parent().remove();
+                            });
+                            RT.dialogs.loading('close');
+                        }
+                    }
+                });
             }
             // call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation();

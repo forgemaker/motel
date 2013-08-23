@@ -20,6 +20,9 @@ RT.API =
     getAcls: root_path + "WebAPI/index.php/API/Acl/AclList"
     getLogList: root_path + "WebAPI/index.php/API/Log/List"
 
+String.prototype.ucFirst = () ->
+    this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
+
 RT.dialogs = loading: (action) ->
     if action isnt "close"
         $("#loading").show()

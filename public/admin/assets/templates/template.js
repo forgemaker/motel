@@ -188,41 +188,41 @@ function program3(depth0,data) {
 function program5(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\r\n        <tr>\r\n            <td><input type=\"checkbox\" name=\"id[]\" value=\"";
+  buffer += "\r\n                <tr>\r\n                    <td><input type=\"checkbox\" name=\"id[]\" value=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"></td>\r\n            <td>";
+    + "\"></td>\r\n                    <td>";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   if (stack1 = helpers.county) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.county; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1);
   if (stack1 = helpers.district) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.district; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   if (stack1 = helpers.contact) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.contact; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   if (stack1 = helpers.phone_1) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.phone_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   if (stack1 = helpers.mobile_1) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.mobile_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+    + "</td>\r\n                    <td>";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.date_time || depth0.date_time),stack1 ? stack1.call(depth0, depth0.add_time, options) : helperMissing.call(depth0, "date_time", depth0.add_time, options)))
-    + "</td>\r\n            <td>\r\n                <a class=\"btn btn-primary\" data-model=\"motel\" data-id=\"";
+    + "</td>\r\n                    <td>\r\n                        <a class=\"btn btn-primary\" data-model=\"motel\" data-id=\"";
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -230,19 +230,19 @@ function program5(depth0,data) {
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\r\n                <a class=\"btn btn-danger delete\" data-model=\"motel\" data-motelname=\"";
-  if (stack2 = helpers.motelname) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.motelname; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\r\n                        <a class=\"btn btn-danger delete\" data-model=\"motel\" data-title=\"";
+  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
     + "\" data-id=\"";
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\r\n            </td>\r\n        </tr>\r\n        ";
+    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\r\n                    </td>\r\n                </tr>\r\n                ";
   return buffer;
   }
 
-  buffer += "<article class=\"module width_full\">\r\n<div style=\"width:97%;margin:0 auto;\">\r\n\r\n    <div class=\"menu\">\r\n        <a class=\"btn btn-primary search_motel\" data-form=\"#motel_list_form\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-search\"></i> 搜尋列表</a>\r\n        <a class=\"btn btn-primary check_all\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\r\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/add\" style=\"color: white;\"><i class=\"icon-edit\"></i> 新增帳號</a>\r\n        <a class=\"btn btn-danger delete_all\" data-form=\"#motel_list_form\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除帳號</a>\r\n    </div>\r\n    <ul class=\"pager\">\r\n        ";
+  buffer += "<article class=\"module width_full\">\r\n<div style=\"width:97%;margin:0 auto;\">\r\n\r\n    <div class=\"menu\">\r\n        <a class=\"btn btn-primary search_motel\" data-form=\"#motel_list_form\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-search\"></i> 搜尋列表</a>\r\n        <a class=\"btn btn-primary check_all\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\r\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/add\" style=\"color: white;\"><i class=\"icon-edit\"></i> 新增摩鐵</a>\r\n        <a class=\"btn btn-danger delete_all\" data-form=\"#motel_list_form\" data-model=\"motel\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除摩鐵</a>\r\n    </div>\r\n    <ul class=\"pager\">\r\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
   if (stack1 = helpers.previous_show) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.previous_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -254,13 +254,13 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"motel_list_form\">\r\n    <div class=\"table-responsive\">\r\n    <table id=\"motel_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n        <thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>編號</th>\r\n                <th>名稱</th>\r\n                <th>縣市</th>\r\n                <th>聯絡人員</th>\r\n                <th>室內電話</th>\r\n                <th>行動電話</th>\r\n                <th>建立日期</th>\r\n                <th>動作</th>\r\n            </tr>\r\n        </thead>\r\n        ";
+  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"motel_list_form\">\r\n        <div class=\"table-responsive\">\r\n            <table id=\"motel_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n                <thead>\r\n                    <tr>\r\n                        <th>&nbsp;</th>\r\n                        <th>編號</th>\r\n                        <th>名稱</th>\r\n                        <th>縣市</th>\r\n                        <th>聯絡人員</th>\r\n                        <th>室內電話</th>\r\n                        <th>行動電話</th>\r\n                        <th>建立日期</th>\r\n                        <th>動作</th>\r\n                    </tr>\r\n                </thead>\r\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.items) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n        </tbody>\r\n    </table>\r\n    </div>\r\n    </form>\r\n</div>\r\n</article>\r\n";
+  buffer += "\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </form>\r\n</div>\r\n</article>\r\n";
   return buffer;
   });
 
@@ -564,7 +564,7 @@ function program5(depth0,data) {
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\r\n                <a class=\"btn btn-danger delete\" data-model=\"user\" data-username=\"";
+    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\r\n                <a class=\"btn btn-danger delete\" data-model=\"user\" data-title=\"";
   if (stack2 = helpers.username) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.username; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -588,7 +588,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"user_list_form\">\r\n    <div class=\"table-responsive\">\r\n    <table id=\"user_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n        <thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>編號</th>\r\n                <th>名字</th>\r\n                <th>姓氏</th>\r\n                <th>帳號</th>\r\n                <th>建立日期</th>\r\n                <th>最後登入</th>\r\n                <th>動作</th>\r\n            </tr>\r\n        </thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>&nbsp;</th>\r\n                <th><input type=\"text\" class=\"form-control\" style=\"width:80px;\" name=\"first_name\" placeholder=\"search..\" /></th>\r\n                <th><input type=\"text\" class=\"form-control\" style=\"width:80px;\"name=\"last_name\" placeholder=\"search..\" /></td>\r\n                <th><input type=\"text\" class=\"form-control\" style=\"width:120px;\" name=\"username\" placeholder=\"search..\" /></td>\r\n                <th>&nbsp;</th>\r\n                <th>&nbsp;</th>\r\n                <th>&nbsp;</th>\r\n            </tr>\r\n\r\n        <tbody>\r\n        ";
+  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"user_list_form\">\r\n    <div class=\"table-responsive\">\r\n    <table id=\"user_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n        <thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>編號</th>\r\n                <th>名字</th>\r\n                <th>姓氏</th>\r\n                <th>帳號</th>\r\n                <th>建立日期</th>\r\n                <th>最後登入</th>\r\n                <th>動作</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
