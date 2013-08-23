@@ -171,6 +171,37 @@ define([
                     }
                 });
                 break;
+            case 'motel':
+                var form_id = $(e.currentTarget).data('form');
+                var form_info = $(form_id).serializeObject();
+                var error = false;
+                if (!$.trim(form_info.title)) {
+                    $(form_id + ' input[name=title]').parent().addClass('has-error');
+                    alertify.error('紅色欄位務必填寫');
+                    e.stopImmediatePropagation();
+                    return false;
+                }
+                $.ajax({
+                    url: RT.API.Motel,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: form_info,
+                    beforeSend: function(jqXHR, settings) {
+                        RT.dialogs.loading('open');
+                    },
+                    success: function(response) {
+                        if (response.error_text) {
+                            alertify.error(response.error_text);
+                            RT.dialogs.loading('close');
+                        }
+                        if (response.success_text) {
+                            alertify.success(form_info.title + ' 摩鐵新增成功');
+                            RT.dialogs.loading('close');
+                            window.location = "#!/motel/list";
+                        }
+                    }
+                });
+                break;
             }
             // call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation();

@@ -5,6 +5,7 @@
 RT.API =
     me: root_path + "user/CurrentData"
     User: root_path + "user"
+    Motel: root_path + "motel"
     getUser: root_path + "user"
     getUserList: root_path + "user"
     addUser: root_path + "user"
