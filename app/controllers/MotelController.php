@@ -18,6 +18,30 @@ class MotelController extends \BaseController
     }
 
     /**
+     * Upload file.
+     *
+     * @return Response
+     */
+    public function upload()
+    {
+        $upload_folder = 'uploads';
+        if (!file_exists($upload_folder)) {
+            mkdir($upload_folder, 0700);
+        }
+
+        if (Input::hasFile('upload_file')) {
+            mt_srand();
+            $filename = md5(uniqid(mt_rand())) . '.' . strtolower(Input::file('upload_file')->getClientOriginalExtension());
+            Input::file('upload_file')->move($upload_folder, $filename);
+            $data = array(
+                'file_name' => $filename,
+                'path' => $upload_folder . '/' . $filename
+            );
+            return Response::json($data);
+        }
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -57,6 +81,8 @@ class MotelController extends \BaseController
             'introduction' => Input::get('introduction'),
             'equipment' => Input::get('equipment'),
             'feature' => Input::get('feature'),
+            'raw_name' => Input::get('raw_name'),
+            'image_url' => Input::get('image_url'),
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -122,6 +148,8 @@ class MotelController extends \BaseController
         $motel->introduction = Input::get('introduction');
         $motel->equipment = Input::get('equipment');
         $motel->feature = Input::get('feature');
+        $motel->raw_name = Input::get('raw_name');
+        $motel->image_url = Input::get('image_url');
         $motel->edit_time = time();
 
         $motel->save();

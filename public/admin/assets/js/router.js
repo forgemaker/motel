@@ -2,6 +2,7 @@ var ajaxSettings, api_req;
 
 RT.API = {
   me: root_path + "user/CurrentData",
+  Upload: root_path + "motel/upload",
   User: root_path + "user",
   Motel: root_path + "motel",
   getUser: root_path + "user",
@@ -282,7 +283,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           });
           $('#stay_time_1, #stay_time_2').timepicker();
           return $('#fileupload').fileupload({
-            url: '/1.0/app/uploader',
+            url: RT.API.Upload,
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 5000000,
@@ -292,16 +293,17 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
                 alertify.error('Fail to upload file.');
                 return;
               }
-              id = $(this).data('id');
-              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/sources/' + data.result.file_name;
-              $('.collection-header').css('background-image', 'url("' + image_url + '")');
+              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+              $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+              $('#image_url').val(image_url);
+              $('#raw_name').val(data.result.file_name);
               return $('#progress').hide('slow', function() {
-                return $(this).find('.progress-bar').css('width', '10%');
+                return $(this).find('.progress-bar').css('width', '0%');
               });
             },
             progressall: function(e, data) {
               var progress;
-              $('#progress').show();
+              $('#progress').removeClass('hide').show();
               progress = parseInt(data.loaded / data.total * 100, 10);
               return $('#progress .progress-bar').css('width', progress + '%');
             },
@@ -328,7 +330,45 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.motel_model.id = id;
           return this.motel_model.fetch({
-            reset: true
+            reset: true,
+            success: function(model, response, options) {
+              return setTimeout(function() {
+                return $('#fileupload').fileupload({
+                  url: RT.API.Upload,
+                  dataType: 'json',
+                  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                  maxFileSize: 5000000,
+                  done: function(e, data) {
+                    var image_url;
+                    if (!data.result.file_name) {
+                      alertify.error('Fail to upload file.');
+                      return;
+                    }
+                    image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+                    $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+                    $('#image_url').val(image_url);
+                    $('#raw_name').val(data.result.file_name);
+                    return $('#progress').hide('slow', function() {
+                      return $(this).find('.progress-bar').css('width', '0%');
+                    });
+                  },
+                  progressall: function(e, data) {
+                    var progress;
+                    $('#progress').removeClass('hide').show();
+                    progress = parseInt(data.loaded / data.total * 100, 10);
+                    return $('#progress .progress-bar').css('width', progress + '%');
+                  },
+                  processalways: function(e, data) {
+                    if (data.files[data.index].error) {
+                      return alertify.error(data.files[data.index].error);
+                    }
+                  },
+                  fail: function(e, data) {
+                    return alertify.error('檔案上傳失敗');
+                  }
+                });
+              }, 2000);
+            }
           });
       }
     },

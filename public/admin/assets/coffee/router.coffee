@@ -4,6 +4,7 @@
 
 RT.API =
     me: root_path + "user/CurrentData"
+    Upload: root_path + "motel/upload"
     User: root_path + "user"
     Motel: root_path + "motel"
     getUser: root_path + "user"
@@ -264,7 +265,7 @@ define ["jquery",
                     $('#stay_time_1, #stay_time_2').timepicker()
                     # jquery upload plugin
                     $('#fileupload').fileupload
-                        url: '/1.0/app/uploader'
+                        url: RT.API.Upload
                         dataType: 'json'
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                         # 5MB
@@ -273,13 +274,14 @@ define ["jquery",
                             if !data.result.file_name
                                 alertify.error 'Fail to upload file.'
                                 return
-                            id = $(this).data 'id'
-                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/sources/' + data.result.file_name
-                            $('.collection-header').css 'background-image', 'url("' + image_url + '")'
+                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                            $('#image_url').val image_url
+                            $('#raw_name').val data.result.file_name
                             $('#progress').hide 'slow', () ->
-                                $(this).find('.progress-bar').css 'width', '10%'
+                                $(this).find('.progress-bar').css 'width', '0%'
                         progressall: (e, data) ->
-                            $('#progress').show()
+                            $('#progress').removeClass('hide').show()
                             progress = parseInt data.loaded / data.total * 100, 10
                             $('#progress .progress-bar').css 'width', progress + '%'
                         processalways: (e, data) ->
@@ -298,7 +300,39 @@ define ["jquery",
                         # trigger change event if model is not changed
                         @motel_model.trigger "change"  unless @motel_model.hasChanged()
                     @motel_model.id = id
-                    @motel_model.fetch({reset: true})
+                    @motel_model.fetch
+                        reset: true
+                        success: (model, response, options) ->
+                            setTimeout(
+                                () ->
+                                    # jquery upload plugin
+                                    $('#fileupload').fileupload
+                                        url: RT.API.Upload
+                                        dataType: 'json'
+                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                                        # 5MB
+                                        maxFileSize: 5000000
+                                        done: (e, data) ->
+                                            if !data.result.file_name
+                                                alertify.error 'Fail to upload file.'
+                                                return
+                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                                            $('#image_url').val image_url
+                                            $('#raw_name').val data.result.file_name
+                                            $('#progress').hide 'slow', () ->
+                                                $(this).find('.progress-bar').css 'width', '0%'
+                                        progressall: (e, data) ->
+                                            $('#progress').removeClass('hide').show()
+                                            progress = parseInt data.loaded / data.total * 100, 10
+                                            $('#progress .progress-bar').css 'width', progress + '%'
+                                        processalways: (e, data) ->
+                                            if (data.files[data.index].error)
+                                                alertify.error data.files[data.index].error
+                                        fail: (e, data) ->
+                                            alertify.error '檔案上傳失敗'
+                                , 2000)
+
 
         update_user: ->
             new View(

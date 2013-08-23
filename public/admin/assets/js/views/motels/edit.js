@@ -12,7 +12,7 @@ define([
 
             $.extend(data, parent_view.model.attributes);
             $(parent_view.el).hide().html(Handlebars.templates.motel_edit(data)).fadeIn("slow");
-            console.log(data);
+
             $('#twzipcode').twzipcode({
                 'readonly': true,
                 'countySel': data.county,

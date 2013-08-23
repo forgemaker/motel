@@ -103,10 +103,17 @@
                             <!-- The file input field used as target for the file upload widget -->
                             <input id="fileupload" type="file" name="upload_file">
                         </a>
+                        <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
+                        <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
                     </div>
                 </div>
+                <div id="upload_area" class="row">
+                    {{#is_image}}
+                    <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
+                    {{/is_image}}
+                </div>
                 <div id="progress" class="progress hide" style="margin-top:10px;">
-                    <div style="width: 10%;" class="progress-bar progress-bar-success"></div>
+                    <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
                 </div>
             </div>
             <div class="tab-pane" id="time">
