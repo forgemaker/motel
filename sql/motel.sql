@@ -159,8 +159,9 @@ CREATE TABLE IF NOT EXISTS `motels` (
   `equipment` varchar(60) NOT NULL,
   `feature` varchar(60) NOT NULL,
   `raw_name` varchar(64) NOT NULL,
+  `image_url` varchar(128) NOT NULL,
   `add_time` int(11) NOT NULL,
   `edit_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
