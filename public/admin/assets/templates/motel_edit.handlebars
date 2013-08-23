@@ -11,6 +11,12 @@
     </ul>
     <form action="#" method="post" class="well" id="motel_add_form">
         <div class="tab-content">
+            {{#is_edit}}
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                上次修改日期為 {{date_time edit_time}}
+            </div>
+            {{/is_edit}}
             <div class="tab-pane active" id="introduction">
                 <div class="form-group">
                     <label class="control-label">簡介設定</label>

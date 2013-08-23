@@ -57,7 +57,8 @@ class MotelController extends \BaseController
             'introduction' => Input::get('introduction'),
             'equipment' => Input::get('equipment'),
             'feature' => Input::get('feature'),
-            'add_time' => time()
+            'add_time' => time(),
+            'edit_time' => time()
         ));
 
         return Response::json(array('success_text' => 'ok'));
@@ -82,7 +83,11 @@ class MotelController extends \BaseController
      */
     public function edit($id)
     {
-        //
+        $motel = Motel::find($id)->toArray();
+        $data = array(
+            'item' => $motel
+        );
+        return Response::json($data);
     }
 
     /**
@@ -93,7 +98,34 @@ class MotelController extends \BaseController
      */
     public function update($id)
     {
-        //
+        $motel = Motel::find($id);
+
+        $motel->title = Input::get('title');
+        $motel->url = Input::get('url');
+        $motel->county = Input::get('county');
+        $motel->district = Input::get('district');
+        $motel->zipcode = Input::get('zipcode');
+        $motel->address = Input::get('address');
+        $motel->phone_1 = Input::get('phone_1');
+        $motel->phone_2 = Input::get('phone_2');
+        $motel->fax = Input::get('fax');
+        $motel->contact = Input::get('contact');
+        $motel->mobile_1 = Input::get('mobile_1');
+        $motel->mobile_2 = Input::get('mobile_2');
+        $motel->commission = Input::get('commission');
+        $motel->contract_start = Input::get('contract_start');
+        $motel->contract_end = Input::get('contract_end');
+        $motel->rest_time_1 = Input::get('rest_time_1');
+        $motel->rest_time_2 = Input::get('rest_time_2');
+        $motel->stay_time_1 = Input::get('stay_time_1');
+        $motel->stay_time_2 = Input::get('stay_time_2');
+        $motel->introduction = Input::get('introduction');
+        $motel->equipment = Input::get('equipment');
+        $motel->feature = Input::get('feature');
+        $motel->edit_time = time();
+
+        $motel->save();
+        return Response::json(array('success_text' => 'ok'));
     }
 
     /**

@@ -105,14 +105,9 @@ class UserController extends \BaseController
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::find($id)->toArray();
         $data = array(
-            'item' => array(
-                'id' => $user->id,
-                'username' => $user->username,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name
-            )
+            'item' => $user
         );
         return Response::json($data);
     }
