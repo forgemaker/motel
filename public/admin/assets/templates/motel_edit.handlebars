@@ -94,6 +94,20 @@
                 {{#is_edit}}
                     <input type="hidden" name="id" value="{{id}}">
                 {{/is_edit}}
+                <div class="form-group">
+                    <label class="control-label">上傳圖片</label>
+                    <div data-placement="top" data-original-title="Change collection cover" data-toggle="tooltip">
+                        <a class="btn btn-success fileinput-button">
+                            <i class="icon-cloud-upload"></i>
+                            <span>上傳摩鐵封面</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="upload_file">
+                        </a>
+                    </div>
+                </div>
+                <div id="progress" class="progress hide" style="margin-top:10px;">
+                    <div style="width: 10%;" class="progress-bar progress-bar-success"></div>
+                </div>
             </div>
             <div class="tab-pane" id="time">
                 <div class="form-group">

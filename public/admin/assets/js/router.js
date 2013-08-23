@@ -159,7 +159,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -280,7 +280,40 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           $('#contract_start, #contract_end').datepicker({
             dateFormat: 'yy-mm-dd'
           });
-          return $('#stay_time_1, #stay_time_2').timepicker();
+          $('#stay_time_1, #stay_time_2').timepicker();
+          return $('#fileupload').fileupload({
+            url: '/1.0/app/uploader',
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 5000000,
+            done: function(e, data) {
+              var image_url;
+              if (!data.result.file_name) {
+                alertify.error('Fail to upload file.');
+                return;
+              }
+              id = $(this).data('id');
+              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/sources/' + data.result.file_name;
+              $('.collection-header').css('background-image', 'url("' + image_url + '")');
+              return $('#progress').hide('slow', function() {
+                return $(this).find('.progress-bar').css('width', '10%');
+              });
+            },
+            progressall: function(e, data) {
+              var progress;
+              $('#progress').show();
+              progress = parseInt(data.loaded / data.total * 100, 10);
+              return $('#progress .progress-bar').css('width', progress + '%');
+            },
+            processalways: function(e, data) {
+              if (data.files[data.index].error) {
+                return alertify.error(data.files[data.index].error);
+              }
+            },
+            fail: function(e, data) {
+              return alertify.error('檔案上傳失敗');
+            }
+          });
         case "edit":
           this.update_title("修改摩鐵");
           if (!this.view_motel) {

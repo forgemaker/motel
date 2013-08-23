@@ -157,6 +157,12 @@ define ["jquery",
         "jquery.equalHeight",
         "handlebars",
         "libs/handlebars-helper",
+        # upload plugin
+        'jquery.ui.widget',
+        'jquery.iframe-transport',
+        'jquery.fileupload',
+        'jquery.fileupload-process',
+        'jquery.fileupload-validate',
         "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
@@ -256,6 +262,31 @@ define ["jquery",
                     $('#contract_start, #contract_end').datepicker
                         dateFormat: 'yy-mm-dd'
                     $('#stay_time_1, #stay_time_2').timepicker()
+                    # jquery upload plugin
+                    $('#fileupload').fileupload
+                        url: '/1.0/app/uploader'
+                        dataType: 'json'
+                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                        # 5MB
+                        maxFileSize: 5000000
+                        done: (e, data) ->
+                            if !data.result.file_name
+                                alertify.error 'Fail to upload file.'
+                                return
+                            id = $(this).data 'id'
+                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/sources/' + data.result.file_name
+                            $('.collection-header').css 'background-image', 'url("' + image_url + '")'
+                            $('#progress').hide 'slow', () ->
+                                $(this).find('.progress-bar').css 'width', '10%'
+                        progressall: (e, data) ->
+                            $('#progress').show()
+                            progress = parseInt data.loaded / data.total * 100, 10
+                            $('#progress .progress-bar').css 'width', progress + '%'
+                        processalways: (e, data) ->
+                            if (data.files[data.index].error)
+                                alertify.error data.files[data.index].error
+                        fail: (e, data) ->
+                            alertify.error '檔案上傳失敗'
               when "edit"
                     @update_title "修改摩鐵"
                     unless @view_motel
