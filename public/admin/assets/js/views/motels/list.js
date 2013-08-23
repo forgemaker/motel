@@ -61,7 +61,7 @@ define([
             });
 
             $.extend(data, this.handle_page());
-            $(parent_view.el).hide().html(Handlebars.templates.user_list(data)).fadeIn("slow");
+            $(parent_view.el).hide().html(Handlebars.templates.motel_list(data)).fadeIn("slow");
             RT.update_table();
             RT.dialogs.loading('close');
 

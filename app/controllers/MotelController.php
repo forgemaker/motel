@@ -9,7 +9,12 @@ class MotelController extends \BaseController
      */
     public function index()
     {
-        //
+        $motels = Motel::all()->toArray();
+
+        $data = array(
+            'items' => $motels
+        );
+        return Response::json($data);
     }
 
     /**
@@ -29,7 +34,6 @@ class MotelController extends \BaseController
      */
     public function store()
     {
-        // insert user account.
         $motel = Motel::create(array(
             'title' => Input::get('title'),
             'url' => Input::get('url'),

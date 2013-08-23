@@ -29,35 +29,25 @@
             <tr>
                 <th>&nbsp;</th>
                 <th>編號</th>
-                <th>名字</th>
-                <th>姓氏</th>
-                <th>帳號</th>
+                <th>名稱</th>
+                <th>縣市</th>
+                <th>聯絡人員</th>
+                <th>室內電話</th>
+                <th>行動電話</th>
                 <th>建立日期</th>
-                <th>最後登入</th>
                 <th>動作</th>
             </tr>
         </thead>
-            <tr>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th><input type="text" class="form-control" style="width:80px;" name="first_name" placeholder="search.." /></th>
-                <th><input type="text" class="form-control" style="width:80px;"name="last_name" placeholder="search.." /></td>
-                <th><input type="text" class="form-control" style="width:120px;" name="motelname" placeholder="search.." /></td>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-                <th>&nbsp;</th>
-            </tr>
-
-        <tbody>
         {{#items}}
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{id}}</td>
-            <td>{{first_name}}</td>
-            <td>{{last_name}}</td>
-            <td>{{motelname}}</td>
-            <td>{{date_time created_on}}</td>
-            <td>{{date_time last_login}}</td>
+            <td>{{title}}</td>
+            <td>{{county}}{{district}}</td>
+            <td>{{contact}}</td>
+            <td>{{phone_1}}</td>
+            <td>{{mobile_1}}</td>
+            <td>{{date_time add_time}}</td>
             <td>
                 <a class="btn btn-primary" data-model="motel" data-id="{{id}}" href="#!/motel/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
                 <a class="btn btn-danger delete" data-model="motel" data-motelname="{{motelname}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>

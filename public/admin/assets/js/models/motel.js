@@ -14,17 +14,16 @@ define([
         },
 
         set_params: function(params) {
-            this.lists.url = RT.API.getMotelList + '?' + $.param(params);
+            this.lists.url = RT.API.Motel + '?' + $.param(params);
         },
 
         url: function() {
-            return RT.API.getMotel + '/' + this.id + '/edit';
+            return RT.API.Motel + '/' + this.id + '/edit';
         },
 
         parse: function(response) {
-            var is_edit = true;
             $.extend(response.item, {
-                "is_edit": is_edit
+                "is_edit": true
             });
             return response.item;
         }
