@@ -119,9 +119,9 @@ define([
             var form_id = $(e.currentTarget).data('form');
             var form_info = $(form_id).serializeObject();
             var api_url = RT.API[model.ucFirst()];
+            var error = false;
             switch (model) {
             case 'user':
-                var error = false;
                 if (!$.trim(form_info.username) || !$.trim(form_info.password)) {
                     for (var name in form_info) {
                         if (!$.trim(form_info[name])) {
@@ -166,9 +166,6 @@ define([
                 });
                 break;
             case 'motel':
-                var form_id = $(e.currentTarget).data('form');
-                var form_info = $(form_id).serializeObject();
-                var error = false;
                 if (!$.trim(form_info.title)) {
                     $(form_id + ' input[name=title]').parent().addClass('has-error');
                     alertify.error('紅色欄位務必填寫');
@@ -197,9 +194,6 @@ define([
                 });
                 break;
             case 'room':
-                var form_id = $(e.currentTarget).data('form');
-                var form_info = $(form_id).serializeObject();
-                var error = false;
                 for (var name in form_info) {
                     if (!$.trim(form_info[name])) {
                         $(form_id + ' input[name=' + name + ']').parent().addClass('has-error');
