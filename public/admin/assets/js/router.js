@@ -3,6 +3,7 @@ var ajaxSettings, api_req;
 RT.API = {
   me: root_path + "user/CurrentData",
   Upload: root_path + "motel/upload",
+  Room: root_path + "room",
   User: root_path + "user",
   Motel: root_path + "motel",
   getUser: root_path + "user",
@@ -160,7 +161,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -170,7 +171,8 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       "!/motel/:action": "motel",
       "!/motel/:action/:id": "motel",
       "!/user/:action": "user",
-      "!/user/:action/:id": "user"
+      "!/user/:action/:id": "user",
+      "!/room/:action/:id": "room"
     },
     initialize: function() {
       this.me = new ModelMe();
@@ -180,7 +182,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
         this.user_model = new ModelUser();
       }
       if (!this.motel_model) {
-        return this.motel_model = new ModelMotel();
+        this.motel_model = new ModelMotel();
+      }
+      if (!this.room_model) {
+        return this.room_model = new ModelMotel();
       }
     },
     update_title: function(title) {
@@ -190,6 +195,54 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       } else {
         document.title = this.site_name;
         return $(".section_title").text("");
+      }
+    },
+    room: function(action, id) {
+      this.reset();
+      RT.dialogs.loading("open");
+      $("#main").html("");
+      switch (action) {
+        case "list":
+          this.motel_id = id || 1;
+          this.update_title("房型列表");
+          if (!this.view_rooms_list) {
+            this.view_rooms_list = new ViewRooms({
+              el: "#main",
+              collection: this.room_model.lists,
+              model_name: this.room_model,
+              page: this.page
+            });
+          }
+          this.view_rooms_list.options.page = this.page;
+          this.room_model.set_lists_url(this.motel_id);
+          return this.room_model.lists.fetch({
+            reset: true
+          });
+        case "add":
+          this.update_title("新增帳號");
+          if (!this.view_rooms_add) {
+            this.view_rooms_add = new View({
+              template_name: "room_edit",
+              el: "#main"
+            });
+          }
+          return this.view_rooms_add.render();
+        case "edit":
+          this.update_title("修改帳號");
+          if (!this.view_room) {
+            this.view_room = new ViewRoom({
+              el: "#main",
+              model: this.room_model
+            });
+          } else {
+            if (!this.room_model.hasChanged()) {
+              this.room_model.trigger("change");
+            }
+          }
+          this.room_model.id = id;
+          return this.room_model.fetch({
+            reset: true
+          });
       }
     },
     user: function(action, id) {
@@ -212,10 +265,9 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           this.user_model.set_params({
             page: this.page
           });
-          this.user_model.lists.fetch({
+          return this.user_model.lists.fetch({
             reset: true
           });
-          return console.log('a');
         case "add":
           this.update_title("新增帳號");
           if (!this.view_users_add) {

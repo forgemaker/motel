@@ -5,6 +5,7 @@
 RT.API =
     me: root_path + "user/CurrentData"
     Upload: root_path + "motel/upload"
+    Room: root_path + "room"
     User: root_path + "user"
     Motel: root_path + "motel"
     getUser: root_path + "user"
@@ -142,11 +143,14 @@ define ["jquery",
         "models/me",
         "models/user",
         "models/motel",
+        "models/room",
         "views/view",
         "views/users/list",
         "views/users/edit",
         "views/motels/list",
         "views/motels/edit",
+        "views/rooms/list",
+        "views/rooms/edit",
         "moment",
         "jquery.twzipcode",
         "jquery.serialize",
@@ -164,7 +168,7 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, View, ViewUsers, ViewUser, ViewMotels, ViewMotel) ->
+        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
@@ -174,6 +178,7 @@ define ["jquery",
             "!/motel/:action/:id": "motel"
             "!/user/:action": "user"
             "!/user/:action/:id": "user"
+            "!/room/:action/:id": "room"
 
         initialize: ->
             @me = new ModelMe()
@@ -183,6 +188,7 @@ define ["jquery",
             # load model
             @user_model = new ModelUser()  unless @user_model
             @motel_model = new ModelMotel()  unless @motel_model
+            @room_model = new ModelMotel()  unless @room_model
 
         update_title: (title) ->
             if title
@@ -191,6 +197,45 @@ define ["jquery",
             else
                 document.title = @site_name
                 $(".section_title").text ""
+
+        room: (action, id) ->
+            @reset()
+            RT.dialogs.loading "open"
+            $("#main").html ""
+            switch action
+              when "list"
+                    @motel_id = id or 1
+                    @update_title "房型列表"
+                    unless @view_rooms_list
+                        @view_rooms_list = new ViewRooms(
+                            el: "#main"
+                            collection: @room_model.lists
+                            model_name: @room_model
+                            page: @page
+                        )
+                    @view_rooms_list.options.page = @page
+                    @room_model.set_lists_url @motel_id
+                    @room_model.lists.fetch({reset: true})
+              when "add"
+                    @update_title "新增帳號"
+                    unless @view_rooms_add
+                        @view_rooms_add = new View(
+                            template_name: "room_edit"
+                            el: "#main"
+                        )
+                    @view_rooms_add.render()
+              when "edit"
+                    @update_title "修改帳號"
+                    unless @view_room
+                        @view_room = new ViewRoom(
+                            el: "#main"
+                            model: @room_model
+                        )
+                    else
+                        # trigger change event if model is not changed
+                        @room_model.trigger "change"  unless @room_model.hasChanged()
+                    @room_model.id = id
+                    @room_model.fetch({reset: true})
 
         user: (action, id) ->
             @reset()
@@ -210,7 +255,6 @@ define ["jquery",
                     @view_users_list.options.page = @page
                     @user_model.set_params page: @page
                     @user_model.lists.fetch({reset: true})
-                    console.log 'a'
               when "add"
                     @update_title "新增帳號"
                     unless @view_users_add
