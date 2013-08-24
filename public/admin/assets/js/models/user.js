@@ -10,21 +10,20 @@ define([
     return Backbone.Model.extend({
         initialize: function() {
             this.lists = new CollectionUsers();
-            this.lists.url = RT.API.getUserList;
+            this.lists.url = RT.API.User;
         },
 
         set_params: function(params) {
-            this.lists.url = RT.API.getUserList + '?' + $.param(params);
+            this.lists.url = RT.API.User + '?' + $.param(params);
         },
 
         url: function() {
-            return RT.API.getUser + '/' + this.id + '/edit';
+            return RT.API.User + '/' + this.id + '/edit';
         },
 
         parse: function(response) {
-            var is_edit = true;
             $.extend(response.item, {
-                "is_edit": is_edit
+                "is_edit": true
             });
             return response.item;
         }

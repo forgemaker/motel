@@ -4,7 +4,7 @@ define([
     'backbone',
     'views/view'
     ], function($, _, Backbone, View) {
-    RT.ViewUsers = View.extend({
+    return View.extend({
 
         events: _.extend({
             'click .search_user': 'search'
@@ -55,7 +55,6 @@ define([
                 data = this.options.data || {};
             data.items = [];
             $(parent_view.el).empty();
-            console.log('show user list');
             this.collection.each(function(item) {
                 data.items.push(item.attributes);
             });
@@ -68,5 +67,4 @@ define([
             return this;
         }
     });
-    return RT.ViewUsers;
 });

@@ -5,20 +5,7 @@ RT.API = {
   Upload: root_path + "motel/upload",
   Room: root_path + "room",
   User: root_path + "user",
-  Motel: root_path + "motel",
-  getUser: root_path + "user",
-  getUserList: root_path + "user",
-  addUser: root_path + "user",
-  DeleteUser: root_path + "user",
-  getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList",
-  getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList",
-  getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync",
-  getAppList: root_path + "WebAPI/index.php/API/App/getAppList",
-  getAppInfo: root_path + "WebAPI/index.php/API/App/getAppInfo",
-  getGroupList: root_path + "WebAPI/index.php/API/Auth/getGroupList",
-  getGroupInfo: root_path + "WebAPI/index.php/API/Auth/getGroup",
-  getAcls: root_path + "WebAPI/index.php/API/Acl/AclList",
-  getLogList: root_path + "WebAPI/index.php/API/Log/List"
+  Motel: root_path + "motel"
 };
 
 String.prototype.ucFirst = function() {

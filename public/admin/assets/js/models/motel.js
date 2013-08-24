@@ -1,6 +1,3 @@
-/*
- * A Motel
- */
 define([
     'jquery',
     'underscore',
@@ -10,7 +7,7 @@ define([
     return Backbone.Model.extend({
         initialize: function() {
             this.lists = new CollectionMotels();
-            this.lists.url = RT.API.getMotelList;
+            this.lists.url = RT.API.Motel;
         },
 
         set_params: function(params) {

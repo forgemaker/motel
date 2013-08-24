@@ -8,19 +8,6 @@ RT.API =
     Room: root_path + "room"
     User: root_path + "user"
     Motel: root_path + "motel"
-    getUser: root_path + "user"
-    getUserList: root_path + "user"
-    addUser: root_path + "user"
-    DeleteUser: root_path + "user"
-    getUserApps: root_path + "WebAPI/index.php/API/Auth/getUserList"
-    getWebsyncList: root_path + "WebAPI/index.php/API/Auth/getWebsyncList"
-    getWebSync: root_path + "WebAPI/index.php/API/Auth/getWebSync"
-    getAppList: root_path + "WebAPI/index.php/API/App/getAppList"
-    getAppInfo: root_path + "WebAPI/index.php/API/App/getAppInfo"
-    getGroupList: root_path + "WebAPI/index.php/API/Auth/getGroupList"
-    getGroupInfo: root_path + "WebAPI/index.php/API/Auth/getGroup"
-    getAcls: root_path + "WebAPI/index.php/API/Acl/AclList"
-    getLogList: root_path + "WebAPI/index.php/API/Log/List"
 
 String.prototype.ucFirst = () ->
     this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
@@ -334,7 +321,8 @@ define ["jquery",
                         # trigger change event if model is not changed
                         @user_model.trigger "change"  unless @user_model.hasChanged()
                     @user_model.id = id
-                    @user_model.fetch({reset: true})
+                    @user_model.fetch
+                        reset: true
 
         motel: (action, id) ->
             @reset()

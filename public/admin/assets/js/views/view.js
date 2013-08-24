@@ -144,7 +144,7 @@ define([
                 }
 
                 $.ajax({
-                    url: RT.API.addUser,
+                    url: RT.API.User,
                     dataType: 'json',
                     type: 'POST',
                     data: form_info,
