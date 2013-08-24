@@ -110,7 +110,10 @@ class RoomController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        $id = (Input::has('id') and is_array(Input::get('id'))) ? Input::get('id') : intval($id);
+
+        Room::destroy($id);
+        return Response::json(array('success_text' => 'ok'));
     }
 
 }
