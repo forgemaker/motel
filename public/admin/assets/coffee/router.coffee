@@ -188,7 +188,7 @@ define ["jquery",
             # load model
             @user_model = new ModelUser()  unless @user_model
             @motel_model = new ModelMotel()  unless @motel_model
-            @room_model = new ModelMotel()  unless @room_model
+            @room_model = new ModelRoom()  unless @room_model
 
         update_title: (title) ->
             if title
@@ -211,9 +211,11 @@ define ["jquery",
                             el: "#main"
                             collection: @room_model.lists
                             model_name: @room_model
-                            page: @page
+                            data:
+                                motel_id: @motel_id
+                            page: @page or 1
                         )
-                    @view_rooms_list.options.page = @page
+                    @view_rooms_list.options.page = @page or 1
                     @room_model.set_lists_url @motel_id
                     @room_model.lists.fetch({reset: true})
               when "add"

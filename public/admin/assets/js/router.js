@@ -185,7 +185,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
         this.motel_model = new ModelMotel();
       }
       if (!this.room_model) {
-        return this.room_model = new ModelMotel();
+        return this.room_model = new ModelRoom();
       }
     },
     update_title: function(title) {
@@ -210,10 +210,13 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               collection: this.room_model.lists,
               model_name: this.room_model,
-              page: this.page
+              data: {
+                motel_id: this.motel_id
+              },
+              page: this.page || 1
             });
           }
-          this.view_rooms_list.options.page = this.page;
+          this.view_rooms_list.options.page = this.page || 1;
           this.room_model.set_lists_url(this.motel_id);
           return this.room_model.lists.fetch({
             reset: true

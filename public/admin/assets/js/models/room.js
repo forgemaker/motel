@@ -11,7 +11,7 @@ define([
         },
 
         set_lists_url: function(motel_id) {
-            this.lists.url = RT.API.Room + '/' + motel_id;
+            this.lists.url = RT.API.Room + '/list/' + motel_id;
         },
 
         url: function() {

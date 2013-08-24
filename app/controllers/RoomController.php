@@ -9,7 +9,27 @@ class RoomController extends \BaseController
      */
     public function index()
     {
-        //
+        $rooms = Room::all()->toArray();
+
+        $data = array(
+            'items' => $rooms
+        );
+        return Response::json($data);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function sublist($id)
+    {
+        $rooms = Room::where('motel_id', $id)->get()->toArray();
+
+        $data = array(
+            'items' => $rooms
+        );
+        return Response::json($data);
     }
 
     /**
