@@ -228,6 +228,31 @@ define ["jquery",
                                 motel_id: id
                         )
                     @view_rooms_add.render()
+                    $('#fileupload').fileupload
+                        url: RT.API.Upload
+                        dataType: 'json'
+                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                        # 5MB
+                        maxFileSize: 5000000
+                        done: (e, data) ->
+                            if !data.result.file_name
+                                alertify.error 'Fail to upload file.'
+                                return
+                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                            $('#image_url').val image_url
+                            $('#raw_name').val data.result.file_name
+                            $('#progress').hide 'slow', () ->
+                                $(this).find('.progress-bar').css 'width', '0%'
+                        progressall: (e, data) ->
+                            $('#progress').removeClass('hide').show()
+                            progress = parseInt data.loaded / data.total * 100, 10
+                            $('#progress .progress-bar').css 'width', progress + '%'
+                        processalways: (e, data) ->
+                            if (data.files[data.index].error)
+                                alertify.error data.files[data.index].error
+                        fail: (e, data) ->
+                            alertify.error '檔案上傳失敗'
               when "edit"
                     @update_title "修改房型"
                     unless @view_room
@@ -239,7 +264,38 @@ define ["jquery",
                         # trigger change event if model is not changed
                         @room_model.trigger "change"  unless @room_model.hasChanged()
                     @room_model.id = id
-                    @room_model.fetch({reset: true})
+                    @room_model.fetch
+                        reset: true
+                        success: (model, response, options) ->
+                            setTimeout(
+                                () ->
+                                    # jquery upload plugin
+                                    $('#fileupload').fileupload
+                                        url: RT.API.Upload
+                                        dataType: 'json'
+                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                                        # 5MB
+                                        maxFileSize: 5000000
+                                        done: (e, data) ->
+                                            if !data.result.file_name
+                                                alertify.error 'Fail to upload file.'
+                                                return
+                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                                            $('#image_url').val image_url
+                                            $('#raw_name').val data.result.file_name
+                                            $('#progress').hide 'slow', () ->
+                                                $(this).find('.progress-bar').css 'width', '0%'
+                                        progressall: (e, data) ->
+                                            $('#progress').removeClass('hide').show()
+                                            progress = parseInt data.loaded / data.total * 100, 10
+                                            $('#progress .progress-bar').css 'width', progress + '%'
+                                        processalways: (e, data) ->
+                                            if (data.files[data.index].error)
+                                                alertify.error data.files[data.index].error
+                                        fail: (e, data) ->
+                                            alertify.error '檔案上傳失敗'
+                                , 2000)
 
         user: (action, id) ->
             @reset()

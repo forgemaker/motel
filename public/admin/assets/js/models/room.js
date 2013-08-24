@@ -20,7 +20,8 @@ define([
 
         parse: function(response) {
             $.extend(response.item, {
-                "is_edit": true
+                'is_edit': true,
+                'is_image': (response.item.raw_name != '') ? true : false
             });
             return response.item;
         }

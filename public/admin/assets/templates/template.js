@@ -364,6 +364,17 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1;
+  buffer += "\n                    <img src=\"";
+  if (stack1 = helpers.image_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.image_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" class=\"img-rounded\" style=\"width: 400px; height: 200px;\">\n                    ";
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = "", stack1;
   buffer += "\n                    <input type=\"hidden\" name=\"id\" value=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -372,7 +383,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-function program5(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "data-id=\"";
@@ -383,37 +394,37 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program9(depth0,data) {
   
   
   return "add";
   }
 
-function program9(depth0,data) {
+function program11(depth0,data) {
   
   
   return "edit";
   }
 
-function program11(depth0,data) {
+function program13(depth0,data) {
   
   
   return "建立房型";
   }
 
-function program13(depth0,data) {
+function program15(depth0,data) {
   
   
   return "編輯房型";
   }
 
-function program15(depth0,data) {
+function program17(depth0,data) {
   
   
   return "重新填寫";
   }
 
-function program17(depth0,data) {
+function program19(depth0,data) {
   
   
   return "取消編輯";
@@ -457,51 +468,65 @@ function program17(depth0,data) {
   if (stack1 = helpers.stay_3_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.stay_3_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">上傳房型圖片</label>\n                    <div data-placement=\"top\" data-original-title=\"Change collection cover\" data-toggle=\"tooltip\">\n                        <a class=\"btn btn-success fileinput-button\">\n                            <i class=\"icon-cloud-upload\"></i>\n                            <span>上傳房型封面</span>\n                            <!-- The file input field used as target for the file upload widget -->\n                            <input id=\"fileupload\" type=\"file\" name=\"upload_file\">\n                        </a>\n                        <input type=\"hidden\" id=\"image_url\" name=\"image_url\" value=\"";
+  if (stack1 = helpers.image_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.image_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                        <input type=\"hidden\" id=\"raw_name\" name=\"raw_name\" value=\"";
+  if (stack1 = helpers.raw_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.raw_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                    </div>\n                </div>\n                <div id=\"upload_area\" class=\"row\">\n                    ";
+  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
+  if (stack1 = helpers.is_image) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.is_image; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.is_image) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n                </div>\n                <div id=\"progress\" class=\"progress hide\" style=\"margin-top:10px;\">\n                    <div style=\"width: 0%;\" class=\"progress-bar progress-bar-success\"></div>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
   if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n                <button type=\"button\" data-form=\"#room_add_form\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-model=\"room\" class=\"btn btn-primary ";
-  options = {hash:{},inverse:self.program(7, program7, data),fn:self.noop,data:data};
+  buffer += "\n                <button type=\"button\" data-form=\"#room_add_form\" ";
+  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
+  buffer += " data-model=\"room\" class=\"btn btn-primary ";
+  options = {hash:{},inverse:self.program(9, program9, data),fn:self.noop,data:data};
+  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\">";
-  options = {hash:{},inverse:self.program(11, program11, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(13, program13, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</button>\n                <button class=\"btn\" type=\"reset\">";
-  options = {hash:{},inverse:self.program(15, program15, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(17, program17, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }

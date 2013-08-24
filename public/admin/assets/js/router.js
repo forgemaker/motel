@@ -232,7 +232,41 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               }
             });
           }
-          return this.view_rooms_add.render();
+          this.view_rooms_add.render();
+          return $('#fileupload').fileupload({
+            url: RT.API.Upload,
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 5000000,
+            done: function(e, data) {
+              var image_url;
+              if (!data.result.file_name) {
+                alertify.error('Fail to upload file.');
+                return;
+              }
+              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+              $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+              $('#image_url').val(image_url);
+              $('#raw_name').val(data.result.file_name);
+              return $('#progress').hide('slow', function() {
+                return $(this).find('.progress-bar').css('width', '0%');
+              });
+            },
+            progressall: function(e, data) {
+              var progress;
+              $('#progress').removeClass('hide').show();
+              progress = parseInt(data.loaded / data.total * 100, 10);
+              return $('#progress .progress-bar').css('width', progress + '%');
+            },
+            processalways: function(e, data) {
+              if (data.files[data.index].error) {
+                return alertify.error(data.files[data.index].error);
+              }
+            },
+            fail: function(e, data) {
+              return alertify.error('檔案上傳失敗');
+            }
+          });
         case "edit":
           this.update_title("修改房型");
           if (!this.view_room) {
@@ -247,7 +281,45 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.room_model.id = id;
           return this.room_model.fetch({
-            reset: true
+            reset: true,
+            success: function(model, response, options) {
+              return setTimeout(function() {
+                return $('#fileupload').fileupload({
+                  url: RT.API.Upload,
+                  dataType: 'json',
+                  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                  maxFileSize: 5000000,
+                  done: function(e, data) {
+                    var image_url;
+                    if (!data.result.file_name) {
+                      alertify.error('Fail to upload file.');
+                      return;
+                    }
+                    image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+                    $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+                    $('#image_url').val(image_url);
+                    $('#raw_name').val(data.result.file_name);
+                    return $('#progress').hide('slow', function() {
+                      return $(this).find('.progress-bar').css('width', '0%');
+                    });
+                  },
+                  progressall: function(e, data) {
+                    var progress;
+                    $('#progress').removeClass('hide').show();
+                    progress = parseInt(data.loaded / data.total * 100, 10);
+                    return $('#progress .progress-bar').css('width', progress + '%');
+                  },
+                  processalways: function(e, data) {
+                    if (data.files[data.index].error) {
+                      return alertify.error(data.files[data.index].error);
+                    }
+                  },
+                  fail: function(e, data) {
+                    return alertify.error('檔案上傳失敗');
+                  }
+                });
+              }, 2000);
+            }
           });
       }
     },

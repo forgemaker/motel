@@ -22,10 +22,9 @@ define([
         },
 
         parse: function(response) {
-            var is_image = (response.item.raw_name != '') ? true : false;
             $.extend(response.item, {
                 'is_edit': true,
-                'is_image': is_image
+                'is_image': (response.item.raw_name != '') ? true : false
             });
             return response.item;
         }
