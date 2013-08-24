@@ -1,8 +1,14 @@
 <article class="module width_full">
 <div style="width:97%;margin:0 auto;">
     <div class="menu">
-        <button type="button" data-form="#motel_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</button>
-        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list icon-white"></i> 檢視摩鐵列表</a>
+        {{#is_edit}}
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 發佈優惠</a>
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 查看評價</a>
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 查看評價</a>
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 房型介紹</a>
+        {{/is_edit}}
+        <a type="button" data-form="#motel_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}"><i class="icon-edit"></i> {{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
+        <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 檢視摩鐵列表</a>
     </div>
     <ul id="mytab" class="nav nav-tabs">
         <li class="active"><a href="#profile" data-toggle="tab">基本資料</a></li>
