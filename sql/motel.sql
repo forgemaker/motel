@@ -188,3 +188,24 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   KEY `motel_id` (`motel_id`),
   FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `news`
+--
+
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `motel_id` int(11) unsigned NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `description` text,
+  `start_time` varchar(10) DEFAULT NULL,
+  `end_time` varchar(10) DEFAULT NULL,
+  `raw_name` varchar(64) DEFAULT NULL,
+  `image_url` varchar(128) DEFAULT NULL,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `motel_id` (`motel_id`),
+  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

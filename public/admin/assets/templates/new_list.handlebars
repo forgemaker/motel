@@ -2,8 +2,8 @@
 <div style="width:97%;margin:0 auto;">
     <div class="menu">
         <a class="btn btn-primary check_all" data-model="new" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
-        <a class="btn btn-primary" data-model="new" href="#!/new/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增房型</a>
-        <a class="btn btn-danger delete_all" data-form="#new_list_form" data-model="new" style="color: white;"><i class="icon-trash"></i> 刪除房型</a>
+        <a class="btn btn-primary" data-model="new" href="#!/new/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增優惠</a>
+        <a class="btn btn-danger delete_all" data-form="#new_list_form" data-model="new" style="color: white;"><i class="icon-trash"></i> 刪除優惠</a>
     </div>
     <ul class="pager">
         {{#previous_show}}
@@ -27,11 +27,9 @@
             <tr>
                 <th>&nbsp;</th>
                 <th>編號</th>
-                <th>房型名稱</th>
-                <th>平日休息</th>
-                <th>假日休息</th>
-                <th>平日住宿</th>
-                <th>假日住宿</th>
+                <th>優惠標題</th>
+                <th>起始時間</th>
+                <th>結束日期</th>
                 <th>建立日期</th>
                 <th>動作</th>
             </tr>
@@ -42,10 +40,8 @@
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{id}}</td>
             <td>{{title}}</td>
-            <td>{{rest_2_price}}</td>
-            <td>{{rest_3_price}}</td>
-            <td>{{stay_2_price}}</td>
-            <td>{{stay_3_price}}</td>
+            <td>{{start_time}}</td>
+            <td>{{end_time}}</td>
             <td>{{date_time add_time}}</td>
             <td>
                 <a class="btn btn-primary" data-model="new" data-id="{{id}}" href="#!/new/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;

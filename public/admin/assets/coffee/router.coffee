@@ -8,6 +8,7 @@ RT.API =
     Room: root_path + "room"
     User: root_path + "user"
     Motel: root_path + "motel"
+    New: root_path + "new"
 
 String.prototype.ucFirst = () ->
     this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
@@ -210,15 +211,17 @@ define ["jquery",
                     @new_model.set_lists_url @motel_id
                     @new_model.lists.fetch({reset: true})
               when "add"
-                    @update_title "新增房型"
+                    @update_title "新增優惠消息"
                     unless @view_news_add
                         @view_news_add = new View(
-                            template_name: "new_edit"
+                            template_name: 'new_edit'
                             el: "#main"
                             data:
                                 motel_id: id
                         )
                     @view_news_add.render()
+                    $('#start_time, #end_time').datepicker
+                        dateFormat: 'yy-mm-dd'
                     $('#fileupload').fileupload
                         url: RT.API.Upload
                         dataType: 'json'

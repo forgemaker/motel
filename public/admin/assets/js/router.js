@@ -5,7 +5,8 @@ RT.API = {
   Upload: root_path + "motel/upload",
   Room: root_path + "room",
   User: root_path + "user",
-  Motel: root_path + "motel"
+  Motel: root_path + "motel",
+  New: root_path + "new"
 };
 
 String.prototype.ucFirst = function() {
@@ -213,10 +214,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             reset: true
           });
         case "add":
-          this.update_title("新增房型");
+          this.update_title("新增優惠消息");
           if (!this.view_news_add) {
             this.view_news_add = new View({
-              template_name: "new_edit",
+              template_name: 'new_edit',
               el: "#main",
               data: {
                 motel_id: id
@@ -224,6 +225,9 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             });
           }
           this.view_news_add.render();
+          $('#start_time, #end_time').datepicker({
+            dateFormat: 'yy-mm-dd'
+          });
           return $('#fileupload').fileupload({
             url: RT.API.Upload,
             dataType: 'json',

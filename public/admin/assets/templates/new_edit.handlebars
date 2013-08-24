@@ -16,38 +16,23 @@
                 </div>
                 {{/is_edit}}
                 <div class="form-group">
-                    <label class="control-label">優惠名稱</label>
+                    <label class="control-label">優惠標題</label>
                     <input type="text" name="title" class="form-control" placeholder="請輸入優惠名稱" value="{{title}}">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">休息原價</label>
-                    <input type="text" name="rest_1_price" class="form-control" placeholder="休息原價" value="{{rest_1_price}}">
+                    <label class="control-label">起始時間</label>
+                    <input type="text" id="start_time" name="start_time" class="form-control" placeholder="起始時間" value="{{start_time}}">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">平日休息特價</label>
-                    <input type="text" name="rest_2_price" class="form-control" placeholder="平日休息特價" value="{{rest_2_price}}">
+                    <label class="control-label">結束日期</label>
+                    <input type="text" id="end_time" name="end_time" class="form-control" placeholder="結束日期" value="{{end_time}}">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">假日休息特價</label>
-                    <input type="text" name="rest_3_price" class="form-control" placeholder="假日休息特價" value="{{rest_3_price}}">
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">住宿原價</label>
-                    <input type="text" name="stay_1_price" class="form-control" placeholder="住宿原價" value="{{stay_1_price}}">
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">平日住宿特價</label>
-                    <input type="text" name="stay_2_price" class="form-control" placeholder="平日住宿特價" value="{{stay_2_price}}">
-                    <span class="help-block"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">假日住宿特價</label>
-                    <input type="text" name="stay_3_price" class="form-control" placeholder="假日住宿特價" value="{{stay_3_price}}">
+                    <label class="control-label">描述</label>
+                    <textarea class="form-control" rows="3" name="description">{{description}}</textarea>
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">

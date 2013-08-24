@@ -229,20 +229,8 @@ define([
                 break;
 
             case 'new':
-                for (var name in form_info) {
-                    if (!$.trim(form_info[name])) {
-                        $(form_id + ' input[name=' + name + ']').parent().addClass('has-error');
-                        error = true;
-                    }
-                }
-                if (error) {
-                    alertify.error('紅色欄位務必填寫');
-                    e.stopImmediatePropagation();
-                    return false;
-                }
-
                 $.ajax({
-                    url: RT.API.Room,
+                    url: RT.API.New,
                     dataType: 'json',
                     type: 'POST',
                     data: form_info,
@@ -288,7 +276,6 @@ define([
                     return false;
                 }
                 break;
-            case 'new':
             case 'room':
                 for (var name in form_info) {
                     if (!$.trim(form_info[name])) {
@@ -329,6 +316,7 @@ define([
                 $('body').append(this.el);
             }
             var template_name = this.options.template_name || this.template_name;
+            console.log(template_name);
             var data = this.options.data || {};
             var is_table = this.options.is_table || false;
             var is_append = this.options.is_append || false;
