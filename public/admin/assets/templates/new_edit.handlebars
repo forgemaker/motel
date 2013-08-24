@@ -1,0 +1,95 @@
+<article class="module width_full">
+<div style="width:97%;margin:0 auto;">
+    <div class="menu">
+        <a class="btn btn-primary" data-model="new" href="#!/new/list/{{motel_id}}" style="color: white;"><i class="icon-list"></i> 檢視優惠列表</a>
+    </div>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#profile" data-toggle="tab">優惠資料</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+            <form action="#" method="post" class="well" id="new_add_form">
+                {{#is_edit}}
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    最後修改日期為 {{date_time edit_time}}
+                </div>
+                {{/is_edit}}
+                <div class="form-group">
+                    <label class="control-label">優惠名稱</label>
+                    <input type="text" name="title" class="form-control" placeholder="請輸入優惠名稱" value="{{title}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">休息原價</label>
+                    <input type="text" name="rest_1_price" class="form-control" placeholder="休息原價" value="{{rest_1_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">平日休息特價</label>
+                    <input type="text" name="rest_2_price" class="form-control" placeholder="平日休息特價" value="{{rest_2_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">假日休息特價</label>
+                    <input type="text" name="rest_3_price" class="form-control" placeholder="假日休息特價" value="{{rest_3_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">住宿原價</label>
+                    <input type="text" name="stay_1_price" class="form-control" placeholder="住宿原價" value="{{stay_1_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">平日住宿特價</label>
+                    <input type="text" name="stay_2_price" class="form-control" placeholder="平日住宿特價" value="{{stay_2_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">假日住宿特價</label>
+                    <input type="text" name="stay_3_price" class="form-control" placeholder="假日住宿特價" value="{{stay_3_price}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">上傳優惠圖片</label>
+                    <div data-placement="top" data-original-title="Change collection cover" data-toggle="tooltip">
+                        <a class="btn btn-success fileinput-button">
+                            <i class="icon-cloud-upload"></i>
+                            <span>上傳優惠封面</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="upload_file">
+                        </a>
+                        <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
+                        <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
+                    </div>
+                </div>
+                <div id="upload_area" class="row">
+                    {{#is_image}}
+                    <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
+                    {{/is_image}}
+                </div>
+                <div id="progress" class="progress hide" style="margin-top:10px;">
+                    <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
+                </div>
+                <p class="help-block">*上面欄位務必填寫.</p>
+                <input type="hidden" name="motel_id" value="{{motel_id}}">
+                {{#is_edit}}
+                    <input type="hidden" name="id" value="{{id}}">
+                {{/is_edit}}
+                <button type="button" data-form="#new_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="new" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立優惠{{/is_edit}}{{#is_edit}}編輯優惠{{/is_edit}}</button>
+                <button class="btn" type="reset">{{^is_edit}}重新填寫{{/is_edit}}{{#is_edit}}取消編輯{{/is_edit}}</button>
+            </form>
+        </div>
+    </div>
+</div>
+</article>
+<script>
+(function($){
+    $('#myTab').tab('show');
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+        console.log(e);
+        console.log(e.target.hash); // activated tab
+        console.log(e.relatedTarget.hash); // previous tab
+    });
+}(jQuery));
+</script>

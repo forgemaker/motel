@@ -148,7 +148,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -159,7 +159,8 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       "!/motel/:action/:id": "motel",
       "!/user/:action": "user",
       "!/user/:action/:id": "user",
-      "!/room/:action/:id": "room"
+      "!/room/:action/:id": "room",
+      "!/new/:action/:id": "new"
     },
     initialize: function() {
       this.me = new ModelMe();
@@ -172,7 +173,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
         this.motel_model = new ModelMotel();
       }
       if (!this.room_model) {
-        return this.room_model = new ModelRoom();
+        this.room_model = new ModelRoom();
+      }
+      if (!this.new_model) {
+        return this.new_model = new ModelNew();
       }
     },
     update_title: function(title) {
@@ -182,6 +186,132 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       } else {
         document.title = this.site_name;
         return $(".section_title").text("");
+      }
+    },
+    "new": function(action, id) {
+      this.reset();
+      RT.dialogs.loading("open");
+      $("#main").html("");
+      switch (action) {
+        case "list":
+          this.motel_id = id || 1;
+          this.update_title("房型列表");
+          if (!this.view_news_list) {
+            this.view_news_list = new ViewNews({
+              el: "#main",
+              collection: this.new_model.lists,
+              model_name: this.new_model,
+              data: {
+                motel_id: this.motel_id
+              },
+              page: this.page || 1
+            });
+          }
+          this.view_news_list.options.page = this.page || 1;
+          this.new_model.set_lists_url(this.motel_id);
+          return this.new_model.lists.fetch({
+            reset: true
+          });
+        case "add":
+          this.update_title("新增房型");
+          if (!this.view_news_add) {
+            this.view_news_add = new View({
+              template_name: "new_edit",
+              el: "#main",
+              data: {
+                motel_id: id
+              }
+            });
+          }
+          this.view_news_add.render();
+          return $('#fileupload').fileupload({
+            url: RT.API.Upload,
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 5000000,
+            done: function(e, data) {
+              var image_url;
+              if (!data.result.file_name) {
+                alertify.error('Fail to upload file.');
+                return;
+              }
+              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+              $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+              $('#image_url').val(image_url);
+              $('#raw_name').val(data.result.file_name);
+              return $('#progress').hide('slow', function() {
+                return $(this).find('.progress-bar').css('width', '0%');
+              });
+            },
+            progressall: function(e, data) {
+              var progress;
+              $('#progress').removeClass('hide').show();
+              progress = parseInt(data.loaded / data.total * 100, 10);
+              return $('#progress .progress-bar').css('width', progress + '%');
+            },
+            processalways: function(e, data) {
+              if (data.files[data.index].error) {
+                return alertify.error(data.files[data.index].error);
+              }
+            },
+            fail: function(e, data) {
+              return alertify.error('檔案上傳失敗');
+            }
+          });
+        case "edit":
+          this.update_title("修改房型");
+          if (!this.view_new) {
+            this.view_new = new ViewNew({
+              el: "#main",
+              model: this.new_model
+            });
+          } else {
+            if (!this.new_model.hasChanged()) {
+              this.new_model.trigger("change");
+            }
+          }
+          this.new_model.id = id;
+          return this.new_model.fetch({
+            reset: true,
+            success: function(model, response, options) {
+              return setTimeout(function() {
+                return $('#fileupload').fileupload({
+                  url: RT.API.Upload,
+                  dataType: 'json',
+                  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                  maxFileSize: 5000000,
+                  done: function(e, data) {
+                    var image_url;
+                    if (!data.result.file_name) {
+                      alertify.error('Fail to upload file.');
+                      return;
+                    }
+                    image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+                    $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+                    $('#image_url').val(image_url);
+                    $('#raw_name').val(data.result.file_name);
+                    return $('#progress').hide('slow', function() {
+                      return $(this).find('.progress-bar').css('width', '0%');
+                    });
+                  },
+                  progressall: function(e, data) {
+                    var progress;
+                    $('#progress').removeClass('hide').show();
+                    progress = parseInt(data.loaded / data.total * 100, 10);
+                    return $('#progress .progress-bar').css('width', progress + '%');
+                  },
+                  processalways: function(e, data) {
+                    if (data.files[data.index].error) {
+                      return alertify.error(data.files[data.index].error);
+                    }
+                  },
+                  fail: function(e, data) {
+                    return alertify.error('檔案上傳失敗');
+                  }
+                });
+              }, 2000);
+            }
+          });
       }
     },
     room: function(action, id) {

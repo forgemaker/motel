@@ -131,6 +131,7 @@ define ["jquery",
         "models/user",
         "models/motel",
         "models/room",
+        "models/new",
         "views/view",
         "views/users/list",
         "views/users/edit",
@@ -138,6 +139,8 @@ define ["jquery",
         "views/motels/edit",
         "views/rooms/list",
         "views/rooms/edit",
+        "views/news/list",
+        "views/news/edit",
         "moment",
         "jquery.twzipcode",
         "jquery.serialize",
@@ -155,7 +158,7 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom) ->
+        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
@@ -166,6 +169,7 @@ define ["jquery",
             "!/user/:action": "user"
             "!/user/:action/:id": "user"
             "!/room/:action/:id": "room"
+            "!/new/:action/:id": "new"
 
         initialize: ->
             @me = new ModelMe()
@@ -176,6 +180,7 @@ define ["jquery",
             @user_model = new ModelUser()  unless @user_model
             @motel_model = new ModelMotel()  unless @motel_model
             @room_model = new ModelRoom()  unless @room_model
+            @new_model = new ModelNew()  unless @new_model
 
         update_title: (title) ->
             if title
@@ -184,7 +189,104 @@ define ["jquery",
             else
                 document.title = @site_name
                 $(".section_title").text ""
-
+        new: (action, id) ->
+            @reset()
+            RT.dialogs.loading "open"
+            $("#main").html ""
+            switch action
+              when "list"
+                    @motel_id = id or 1
+                    @update_title "房型列表"
+                    unless @view_news_list
+                        @view_news_list = new ViewNews(
+                            el: "#main"
+                            collection: @new_model.lists
+                            model_name: @new_model
+                            data:
+                                motel_id: @motel_id
+                            page: @page or 1
+                        )
+                    @view_news_list.options.page = @page or 1
+                    @new_model.set_lists_url @motel_id
+                    @new_model.lists.fetch({reset: true})
+              when "add"
+                    @update_title "新增房型"
+                    unless @view_news_add
+                        @view_news_add = new View(
+                            template_name: "new_edit"
+                            el: "#main"
+                            data:
+                                motel_id: id
+                        )
+                    @view_news_add.render()
+                    $('#fileupload').fileupload
+                        url: RT.API.Upload
+                        dataType: 'json'
+                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                        # 5MB
+                        maxFileSize: 5000000
+                        done: (e, data) ->
+                            if !data.result.file_name
+                                alertify.error 'Fail to upload file.'
+                                return
+                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                            $('#image_url').val image_url
+                            $('#raw_name').val data.result.file_name
+                            $('#progress').hide 'slow', () ->
+                                $(this).find('.progress-bar').css 'width', '0%'
+                        progressall: (e, data) ->
+                            $('#progress').removeClass('hide').show()
+                            progress = parseInt data.loaded / data.total * 100, 10
+                            $('#progress .progress-bar').css 'width', progress + '%'
+                        processalways: (e, data) ->
+                            if (data.files[data.index].error)
+                                alertify.error data.files[data.index].error
+                        fail: (e, data) ->
+                            alertify.error '檔案上傳失敗'
+              when "edit"
+                    @update_title "修改房型"
+                    unless @view_new
+                        @view_new = new ViewNew(
+                            el: "#main"
+                            model: @new_model
+                        )
+                    else
+                        # trigger change event if model is not changed
+                        @new_model.trigger "change"  unless @new_model.hasChanged()
+                    @new_model.id = id
+                    @new_model.fetch
+                        reset: true
+                        success: (model, response, options) ->
+                            setTimeout(
+                                () ->
+                                    # jquery upload plugin
+                                    $('#fileupload').fileupload
+                                        url: RT.API.Upload
+                                        dataType: 'json'
+                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                                        # 5MB
+                                        maxFileSize: 5000000
+                                        done: (e, data) ->
+                                            if !data.result.file_name
+                                                alertify.error 'Fail to upload file.'
+                                                return
+                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                                            $('#image_url').val image_url
+                                            $('#raw_name').val data.result.file_name
+                                            $('#progress').hide 'slow', () ->
+                                                $(this).find('.progress-bar').css 'width', '0%'
+                                        progressall: (e, data) ->
+                                            $('#progress').removeClass('hide').show()
+                                            progress = parseInt data.loaded / data.total * 100, 10
+                                            $('#progress .progress-bar').css 'width', progress + '%'
+                                        processalways: (e, data) ->
+                                            if (data.files[data.index].error)
+                                                alertify.error data.files[data.index].error
+                                        fail: (e, data) ->
+                                            alertify.error '檔案上傳失敗'
+                                , 2000)
         room: (action, id) ->
             @reset()
             RT.dialogs.loading "open"
