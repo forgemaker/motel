@@ -195,6 +195,43 @@ define([
                     }
                 });
                 break;
+            case 'room':
+                var form_id = $(e.currentTarget).data('form');
+                var form_info = $(form_id).serializeObject();
+                var error = false;
+                for (var name in form_info) {
+                    if (!$.trim(form_info[name])) {
+                        $(form_id + ' input[name=' + name + ']').parent().addClass('has-error');
+                        error = true;
+                    }
+                }
+                if (error) {
+                    alertify.error('紅色欄位務必填寫');
+                    e.stopImmediatePropagation();
+                    return false;
+                }
+
+                $.ajax({
+                    url: RT.API.Room,
+                    dataType: 'json',
+                    type: 'POST',
+                    data: form_info,
+                    beforeSend: function(jqXHR, settings) {
+                        RT.dialogs.loading('open');
+                    },
+                    success: function(response) {
+                        if (response.error_text) {
+                            alertify.error(response.error_text);
+                            RT.dialogs.loading('close');
+                        }
+                        if (response.success_text) {
+                            alertify.success(form_info.title + ' 摩鐵新增成功');
+                            RT.dialogs.loading('close');
+                            //window.location = '#!/room/list/' + form_info.motel_id;
+                        }
+                    }
+                });
+                break;
             }
             // call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation();

@@ -445,19 +445,23 @@ function program17(depth0,data) {
   if (stack1 = helpers.rest_3_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.rest_3_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">住宿原價</label>\n                    <input type=\"text\" name=\"rest_1_price\" class=\"form-control\" placeholder=\"住宿原價\" value=\"";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">住宿原價</label>\n                    <input type=\"text\" name=\"stay_1_price\" class=\"form-control\" placeholder=\"住宿原價\" value=\"";
   if (stack1 = helpers.stay_1_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.stay_1_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日住宿特價</label>\n                    <input type=\"text\" name=\"rest_2_price\" class=\"form-control\" placeholder=\"平日住宿特價\" value=\"";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日住宿特價</label>\n                    <input type=\"text\" name=\"stay_2_price\" class=\"form-control\" placeholder=\"平日住宿特價\" value=\"";
   if (stack1 = helpers.stay_2_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.stay_2_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日住宿特價</label>\n                    <input type=\"text\" name=\"rest_3_price\" class=\"form-control\" placeholder=\"假日住宿特價\" value=\"";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日住宿特價</label>\n                    <input type=\"text\" name=\"stay_3_price\" class=\"form-control\" placeholder=\"假日住宿特價\" value=\"";
   if (stack1 = helpers.stay_3_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.stay_3_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                ";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }

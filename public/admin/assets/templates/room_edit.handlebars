@@ -37,20 +37,21 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">住宿原價</label>
-                    <input type="text" name="rest_1_price" class="form-control" placeholder="住宿原價" value="{{stay_1_price}}">
+                    <input type="text" name="stay_1_price" class="form-control" placeholder="住宿原價" value="{{stay_1_price}}">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">平日住宿特價</label>
-                    <input type="text" name="rest_2_price" class="form-control" placeholder="平日住宿特價" value="{{stay_2_price}}">
+                    <input type="text" name="stay_2_price" class="form-control" placeholder="平日住宿特價" value="{{stay_2_price}}">
                     <span class="help-block"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label">假日住宿特價</label>
-                    <input type="text" name="rest_3_price" class="form-control" placeholder="假日住宿特價" value="{{stay_3_price}}">
+                    <input type="text" name="stay_3_price" class="form-control" placeholder="假日住宿特價" value="{{stay_3_price}}">
                     <span class="help-block"></span>
                 </div>
                 <p class="help-block">*上面欄位務必填寫.</p>
+                <input type="hidden" name="motel_id" value="{{motel_id}}">
                 {{#is_edit}}
                     <input type="hidden" name="id" value="{{id}}">
                 {{/is_edit}}
