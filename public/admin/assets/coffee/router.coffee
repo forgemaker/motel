@@ -217,15 +217,17 @@ define ["jquery",
                     @room_model.set_lists_url @motel_id
                     @room_model.lists.fetch({reset: true})
               when "add"
-                    @update_title "新增帳號"
+                    @update_title "新增房型"
                     unless @view_rooms_add
                         @view_rooms_add = new View(
                             template_name: "room_edit"
                             el: "#main"
+                            data:
+                                motel_id: id
                         )
                     @view_rooms_add.render()
               when "edit"
-                    @update_title "修改帳號"
+                    @update_title "修改房型"
                     unless @view_room
                         @view_room = new ViewRoom(
                             el: "#main"

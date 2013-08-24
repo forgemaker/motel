@@ -4,7 +4,7 @@ define([
     'backbone',
     'views/view'
     ], function($, _, Backbone, View) {
-    RT.ViewUser = View.extend({
+    return View.extend({
 
         render: function() {
             var parent_view = this,
@@ -22,5 +22,4 @@ define([
             return this;
         }
     });
-    return RT.ViewUser;
 });

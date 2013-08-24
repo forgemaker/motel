@@ -219,16 +219,19 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             reset: true
           });
         case "add":
-          this.update_title("新增帳號");
+          this.update_title("新增房型");
           if (!this.view_rooms_add) {
             this.view_rooms_add = new View({
               template_name: "room_edit",
-              el: "#main"
+              el: "#main",
+              data: {
+                motel_id: id
+              }
             });
           }
           return this.view_rooms_add.render();
         case "edit":
-          this.update_title("修改帳號");
+          this.update_title("修改房型");
           if (!this.view_room) {
             this.view_room = new ViewRoom({
               el: "#main",
