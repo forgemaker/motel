@@ -196,7 +196,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       switch (action) {
         case "list":
           this.motel_id = id || 1;
-          this.update_title("房型列表");
+          this.update_title("優惠列表");
           if (!this.view_news_list) {
             this.view_news_list = new ViewNews({
               el: "#main",
@@ -263,7 +263,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             }
           });
         case "edit":
-          this.update_title("修改房型");
+          this.update_title("修改優惠");
           if (!this.view_new) {
             this.view_new = new ViewNew({
               el: "#main",
@@ -279,6 +279,9 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             reset: true,
             success: function(model, response, options) {
               return setTimeout(function() {
+                $('#start_time, #end_time').datepicker({
+                  dateFormat: 'yy-mm-dd'
+                });
                 return $('#fileupload').fileupload({
                   url: RT.API.Upload,
                   dataType: 'json',

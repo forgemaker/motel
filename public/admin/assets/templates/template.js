@@ -452,7 +452,7 @@ function program19(depth0,data) {
   if (stack1 = helpers.end_time) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.end_time; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">描述</label>\n                    <textarea class=\"form-control\" rows=\"3\" name=\"description\">";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">描述</label>\n                    <textarea class=\"form-control\" rows=\"5\" name=\"description\">";
   if (stack1 = helpers.description) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)

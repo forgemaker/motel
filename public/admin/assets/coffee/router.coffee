@@ -197,7 +197,7 @@ define ["jquery",
             switch action
               when "list"
                     @motel_id = id or 1
-                    @update_title "房型列表"
+                    @update_title "優惠列表"
                     unless @view_news_list
                         @view_news_list = new ViewNews(
                             el: "#main"
@@ -248,7 +248,7 @@ define ["jquery",
                         fail: (e, data) ->
                             alertify.error '檔案上傳失敗'
               when "edit"
-                    @update_title "修改房型"
+                    @update_title "修改優惠"
                     unless @view_new
                         @view_new = new ViewNew(
                             el: "#main"
@@ -263,6 +263,8 @@ define ["jquery",
                         success: (model, response, options) ->
                             setTimeout(
                                 () ->
+                                    $('#start_time, #end_time').datepicker
+                                        dateFormat: 'yy-mm-dd'
                                     # jquery upload plugin
                                     $('#fileupload').fileupload
                                         url: RT.API.Upload
