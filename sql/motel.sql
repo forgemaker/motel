@@ -165,3 +165,26 @@ CREATE TABLE IF NOT EXISTS `motels` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `rooms`
+--
+
+DROP TABLE IF EXISTS `rooms`;
+CREATE TABLE IF NOT EXISTS `rooms` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `motel_id` int(11) unsigned NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `rest_1_price` int(6) NOT NULL default '0',
+  `rest_2_price` int(6) NOT NULL default '0',
+  `rest_3_price` int(6) NOT NULL default '0',
+  `stay_1_price` int(6) NOT NULL default '0',
+  `stay_2_price` int(6) NOT NULL default '0',
+  `stay_3_price` int(6) NOT NULL default '0',
+  `raw_name` varchar(64) NOT NULL,
+  `image_url` varchar(128) NOT NULL,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `motel_id` (`motel_id`),
+  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
