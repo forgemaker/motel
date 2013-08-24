@@ -77,7 +77,7 @@ class RoomController extends \BaseController
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -88,7 +88,11 @@ class RoomController extends \BaseController
      */
     public function edit($id)
     {
-        //
+        $room = Room::find($id)->toArray();
+        $data = array(
+            'item' => $room
+        );
+        return Response::json($data);
     }
 
     /**
@@ -99,7 +103,21 @@ class RoomController extends \BaseController
      */
     public function update($id)
     {
-        //
+        $room = Room::find($id);
+
+        $room->title = Input::get('title');
+        $room->rest_1_price = Input::get('rest_1_price');
+        $room->rest_2_price = Input::get('rest_2_price');
+        $room->rest_3_price = Input::get('rest_3_price');
+        $room->stay_1_price = Input::get('stay_1_price');
+        $room->stay_2_price = Input::get('stay_2_price');
+        $room->stay_3_price = Input::get('stay_3_price');
+        $room->raw_name = Input::get('raw_name');
+        $room->image_url = Input::get('image_url');
+        $room->edit_time = time();
+
+        $room->save();
+        return Response::json(array('success_text' => 'ok'));
     }
 
     /**

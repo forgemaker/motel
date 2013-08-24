@@ -118,6 +118,7 @@ define([
             var model = $(e.currentTarget).data('model');
             var form_id = $(e.currentTarget).data('form');
             var form_info = $(form_id).serializeObject();
+            var api_url = RT.API[model.ucFirst()];
             switch (model) {
             case 'user':
                 var error = false;
@@ -227,7 +228,7 @@ define([
                         if (response.success_text) {
                             alertify.success(form_info.title + ' 摩鐵新增成功');
                             RT.dialogs.loading('close');
-                            //window.location = '#!/room/list/' + form_info.motel_id;
+                            window.location = '#!/room/list/' + form_info.motel_id;
                         }
                     }
                 });
@@ -247,6 +248,7 @@ define([
             var id = $(e.currentTarget).data('id');
             var form_id = $(e.currentTarget).data('form');
             var form_info = $(form_id).serializeObject();
+            var api_url = RT.API[model.ucFirst()] + '/' + id;
             switch (model) {
             case 'user':
                 if ($.trim(form_info.password) != '' && $.trim(form_info.password) != $.trim(form_info.confirm_password)) {
@@ -256,49 +258,37 @@ define([
                     e.stopImmediatePropagation();
                     return false;
                 }
-
-                $.ajax({
-                    url: RT.API.User + '/' + id,
-                    dataType: 'json',
-                    type: 'PUT',
-                    data: form_info,
-                    beforeSend: function(jqXHR, settings) {
-                        RT.dialogs.loading('open');
-                    },
-                    success: function(response) {
-                        if (response.error_text) {
-                            alertify.error('帳號修改失敗');
-                            RT.dialogs.loading('close');
-                        }
-                        if (response.success_text) {
-                            alertify.success(form_info.username + ' 帳號修改成功');
-                            RT.dialogs.loading('close');
-                        }
-                    }
-                });
                 break;
-            case 'motel':
-                $.ajax({
-                    url: RT.API.Motel + '/' + id,
-                    dataType: 'json',
-                    type: 'PUT',
-                    data: form_info,
-                    beforeSend: function(jqXHR, settings) {
-                        RT.dialogs.loading('open');
-                    },
-                    success: function(response) {
-                        if (response.error_text) {
-                            alertify.error('摩鐵修改失敗');
-                            RT.dialogs.loading('close');
-                        }
-                        if (response.success_text) {
-                            alertify.success(form_info.title + ' 摩鐵修改成功');
-                            RT.dialogs.loading('close');
-                        }
+            case 'room':
+                for (var name in form_info) {
+                    if (!$.trim(form_info[name])) {
+                        $(form_id + ' input[name=' + name + ']').parent().addClass('has-error');
+                        error = true;
                     }
-                });
+                }
                 break;
             }
+
+            // update data
+            $.ajax({
+                url: api_url,
+                dataType: 'json',
+                type: 'PUT',
+                data: form_info,
+                beforeSend: function(jqXHR, settings) {
+                    RT.dialogs.loading('open');
+                },
+                success: function(response) {
+                    if (response.error_text) {
+                        alertify.error('修改失敗');
+                        RT.dialogs.loading('close');
+                    }
+                    if (response.success_text) {
+                        alertify.success('修改成功');
+                        RT.dialogs.loading('close');
+                    }
+                }
+            });
             // call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation();
             return false;

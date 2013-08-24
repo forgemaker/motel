@@ -354,9 +354,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n                <div class=\"alert alert-info\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\n                    建立日期為 ";
+  buffer += "\n                <div class=\"alert alert-info\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\n                    最後修改日期為 ";
   options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.date_time || depth0.date_time),stack1 ? stack1.call(depth0, depth0.created_on, options) : helperMissing.call(depth0, "date_time", depth0.created_on, options)))
+  buffer += escapeExpression(((stack1 = helpers.date_time || depth0.date_time),stack1 ? stack1.call(depth0, depth0.edit_time, options) : helperMissing.call(depth0, "date_time", depth0.edit_time, options)))
     + "\n                </div>\n                ";
   return buffer;
   }
