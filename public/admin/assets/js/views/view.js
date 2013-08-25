@@ -171,17 +171,6 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
           });
           break;
         case "room":
-          for (name in form_info) {
-            if (!$.trim(form_info[name])) {
-              $(form_id + " input[name=" + name + "]").parent().addClass("has-error");
-              error = true;
-            }
-          }
-          if (error) {
-            alertify.error("紅色欄位務必填寫");
-            e.stopImmediatePropagation();
-            return false;
-          }
           $.ajax({
             url: RT.API.Room,
             dataType: "json",

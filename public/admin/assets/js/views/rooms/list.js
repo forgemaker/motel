@@ -56,6 +56,7 @@ define([
             data.items = [];
             $(parent_view.el).empty();
             this.collection.each(function(item) {
+                item.attributes['type'] = (+item.attributes['type']) ? '住宿' : '休息';
                 data.items.push(item.attributes);
             });
 

@@ -28,10 +28,10 @@
                 <th>&nbsp;</th>
                 <th>編號</th>
                 <th>房型名稱</th>
-                <th>平日休息</th>
-                <th>假日休息</th>
-                <th>平日住宿</th>
-                <th>假日住宿</th>
+                <th>休息/住宿</th>
+                <th>原價</th>
+                <th>平日特價</th>
+                <th>假日特價</th>
                 <th>建立日期</th>
                 <th>動作</th>
             </tr>
@@ -42,10 +42,10 @@
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{id}}</td>
             <td>{{title}}</td>
-            <td>{{rest_2_price}}</td>
-            <td>{{rest_3_price}}</td>
-            <td>{{stay_2_price}}</td>
-            <td>{{stay_3_price}}</td>
+            <td>{{type}}</td>
+            <td>{{price_1}}</td>
+            <td>{{price_2}}</td>
+            <td>{{price_3}}</td>
             <td>{{date_time add_time}}</td>
             <td>
                 <a class="btn btn-primary" data-model="room" data-id="{{id}}" href="#!/room/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
