@@ -296,7 +296,6 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
         $("body").append(this.el);
       }
       template_name = this.options.template_name || this.template_name;
-      console.log(template_name);
       data = this.options.data || {};
       is_table = this.options.is_table || false;
       is_append = this.options.is_append || false;

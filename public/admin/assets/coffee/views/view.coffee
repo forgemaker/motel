@@ -258,7 +258,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
         handlebars: ->
             $("body").append @el    unless @options.el
             template_name = @options.template_name or @template_name
-            console.log template_name
             data = @options.data or {}
             is_table = @options.is_table or false
             is_append = @options.is_append or false
