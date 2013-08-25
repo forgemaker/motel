@@ -122,7 +122,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         data: form_info
                         beforeSend: (jqXHR, settings) ->
                             RT.dialogs.loading "open"
-
                         success: (response) ->
                             if response.error_text
                                 alertify.error response.error_text
@@ -146,7 +145,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         data: form_info
                         beforeSend: (jqXHR, settings) ->
                             RT.dialogs.loading "open"
-
                         success: (response) ->
                             if response.error_text
                                 alertify.error response.error_text
@@ -164,7 +162,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         data: form_info
                         beforeSend: (jqXHR, settings) ->
                             RT.dialogs.loading "open"
-
                         success: (response) ->
                             if response.error_text
                                 alertify.error response.error_text
@@ -182,7 +179,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         data: form_info
                         beforeSend: (jqXHR, settings) ->
                             RT.dialogs.loading "open"
-
                         success: (response) ->
                             if response.error_text
                                 alertify.error response.error_text
@@ -192,6 +188,22 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                                 RT.dialogs.loading "close"
                                 window.location = "#!/new/list/" + form_info.motel_id
 
+                when "rank"
+                    $.ajax
+                        url: RT.API.Rank
+                        dataType: "json"
+                        type: "POST"
+                        data: form_info
+                        beforeSend: (jqXHR, settings) ->
+                            RT.dialogs.loading "open"
+                        success: (response) ->
+                            if response.error_text
+                                alertify.error response.error_text
+                                RT.dialogs.loading "close"
+                            if response.success_text
+                                alertify.success "評分成功"
+                                RT.dialogs.loading "close"
+                                window.location = "#!/rank/list/" + form_info.motel_id
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()

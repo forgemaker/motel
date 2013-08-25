@@ -207,3 +207,21 @@ CREATE TABLE IF NOT EXISTS `news` (
   KEY `motel_id` (`motel_id`),
   FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `ranks`
+--
+
+DROP TABLE IF EXISTS `ranks`;
+CREATE TABLE IF NOT EXISTS `ranks` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `motel_id` int(11) unsigned NOT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `description` text,
+  `rank` int(1) DEFAULT 1,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `motel_id` (`motel_id`),
+  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

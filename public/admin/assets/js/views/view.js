@@ -213,6 +213,28 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
               }
             }
           });
+          break;
+        case "rank":
+          $.ajax({
+            url: RT.API.Rank,
+            dataType: "json",
+            type: "POST",
+            data: form_info,
+            beforeSend: function(jqXHR, settings) {
+              return RT.dialogs.loading("open");
+            },
+            success: function(response) {
+              if (response.error_text) {
+                alertify.error(response.error_text);
+                RT.dialogs.loading("close");
+              }
+              if (response.success_text) {
+                alertify.success("評分成功");
+                RT.dialogs.loading("close");
+                return window.location = "#!/rank/list/" + form_info.motel_id;
+              }
+            }
+          });
       }
       e.stopImmediatePropagation();
       return false;
