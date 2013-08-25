@@ -639,7 +639,7 @@ function program5(depth0,data) {
 this["Handlebars"]["templates"]["rank_edit"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, stack2, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
   
@@ -727,96 +727,86 @@ function program19(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n                <div class=\"form-group\">\n                    <label class=\"control-label\">評分級別</label>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"rank\" value=\"5\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.rank_5) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.rank_5; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.rank_5) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "5", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "5", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.program(3, program3, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">5 (最高)\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"rank\" value=\"4\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.rank_4) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.rank_4; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.rank_4) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "4", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "4", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">4\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"rank\" value=\"3\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.rank_3) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.rank_3; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.rank_3) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "3", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "3", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">3\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"rank\" value=\"2\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.rank_2) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.rank_2; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.rank_2) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "2", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "2", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">2\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"rank\" value=\"1\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.rank_1) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.rank_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.rank_1) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "1", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "1", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">1\n                    </div>\n                    <span class=\"help-block\">請選擇此評分</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">評分標題</label>\n                    <input type=\"text\" name=\"title\" class=\"form-control\" placeholder=\"請輸入評分名稱\" value=\"";
-  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">描述</label>\n                    <textarea class=\"form-control\" rows=\"5\" name=\"description\">";
-  if (stack1 = helpers.description) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "</textarea>\n                    <span class=\"help-block\"></span>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
-  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.motel_id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.motel_id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                <button type=\"button\" data-form=\"#rank_add_form\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += " data-model=\"rank\" class=\"btn btn-primary ";
   options = {hash:{},inverse:self.program(9, program9, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\">";
   options = {hash:{},inverse:self.program(13, program13, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</button>\n                <button class=\"btn\" type=\"reset\">";
   options = {hash:{},inverse:self.program(17, program17, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</button>\n            </form>\n        </div>\n    </div>\n</div>\n</article>\n<script>\n(function($){\n    $('#myTab').tab('show');\n    $('a[data-toggle=\"tab\"]').on('shown', function (e) {\n        console.log(e);\n        console.log(e.target.hash); // activated tab\n        console.log(e.relatedTarget.hash); // previous tab\n    });\n}(jQuery));\n</script>\n";
   return buffer;
   });
@@ -923,7 +913,7 @@ function program5(depth0,data) {
 this["Handlebars"]["templates"]["room_edit"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, stack2, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function", self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
   
@@ -1024,93 +1014,89 @@ function program21(depth0,data) {
   if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">房型類別</label>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"type\" id=\"optionsRadios1\" value=\"0\" ";
-  options = {hash:{},inverse:self.program(3, program3, data),fn:self.noop,data:data};
-  if (stack1 = helpers.type) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.type) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += ">休息 (預設選項)\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"type\" id=\"optionsRadios1\" value=\"1\" ";
+    + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">房型類別</label>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"type\" value=\"0\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
-  if (stack1 = helpers.type) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.type) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.type, "0", options) : helperMissing.call(depth0, "ifeq", depth0.type, "0", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += ">休息 (預設選項)\n                    </div>\n                    <div class=\"radio\">\n                        <input type=\"radio\" name=\"type\" value=\"1\" ";
+  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
+  stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.type, "1", options) : helperMissing.call(depth0, "ifeq", depth0.type, "1", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += ">住宿\n                    </div>\n                    <span class=\"help-block\">請選擇此房型為住宿或休息型態</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">原價</label>\n                    <div class=\"input-group\">\n                        <span class=\"input-group-addon\">$</span>\n                        <input type=\"text\" name=\"price_1\" class=\"form-control\" placeholder=\"原價\" value=\"";
-  if (stack1 = helpers.price_1) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.price_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.price_1) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.price_1; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                        <span class=\"input-group-addon\">.00</span>\n                    </div>\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日特價</label>\n                    <div class=\"input-group\">\n                        <span class=\"input-group-addon\">$</span>\n                        <input type=\"text\" name=\"price_2\" class=\"form-control\" placeholder=\"平日特價\" value=\"";
-  if (stack1 = helpers.price_2) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.price_2; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.price_2) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.price_2; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                        <span class=\"input-group-addon\">.00</span>\n                    </div>\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日特價</label>\n                    <div class=\"input-group\">\n                        <span class=\"input-group-addon\">$</span>\n                        <input type=\"text\" name=\"price_3\" class=\"form-control\" placeholder=\"假日特價\" value=\"";
-  if (stack1 = helpers.price_3) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.price_3; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.price_3) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.price_3; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                        <span class=\"input-group-addon\">.00</span>\n                    </div>\n                    <span class=\"help-block\"></span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">上傳房型圖片</label>\n                    <div data-placement=\"top\" data-original-title=\"Change collection cover\" data-toggle=\"tooltip\">\n                        <a class=\"btn btn-success fileinput-button\">\n                            <i class=\"icon-cloud-upload\"></i>\n                            <span>上傳房型封面</span>\n                            <!-- The file input field used as target for the file upload widget -->\n                            <input id=\"fileupload\" type=\"file\" name=\"upload_file\">\n                        </a>\n                        <input type=\"hidden\" id=\"image_url\" name=\"image_url\" value=\"";
-  if (stack1 = helpers.image_url) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.image_url; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.image_url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.image_url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                        <input type=\"hidden\" id=\"raw_name\" name=\"raw_name\" value=\"";
-  if (stack1 = helpers.raw_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.raw_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.raw_name) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.raw_name; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                    </div>\n                </div>\n                <div id=\"upload_area\" class=\"row\">\n                    ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
-  if (stack1 = helpers.is_image) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_image; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_image) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_image) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_image; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_image) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                </div>\n                <div id=\"progress\" class=\"progress hide\" style=\"margin-top:10px;\">\n                    <div style=\"width: 0%;\" class=\"progress-bar progress-bar-success\"></div>\n                </div>\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                <input type=\"hidden\" name=\"motel_id\" value=\"";
-  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.motel_id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.motel_id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                <button type=\"button\" data-form=\"#room_add_form\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += " data-model=\"room\" class=\"btn btn-primary ";
   options = {hash:{},inverse:self.program(11, program11, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\">";
   options = {hash:{},inverse:self.program(15, program15, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</button>\n                <button class=\"btn\" type=\"reset\">";
   options = {hash:{},inverse:self.program(19, program19, data),fn:self.noop,data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  if (stack2 = helpers.is_edit) { stack2 = stack2.call(depth0, options); }
+  else { stack2 = depth0.is_edit; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  if (!helpers.is_edit) { stack2 = blockHelperMissing.call(depth0, stack2, options); }
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "</button>\n            </form>\n        </div>\n    </div>\n</div>\n</article>\n<script>\n(function($){\n    $('#myTab').tab('show');\n    $('a[data-toggle=\"tab\"]').on('shown', function (e) {\n        console.log(e);\n        console.log(e.target.hash); // activated tab\n        console.log(e.relatedTarget.hash); // previous tab\n    });\n}(jQuery));\n</script>\n";
   return buffer;
   });

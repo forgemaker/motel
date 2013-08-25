@@ -18,19 +18,19 @@
                 <div class="form-group">
                     <label class="control-label">評分級別</label>
                     <div class="radio">
-                        <input type="radio" name="rank" value="5" {{#rank_5}}checked{{/rank_5}}{{^is_edit}}checked{{/is_edit}}>5 (最高)
+                        <input type="radio" name="rank" value="5" {{#ifeq this.rank '5'}}checked{{/ifeq}}{{^is_edit}}checked{{/is_edit}}>5 (最高)
                     </div>
                     <div class="radio">
-                        <input type="radio" name="rank" value="4" {{#rank_4}}checked{{/rank_4}}>4
+                        <input type="radio" name="rank" value="4" {{#ifeq this.rank '4'}}checked{{/ifeq}}>4
                     </div>
                     <div class="radio">
-                        <input type="radio" name="rank" value="3" {{#rank_3}}checked{{/rank_3}}>3
+                        <input type="radio" name="rank" value="3" {{#ifeq this.rank '3'}}checked{{/ifeq}}>3
                     </div>
                     <div class="radio">
-                        <input type="radio" name="rank" value="2" {{#rank_2}}checked{{/rank_2}}>2
+                        <input type="radio" name="rank" value="2" {{#ifeq this.rank '2'}}checked{{/ifeq}}>2
                     </div>
                     <div class="radio">
-                        <input type="radio" name="rank" value="1" {{#rank_1}}checked{{/rank_1}}>1
+                        <input type="radio" name="rank" value="1" {{#ifeq this.rank '1'}}checked{{/ifeq}}>1
                     </div>
                     <span class="help-block">請選擇此評分</span>
                 </div>

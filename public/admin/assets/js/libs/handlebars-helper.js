@@ -7,3 +7,7 @@ Handlebars.registerHelper('select', function(value, options) {
     $el.find('[value="' + value + '"]').attr({'selected':'selected'});
     return $el.html();
 });
+
+Handlebars.registerHelper('ifeq', function(a, b, block) {
+    return a == b ? block.fn() : block.inverse();
+});

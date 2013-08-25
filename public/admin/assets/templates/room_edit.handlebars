@@ -23,10 +23,10 @@
                 <div class="form-group">
                     <label class="control-label">房型類別</label>
                     <div class="radio">
-                        <input type="radio" name="type" id="optionsRadios1" value="0" {{^type}}checked{{/type}}>休息 (預設選項)
+                        <input type="radio" name="type" value="0" {{#ifeq this.type '0'}}checked{{/ifeq}}>休息 (預設選項)
                     </div>
                     <div class="radio">
-                        <input type="radio" name="type" id="optionsRadios1" value="1" {{#type}}checked{{/type}}>住宿
+                        <input type="radio" name="type" value="1" {{#ifeq this.type '1'}}checked{{/ifeq}}>住宿
                     </div>
                     <span class="help-block">請選擇此房型為住宿或休息型態</span>
                 </div>
