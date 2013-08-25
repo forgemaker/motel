@@ -7,7 +7,7 @@ class Rank extends Eloquent
      *
      * @var string
      */
-    protected $table = 'rooms';
+    protected $table = 'ranks';
     protected $fillable = array('motel_id', 'title', 'description', 'rank', 'add_time', 'edit_time');
     protected $guarded = array('id', 'motel_id');
     public $timestamps = false;

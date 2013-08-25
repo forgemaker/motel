@@ -57,8 +57,6 @@ class NewsController extends \BaseController
             'end_time' => Input::get('end_time'),
             'raw_name' => Input::get('raw_name'),
             'image_url' => Input::get('image_url'),
-            'add_time' => Input::get('add_time'),
-            'edit_time' => Input::get('edit_time'),
             'add_time' => time(),
             'edit_time' => time()
         ));

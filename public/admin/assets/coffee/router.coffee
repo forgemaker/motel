@@ -9,6 +9,7 @@ RT.API =
     User: root_path + "user"
     Motel: root_path + "motel"
     New: root_path + "new"
+    Rank: root_path + "rank"
 
 String.prototype.ucFirst = () ->
     this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
@@ -133,6 +134,7 @@ define ["jquery",
         "models/motel",
         "models/room",
         "models/new",
+        "models/rank",
         "views/view",
         "views/users/list",
         "views/users/edit",
@@ -142,6 +144,8 @@ define ["jquery",
         "views/rooms/edit",
         "views/news/list",
         "views/news/edit",
+        "views/ranks/list",
+        "views/ranks/edit",
         "moment",
         "jquery.twzipcode",
         "jquery.serialize",
@@ -159,7 +163,7 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew) ->
+        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
@@ -171,6 +175,7 @@ define ["jquery",
             "!/user/:action/:id": "user"
             "!/room/:action/:id": "room"
             "!/new/:action/:id": "new"
+            "!/rank/:action/:id": "rank"
 
         initialize: ->
             @me = new ModelMe()
@@ -182,6 +187,7 @@ define ["jquery",
             @motel_model = new ModelMotel()  unless @motel_model
             @room_model = new ModelRoom()  unless @room_model
             @new_model = new ModelNew()  unless @new_model
+            @rank_model = new ModelRank()  unless @rank_model
 
         update_title: (title) ->
             if title
@@ -190,6 +196,50 @@ define ["jquery",
             else
                 document.title = @site_name
                 $(".section_title").text ""
+        rank: (action, id) ->
+            @reset()
+            RT.dialogs.loading "open"
+            $("#main").html ""
+            switch action
+              when "list"
+                    @motel_id = id or 1
+                    @update_title "優惠列表"
+                    unless @view_ranks_list
+                        @view_ranks_list = new ViewRanks(
+                            el: "#main"
+                            collection: @rank_model.lists
+                            model_name: @rank_model
+                            data:
+                                motel_id: @motel_id
+                            page: @page or 1
+                        )
+                    @view_ranks_list.options.page = @page or 1
+                    @rank_model.set_lists_url @motel_id
+                    @rank_model.lists.fetch({reset: true})
+              when "add"
+                    @update_title "新增優惠消息"
+                    unless @view_ranks_add
+                        @view_ranks_add = new View(
+                            template_name: 'rank_edit'
+                            el: "#main"
+                            data:
+                                motel_id: id
+                        )
+                    @view_ranks_add.render()
+              when "edit"
+                    @update_title "修改優惠"
+                    unless @view_rank
+                        @view_rank = new ViewRank(
+                            el: "#main"
+                            model: @rank_model
+                        )
+                    else
+                        # trigger change event if model is not changed
+                        @rank_model.trigger "change"  unless @rank_model.hasChanged()
+                    @rank_model.id = id
+                    @rank_model.fetch
+                        reset: true
+
         new: (action, id) ->
             @reset()
             RT.dialogs.loading "open"

@@ -52,8 +52,8 @@ class RankController extends \BaseController
         $rank = Rank::create(array(
             'motel_id' => Input::get('motel_id'),
             'rank' => Input::get('rank', 1),
-            'title' => Input::get('price_1', null),
-            'description' => Input::get('price_2', null),
+            'title' => Input::get('title', null),
+            'description' => Input::get('description', null),
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -98,12 +98,9 @@ class RankController extends \BaseController
         $rank = Rank::find($id);
 
         $rank->title = Input::get('title');
-        $rank->type = Input::get('type', 0);
-        $rank->price_1 = Input::get('price_1', 0);
-        $rank->price_2 = Input::get('price_2', 0);
-        $rank->price_3 = Input::get('price_3', 0);
-        $rank->raw_name = Input::get('raw_name');
-        $rank->image_url = Input::get('image_url');
+        $rank->rank = Input::get('rank', 1);
+        $rank->title = Input::get('title', null);
+        $rank->description = Input::get('description', null);
         $rank->edit_time = time();
 
         $rank->save();

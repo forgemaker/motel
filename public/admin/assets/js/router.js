@@ -6,7 +6,8 @@ RT.API = {
   Room: root_path + "room",
   User: root_path + "user",
   Motel: root_path + "motel",
-  New: root_path + "new"
+  New: root_path + "new",
+  Rank: root_path + "rank"
 };
 
 String.prototype.ucFirst = function() {
@@ -149,7 +150,7 @@ RT.api = {
   }
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew) {
+define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
   var AppRouter, initialize;
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
@@ -161,7 +162,8 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       "!/user/:action": "user",
       "!/user/:action/:id": "user",
       "!/room/:action/:id": "room",
-      "!/new/:action/:id": "new"
+      "!/new/:action/:id": "new",
+      "!/rank/:action/:id": "rank"
     },
     initialize: function() {
       this.me = new ModelMe();
@@ -177,7 +179,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
         this.room_model = new ModelRoom();
       }
       if (!this.new_model) {
-        return this.new_model = new ModelNew();
+        this.new_model = new ModelNew();
+      }
+      if (!this.rank_model) {
+        return this.rank_model = new ModelRank();
       }
     },
     update_title: function(title) {
@@ -187,6 +192,60 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       } else {
         document.title = this.site_name;
         return $(".section_title").text("");
+      }
+    },
+    rank: function(action, id) {
+      this.reset();
+      RT.dialogs.loading("open");
+      $("#main").html("");
+      switch (action) {
+        case "list":
+          this.motel_id = id || 1;
+          this.update_title("優惠列表");
+          if (!this.view_ranks_list) {
+            this.view_ranks_list = new ViewRanks({
+              el: "#main",
+              collection: this.rank_model.lists,
+              model_name: this.rank_model,
+              data: {
+                motel_id: this.motel_id
+              },
+              page: this.page || 1
+            });
+          }
+          this.view_ranks_list.options.page = this.page || 1;
+          this.rank_model.set_lists_url(this.motel_id);
+          return this.rank_model.lists.fetch({
+            reset: true
+          });
+        case "add":
+          this.update_title("新增優惠消息");
+          if (!this.view_ranks_add) {
+            this.view_ranks_add = new View({
+              template_name: 'rank_edit',
+              el: "#main",
+              data: {
+                motel_id: id
+              }
+            });
+          }
+          return this.view_ranks_add.render();
+        case "edit":
+          this.update_title("修改優惠");
+          if (!this.view_rank) {
+            this.view_rank = new ViewRank({
+              el: "#main",
+              model: this.rank_model
+            });
+          } else {
+            if (!this.rank_model.hasChanged()) {
+              this.rank_model.trigger("change");
+            }
+          }
+          this.rank_model.id = id;
+          return this.rank_model.fetch({
+            reset: true
+          });
       }
     },
     "new": function(action, id) {
