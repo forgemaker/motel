@@ -127,17 +127,21 @@
                 <div class="form-group">
                     <label class="control-label">平日休息時間</label>
                     <select class="form-control" name="rest_time_1">
+                        {{#select rest_time_1}}
                         <option value="2H">2H</option>
                         <option value="2.5H">2.5H</option>
                         <option value="3H">3H</option>
+                        {{/select}}
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label">假日休息時間</label>
                     <select class="form-control" name="rest_time_2">
+                        {{#select rest_time_2}}
                         <option value="2H">2H</option>
                         <option value="2.5H">2.5H</option>
                         <option value="3H">3H</option>
+                        {{/select}}
                     </select>
                 </div>
                 <div class="form-group">

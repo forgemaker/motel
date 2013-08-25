@@ -4,7 +4,7 @@ this["Handlebars"]["templates"] = this["Handlebars"]["templates"] || {};
 this["Handlebars"]["templates"]["motel_edit"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
 
 function program1(depth0,data) {
   
@@ -98,6 +98,12 @@ function program17(depth0,data) {
   buffer += escapeExpression(stack1)
     + "\" class=\"img-rounded\" style=\"width: 400px; height: 200px;\">\n                    ";
   return buffer;
+  }
+
+function program19(depth0,data) {
+  
+  
+  return "\n                        <option value=\"2H\">2H</option>\n                        <option value=\"2.5H\">2.5H</option>\n                        <option value=\"3H\">3H</option>\n                        ";
   }
 
   buffer += "<article class=\"module width_full\">\n<div style=\"width:97%;margin:0 auto;\">\n    <div class=\"menu\">\n        ";
@@ -220,14 +226,22 @@ function program17(depth0,data) {
   else { stack1 = depth0.is_image; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_image) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n                </div>\n                <div id=\"progress\" class=\"progress hide\" style=\"margin-top:10px;\">\n                    <div style=\"width: 0%;\" class=\"progress-bar progress-bar-success\"></div>\n                </div>\n            </div>\n            <div class=\"tab-pane\" id=\"time\">\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_1\">\n                        <option value=\"2H\">2H</option>\n                        <option value=\"2.5H\">2.5H</option>\n                        <option value=\"3H\">3H</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_2\">\n                        <option value=\"2H\">2H</option>\n                        <option value=\"2.5H\">2.5H</option>\n                        <option value=\"3H\">3H</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日住宿進房時間</label>\n                    <input type=\"text\" name=\"stay_time_1\" id=\"stay_time_1\" class=\"form-control\" placeholder=\"請輸入摩鐵平日住宿進房時間\" value=\"";
-  if (stack1 = helpers.stay_time_1) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.stay_time_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "\n                </div>\n                <div id=\"progress\" class=\"progress hide\" style=\"margin-top:10px;\">\n                    <div style=\"width: 0%;\" class=\"progress-bar progress-bar-success\"></div>\n                </div>\n            </div>\n            <div class=\"tab-pane\" id=\"time\">\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_1\">\n                        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
+  stack2 = ((stack1 = helpers.select || depth0.select),stack1 ? stack1.call(depth0, depth0.rest_time_1, options) : helperMissing.call(depth0, "select", depth0.rest_time_1, options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_2\">\n                        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
+  stack2 = ((stack1 = helpers.select || depth0.select),stack1 ? stack1.call(depth0, depth0.rest_time_2, options) : helperMissing.call(depth0, "select", depth0.rest_time_2, options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日住宿進房時間</label>\n                    <input type=\"text\" name=\"stay_time_1\" id=\"stay_time_1\" class=\"form-control\" placeholder=\"請輸入摩鐵平日住宿進房時間\" value=\"";
+  if (stack2 = helpers.stay_time_1) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.stay_time_1; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日住宿進房時間</label>\n                    <input type=\"text\" name=\"stay_time_2\" id=\"stay_time_2\" class=\"form-control\" placeholder=\"請輸入摩鐵假日住宿進房時間\" value=\"";
-  if (stack1 = helpers.stay_time_2) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.stay_time_2; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  if (stack2 = helpers.stay_time_2) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.stay_time_2; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "\">\n                </div>\n            </div>\n        </div>\n    </form>\n</div>\n</article>\n<script>\n(function($){\n    $('#myTab').tab('show');\n    $('a[data-toggle=\"tab\"]').on('shown', function (e) {\n        console.log(e);\n        console.log(e.target.hash); // activated tab\n        console.log(e.relatedTarget.hash); // previous tab\n    });\n}(jQuery));\n</script>\n";
   return buffer;
   });
