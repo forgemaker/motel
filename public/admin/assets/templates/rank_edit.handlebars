@@ -1,0 +1,68 @@
+<article class="module width_full">
+<div style="width:97%;margin:0 auto;">
+    <div class="menu">
+        <a class="btn btn-primary" data-model="rank" href="#!/rank/list/{{motel_id}}" style="color: white;"><i class="icon-list"></i> 檢視評分列表</a>
+    </div>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#profile" data-toggle="tab">評分資料</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+            <form action="#" method="post" class="well" id="rank_add_form">
+                {{#is_edit}}
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    最後修改日期為 {{date_time edit_time}}
+                </div>
+                {{/is_edit}}
+                <div class="form-group">
+                    <label class="control-label">評分級別</label>
+                    <div class="radio">
+                        <input type="radio" name="rank" value="5">5 (最高)
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="rank" value="4">4
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="rank" value="3">3
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="rank" value="2">2
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="rank" value="1">1
+                    </div>
+                    <span class="help-block">請選擇此評分</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">評分標題</label>
+                    <input type="text" name="title" class="form-control" placeholder="請輸入評分名稱" value="{{title}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">描述</label>
+                    <textarea class="form-control" rows="5" name="description">{{description}}</textarea>
+                    <span class="help-block"></span>
+                </div>
+                <p class="help-block">*上面欄位務必填寫.</p>
+                <input type="hidden" name="motel_id" value="{{motel_id}}">
+                {{#is_edit}}
+                    <input type="hidden" name="id" value="{{id}}">
+                {{/is_edit}}
+                <button type="button" data-form="#rank_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="rank" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立評分{{/is_edit}}{{#is_edit}}編輯評分{{/is_edit}}</button>
+                <button class="btn" type="reset">{{^is_edit}}重新填寫{{/is_edit}}{{#is_edit}}取消編輯{{/is_edit}}</button>
+            </form>
+        </div>
+    </div>
+</div>
+</article>
+<script>
+(function($){
+    $('#myTab').tab('show');
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+        console.log(e);
+        console.log(e.target.hash); // activated tab
+        console.log(e.relatedTarget.hash); // previous tab
+    });
+}(jQuery));
+</script>

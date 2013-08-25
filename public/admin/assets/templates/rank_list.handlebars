@@ -1,0 +1,57 @@
+<article class="module width_full">
+<div style="width:97%;margin:0 auto;">
+    <div class="menu">
+        <a class="btn btn-primary check_all" data-model="rank" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
+        <a class="btn btn-primary" data-model="rank" href="#!/rank/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增評分</a>
+        <a class="btn btn-danger delete_all" data-form="#rank_list_form" data-model="rank" style="color: white;"><i class="icon-trash"></i> 刪除評分</a>
+    </div>
+    <ul class="pager">
+        {{#previous_show}}
+        <li class="previous">
+            <a href="#!/rank/list/1" style="margin-right: 10px;">&larr; 第一頁</a>
+        </li>
+        <li class="previous">
+            <a href="#!/rank/list/{{previous_page}}">&larr; 上一頁</a>
+        </li>
+        {{/previous_show}}
+        {{#next_show}}
+        <li class="next">
+            <a href="#!/rank/list/{{next_page}}">下一頁 &rarr;</a>
+        </li>
+        {{/next_show}}
+    </ul>
+    <form action="#" method="post" id="rank_list_form">
+    <div class="table-responsive">
+    <table id="rank_list" class="table table-striped table-bordered table-condensed tablesorter">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>編號</th>
+                <th>評分</th>
+                <th>標題</th>
+                <th>內容</th>
+                <th>建立日期</th>
+                <th>動作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#items}}
+        <tr>
+            <td><input type="checkbox" name="id[]" value="{{id}}"></td>
+            <td>{{id}}</td>
+            <td>{{rank}}</td>
+            <td>{{title}}</td>
+            <td>{{description}}</td>
+            <td>{{date_time add_time}}</td>
+            <td>
+                <a class="btn btn-primary" data-model="rank" data-id="{{id}}" href="#!/rank/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
+                <a class="btn btn-danger delete" data-model="rank" data-title="{{title}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
+            </td>
+        </tr>
+        {{/items}}
+        </tbody>
+    </table>
+    </div>
+    </form>
+</div>
+</article>
