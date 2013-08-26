@@ -58,8 +58,6 @@ class RoomController extends \BaseController
             'price_3' => Input::get('price_3', 0),
             'raw_name' => Input::get('raw_name'),
             'image_url' => Input::get('image_url'),
-            'add_time' => Input::get('add_time'),
-            'edit_time' => Input::get('edit_time'),
             'add_time' => time(),
             'edit_time' => time()
         ));
