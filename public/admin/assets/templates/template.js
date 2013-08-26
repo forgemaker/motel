@@ -1151,8 +1151,8 @@ function program5(depth0,data) {
     + "</td>\r\n            <td>";
   if (stack1 = helpers.type) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</td>\r\n            <td>";
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</td>\r\n            <td>";
   if (stack1 = helpers.price_1) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.price_1; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
