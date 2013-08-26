@@ -70,6 +70,10 @@ api_req = (name, callback, settings) ->
     $.ajax $.extend({}, ajaxSettings,
         url: name
         type: (if (settings.data) then "POST" else "GET")
+        beforeSend: (jqXHR, settings) ->
+            RT.dialogs.loading "open"
+        complete: (jqXHR, textStatus) ->
+            RT.dialogs.loading "close"
         success: callback
         error: (xhr, status, errorThrown) ->
             message = "Unknown error. Please try again later."

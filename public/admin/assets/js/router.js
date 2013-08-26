@@ -85,6 +85,12 @@ api_req = function(name, callback, settings) {
   return $.ajax($.extend({}, ajaxSettings, {
     url: name,
     type: (settings.data ? "POST" : "GET"),
+    beforeSend: function(jqXHR, settings) {
+      return RT.dialogs.loading("open");
+    },
+    complete: function(jqXHR, textStatus) {
+      return RT.dialogs.loading("close");
+    },
     success: callback,
     error: function(xhr, status, errorThrown) {
       var error, message;

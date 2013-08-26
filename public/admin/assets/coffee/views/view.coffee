@@ -70,7 +70,6 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                     data: form_info
                     beforeSend: (jqXHR, settings) ->
                         RT.dialogs.loading "open"
-
                     success: (response) ->
                         if response.error_text
                             alertify.error "刪除失敗"
