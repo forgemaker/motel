@@ -23,23 +23,13 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
       model = $(e.currentTarget).data("model");
       api_url = RT.API[model.ucFirst()] + "/" + id;
       if (confirm("確定刪除此筆資料?")) {
-        $.ajax({
-          url: api_url,
-          dataType: "json",
-          type: "DELETE",
-          beforeSend: function(jqXHR, settings) {
-            return RT.dialogs.loading("open");
-          },
-          success: function(response) {
-            if (response.error_text) {
-              alertify.error("刪除失敗");
-              RT.dialogs.loading("close");
-            }
-            if (response.success_text) {
-              alertify.success($(e.currentTarget).data("title") + " 已被刪除");
-              $(e.currentTarget).parent().parent().remove();
-              return RT.dialogs.loading("close");
-            }
+        RT.api.DELETE(api_url, null, function(response) {
+          if (response.error_text) {
+            alertify.error("刪除失敗");
+          }
+          if (response.success_text) {
+            alertify.success($(e.currentTarget).data("title") + " 已被刪除");
+            return $(e.currentTarget).parent().parent().remove();
           }
         });
       }
@@ -61,26 +51,15 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
         return false;
       }
       if (confirm("確定刪除選取資料?")) {
-        $.ajax({
-          url: api_url,
-          dataType: "json",
-          type: "DELETE",
-          data: form_info,
-          beforeSend: function(jqXHR, settings) {
-            return RT.dialogs.loading("open");
-          },
-          success: function(response) {
-            if (response.error_text) {
-              alertify.error("刪除失敗");
-              RT.dialogs.loading("close");
-            }
-            if (response.success_text) {
-              alertify.success("刪除成功");
-              $("input:checked").each(function() {
-                return $(this).parent().parent().remove();
-              });
-              return RT.dialogs.loading("close");
-            }
+        RT.api.DELETE(api_url, form_info, function(response) {
+          if (response.error_text) {
+            alertify.error("刪除失敗");
+          }
+          if (response.success_text) {
+            alertify.success("刪除成功");
+            return $("input:checked").each(function() {
+              return $(this).parent().parent().remove();
+            });
           }
         });
       }
@@ -120,25 +99,15 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             e.stopImmediatePropagation();
             return false;
           }
-          $.ajax({
-            url: RT.API.User,
-            dataType: "json",
-            type: "POST",
-            data: form_info,
-            beforeSend: function(jqXHR, settings) {
-              return RT.dialogs.loading("open");
-            },
-            success: function(response) {
-              if (response.error_text) {
-                alertify.error(response.error_text);
-                RT.dialogs.loading("close");
-              }
-              if (response.success_text) {
-                alertify.success(form_info.username + " 帳號新增成功");
-                $("input[type=text], input[type=password]").val("");
-                RT.dialogs.loading("close");
-                return window.location = "#!/user/list";
-              }
+          RT.api.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success(form_info.username + " 帳號新增成功");
+              $("input[type=text], input[type=password]").val("");
+              RT.dialogs.loading("close");
+              return window.location = "#!/user/list";
             }
           });
           break;
@@ -149,90 +118,46 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             e.stopImmediatePropagation();
             return false;
           }
-          $.ajax({
-            url: RT.API.Motel,
-            dataType: "json",
-            type: "POST",
-            data: form_info,
-            beforeSend: function(jqXHR, settings) {
-              return RT.dialogs.loading("open");
-            },
-            success: function(response) {
-              if (response.error_text) {
-                alertify.error(response.error_text);
-                RT.dialogs.loading("close");
-              }
-              if (response.success_text) {
-                alertify.success(form_info.title + " 摩鐵新增成功");
-                RT.dialogs.loading("close");
-                return window.location = "#!/motel/list";
-              }
+          RT.api.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success(form_info.title + " 摩鐵新增成功");
+              return window.location = "#!/motel/list";
             }
           });
           break;
         case "room":
-          $.ajax({
-            url: RT.API.Room,
-            dataType: "json",
-            type: "POST",
-            data: form_info,
-            beforeSend: function(jqXHR, settings) {
-              return RT.dialogs.loading("open");
-            },
-            success: function(response) {
-              if (response.error_text) {
-                alertify.error(response.error_text);
-                RT.dialogs.loading("close");
-              }
-              if (response.success_text) {
-                alertify.success(form_info.title + " 新增成功");
-                RT.dialogs.loading("close");
-                return window.location = "#!/room/list/" + form_info.motel_id;
-              }
+          RT.api.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success(form_info.title + " 新增成功");
+              return window.location = "#!/room/list/" + form_info.motel_id;
             }
           });
           break;
         case "new":
-          $.ajax({
-            url: RT.API.New,
-            dataType: "json",
-            type: "POST",
-            data: form_info,
-            beforeSend: function(jqXHR, settings) {
-              return RT.dialogs.loading("open");
-            },
-            success: function(response) {
-              if (response.error_text) {
-                alertify.error(response.error_text);
-                RT.dialogs.loading("close");
-              }
-              if (response.success_text) {
-                alertify.success(form_info.title + " 新增成功");
-                RT.dialogs.loading("close");
-                return window.location = "#!/new/list/" + form_info.motel_id;
-              }
+          RT.api.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success(form_info.title + " 新增成功");
+              return window.location = "#!/new/list/" + form_info.motel_id;
             }
           });
           break;
         case "rank":
-          $.ajax({
-            url: RT.API.Rank,
-            dataType: "json",
-            type: "POST",
-            data: form_info,
-            beforeSend: function(jqXHR, settings) {
-              return RT.dialogs.loading("open");
-            },
-            success: function(response) {
-              if (response.error_text) {
-                alertify.error(response.error_text);
-                RT.dialogs.loading("close");
-              }
-              if (response.success_text) {
-                alertify.success("評分成功");
-                RT.dialogs.loading("close");
-                return window.location = "#!/rank/list/" + form_info.motel_id;
-              }
+          RT.api.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success("評分成功");
+              return window.location = "#!/rank/list/" + form_info.motel_id;
             }
           });
       }

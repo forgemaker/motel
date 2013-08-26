@@ -29,22 +29,12 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             model = $(e.currentTarget).data("model")
             api_url = RT.API[model.ucFirst()] + "/" + id
             if confirm("確定刪除此筆資料?")
-                $.ajax
-                    url: api_url
-                    dataType: "json"
-                    type: "DELETE"
-                    beforeSend: (jqXHR, settings) ->
-                        RT.dialogs.loading "open"
-
-                    success: (response) ->
-                        if response.error_text
-                            alertify.error "刪除失敗"
-                            RT.dialogs.loading "close"
-                        if response.success_text
-                            alertify.success $(e.currentTarget).data("title") + " 已被刪除"
-                            $(e.currentTarget).parent().parent().remove()
-                            RT.dialogs.loading "close"
-
+                RT.api.DELETE api_url, null, (response) ->
+                    if response.error_text
+                        alertify.error "刪除失敗"
+                    if response.success_text
+                        alertify.success $(e.currentTarget).data("title") + " 已被刪除"
+                        $(e.currentTarget).parent().parent().remove()
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
@@ -63,26 +53,13 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                 e.stopImmediatePropagation()
                 return false
             if confirm("確定刪除選取資料?")
-                $.ajax
-                    url: api_url
-                    dataType: "json"
-                    type: "DELETE"
-                    data: form_info
-                    beforeSend: (jqXHR, settings) ->
-                        RT.dialogs.loading "open"
-                    success: (response) ->
-                        if response.error_text
-                            alertify.error "刪除失敗"
-                            RT.dialogs.loading "close"
-                        if response.success_text
-                            alertify.success "刪除成功"
-
-                            # remove checkbox tag
-                            $("input:checked").each ->
-                                $(this).parent().parent().remove()
-
-                            RT.dialogs.loading "close"
-
+                RT.api.DELETE api_url, form_info, (response) ->
+                    if response.error_text
+                        alertify.error "刪除失敗"
+                    if response.success_text
+                        alertify.success "刪除成功"
+                        $("input:checked").each ->
+                            $(this).parent().parent().remove()
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
@@ -114,22 +91,14 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         alertify.error "登入密碼跟確認密碼必須相等"
                         e.stopImmediatePropagation()
                         return false
-                    $.ajax
-                        url: RT.API.User
-                        dataType: "json"
-                        type: "POST"
-                        data: form_info
-                        beforeSend: (jqXHR, settings) ->
-                            RT.dialogs.loading "open"
-                        success: (response) ->
-                            if response.error_text
-                                alertify.error response.error_text
-                                RT.dialogs.loading "close"
-                            if response.success_text
-                                alertify.success form_info.username + " 帳號新增成功"
-                                $("input[type=text], input[type=password]").val ""
-                                RT.dialogs.loading "close"
-                                window.location = "#!/user/list"
+                    RT.api.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success form_info.username + " 帳號新增成功"
+                            $("input[type=text], input[type=password]").val ""
+                            RT.dialogs.loading "close"
+                            window.location = "#!/user/list"
 
                 when "motel"
                     unless $.trim(form_info.title)
@@ -137,72 +106,36 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         alertify.error "紅色欄位務必填寫"
                         e.stopImmediatePropagation()
                         return false
-                    $.ajax
-                        url: RT.API.Motel
-                        dataType: "json"
-                        type: "POST"
-                        data: form_info
-                        beforeSend: (jqXHR, settings) ->
-                            RT.dialogs.loading "open"
-                        success: (response) ->
-                            if response.error_text
-                                alertify.error response.error_text
-                                RT.dialogs.loading "close"
-                            if response.success_text
-                                alertify.success form_info.title + " 摩鐵新增成功"
-                                RT.dialogs.loading "close"
-                                window.location = "#!/motel/list"
+                    RT.api.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success form_info.title + " 摩鐵新增成功"
+                            window.location = "#!/motel/list"
 
                 when "room"
-                    $.ajax
-                        url: RT.API.Room
-                        dataType: "json"
-                        type: "POST"
-                        data: form_info
-                        beforeSend: (jqXHR, settings) ->
-                            RT.dialogs.loading "open"
-                        success: (response) ->
-                            if response.error_text
-                                alertify.error response.error_text
-                                RT.dialogs.loading "close"
-                            if response.success_text
-                                alertify.success form_info.title + " 新增成功"
-                                RT.dialogs.loading "close"
-                                window.location = "#!/room/list/" + form_info.motel_id
+                    RT.api.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success form_info.title + " 新增成功"
+                            window.location = "#!/room/list/" + form_info.motel_id
 
                 when "new"
-                    $.ajax
-                        url: RT.API.New
-                        dataType: "json"
-                        type: "POST"
-                        data: form_info
-                        beforeSend: (jqXHR, settings) ->
-                            RT.dialogs.loading "open"
-                        success: (response) ->
-                            if response.error_text
-                                alertify.error response.error_text
-                                RT.dialogs.loading "close"
-                            if response.success_text
-                                alertify.success form_info.title + " 新增成功"
-                                RT.dialogs.loading "close"
-                                window.location = "#!/new/list/" + form_info.motel_id
+                    RT.api.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success form_info.title + " 新增成功"
+                            window.location = "#!/new/list/" + form_info.motel_id
 
                 when "rank"
-                    $.ajax
-                        url: RT.API.Rank
-                        dataType: "json"
-                        type: "POST"
-                        data: form_info
-                        beforeSend: (jqXHR, settings) ->
-                            RT.dialogs.loading "open"
-                        success: (response) ->
-                            if response.error_text
-                                alertify.error response.error_text
-                                RT.dialogs.loading "close"
-                            if response.success_text
-                                alertify.success "評分成功"
-                                RT.dialogs.loading "close"
-                                window.location = "#!/rank/list/" + form_info.motel_id
+                    RT.api.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success "評分成功"
+                            window.location = "#!/rank/list/" + form_info.motel_id
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
