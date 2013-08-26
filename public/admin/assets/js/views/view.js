@@ -193,23 +193,12 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             }
           }
       }
-      $.ajax({
-        url: api_url,
-        dataType: "json",
-        type: "PUT",
-        data: form_info,
-        beforeSend: function(jqXHR, settings) {
-          return RT.dialogs.loading("open");
-        },
-        success: function(response) {
-          if (response.error_text) {
-            alertify.error("修改失敗");
-            RT.dialogs.loading("close");
-          }
-          if (response.success_text) {
-            alertify.success("修改成功");
-            return RT.dialogs.loading("close");
-          }
+      RT.api.PUT(api_url, form_info, function(response) {
+        if (response.error_text) {
+          alertify.error("修改失敗");
+        }
+        if (response.success_text) {
+          return alertify.success("修改成功");
         }
       });
       e.stopImmediatePropagation();

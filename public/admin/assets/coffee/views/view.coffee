@@ -166,22 +166,11 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                             error = true
 
             # update data
-            $.ajax
-                url: api_url
-                dataType: "json"
-                type: "PUT"
-                data: form_info
-                beforeSend: (jqXHR, settings) ->
-                    RT.dialogs.loading "open"
-
-                success: (response) ->
-                    if response.error_text
-                        alertify.error "修改失敗"
-                        RT.dialogs.loading "close"
-                    if response.success_text
-                        alertify.success "修改成功"
-                        RT.dialogs.loading "close"
-
+            RT.api.PUT api_url, form_info, (response) ->
+                if response.error_text
+                    alertify.error "修改失敗"
+                if response.success_text
+                    alertify.success "修改成功"
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
