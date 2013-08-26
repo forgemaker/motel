@@ -15,7 +15,7 @@ require.config
         'bootstrap.tab': '../vendor/bootstrap/js/tab'
         'jquery.ui.core': '../vendor/jquery-ui/ui/jquery.ui.core'
         'jquery.ui.datepicker': '../vendor/jquery-ui/ui/jquery.ui.datepicker'
-        'jquery.twzipcode': 'libs/jquery/jquery.twzipcode-1.5.2'
+        'jquery.twzipcode': '../vendor/jquery-twzipcode/jquery.twzipcode'
         'jquery.ui.timepicker': '../vendor/jquery-timepicker-addon/jquery-ui-timepicker-addon'
         # upload plugin
         'jquery.ui.widget': '../vendor/blueimp-file-upload/js/vendor/jquery.ui.widget'
