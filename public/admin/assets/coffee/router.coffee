@@ -204,6 +204,7 @@ define ["jquery",
             @reset()
             RT.dialogs.loading "open"
             $("#main").html ""
+            self = @
             switch action
               when "list"
                     @motel_id = id or 1
@@ -240,12 +241,14 @@ define ["jquery",
 
                     @rank_model.id = id
                     @rank_model.fetch
-                        reset: true
+                        success: (model, response, options) ->
+                            self.rank_model.trigger 'change' unless self.rank_model.hasChanged 'id'
 
         new: (action, id) ->
             @reset()
             RT.dialogs.loading "open"
             $("#main").html ""
+            self = @
             switch action
               when "list"
                     @motel_id = id or 1
@@ -309,8 +312,8 @@ define ["jquery",
 
                     @new_model.id = id
                     @new_model.fetch
-                        reset: true
                         success: (model, response, options) ->
+                            self.new_model.trigger 'change' unless self.new_model.hasChanged 'id'
                             setTimeout(
                                 () ->
                                     $('#start_time, #end_time').datepicker
@@ -346,6 +349,7 @@ define ["jquery",
             @reset()
             RT.dialogs.loading "open"
             $("#main").html ""
+            self = @
             switch action
               when "list"
                     @motel_id = id or 1
@@ -407,8 +411,8 @@ define ["jquery",
 
                     @room_model.id = id
                     @room_model.fetch
-                        reset: true
                         success: (model, response, options) ->
+                            self.room_model.trigger 'change' unless self.room_model.hasChanged 'id'
                             setTimeout(
                                 () ->
                                     # jquery upload plugin
@@ -482,12 +486,15 @@ define ["jquery",
                             model: @user_model
 
                     @user_model.id = id || @me.get 'user_id'
-                    @user_model.fetch()
+                    @user_model.fetch
+                        success: (model, response, options) ->
+                            self.user_model.trigger 'change' unless self.user_model.hasChanged 'id'
 
         motel: (action, id) ->
             @reset()
             RT.dialogs.loading "open"
             $("#main").html ""
+            self = @
             switch action
               when "list"
                     @page = id or 1
@@ -551,8 +558,8 @@ define ["jquery",
 
                     @motel_model.id = id
                     @motel_model.fetch
-                        reset: true
                         success: (model, response, options) ->
+                            self.motel_model.trigger 'change' unless self.motel_model.hasChanged 'id'
                             setTimeout(
                                 () ->
                                     # jquery upload plugin

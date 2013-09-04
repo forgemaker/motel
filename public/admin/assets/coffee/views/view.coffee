@@ -12,8 +12,8 @@
 define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alertify) ->
     Backbone.View.extend
         initialize: ->
-            @model.on "sync", @render, this    if @model
-            @collection.on "reset", @render, this    if @collection
+            @model.on "change", @render, this if @model
+            @collection.on "reset", @render, this if @collection
             @debug = true
 
         events:

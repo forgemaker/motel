@@ -201,9 +201,11 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       }
     },
     rank: function(action, id) {
+      var self;
       this.reset();
       RT.dialogs.loading("open");
       $("#main").html("");
+      self = this;
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -246,14 +248,20 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.rank_model.id = id;
           return this.rank_model.fetch({
-            reset: true
+            success: function(model, response, options) {
+              if (!self.rank_model.hasChanged('id')) {
+                return self.rank_model.trigger('change');
+              }
+            }
           });
       }
     },
     "new": function(action, id) {
+      var self;
       this.reset();
       RT.dialogs.loading("open");
       $("#main").html("");
+      self = this;
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -333,8 +341,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.new_model.id = id;
           return this.new_model.fetch({
-            reset: true,
             success: function(model, response, options) {
+              if (!self.new_model.hasChanged('id')) {
+                self.new_model.trigger('change');
+              }
               return setTimeout(function() {
                 $('#start_time, #end_time').datepicker({
                   dateFormat: 'yy-mm-dd'
@@ -379,9 +389,11 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       }
     },
     room: function(action, id) {
+      var self;
       this.reset();
       RT.dialogs.loading("open");
       $("#main").html("");
+      self = this;
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -458,8 +470,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.room_model.id = id;
           return this.room_model.fetch({
-            reset: true,
             success: function(model, response, options) {
+              if (!self.room_model.hasChanged('id')) {
+                self.room_model.trigger('change');
+              }
               return setTimeout(function() {
                 return $('#fileupload').fileupload({
                   url: RT.API.Upload,
@@ -553,13 +567,21 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             });
           }
           this.user_model.id = id || this.me.get('user_id');
-          return this.user_model.fetch();
+          return this.user_model.fetch({
+            success: function(model, response, options) {
+              if (!self.user_model.hasChanged('id')) {
+                return self.user_model.trigger('change');
+              }
+            }
+          });
       }
     },
     motel: function(action, id) {
+      var self;
       this.reset();
       RT.dialogs.loading("open");
       $("#main").html("");
+      self = this;
       switch (action) {
         case "list":
           this.page = id || 1;
@@ -639,8 +661,10 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.motel_model.id = id;
           return this.motel_model.fetch({
-            reset: true,
             success: function(model, response, options) {
+              if (!self.motel_model.hasChanged('id')) {
+                self.motel_model.trigger('change');
+              }
               return setTimeout(function() {
                 return $('#fileupload').fileupload({
                   url: RT.API.Upload,
