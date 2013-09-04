@@ -23,7 +23,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             "click .delete_all": "delete_all"
 
         delete_item: (e) ->
-            (@debug) and console.log("delete")
+            (@debug) and console.log "delete"
             e.preventDefault()
             id = $(e.currentTarget).data("id")
             model = $(e.currentTarget).data("model")
@@ -41,7 +41,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             false
 
         delete_all: (e) ->
-            (@debug) and console.log("delete all")
+            (@debug) and console.log "delete all"
             e.preventDefault()
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
@@ -66,7 +66,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             false
 
         add: (e) ->
-            (@debug) and console.log("add")
+            (@debug) and console.log "add"
             e.preventDefault()
             $(".form-group").removeClass "has-error"
             $(".help-block").text ""
@@ -142,7 +142,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             false
 
         edit: (e) ->
-            (@debug) and console.log("edit")
+            (@debug) and console.log "edit"
             e.preventDefault()
             $(".form-group").removeClass "has-error"
             $(".help-block").text ""
