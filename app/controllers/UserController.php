@@ -113,7 +113,7 @@ class UserController extends \BaseController
         // add default group id
         UserGroup::create(array(
             'user_id' => $id,
-            'group_id' => '2'
+            'group_id' => USER
         ));
 
         return Response::json(array('success_text' => 'ok'));

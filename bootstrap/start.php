@@ -1,5 +1,9 @@
 <?php
 
+// define constant value
+define('ADMIN', 1);
+define('USER', 2);
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
