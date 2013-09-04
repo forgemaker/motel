@@ -24,16 +24,21 @@ class UserController extends \BaseController
     public function login()
     {
         $username = Input::get('username');
-        $password = Hash::make(Input::get('password'));
+        $password = Input::get('password');
 
-        $user = User::whereRaw('username = ? and password = ?', array($username, $password))->get();
+        $user = User::where('username', Input::get('username'))->first()->toArray();
+        $login = (Hash::check($password, $user['password'])) ? true : false;
 
-        if (!empty($user)) {
-            return Response::json(array('success_text' => 'ok', 'user' => $user));
-        } else {
-            return Response::json(array('error_text' => 'Invaild login', 'user' => $user));
+        if (!$login) {
+            return Response::json(array('error_text' => 'Invaild login'));
         }
 
+        Session::put('logged_in', true);
+        Session::put('first_name', $user['first_name']);
+        Session::put('last_name', $user['last_name']);
+        Session::put('user_groups', array('Admin', 'User'));
+        //
+        return Response::json(array('success_text' => 'ok'));
     }
 
     /**
@@ -41,10 +46,6 @@ class UserController extends \BaseController
      */
     public function showProfile()
     {
-        Session::put('logged_in', false);
-        Session::put('first_name', 'Bo-Yi');
-        Session::put('last_name', 'Wu');
-        Session::put('user_groups', array('Admin', 'User'));
         $data = array(
             'item' => array(
                 'logged_in' => Session::get('logged_in'),
