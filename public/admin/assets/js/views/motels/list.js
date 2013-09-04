@@ -44,7 +44,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       data = this.options.data || {};
       data.items = [];
       $(parent_view.el).empty();
-      console.log("show user list");
       this.collection.each(function(item) {
         return data.items.push(item.attributes);
       });

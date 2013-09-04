@@ -631,6 +631,17 @@ define ["jquery",
                     $(this).attr "checked", false
                 else
                     $(this).attr "checked", true
+        .on "click", "#login-button", (ev) ->
+            form_id = $(this).data("form")
+            form_info = $(form_id).serializeObject()
+            console.log form_id
+            console.log form_info
+            RT.api.POST RT.API.User + '/login', form_info, (response) ->
+                console.log response
+                if response.error_text
+                    alertify.error "登入失敗"
+                if response.success_text
+                    alertify.success "登入成功"
 
         # pass the headers argument and assing a object
         $(".tablesorter").tablesorter headers:

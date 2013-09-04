@@ -19,11 +19,29 @@ class UserController extends \BaseController
     }
 
     /**
+     * Check user login.
+     */
+    public function login()
+    {
+        $username = Input::get('username');
+        $password = Hash::make(Input::get('password'));
+
+        $user = User::whereRaw('username = ? and password = ?', array($username, $password))->get();
+
+        if (!empty($user)) {
+            return Response::json(array('success_text' => 'ok', 'user' => $user));
+        } else {
+            return Response::json(array('error_text' => 'Invaild login', 'user' => $user));
+        }
+
+    }
+
+    /**
      * Show the profile for the given user.
      */
     public function showProfile()
     {
-        Session::put('logged_in', true);
+        Session::put('logged_in', false);
         Session::put('first_name', 'Bo-Yi');
         Session::put('last_name', 'Wu');
         Session::put('user_groups', array('Admin', 'User'));

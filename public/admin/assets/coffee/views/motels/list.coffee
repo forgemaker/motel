@@ -42,7 +42,6 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             data = @options.data or {}
             data.items = []
             $(parent_view.el).empty()
-            console.log "show user list"
             @collection.each (item) ->
                 data.items.push item.attributes
 

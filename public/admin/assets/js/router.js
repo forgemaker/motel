@@ -742,6 +742,21 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           return $(this).attr("checked", true);
         }
       });
+    }).on("click", "#login-button", function(ev) {
+      var form_id, form_info;
+      form_id = $(this).data("form");
+      form_info = $(form_id).serializeObject();
+      console.log(form_id);
+      console.log(form_info);
+      return RT.api.POST(RT.API.User + '/login', form_info, function(response) {
+        console.log(response);
+        if (response.error_text) {
+          alertify.error("登入失敗");
+        }
+        if (response.success_text) {
+          return alertify.success("登入成功");
+        }
+      });
     });
     $(".tablesorter").tablesorter({
       headers: {

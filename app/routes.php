@@ -16,6 +16,7 @@ Route::get('/', function() {
 });
 
 Route::get('user/CurrentData', 'UserController@showProfile');
+Route::post('user/login', 'UserController@login');
 Route::post('motel/upload', 'MotelController@upload');
 Route::get('room/list/{id}', 'RoomController@sublist');
 Route::get('new/list/{id}', 'NewsController@sublist');
