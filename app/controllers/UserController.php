@@ -156,7 +156,8 @@ class UserController extends \BaseController
     public function edit($id)
     {
         $user = User::find($id)->toArray();
-        $user['user_group'] = User::find($id)->groups->toArray();
+        //$user['user_group'] = User::find($id)->groups->toArray();
+        $user['all_groups'] = DB::select('select a.id, name, description, IF(b.user_id, true, false) as active from groups a left join users_groups b on b.group_id = a.id and b.user_id = ?', array($id));
 
         $data = array(
             'item' => $user
@@ -187,6 +188,18 @@ class UserController extends \BaseController
         $user->last_name = Input::get('last_name');
 
         $user->save();
+
+        if (Input::has('user_groups')) {
+            UserGroup::where('user_id', $id)->delete();
+            $user_groups = Input::get('user_groups');
+
+            foreach ($user_groups as $row) {
+                UserGroup::create(array(
+                    'user_id' => $id,
+                    'group_id' => $row
+                ));
+            }
+        }
         return Response::json(array('success_text' => 'ok'));
     }
 

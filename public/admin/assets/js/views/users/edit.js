@@ -7,7 +7,7 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       data = this.options.data || {};
       $(parent_view.el).empty();
       Handlebars.registerHelper("group_active", function(text) {
-        if (text === "1") {
+        if (text === 1) {
           return "checked";
         } else {
           return "";
