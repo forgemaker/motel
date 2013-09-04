@@ -1,5 +1,3 @@
-var ajaxSettings, api_req;
-
 RT.API = {
   me: root_path + "user/CurrentData",
   Upload: root_path + "motel/upload",
@@ -76,88 +74,85 @@ RT.generateSerial = function(len) {
   return randomstring;
 };
 
-ajaxSettings = {
-  dataType: "json"
-};
-
-api_req = function(name, callback, settings) {
-  settings = (!settings ? {} : settings);
-  return $.ajax($.extend({}, ajaxSettings, {
-    url: name,
-    type: (settings.data ? "POST" : "GET"),
-    beforeSend: function(jqXHR, settings) {
-      return RT.dialogs.loading("open");
-    },
-    complete: function(jqXHR, textStatus) {
-      return RT.dialogs.loading("close");
-    },
-    success: callback,
-    error: function(xhr, status, errorThrown) {
-      var error, message;
-      message = "Unknown error. Please try again later.";
-      switch (status) {
-        case "timeout":
-          message = "Server timeout. Please try again later.";
-          break;
-        case "error":
-        case "parsererror":
-          message = "Server experienced some difficulty. Please try again later.";
-          break;
-        case "abort":
-          message = "Aborted.";
-      }
-      try {
-        return alertify.error($.parseJSON(xhr.responseText).error_text);
-      } catch (_error) {
-        error = _error;
-        return alertify.error(message);
-      }
-    }
-  }, settings));
-};
-
-RT.api = {
-  GET: function(path, data, callback, settings) {
-    settings = settings || {};
-    data = data || {};
-    if (navigator.userAgent.indexOf("MSIE") !== -1) {
-      $.extend(settings, {
-        cache: false
-      });
-    }
-    return api_req(path, callback, $.extend({
-      type: "GET",
-      data: data
-    }, settings));
-  },
-  POST: function(path, data, callback, settings) {
-    settings = settings || {};
-    data = data || {};
-    return api_req(path, callback, $.extend({
-      type: "POST",
-      data: data
-    }, settings));
-  },
-  PUT: function(path, data, callback, settings) {
-    settings = settings || {};
-    data = data || {};
-    return api_req(path, callback, $.extend({
-      type: "PUT",
-      data: data
-    }, settings));
-  },
-  DELETE: function(path, data, callback, settings) {
-    settings = settings || {};
-    data = data || {};
-    return api_req(path, callback, $.extend({
-      type: "DELETE",
-      data: data
-    }, settings));
-  }
-};
-
 define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
-  var AppRouter, initialize;
+  var AppRouter, ajaxSettings, api_req, initialize;
+  ajaxSettings = {
+    dataType: "json"
+  };
+  api_req = function(name, callback, settings) {
+    settings = (!settings ? {} : settings);
+    return $.ajax($.extend({}, ajaxSettings, {
+      url: name,
+      type: (settings.data ? "POST" : "GET"),
+      beforeSend: function(jqXHR, settings) {
+        return RT.dialogs.loading("open");
+      },
+      complete: function(jqXHR, textStatus) {
+        return RT.dialogs.loading("close");
+      },
+      success: callback,
+      error: function(xhr, status, errorThrown) {
+        var error, message;
+        message = "Unknown error. Please try again later.";
+        switch (status) {
+          case "timeout":
+            message = "Server timeout. Please try again later.";
+            break;
+          case "error":
+          case "parsererror":
+            message = "Server experienced some difficulty. Please try again later.";
+            break;
+          case "abort":
+            message = "Aborted.";
+        }
+        try {
+          return alertify.error($.parseJSON(xhr.responseText).error_text);
+        } catch (_error) {
+          error = _error;
+          return alertify.error(message);
+        }
+      }
+    }, settings));
+  };
+  RT.api = {
+    GET: function(path, data, callback, settings) {
+      settings = settings || {};
+      data = data || {};
+      if (navigator.userAgent.indexOf("MSIE") !== -1) {
+        $.extend(settings, {
+          cache: false
+        });
+      }
+      return api_req(path, callback, $.extend({
+        type: "GET",
+        data: data
+      }, settings));
+    },
+    POST: function(path, data, callback, settings) {
+      settings = settings || {};
+      data = data || {};
+      return api_req(path, callback, $.extend({
+        type: "POST",
+        data: data
+      }, settings));
+    },
+    PUT: function(path, data, callback, settings) {
+      settings = settings || {};
+      data = data || {};
+      return api_req(path, callback, $.extend({
+        type: "PUT",
+        data: data
+      }, settings));
+    },
+    DELETE: function(path, data, callback, settings) {
+      settings = settings || {};
+      data = data || {};
+      return api_req(path, callback, $.extend({
+        type: "DELETE",
+        data: data
+      }, settings));
+    }
+  };
   AppRouter = Backbone.Router.extend({
     site_name: "Motel 後台管理",
     routes: {

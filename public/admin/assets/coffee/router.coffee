@@ -64,70 +64,7 @@ RT.generateSerial = (len) ->
         x++
     randomstring
 
-ajaxSettings = dataType: "json"
-api_req = (name, callback, settings) ->
-    settings = (if (not settings) then {} else settings)
-    $.ajax $.extend({}, ajaxSettings,
-        url: name
-        type: (if (settings.data) then "POST" else "GET")
-        beforeSend: (jqXHR, settings) ->
-            RT.dialogs.loading "open"
-        complete: (jqXHR, textStatus) ->
-            RT.dialogs.loading "close"
-        success: callback
-        error: (xhr, status, errorThrown) ->
-            message = "Unknown error. Please try again later."
-            switch status
-                when "timeout"
-                    message = "Server timeout. Please try again later."
-                when "error", "parsererror"
-                    message = "Server experienced some difficulty. Please try again later."
-                when "abort"
-                    message = "Aborted."
-            try
-                alertify.error($.parseJSON(xhr.responseText).error_text)
-            catch error
-                alertify.error message
-    , settings)
 
-RT.api =
-    GET: (path, data, callback, settings) ->
-        settings = settings or {}
-        data = data or {}
-
-        # fixed ie ajax cache
-        unless navigator.userAgent.indexOf("MSIE") is -1
-            $.extend settings,
-                cache: false
-
-        api_req path, callback, $.extend
-            type: "GET"
-            data: data
-        , settings
-
-    POST: (path, data, callback, settings) ->
-        settings = settings or {}
-        data = data or {}
-        api_req path, callback, $.extend
-            type: "POST"
-            data: data
-        , settings
-
-    PUT: (path, data, callback, settings) ->
-        settings = settings or {}
-        data = data or {}
-        api_req path, callback, $.extend
-            type: "PUT"
-            data: data
-        , settings
-
-    DELETE: (path, data, callback, settings) ->
-        settings = settings or {}
-        data = data or {}
-        api_req path, callback, $.extend
-            type: "DELETE"
-            data: data
-        , settings
 
 define ["jquery",
         "underscore",
@@ -168,6 +105,71 @@ define ["jquery",
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
         "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
+    ajaxSettings = dataType: "json"
+    api_req = (name, callback, settings) ->
+        settings = (if (not settings) then {} else settings)
+        $.ajax $.extend({}, ajaxSettings,
+            url: name
+            type: (if (settings.data) then "POST" else "GET")
+            beforeSend: (jqXHR, settings) ->
+                RT.dialogs.loading "open"
+            complete: (jqXHR, textStatus) ->
+                RT.dialogs.loading "close"
+            success: callback
+            error: (xhr, status, errorThrown) ->
+                message = "Unknown error. Please try again later."
+                switch status
+                    when "timeout"
+                        message = "Server timeout. Please try again later."
+                    when "error", "parsererror"
+                        message = "Server experienced some difficulty. Please try again later."
+                    when "abort"
+                        message = "Aborted."
+                try
+                    alertify.error($.parseJSON(xhr.responseText).error_text)
+                catch error
+                    alertify.error message
+        , settings)
+
+    RT.api =
+        GET: (path, data, callback, settings) ->
+            settings = settings or {}
+            data = data or {}
+
+            # fixed ie ajax cache
+            unless navigator.userAgent.indexOf("MSIE") is -1
+                $.extend settings,
+                    cache: false
+
+            api_req path, callback, $.extend
+                type: "GET"
+                data: data
+            , settings
+
+        POST: (path, data, callback, settings) ->
+            settings = settings or {}
+            data = data or {}
+            api_req path, callback, $.extend
+                type: "POST"
+                data: data
+            , settings
+
+        PUT: (path, data, callback, settings) ->
+            settings = settings or {}
+            data = data or {}
+            api_req path, callback, $.extend
+                type: "PUT"
+                data: data
+            , settings
+
+        DELETE: (path, data, callback, settings) ->
+            settings = settings or {}
+            data = data or {}
+            api_req path, callback, $.extend
+                type: "DELETE"
+                data: data
+            , settings
+
     AppRouter = Backbone.Router.extend(
         site_name: "Motel 後台管理"
         routes:
