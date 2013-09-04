@@ -44,11 +44,13 @@ class UserController extends \BaseController
         foreach ($group as $row) {
             $user_group[] = $this->group[$row['group_id']];
         }
+
+        // add user data to session
         Session::put('logged_in', true);
         Session::put('first_name', $user['first_name']);
         Session::put('last_name', $user['last_name']);
         Session::put('user_groups', $user_group);
-        //
+
         return Response::json(array('success_text' => 'ok'));
     }
 
