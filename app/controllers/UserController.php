@@ -100,7 +100,10 @@ class UserController extends \BaseController
 
         $id = User::where('username', Input::get('username'))->first()->id;
         // add default group id
-        DB::insert('insert into users_groups (user_id, group_id) values (?, ?)', array($id, '2'));
+        UserGroup::create(array(
+            'user_id' => $id,
+            'group_id' => '2'
+        ));
 
         return Response::json(array('success_text' => 'ok'));
     }
@@ -125,6 +128,8 @@ class UserController extends \BaseController
     public function edit($id)
     {
         $user = User::find($id)->toArray();
+        $user['user_group'] = User::find($id)->groups->toArray();
+
         $data = array(
             'item' => $user
         );
