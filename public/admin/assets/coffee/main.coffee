@@ -13,6 +13,7 @@ require.config
         'jquery.equalHeight': 'libs/jquery/jquery.equalHeight'
         'bootstrap.modal': '../vendor/bootstrap/js/modal'
         'bootstrap.tab': '../vendor/bootstrap/js/tab'
+        # jquery ui plugin
         'jquery.ui.core': '../vendor/jquery-ui/ui/jquery.ui.core'
         'jquery.ui.datepicker': '../vendor/jquery-ui/ui/jquery.ui.datepicker'
         'jquery.twzipcode': '../vendor/jquery-twzipcode/jquery.twzipcode'
