@@ -33,6 +33,11 @@ class UserController extends \BaseController
         $password = Input::get('password');
 
         $user = User::where('username', Input::get('username'))->first();
+
+        if (!$user) {
+            return Response::json(array('error_text' => 'Invaild login'));
+        }
+
         $login = (Hash::check($password, $user->password)) ? true : false;
 
         if (!$login) {
