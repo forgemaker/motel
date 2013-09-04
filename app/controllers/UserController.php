@@ -2,6 +2,12 @@
 
 class UserController extends \BaseController
 {
+    public function __construct()
+    {
+        $this->group[1] = 'Admin';
+        $this->group[2] = 'User';
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +39,15 @@ class UserController extends \BaseController
             return Response::json(array('error_text' => 'Invaild login'));
         }
 
+        $user_group = array();
+        $group = User::find($user['id'])->groups->toArray();
+        foreach ($group as $row) {
+            $user_group[] = $this->group[$row['group_id']];
+        }
         Session::put('logged_in', true);
         Session::put('first_name', $user['first_name']);
         Session::put('last_name', $user['last_name']);
-        Session::put('user_groups', array('Admin', 'User'));
+        Session::put('user_groups', $user_group);
         //
         return Response::json(array('success_text' => 'ok'));
     }
