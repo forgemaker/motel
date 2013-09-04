@@ -32,8 +32,8 @@ class UserController extends \BaseController
         $username = Input::get('username');
         $password = Input::get('password');
 
-        $user = User::where('username', Input::get('username'))->first()->toArray();
-        $login = (Hash::check($password, $user['password'])) ? true : false;
+        $user = User::where('username', Input::get('username'))->first();
+        $login = (Hash::check($password, $user->password)) ? true : false;
 
         if (!$login) {
             return Response::json(array('error_text' => 'Invaild login'));
@@ -45,11 +45,15 @@ class UserController extends \BaseController
             $user_group[] = $this->group[$row['group_id']];
         }
 
+        // update user last login time
+        $user->last_login = time();
+        $user->save();
+
         // add user data to session
-        Session::put('user_id', $user['id']);
+        Session::put('user_id', $user->id);
         Session::put('logged_in', true);
-        Session::put('first_name', $user['first_name']);
-        Session::put('last_name', $user['last_name']);
+        Session::put('first_name', $user->first_name);
+        Session::put('last_name', $user->last_name);
         Session::put('user_groups', $user_group);
 
         return Response::json(array('success_text' => 'ok'));
