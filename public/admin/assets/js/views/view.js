@@ -2,7 +2,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
   return Backbone.View.extend({
     initialize: function() {
       if (this.model) {
-        this.model.on("change", this.render, this);
+        this.model.on("sync", this.render, this);
       }
       if (this.collection) {
         this.collection.on("reset", this.render, this);

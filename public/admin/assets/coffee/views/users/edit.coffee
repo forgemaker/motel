@@ -1,5 +1,6 @@
 define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View) ->
     View.extend render: ->
+        console.log 'render user edit'
         parent_view = this
         data = @options.data or {}
         $(parent_view.el).empty()

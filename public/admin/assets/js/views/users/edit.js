@@ -2,6 +2,7 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
   return View.extend({
     render: function() {
       var data, parent_view;
+      console.log('render user edit');
       parent_view = this;
       data = this.options.data || {};
       $(parent_view.el).empty();

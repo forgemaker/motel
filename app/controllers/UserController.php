@@ -46,11 +46,21 @@ class UserController extends \BaseController
         }
 
         // add user data to session
+        Session::put('user_id', $user['id']);
         Session::put('logged_in', true);
         Session::put('first_name', $user['first_name']);
         Session::put('last_name', $user['last_name']);
         Session::put('user_groups', $user_group);
 
+        return Response::json(array('success_text' => 'ok'));
+    }
+
+    /**
+     * user logout.
+     */
+    public function logout()
+    {
+        Session::flush();
         return Response::json(array('success_text' => 'ok'));
     }
 
@@ -61,6 +71,7 @@ class UserController extends \BaseController
     {
         $data = array(
             'item' => array(
+                'user_id' => Session::get('user_id'),
                 'logged_in' => Session::get('logged_in'),
                 'user_groups' => Session::get('user_groups'),
                 'first_name' => Session::get('first_name'),

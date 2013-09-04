@@ -237,9 +237,7 @@ define ["jquery",
                             el: "#main"
                             model: @rank_model
                         )
-                    else
-                        # trigger change event if model is not changed
-                        @rank_model.trigger "change"  unless @rank_model.hasChanged()
+
                     @rank_model.id = id
                     @rank_model.fetch
                         reset: true
@@ -308,9 +306,7 @@ define ["jquery",
                             el: "#main"
                             model: @new_model
                         )
-                    else
-                        # trigger change event if model is not changed
-                        @new_model.trigger "change"  unless @new_model.hasChanged()
+
                     @new_model.id = id
                     @new_model.fetch
                         reset: true
@@ -408,9 +404,7 @@ define ["jquery",
                             el: "#main"
                             model: @room_model
                         )
-                    else
-                        # trigger change event if model is not changed
-                        @room_model.trigger "change"  unless @room_model.hasChanged()
+
                     @room_model.id = id
                     @room_model.fetch
                         reset: true
@@ -449,8 +443,17 @@ define ["jquery",
             @reset()
             RT.dialogs.loading "open"
             $("#main").html ""
+            self = @
             switch action
-              when "list"
+                when "logout"
+                    RT.api.GET RT.API.User + '/logout', null, (response) ->
+                        if response.error_text
+                            alertify.error "登出失敗"
+                        if response.success_text
+                            alertify.success "登出成功"
+                            self.me.fetch()
+
+                when "list"
                     @page = id or 1
                     @update_title "帳號列表"
                     unless @view_users_list
@@ -463,7 +466,7 @@ define ["jquery",
                     @view_users_list.options.page = @page
                     @user_model.set_params page: @page
                     @user_model.lists.fetch({reset: true})
-              when "add"
+                when "add"
                     @update_title "新增帳號"
                     unless @view_users_add
                         @view_users_add = new View(
@@ -471,19 +474,15 @@ define ["jquery",
                             el: "#main"
                         )
                     @view_users_add.render()
-              when "edit"
+                when "edit"
                     @update_title "修改帳號"
                     unless @view_user
-                        @view_user = new ViewUser(
+                        @view_user = new ViewUser
                             el: "#main"
                             model: @user_model
-                        )
-                    else
-                        # trigger change event if model is not changed
-                        @user_model.trigger "change"  unless @user_model.hasChanged()
-                    @user_model.id = id
-                    @user_model.fetch
-                        reset: true
+
+                    @user_model.id = id || @me.get 'user_id'
+                    @user_model.fetch()
 
         motel: (action, id) ->
             @reset()
@@ -549,9 +548,7 @@ define ["jquery",
                             el: "#main"
                             model: @motel_model
                         )
-                    else
-                        # trigger change event if model is not changed
-                        @motel_model.trigger "change"  unless @motel_model.hasChanged()
+
                     @motel_model.id = id
                     @motel_model.fetch
                         reset: true

@@ -243,10 +243,6 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               model: this.rank_model
             });
-          } else {
-            if (!this.rank_model.hasChanged()) {
-              this.rank_model.trigger("change");
-            }
           }
           this.rank_model.id = id;
           return this.rank_model.fetch({
@@ -334,10 +330,6 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               model: this.new_model
             });
-          } else {
-            if (!this.new_model.hasChanged()) {
-              this.new_model.trigger("change");
-            }
           }
           this.new_model.id = id;
           return this.new_model.fetch({
@@ -463,10 +455,6 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               model: this.room_model
             });
-          } else {
-            if (!this.room_model.hasChanged()) {
-              this.room_model.trigger("change");
-            }
           }
           this.room_model.id = id;
           return this.room_model.fetch({
@@ -513,10 +501,22 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       }
     },
     user: function(action, id) {
+      var self;
       this.reset();
       RT.dialogs.loading("open");
       $("#main").html("");
+      self = this;
       switch (action) {
+        case "logout":
+          return RT.api.GET(RT.API.User + '/logout', null, function(response) {
+            if (response.error_text) {
+              alertify.error("登出失敗");
+            }
+            if (response.success_text) {
+              alertify.success("登出成功");
+              return self.me.fetch();
+            }
+          });
         case "list":
           this.page = id || 1;
           this.update_title("帳號列表");
@@ -551,15 +551,9 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               model: this.user_model
             });
-          } else {
-            if (!this.user_model.hasChanged()) {
-              this.user_model.trigger("change");
-            }
           }
-          this.user_model.id = id;
-          return this.user_model.fetch({
-            reset: true
-          });
+          this.user_model.id = id || this.me.get('user_id');
+          return this.user_model.fetch();
       }
     },
     motel: function(action, id) {
@@ -642,10 +636,6 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               el: "#main",
               model: this.motel_model
             });
-          } else {
-            if (!this.motel_model.hasChanged()) {
-              this.motel_model.trigger("change");
-            }
           }
           this.motel_model.id = id;
           return this.motel_model.fetch({
