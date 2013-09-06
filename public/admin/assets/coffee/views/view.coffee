@@ -9,7 +9,7 @@
 # *     collection: a set of objects, each of which will be displayed using the template
 #
 
-define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alertify) ->
+define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbone, alertify, Config) ->
     Backbone.View.extend
         initialize: ->
             @model.on "change", @render, this if @model
@@ -27,9 +27,9 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             e.preventDefault()
             id = $(e.currentTarget).data("id")
             model = $(e.currentTarget).data("model")
-            api_url = RT.API[model.ucFirst()] + "/" + id
+            api_url = Config.API[model.ucFirst()] + "/" + id
             if confirm("確定刪除此筆資料?")
-                RT.api.DELETE api_url, null, (response) ->
+                RT.API.DELETE api_url, null, (response) ->
                     if response.error_text
                         alertify.error "刪除失敗"
                     if response.success_text
@@ -47,13 +47,13 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             form_info = $(form_id).serializeObject()
             model = $(e.currentTarget).data("model")
             length = $("input:checked").length
-            api_url = RT.API[model.ucFirst()] + "/all"
+            api_url = Config.API[model.ucFirst()] + "/all"
             if length is 0
                 alertify.error "尚未選取任何項目"
                 e.stopImmediatePropagation()
                 return false
             if confirm("確定刪除選取資料?")
-                RT.api.DELETE api_url, form_info, (response) ->
+                RT.API.DELETE api_url, form_info, (response) ->
                     if response.error_text
                         alertify.error "刪除失敗"
                     if response.success_text
@@ -73,7 +73,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             model = $(e.currentTarget).data("model")
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
-            api_url = RT.API[model.ucFirst()]
+            api_url = Config.API[model.ucFirst()]
             error = false
             switch model
                 when "user"
@@ -91,7 +91,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         alertify.error "登入密碼跟確認密碼必須相等"
                         e.stopImmediatePropagation()
                         return false
-                    RT.api.POST api_url, form_info, (response) ->
+                    RT.API.POST api_url, form_info, (response) ->
                         if response.error_text
                             alertify.error response.error_text
                         if response.success_text
@@ -106,7 +106,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                         alertify.error "紅色欄位務必填寫"
                         e.stopImmediatePropagation()
                         return false
-                    RT.api.POST api_url, form_info, (response) ->
+                    RT.API.POST api_url, form_info, (response) ->
                         if response.error_text
                             alertify.error response.error_text
                         if response.success_text
@@ -114,7 +114,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                             window.location = "#!/motel/list"
 
                 when "room"
-                    RT.api.POST api_url, form_info, (response) ->
+                    RT.API.POST api_url, form_info, (response) ->
                         if response.error_text
                             alertify.error response.error_text
                         if response.success_text
@@ -122,7 +122,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                             window.location = "#!/room/list/" + form_info.motel_id
 
                 when "new"
-                    RT.api.POST api_url, form_info, (response) ->
+                    RT.API.POST api_url, form_info, (response) ->
                         if response.error_text
                             alertify.error response.error_text
                         if response.success_text
@@ -130,7 +130,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                             window.location = "#!/new/list/" + form_info.motel_id
 
                 when "rank"
-                    RT.api.POST api_url, form_info, (response) ->
+                    RT.API.POST api_url, form_info, (response) ->
                         if response.error_text
                             alertify.error response.error_text
                         if response.success_text
@@ -150,7 +150,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
             id = $(e.currentTarget).data("id")
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
-            api_url = RT.API[model.ucFirst()] + "/" + id
+            api_url = Config.API[model.ucFirst()] + "/" + id
             switch model
                 when "user"
                     if $.trim(form_info.password) isnt "" and $.trim(form_info.password) isnt $.trim(form_info.confirm_password)
@@ -166,7 +166,7 @@ define ["jquery", "underscore", "backbone", "alertify"], ($, _, Backbone, alerti
                             error = true
 
             # update data
-            RT.api.PUT api_url, form_info, (response) ->
+            RT.API.PUT api_url, form_info, (response) ->
                 if response.error_text
                     alertify.error "修改失敗"
                 if response.success_text

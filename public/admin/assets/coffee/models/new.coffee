@@ -1,14 +1,14 @@
-define ["jquery", "underscore", "backbone", "collections/news"], ($, _, Backbone, CollectionNews) ->
+define ["jquery", "underscore", "backbone", "collections/news", "config"], ($, _, Backbone, CollectionNews, Config) ->
     Backbone.Model.extend
         initialize: ->
             @lists = new CollectionNews()
-            @lists.url = RT.API.New
+            @lists.url = Config.API.New
 
         set_lists_url: (motel_id) ->
-            @lists.url = RT.API.New + "/list/" + motel_id
+            @lists.url = Config.API.New + "/list/" + motel_id
 
         url: ->
-            RT.API.New + "/" + @id + "/edit"
+            Config.API.New + "/" + @id + "/edit"
 
         parse: (response) ->
             $.extend response.item,

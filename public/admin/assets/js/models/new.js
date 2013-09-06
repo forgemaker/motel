@@ -1,14 +1,14 @@
-define(["jquery", "underscore", "backbone", "collections/news"], function($, _, Backbone, CollectionNews) {
+define(["jquery", "underscore", "backbone", "collections/news", "config"], function($, _, Backbone, CollectionNews, Config) {
   return Backbone.Model.extend({
     initialize: function() {
       this.lists = new CollectionNews();
-      return this.lists.url = RT.API.New;
+      return this.lists.url = Config.API.New;
     },
     set_lists_url: function(motel_id) {
-      return this.lists.url = RT.API.New + "/list/" + motel_id;
+      return this.lists.url = Config.API.New + "/list/" + motel_id;
     },
     url: function() {
-      return RT.API.New + "/" + this.id + "/edit";
+      return Config.API.New + "/" + this.id + "/edit";
     },
     parse: function(response) {
       $.extend(response.item, {

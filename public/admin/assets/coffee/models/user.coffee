@@ -1,14 +1,14 @@
-define ["jquery", "underscore", "backbone", "collections/users"], ($, _, Backbone, CollectionUsers) ->
+define ["jquery", "underscore", "backbone", "collections/users", "config"], ($, _, Backbone, CollectionUsers, Config) ->
     Backbone.Model.extend
         initialize: ->
             @lists = new CollectionUsers()
-            @lists.url = RT.API.User
+            @lists.url = Config.API.User
 
         set_params: (params) ->
-            @lists.url = RT.API.User + "?" + $.param(params)
+            @lists.url = Config.API.User + "?" + $.param(params)
 
         url: ->
-            RT.API.User + "/" + @id + "/edit"
+            Config.API.User + "/" + @id + "/edit"
 
         parse: (response) ->
             $.extend response.item,

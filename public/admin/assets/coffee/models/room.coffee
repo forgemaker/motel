@@ -1,14 +1,14 @@
-define ["jquery", "underscore", "backbone", "collections/rooms"], ($, _, Backbone, CollectionRooms) ->
+define ["jquery", "underscore", "backbone", "collections/rooms", "config"], ($, _, Backbone, CollectionRooms, Config) ->
     Backbone.Model.extend
         initialize: ->
             @lists = new CollectionRooms()
-            @lists.url = RT.API.Room
+            @lists.url = Config.API.Room
 
         set_lists_url: (motel_id) ->
-            @lists.url = RT.API.Room + "/list/" + motel_id
+            @lists.url = Config.API.Room + "/list/" + motel_id
 
         url: ->
-            RT.API.Room + "/" + @id + "/edit"
+            Config.API.Room + "/" + @id + "/edit"
 
         parse: (response) ->
             $.extend response.item,
@@ -16,5 +16,3 @@ define ["jquery", "underscore", "backbone", "collections/rooms"], ($, _, Backbon
                 is_image: (if (response.item.raw_name isnt "") then true else false)
 
             response.item
-
-

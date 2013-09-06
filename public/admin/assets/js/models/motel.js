@@ -1,14 +1,14 @@
-define(["jquery", "underscore", "backbone", "collections/motels"], function($, _, Backbone, CollectionMotels) {
+define(["jquery", "underscore", "backbone", "collections/motels", "config"], function($, _, Backbone, CollectionMotels, Config) {
   return Backbone.Model.extend({
     initialize: function() {
       this.lists = new CollectionMotels();
-      return this.lists.url = RT.API.Motel;
+      return this.lists.url = Config.API.Motel;
     },
     set_params: function(params) {
-      return this.lists.url = RT.API.Motel + "?" + $.param(params);
+      return this.lists.url = Config.API.Motel + "?" + $.param(params);
     },
     url: function() {
-      return RT.API.Motel + "/" + this.id + "/edit";
+      return Config.API.Motel + "/" + this.id + "/edit";
     },
     parse: function(response) {
       $.extend(response.item, {

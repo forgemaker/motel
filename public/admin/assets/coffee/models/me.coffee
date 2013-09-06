@@ -1,10 +1,6 @@
-define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->
-    RT.ModelMe = Backbone.Model.extend(
-        url: ->
-            RT.API.me
-
+define ["jquery", "underscore", "backbone", "config"], ($, _, Backbone, Config) ->
+    Backbone.Model.extend
+        url: Config.API.me
         parse: (response) ->
             @user_id = response.item.user_id
             response.item
-    )
-    RT.ModelMe

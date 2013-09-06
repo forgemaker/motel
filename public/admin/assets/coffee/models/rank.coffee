@@ -1,14 +1,14 @@
-define ["jquery", "underscore", "backbone", "collections/ranks"], ($, _, Backbone, CollectionRanks) ->
+define ["jquery", "underscore", "backbone", "collections/ranks", "config"], ($, _, Backbone, CollectionRanks, Config) ->
     Backbone.Model.extend
         initialize: ->
             @lists = new CollectionRanks()
-            @lists.url = RT.API.Rank
+            @lists.url = Config.API.Rank
 
         set_lists_url: (motel_id) ->
-            @lists.url = RT.API.Rank + "/list/" + motel_id
+            @lists.url = Config.API.Rank + "/list/" + motel_id
 
         url: ->
-            RT.API.Rank + "/" + @id + "/edit"
+            Config.API.Rank + "/" + @id + "/edit"
 
         parse: (response) ->
             $.extend response.item,

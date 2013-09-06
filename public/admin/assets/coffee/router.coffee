@@ -1,16 +1,3 @@
-#
-# * Maps out the URLs in the app
-#
-
-RT.API =
-    me: root_path + "user/CurrentData"
-    Upload: root_path + "motel/upload"
-    Room: root_path + "room"
-    User: root_path + "user"
-    Motel: root_path + "motel"
-    New: root_path + "new"
-    Rank: root_path + "rank"
-
 String.prototype.ucFirst = () ->
     this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase()
 
@@ -69,6 +56,7 @@ RT.generateSerial = (len) ->
 define ["jquery",
         "underscore",
         "backbone",
+        "config",
         'alertify',
         "models/me",
         "models/user",
@@ -104,7 +92,8 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
+        "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
+
     ajaxSettings = dataType: "json"
     api_req = (name, callback, settings) ->
         settings = (if (not settings) then {} else settings)
@@ -131,7 +120,7 @@ define ["jquery",
                     alertify.error message
         , settings)
 
-    RT.api =
+    RT.API =
         GET: (path, data, callback, settings) ->
             settings = settings or {}
             data = data or {}
@@ -280,7 +269,7 @@ define ["jquery",
                     $('#start_time, #end_time').datepicker
                         dateFormat: 'yy-mm-dd'
                     $('#fileupload').fileupload
-                        url: RT.API.Upload
+                        url: Config.API.Upload
                         dataType: 'json'
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                         # 5MB
@@ -322,7 +311,7 @@ define ["jquery",
                                         dateFormat: 'yy-mm-dd'
                                     # jquery upload plugin
                                     $('#fileupload').fileupload
-                                        url: RT.API.Upload
+                                        url: Config.API.Upload
                                         dataType: 'json'
                                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                                         # 5MB
@@ -379,7 +368,7 @@ define ["jquery",
                         )
                     @view_rooms_add.render()
                     $('#fileupload').fileupload
-                        url: RT.API.Upload
+                        url: Config.API.Upload
                         dataType: 'json'
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                         # 5MB
@@ -419,7 +408,7 @@ define ["jquery",
                                 () ->
                                     # jquery upload plugin
                                     $('#fileupload').fileupload
-                                        url: RT.API.Upload
+                                        url: Config.API.Upload
                                         dataType: 'json'
                                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                                         # 5MB
@@ -452,7 +441,7 @@ define ["jquery",
             self = @
             switch action
                 when "logout"
-                    RT.api.GET RT.API.User + '/logout', null, (response) ->
+                    Config.API.GET Config.API.User + '/logout', null, (response) ->
                         if response.error_text
                             alertify.error "登出失敗"
                         if response.success_text
@@ -526,7 +515,7 @@ define ["jquery",
                     $('#stay_time_1, #stay_time_2').timepicker()
                     # jquery upload plugin
                     $('#fileupload').fileupload
-                        url: RT.API.Upload
+                        url: Config.API.Upload
                         dataType: 'json'
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                         # 5MB
@@ -566,7 +555,7 @@ define ["jquery",
                                 () ->
                                     # jquery upload plugin
                                     $('#fileupload').fileupload
-                                        url: RT.API.Upload
+                                        url: Config.API.Upload
                                         dataType: 'json'
                                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                                         # 5MB
@@ -640,7 +629,7 @@ define ["jquery",
         .on "click", "#login-button", (ev) ->
             form_id = $(this).data("form")
             form_info = $(form_id).serializeObject()
-            RT.api.POST RT.API.User + '/login', form_info, (response) ->
+            Config.API.POST Config.API.User + '/login', form_info, (response) ->
                 if response.error_text
                     alertify.error "登入失敗"
                 if response.success_text

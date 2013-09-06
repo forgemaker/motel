@@ -1,12 +1,9 @@
-define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
-  RT.ModelMe = Backbone.Model.extend({
-    url: function() {
-      return RT.API.me;
-    },
+define(["jquery", "underscore", "backbone", "config"], function($, _, Backbone, Config) {
+  return Backbone.Model.extend({
+    url: Config.API.me,
     parse: function(response) {
       this.user_id = response.item.user_id;
       return response.item;
     }
   });
-  return RT.ModelMe;
 });

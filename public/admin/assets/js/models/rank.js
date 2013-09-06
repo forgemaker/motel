@@ -1,14 +1,14 @@
-define(["jquery", "underscore", "backbone", "collections/ranks"], function($, _, Backbone, CollectionRanks) {
+define(["jquery", "underscore", "backbone", "collections/ranks", "config"], function($, _, Backbone, CollectionRanks, Config) {
   return Backbone.Model.extend({
     initialize: function() {
       this.lists = new CollectionRanks();
-      return this.lists.url = RT.API.Rank;
+      return this.lists.url = Config.API.Rank;
     },
     set_lists_url: function(motel_id) {
-      return this.lists.url = RT.API.Rank + "/list/" + motel_id;
+      return this.lists.url = Config.API.Rank + "/list/" + motel_id;
     },
     url: function() {
-      return RT.API.Rank + "/" + this.id + "/edit";
+      return Config.API.Rank + "/" + this.id + "/edit";
     },
     parse: function(response) {
       $.extend(response.item, {

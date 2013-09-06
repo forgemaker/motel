@@ -1,14 +1,14 @@
-define ["jquery", "underscore", "backbone", "collections/motels"], ($, _, Backbone, CollectionMotels) ->
+define ["jquery", "underscore", "backbone", "collections/motels", "config"], ($, _, Backbone, CollectionMotels, Config) ->
     Backbone.Model.extend
         initialize: ->
             @lists = new CollectionMotels()
-            @lists.url = RT.API.Motel
+            @lists.url = Config.API.Motel
 
         set_params: (params) ->
-            @lists.url = RT.API.Motel + "?" + $.param(params)
+            @lists.url = Config.API.Motel + "?" + $.param(params)
 
         url: ->
-            RT.API.Motel + "/" + @id + "/edit"
+            Config.API.Motel + "/" + @id + "/edit"
 
         parse: (response) ->
             $.extend response.item,

@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone, alertify) {
+define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _, Backbone, alertify, Config) {
   return Backbone.View.extend({
     initialize: function() {
       if (this.model) {
@@ -21,9 +21,9 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
       e.preventDefault();
       id = $(e.currentTarget).data("id");
       model = $(e.currentTarget).data("model");
-      api_url = RT.API[model.ucFirst()] + "/" + id;
+      api_url = Config.API[model.ucFirst()] + "/" + id;
       if (confirm("確定刪除此筆資料?")) {
-        RT.api.DELETE(api_url, null, function(response) {
+        RT.API.DELETE(api_url, null, function(response) {
           if (response.error_text) {
             alertify.error("刪除失敗");
           }
@@ -44,14 +44,14 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
       form_info = $(form_id).serializeObject();
       model = $(e.currentTarget).data("model");
       length = $("input:checked").length;
-      api_url = RT.API[model.ucFirst()] + "/all";
+      api_url = Config.API[model.ucFirst()] + "/all";
       if (length === 0) {
         alertify.error("尚未選取任何項目");
         e.stopImmediatePropagation();
         return false;
       }
       if (confirm("確定刪除選取資料?")) {
-        RT.api.DELETE(api_url, form_info, function(response) {
+        RT.API.DELETE(api_url, form_info, function(response) {
           if (response.error_text) {
             alertify.error("刪除失敗");
           }
@@ -75,7 +75,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
       model = $(e.currentTarget).data("model");
       form_id = $(e.currentTarget).data("form");
       form_info = $(form_id).serializeObject();
-      api_url = RT.API[model.ucFirst()];
+      api_url = Config.API[model.ucFirst()];
       error = false;
       switch (model) {
         case "user":
@@ -99,7 +99,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             e.stopImmediatePropagation();
             return false;
           }
-          RT.api.POST(api_url, form_info, function(response) {
+          RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
               alertify.error(response.error_text);
             }
@@ -118,7 +118,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             e.stopImmediatePropagation();
             return false;
           }
-          RT.api.POST(api_url, form_info, function(response) {
+          RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
               alertify.error(response.error_text);
             }
@@ -129,7 +129,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
           });
           break;
         case "room":
-          RT.api.POST(api_url, form_info, function(response) {
+          RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
               alertify.error(response.error_text);
             }
@@ -140,7 +140,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
           });
           break;
         case "new":
-          RT.api.POST(api_url, form_info, function(response) {
+          RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
               alertify.error(response.error_text);
             }
@@ -151,7 +151,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
           });
           break;
         case "rank":
-          RT.api.POST(api_url, form_info, function(response) {
+          RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
               alertify.error(response.error_text);
             }
@@ -174,7 +174,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
       id = $(e.currentTarget).data("id");
       form_id = $(e.currentTarget).data("form");
       form_info = $(form_id).serializeObject();
-      api_url = RT.API[model.ucFirst()] + "/" + id;
+      api_url = Config.API[model.ucFirst()] + "/" + id;
       switch (model) {
         case "user":
           if ($.trim(form_info.password) !== "" && $.trim(form_info.password) !== $.trim(form_info.confirm_password)) {
@@ -193,7 +193,7 @@ define(["jquery", "underscore", "backbone", "alertify"], function($, _, Backbone
             }
           }
       }
-      RT.api.PUT(api_url, form_info, function(response) {
+      RT.API.PUT(api_url, form_info, function(response) {
         if (response.error_text) {
           alertify.error("修改失敗");
         }

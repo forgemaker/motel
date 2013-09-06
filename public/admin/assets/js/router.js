@@ -1,13 +1,3 @@
-RT.API = {
-  me: root_path + "user/CurrentData",
-  Upload: root_path + "motel/upload",
-  Room: root_path + "room",
-  User: root_path + "user",
-  Motel: root_path + "motel",
-  New: root_path + "new",
-  Rank: root_path + "rank"
-};
-
 String.prototype.ucFirst = function() {
   return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
 };
@@ -74,7 +64,7 @@ RT.generateSerial = function(len) {
   return randomstring;
 };
 
-define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
+define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
   var AppRouter, ajaxSettings, api_req, initialize;
   ajaxSettings = {
     dataType: "json"
@@ -114,7 +104,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       }
     }, settings));
   };
-  RT.api = {
+  RT.API = {
     GET: function(path, data, callback, settings) {
       settings = settings || {};
       data = data || {};
@@ -293,7 +283,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
             dateFormat: 'yy-mm-dd'
           });
           return $('#fileupload').fileupload({
-            url: RT.API.Upload,
+            url: Config.API.Upload,
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 5000000,
@@ -345,7 +335,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
                   dateFormat: 'yy-mm-dd'
                 });
                 return $('#fileupload').fileupload({
-                  url: RT.API.Upload,
+                  url: Config.API.Upload,
                   dataType: 'json',
                   acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                   maxFileSize: 5000000,
@@ -422,7 +412,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           }
           this.view_rooms_add.render();
           return $('#fileupload').fileupload({
-            url: RT.API.Upload,
+            url: Config.API.Upload,
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 5000000,
@@ -471,7 +461,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               }
               return setTimeout(function() {
                 return $('#fileupload').fileupload({
-                  url: RT.API.Upload,
+                  url: Config.API.Upload,
                   dataType: 'json',
                   acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                   maxFileSize: 5000000,
@@ -517,7 +507,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       self = this;
       switch (action) {
         case "logout":
-          return RT.api.GET(RT.API.User + '/logout', null, function(response) {
+          return Config.API.GET(Config.API.User + '/logout', null, function(response) {
             if (response.error_text) {
               alertify.error("登出失敗");
             }
@@ -613,7 +603,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
           });
           $('#stay_time_1, #stay_time_2').timepicker();
           return $('#fileupload').fileupload({
-            url: RT.API.Upload,
+            url: Config.API.Upload,
             dataType: 'json',
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
             maxFileSize: 5000000,
@@ -662,7 +652,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
               }
               return setTimeout(function() {
                 return $('#fileupload').fileupload({
-                  url: RT.API.Upload,
+                  url: Config.API.Upload,
                   dataType: 'json',
                   acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                   maxFileSize: 5000000,
@@ -755,7 +745,7 @@ define(["jquery", "underscore", "backbone", 'alertify', "models/me", "models/use
       var form_id, form_info;
       form_id = $(this).data("form");
       form_info = $(form_id).serializeObject();
-      return RT.api.POST(RT.API.User + '/login', form_info, function(response) {
+      return Config.API.POST(Config.API.User + '/login', form_info, function(response) {
         if (response.error_text) {
           alertify.error("登入失敗");
         }
