@@ -175,7 +175,8 @@ define ["jquery",
         initialize: ->
             @me = new ModelMe()
             @me.on "change", @update_user, this
-            @me.fetch()
+            @me.fetch
+                async: false
 
             # load model
             @user_model = new ModelUser()  unless @user_model
@@ -451,23 +452,32 @@ define ["jquery",
                 when "list"
                     @page = id or 1
                     @update_title "帳號列表"
+                    if !@me.get 'isAdmin'
+                        alertify.error "您並非系統管理者"
+                        window.location = "#!/user/edit"
+                        return
                     unless @view_users_list
-                        @view_users_list = new ViewUsers(
+                        @view_users_list = new ViewUsers
                             el: "#main"
                             collection: @user_model.lists
                             model_name: @user_model
                             page: @page
-                        )
+
+                    @view_users_list.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @view_users_list.options.page = @page
                     @user_model.set_params page: @page
-                    @user_model.lists.fetch({reset: true})
+                    @user_model.lists.fetch
+                        reset: true
                 when "add"
                     @update_title "新增帳號"
                     unless @view_users_add
-                        @view_users_add = new View(
+                        @view_users_add = new View
                             template_name: "user_edit"
                             el: "#main"
-                        )
+
+                    @view_users_add.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @view_users_add.render()
                 when "edit"
                     @update_title "修改帳號"
@@ -476,6 +486,8 @@ define ["jquery",
                             el: "#main"
                             model: @user_model
 
+                    @view_user.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @user_model.id = id || @me.get 'user_id'
                     @user_model.fetch
                         success: (model, response, options) ->
@@ -589,8 +601,9 @@ define ["jquery",
                 model: @me
             ).render()
 
-            #if @me.get "logged_in" and $.inArray('Admin', @me.get "user_groups") != '-1'
-            #    window.location.href = '../app/main/index.html'
+            # set isAdmin field
+            isAdmin = if $.inArray('Admin', @me.get "user_groups") isnt -1 then true else false
+            @me.set 'isAdmin', isAdmin
 
             # show login page if not login
             unless @me.get("logged_in")
@@ -636,7 +649,8 @@ define ["jquery",
                     # clear password field
                     $('#password').val('');
                     $("#login_pannel").modal 'hide'
-                    RT.Router.me.fetch()
+                    RT.Router.me.fetch
+                        async: false
                     alertify.success "登入成功"
 
         # pass the headers argument and assing a object

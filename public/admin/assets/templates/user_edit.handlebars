@@ -1,7 +1,9 @@
 <article class="module width_full">
 <div style="width:97%;margin:0 auto;">
     <div class="menu">
+        {{#isAdmin}}
         <a class="btn btn-primary" data-model="user" href="#!/user/list" style="color: white;"><i class="icon-list icon-white"></i> 檢視帳號列表</a>
+        {{/isAdmin}}
     </div>
     <ul id="mytab" class="nav nav-tabs">
         <li class="active"><a href="#profile" data-toggle="tab">個人資料</a></li>
@@ -41,6 +43,7 @@
                     <span class="help-block"></span>
                 </div>
                 {{#is_edit}}
+                {{#isAdmin}}
                 <div class="form-group">
                     <label class="control-label">群組:</label>
                     <div class="controls">
@@ -51,6 +54,7 @@
                         {{/all_groups}}
                     </div>
                 </div>
+                {{/isAdmin}}
                 {{/is_edit}}
                 <p class="help-block">*上面欄位務必填寫.</p>
                 {{#is_edit}}

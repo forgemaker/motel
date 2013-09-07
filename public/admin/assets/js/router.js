@@ -162,7 +162,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     initialize: function() {
       this.me = new ModelMe();
       this.me.on("change", this.update_user, this);
-      this.me.fetch();
+      this.me.fetch({
+        async: false
+      });
       if (!this.user_model) {
         this.user_model = new ModelUser();
       }
@@ -522,6 +524,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         case "list":
           this.page = id || 1;
           this.update_title("帳號列表");
+          if (!this.me.get('isAdmin')) {
+            alertify.error("您並非系統管理者");
+            window.location = "#!/user/edit";
+            return;
+          }
           if (!this.view_users_list) {
             this.view_users_list = new ViewUsers({
               el: "#main",
@@ -530,6 +537,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               page: this.page
             });
           }
+          this.view_users_list.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.view_users_list.options.page = this.page;
           this.user_model.set_params({
             page: this.page
@@ -545,6 +555,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               el: "#main"
             });
           }
+          this.view_users_add.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           return this.view_users_add.render();
         case "edit":
           this.update_title("修改帳號");
@@ -554,6 +567,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               model: this.user_model
             });
           }
+          this.view_user.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.user_model.id = id || this.me.get('user_id');
           return this.user_model.fetch({
             success: function(model, response, options) {
@@ -694,11 +710,14 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       }
     },
     update_user: function() {
+      var isAdmin;
       new View({
         template_name: "user_me",
         el: "#display_username",
         model: this.me
       }).render();
+      isAdmin = $.inArray('Admin', this.me.get("user_groups")) !== -1 ? true : false;
+      this.me.set('isAdmin', isAdmin);
       if (!this.me.get("logged_in")) {
         return $("#login_pannel").modal({
           backdrop: "static",
@@ -755,7 +774,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         if (response.success_text) {
           $('#password').val('');
           $("#login_pannel").modal('hide');
-          RT.Router.me.fetch();
+          RT.Router.me.fetch({
+            async: false
+          });
           return alertify.success("登入成功");
         }
       });
