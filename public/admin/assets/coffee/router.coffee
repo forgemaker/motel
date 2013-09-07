@@ -185,6 +185,13 @@ define ["jquery",
             @new_model = new ModelNew()  unless @new_model
             @rank_model = new ModelRank()  unless @rank_model
 
+        auth_check: (redirect_url) ->
+            if !@me.get 'isAdmin'
+                alertify.error "您並非系統管理者"
+                window.location = "#!/user/edit"
+                return true
+            return false
+
         update_title: (title) ->
             if title
                 document.title = title + " | " + @site_name
@@ -452,10 +459,8 @@ define ["jquery",
                 when "list"
                     @page = id or 1
                     @update_title "帳號列表"
-                    if !@me.get 'isAdmin'
-                        alertify.error "您並非系統管理者"
-                        window.location = "#!/user/edit"
-                        return
+                    return if @auth_check()
+
                     unless @view_users_list
                         @view_users_list = new ViewUsers
                             el: "#main"
@@ -651,6 +656,7 @@ define ["jquery",
                     $("#login_pannel").modal 'hide'
                     RT.Router.me.fetch
                         async: false
+                    window.location = "#!/user/edit"
                     alertify.success "登入成功"
 
         # pass the headers argument and assing a object

@@ -181,6 +181,14 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         return this.rank_model = new ModelRank();
       }
     },
+    auth_check: function(redirect_url) {
+      if (!this.me.get('isAdmin')) {
+        alertify.error("您並非系統管理者");
+        window.location = "#!/user/edit";
+        return true;
+      }
+      return false;
+    },
     update_title: function(title) {
       if (title) {
         document.title = title + " | " + this.site_name;
@@ -524,9 +532,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         case "list":
           this.page = id || 1;
           this.update_title("帳號列表");
-          if (!this.me.get('isAdmin')) {
-            alertify.error("您並非系統管理者");
-            window.location = "#!/user/edit";
+          if (this.auth_check()) {
             return;
           }
           if (!this.view_users_list) {
@@ -777,6 +783,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           RT.Router.me.fetch({
             async: false
           });
+          window.location = "#!/user/edit";
           return alertify.success("登入成功");
         }
       });
