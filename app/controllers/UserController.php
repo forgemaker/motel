@@ -8,6 +8,16 @@ class UserController extends \BaseController
         $this->group[2] = 'User';
     }
 
+    public function guest()
+    {
+        // add user data to session
+        Session::put('user_id', -1);
+        Session::put('logged_in', false);
+        Session::put('first_name', 'Guest');
+        Session::put('last_name', '');
+        Session::put('user_groups', array('Guest'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,6 +80,7 @@ class UserController extends \BaseController
     public function logout()
     {
         Session::flush();
+        $this->guest();
         return Response::json(array('success_text' => 'ok'));
     }
 
@@ -78,6 +89,10 @@ class UserController extends \BaseController
      */
     public function showProfile()
     {
+        if (!Session::has('logged_in')) {
+            $this->guest();
+        }
+
         $data = array(
             'item' => array(
                 'user_id' => Session::get('user_id'),

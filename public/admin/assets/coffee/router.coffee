@@ -174,7 +174,7 @@ define ["jquery",
 
         initialize: ->
             @me = new ModelMe()
-            @me.bind "change", @update_user, this
+            @me.on "change", @update_user, this
             @me.fetch()
 
             # load model

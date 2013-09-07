@@ -158,7 +158,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     },
     initialize: function() {
       this.me = new ModelMe();
-      this.me.bind("change", this.update_user, this);
+      this.me.on("change", this.update_user, this);
       this.me.fetch();
       if (!this.user_model) {
         this.user_model = new ModelUser();
