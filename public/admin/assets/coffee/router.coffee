@@ -93,7 +93,7 @@ define ["jquery",
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
         "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
-
+    $.ajaxSetup cache: false
     ajaxSettings = dataType: "json"
     api_req = (name, callback, settings) ->
         settings = (if (not settings) then {} else settings)
@@ -633,6 +633,8 @@ define ["jquery",
                 if response.error_text
                     alertify.error "登入失敗"
                 if response.success_text
+                    # clear password field
+                    $('#password').val('');
                     $("#login_pannel").modal 'hide'
                     RT.Router.me.fetch()
                     alertify.success "登入成功"

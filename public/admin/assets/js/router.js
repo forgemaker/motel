@@ -66,6 +66,9 @@ RT.generateSerial = function(len) {
 
 define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
   var AppRouter, ajaxSettings, api_req, initialize;
+  $.ajaxSetup({
+    cache: false
+  });
   ajaxSettings = {
     dataType: "json"
   };
@@ -750,6 +753,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           alertify.error("登入失敗");
         }
         if (response.success_text) {
+          $('#password').val('');
           $("#login_pannel").modal('hide');
           RT.Router.me.fetch();
           return alertify.success("登入成功");
