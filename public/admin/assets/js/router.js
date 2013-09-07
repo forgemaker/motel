@@ -507,7 +507,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       self = this;
       switch (action) {
         case "logout":
-          return Config.API.GET(Config.API.User + '/logout', null, function(response) {
+          return RT.API.GET(Config.API.User + '/logout', null, function(response) {
             if (response.error_text) {
               alertify.error("登出失敗");
             }
@@ -745,7 +745,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       var form_id, form_info;
       form_id = $(this).data("form");
       form_info = $(form_id).serializeObject();
-      return Config.API.POST(Config.API.User + '/login', form_info, function(response) {
+      return RT.API.POST(Config.API.User + '/login', form_info, function(response) {
         if (response.error_text) {
           alertify.error("登入失敗");
         }

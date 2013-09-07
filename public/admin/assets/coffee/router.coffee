@@ -441,7 +441,7 @@ define ["jquery",
             self = @
             switch action
                 when "logout"
-                    Config.API.GET Config.API.User + '/logout', null, (response) ->
+                    RT.API.GET Config.API.User + '/logout', null, (response) ->
                         if response.error_text
                             alertify.error "登出失敗"
                         if response.success_text
@@ -629,7 +629,7 @@ define ["jquery",
         .on "click", "#login-button", (ev) ->
             form_id = $(this).data("form")
             form_info = $(form_id).serializeObject()
-            Config.API.POST Config.API.User + '/login', form_info, (response) ->
+            RT.API.POST Config.API.User + '/login', form_info, (response) ->
                 if response.error_text
                     alertify.error "登入失敗"
                 if response.success_text
