@@ -58,6 +58,7 @@ class RoomController extends \BaseController
             'price_3' => Input::get('price_3', 0),
             'raw_name' => Input::get('raw_name'),
             'image_url' => Input::get('image_url'),
+            'active' => Input::get('active', 1),
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -108,6 +109,7 @@ class RoomController extends \BaseController
         $room->price_3 = Input::get('price_3', 0);
         $room->raw_name = Input::get('raw_name');
         $room->image_url = Input::get('image_url');
+        $room->active = Input::get('active', 1);
         $room->edit_time = time();
 
         $room->save();

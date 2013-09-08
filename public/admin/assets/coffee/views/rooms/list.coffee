@@ -44,6 +44,7 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             $(parent_view.el).empty()
             @collection.each (item) ->
                 item.attributes["type"] = (if (+item.attributes["type"]) then "<span class=\"label label-warning\">住宿</span>" else "<span class=\"label label-info\">休息</span>")
+                item.attributes["active"] = (if (+item.attributes["active"]) then "<span class=\"label label-success\">啟用</span>" else '<span class="label label-default">關閉</span>')
                 data.items.push item.attributes
 
             $.extend data, @handle_page()
