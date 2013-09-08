@@ -2,7 +2,7 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
   return View.extend({
     events: _.extend({
       "click .search_user": "search",
-      'click .enable': 'active'
+      'click .action': 'action'
     }, View.prototype.events),
     search: function(e) {
       var form_id, form_info, model, params, self;
@@ -25,16 +25,16 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       self.collection.fetch();
       return this;
     },
-    active: function(e) {
-      var active, api_url, motel_id, self;
+    action: function(e) {
+      var api_url, id, self, status_id;
       e.preventDefault();
       self = this;
-      active = $(e.currentTarget).data('active');
-      motel_id = $(e.currentTarget).data('motel_id');
-      api_url = Config.API.Room + '/enable';
+      status_id = $(e.currentTarget).data('status');
+      id = $(e.currentTarget).data('id');
+      api_url = Config.API.Order + '/action';
       return RT.API.POST(api_url, {
-        active: active,
-        motel_id: motel_id
+        id: id,
+        status_id: status_id
       }, function(response) {
         if (response.success_text) {
           return self.collection.fetch({

@@ -22,16 +22,17 @@ class OrderController extends \BaseController
      *
      * @return Response
      */
-    public function enable()
+    public function action()
     {
-        $motel_id = Input::get('motel_id');
-        $active = Input::get('active');
+        $id = Input::get('id');
+        $status_id = Input::get('status_id');
+        $order = Order::find($id);
 
-        $affectedRows = Order::where('motel_id', $motel_id)->update(array('active' => $active));
+        $order->status_id = $status_id;
+        $order->save();
 
         $data = array(
-            'success_text' => 'ok',
-            'affectedRows' => $affectedRows
+            'success_text' => 'ok'
         );
         return Response::json($data);
     }

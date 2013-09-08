@@ -24,6 +24,7 @@ Route::get('new/list/{id}', 'NewsController@sublist');
 Route::get('rank/list/{id}', 'RankController@sublist');
 Route::get('order/list/{id}', 'OrderController@sublist');
 Route::post('room/enable', 'RoomController@enable');
+Route::post('order/action', 'OrderController@action');
 Route::resource('user', 'UserController');
 Route::resource('motel', 'MotelController');
 Route::resource('room', 'RoomController');
