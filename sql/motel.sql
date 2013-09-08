@@ -231,3 +231,27 @@ CREATE TABLE IF NOT EXISTS `ranks` (
   KEY `motel_id` (`motel_id`),
   FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` varchar(16) DEFAULT NULL,
+  `motel_id` int(11) unsigned NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_phone` varchar(255) NOT NULL,
+  `room_titile` varchar(255) DEFAULT NULL,
+  `room_type` varchar(255) DEFAULT NULL,
+  `serial_number` varchar(16) NOT NULL,
+  `total_price` decimal(16,4) NOT NULL,
+  `date_purchased` datetime NOT NULL,
+  `date_finished` datetime NOT NULL,
+  `status_id` mediumint(8) NOT NULL,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
