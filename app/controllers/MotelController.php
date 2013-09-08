@@ -83,6 +83,8 @@ class MotelController extends \BaseController
             'feature' => Input::get('feature'),
             'raw_name' => Input::get('raw_name'),
             'image_url' => Input::get('image_url'),
+            'longitude' => Input::get('longitude', null),
+            'latitude' => Input::get('latitude', null),
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -150,6 +152,8 @@ class MotelController extends \BaseController
         $motel->feature = Input::get('feature');
         $motel->raw_name = Input::get('raw_name');
         $motel->image_url = Input::get('image_url');
+        $motel->longitude = Input::get('longitude');
+        $motel->latitude = Input::get('latitude');
         $motel->edit_time = time();
 
         $motel->save();

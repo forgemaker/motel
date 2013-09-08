@@ -504,26 +504,29 @@ define ["jquery",
             $("#main").html ""
             self = @
             switch action
-              when "list"
+                when "list"
                     @page = id or 1
                     @update_title "摩鐵列表"
+                    return if @auth_check()
+
                     unless @view_motels_list
-                        @view_motels_list = new ViewMotels(
+                        @view_motels_list = new ViewMotels
                             el: "#main"
                             collection: @motel_model.lists
                             model_name: @motel_model
                             page: @page
-                        )
+
                     @view_motels_list.options.page = @page
                     @motel_model.set_params page: @page
                     @motel_model.lists.fetch({reset: true})
-              when "add"
+                when "add"
                     @update_title "新增摩鐵"
+                    return if @auth_check()
                     unless @view_motels_add
-                        @view_motels_add = new View(
+                        @view_motels_add = new View
                             template_name: "motel_edit"
                             el: "#main"
-                        )
+
                     @view_motels_add.render()
                     $('#twzipcode').twzipcode
                         'readonly': true
@@ -556,15 +559,16 @@ define ["jquery",
                                 alertify.error data.files[data.index].error
                         fail: (e, data) ->
                             alertify.error '檔案上傳失敗'
-              when "edit"
+                when "edit"
                     @update_title "修改摩鐵"
                     unless @view_motel
-                        @view_motel = new ViewMotel(
+                        @view_motel = new ViewMotel
                             el: "#main"
                             model: @motel_model
-                        )
 
-                    @motel_model.id = id
+                    @view_motel.options.data =
+                        isAdmin: @me.get 'isAdmin'
+                    @motel_model.id = id || @me.get 'motel_id'
                     @motel_model.fetch
                         success: (model, response, options) ->
                             self.motel_model.trigger 'change' unless self.motel_model.hasChanged 'id'

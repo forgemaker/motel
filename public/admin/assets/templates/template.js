@@ -182,6 +182,14 @@ function program19(depth0,data) {
   if (stack1 = helpers.mobile_2) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.mobile_2; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
+    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">經度</label>\n                    <input type=\"text\" name=\"longitude\" class=\"form-control\" placeholder=\"請輸入摩鐵經度\" value=\"";
+  if (stack1 = helpers.longitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.longitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">緯度</label>\n                    <input type=\"text\" name=\"latitude\" class=\"form-control\" placeholder=\"請輸入摩鐵緯度\" value=\"";
+  if (stack1 = helpers.latitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.latitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
     + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">單筆佣金</label>\n                    <input type=\"text\" name=\"commission\" class=\"form-control\" placeholder=\"請輸入摩鐵單筆佣金\" value=\"";
   if (stack1 = helpers.commission) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.commission; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }

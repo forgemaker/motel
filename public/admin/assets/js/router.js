@@ -596,6 +596,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         case "list":
           this.page = id || 1;
           this.update_title("摩鐵列表");
+          if (this.auth_check()) {
+            return;
+          }
           if (!this.view_motels_list) {
             this.view_motels_list = new ViewMotels({
               el: "#main",
@@ -613,6 +616,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           });
         case "add":
           this.update_title("新增摩鐵");
+          if (this.auth_check()) {
+            return;
+          }
           if (!this.view_motels_add) {
             this.view_motels_add = new View({
               template_name: "motel_edit",
@@ -669,7 +675,10 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               model: this.motel_model
             });
           }
-          this.motel_model.id = id;
+          this.view_motel.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
+          this.motel_model.id = id || this.me.get('motel_id');
           return this.motel_model.fetch({
             success: function(model, response, options) {
               if (!self.motel_model.hasChanged('id')) {
