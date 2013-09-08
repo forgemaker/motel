@@ -733,6 +733,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       }).render();
       isAdmin = $.inArray('Admin', this.me.get("user_groups")) !== -1 ? true : false;
       this.me.set('isAdmin', isAdmin);
+      if (isAdmin) {
+        $('.admin-panel').removeClass('hide');
+      } else {
+        $('.admin-panel').addClass('hide');
+      }
       if (!this.me.get("logged_in")) {
         return $("#login_pannel").modal({
           backdrop: "static",

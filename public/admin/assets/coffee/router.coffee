@@ -614,6 +614,12 @@ define ["jquery",
             isAdmin = if $.inArray('Admin', @me.get "user_groups") isnt -1 then true else false
             @me.set 'isAdmin', isAdmin
 
+            # show admin menu
+            if isAdmin
+                $('.admin-panel').removeClass 'hide'
+            else
+                $('.admin-panel').addClass 'hide'
+
             # show login page if not login
             unless @me.get("logged_in")
                 $("#login_pannel").modal
