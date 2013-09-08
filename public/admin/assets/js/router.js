@@ -207,6 +207,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
+      this.motel_id = id || this.me.get('motel_id');
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -215,13 +216,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             this.view_ranks_list = new ViewRanks({
               el: "#main",
               collection: this.rank_model.lists,
-              model_name: this.rank_model,
-              data: {
-                motel_id: this.motel_id
-              },
-              page: this.page || 1
+              model_name: this.rank_model
             });
           }
+          this.view_ranks_list.options.data = {
+            motel_id: this.motel_id
+          };
           this.view_ranks_list.options.page = this.page || 1;
           this.rank_model.set_lists_url(this.motel_id);
           return this.rank_model.lists.fetch({
@@ -232,12 +232,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           if (!this.view_ranks_add) {
             this.view_ranks_add = new View({
               template_name: 'rank_edit',
-              el: "#main",
-              data: {
-                motel_id: id
-              }
+              el: "#main"
             });
           }
+          this.view_ranks_add.options.data = {
+            motel_id: this.motel_id
+          };
           return this.view_ranks_add.render();
         case "edit":
           this.update_title("修改優惠");
@@ -247,6 +247,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               model: this.rank_model
             });
           }
+          this.view_rank.options.data = {
+            motel_id: this.motel_id
+          };
           this.rank_model.id = id;
           return this.rank_model.fetch({
             success: function(model, response, options) {
@@ -263,6 +266,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
+      this.motel_id = id || this.me.get('motel_id');
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -271,13 +275,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             this.view_news_list = new ViewNews({
               el: "#main",
               collection: this.new_model.lists,
-              model_name: this.new_model,
-              data: {
-                motel_id: this.motel_id
-              },
-              page: this.page || 1
+              model_name: this.new_model
             });
           }
+          this.view_news_list.options.data = {
+            motel_id: this.motel_id
+          };
           this.view_news_list.options.page = this.page || 1;
           this.new_model.set_lists_url(this.motel_id);
           return this.new_model.lists.fetch({
@@ -288,12 +291,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           if (!this.view_news_add) {
             this.view_news_add = new View({
               template_name: 'new_edit',
-              el: "#main",
-              data: {
-                motel_id: id
-              }
+              el: "#main"
             });
           }
+          this.view_news_add.options.data = {
+            motel_id: this.motel_id
+          };
           this.view_news_add.render();
           $('#start_time, #end_time').datepicker({
             dateFormat: 'yy-mm-dd'
@@ -340,6 +343,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               model: this.new_model
             });
           }
+          this.view_new.options.data = {
+            motel_id: this.motel_id
+          };
           this.new_model.id = id;
           return this.new_model.fetch({
             success: function(model, response, options) {

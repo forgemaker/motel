@@ -207,40 +207,41 @@ define ["jquery",
             RT.dialogs.loading "open"
             $("#main").html ""
             self = @
+            @motel_id = id || @me.get 'motel_id'
             switch action
               when "list"
                     @motel_id = id or 1
                     @update_title "優惠列表"
                     unless @view_ranks_list
-                        @view_ranks_list = new ViewRanks(
+                        @view_ranks_list = new ViewRanks
                             el: "#main"
                             collection: @rank_model.lists
                             model_name: @rank_model
-                            data:
-                                motel_id: @motel_id
-                            page: @page or 1
-                        )
+
+                    @view_ranks_list.options.data =
+                        motel_id: @motel_id
                     @view_ranks_list.options.page = @page or 1
                     @rank_model.set_lists_url @motel_id
                     @rank_model.lists.fetch({reset: true})
               when "add"
                     @update_title "新增優惠消息"
                     unless @view_ranks_add
-                        @view_ranks_add = new View(
+                        @view_ranks_add = new View
                             template_name: 'rank_edit'
                             el: "#main"
-                            data:
-                                motel_id: id
-                        )
+
+                    @view_ranks_add.options.data =
+                        motel_id: @motel_id
                     @view_ranks_add.render()
               when "edit"
                     @update_title "修改優惠"
                     unless @view_rank
-                        @view_rank = new ViewRank(
+                        @view_rank = new ViewRank
                             el: "#main"
                             model: @rank_model
-                        )
 
+                    @view_rank.options.data =
+                        motel_id: @motel_id
                     @rank_model.id = id
                     @rank_model.fetch
                         success: (model, response, options) ->
@@ -251,31 +252,31 @@ define ["jquery",
             RT.dialogs.loading "open"
             $("#main").html ""
             self = @
+            @motel_id = id || @me.get 'motel_id'
             switch action
               when "list"
                     @motel_id = id or 1
                     @update_title "優惠列表"
                     unless @view_news_list
-                        @view_news_list = new ViewNews(
+                        @view_news_list = new ViewNews
                             el: "#main"
                             collection: @new_model.lists
                             model_name: @new_model
-                            data:
-                                motel_id: @motel_id
-                            page: @page or 1
-                        )
+
+                    @view_news_list.options.data =
+                        motel_id: @motel_id
                     @view_news_list.options.page = @page or 1
                     @new_model.set_lists_url @motel_id
-                    @new_model.lists.fetch({reset: true})
+                    @new_model.lists.fetch
+                        reset: true
               when "add"
                     @update_title "新增優惠消息"
                     unless @view_news_add
-                        @view_news_add = new View(
+                        @view_news_add = new View
                             template_name: 'new_edit'
                             el: "#main"
-                            data:
-                                motel_id: id
-                        )
+                    @view_news_add.options.data =
+                        motel_id: @motel_id
                     @view_news_add.render()
                     $('#start_time, #end_time').datepicker
                         dateFormat: 'yy-mm-dd'
@@ -307,11 +308,12 @@ define ["jquery",
               when "edit"
                     @update_title "修改優惠"
                     unless @view_new
-                        @view_new = new ViewNew(
+                        @view_new = new ViewNew
                             el: "#main"
                             model: @new_model
-                        )
 
+                    @view_new.options.data =
+                        motel_id: @motel_id
                     @new_model.id = id
                     @new_model.fetch
                         success: (model, response, options) ->
