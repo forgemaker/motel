@@ -137,6 +137,14 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
                             alertify.success "評分成功"
                             window.location = "#!/rank/list/" + form_info.motel_id
 
+                when "order"
+                    RT.API.POST api_url, form_info, (response) ->
+                        if response.error_text
+                            alertify.error response.error_text
+                        if response.success_text
+                            alertify.success "訂單建立成功"
+                            window.location = "#!/order/list/" + form_info.motel_id
+
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
             false

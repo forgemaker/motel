@@ -160,6 +160,17 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
               return window.location = "#!/rank/list/" + form_info.motel_id;
             }
           });
+          break;
+        case "order":
+          RT.API.POST(api_url, form_info, function(response) {
+            if (response.error_text) {
+              alertify.error(response.error_text);
+            }
+            if (response.success_text) {
+              alertify.success("訂單建立成功");
+              return window.location = "#!/order/list/" + form_info.motel_id;
+            }
+          });
       }
       e.stopImmediatePropagation();
       return false;

@@ -70,14 +70,16 @@ class OrderController extends \BaseController
     {
         $order = Order::create(array(
             'motel_id' => Input::get('motel_id'),
-            'title' => Input::get('title'),
-            'type' => Input::get('type', 0),
-            'price_1' => Input::get('price_1', 0),
-            'price_2' => Input::get('price_2', 0),
-            'price_3' => Input::get('price_3', 0),
-            'raw_name' => Input::get('raw_name'),
-            'image_url' => Input::get('image_url'),
-            'active' => Input::get('active', 1),
+            'uid' => Input::get('uid'),
+            'user_name' => Input::get('user_name', null),
+            'user_phone' => Input::get('user_phone', null),
+            'room_title' => Input::get('room_title', null),
+            'room_type' => Input::get('room_type', null),
+            'serial_number' => Input::get('serial_number', null),
+            'total_price' => Input::get('total_price', null),
+            'date_purchased' => Input::get('date_purchased', null),
+            'date_finished' => Input::get('date_finished', null),
+            'status_id' => Input::get('status_id', 0),
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -121,14 +123,16 @@ class OrderController extends \BaseController
     {
         $order = Order::find($id);
 
-        $order->title = Input::get('title');
-        $order->type = Input::get('type', 0);
-        $order->price_1 = Input::get('price_1', 0);
-        $order->price_2 = Input::get('price_2', 0);
-        $order->price_3 = Input::get('price_3', 0);
-        $order->raw_name = Input::get('raw_name');
-        $order->image_url = Input::get('image_url');
-        $order->active = Input::get('active', 1);
+        $order->uid = Input::get('uid');
+        $order->user_name = Input::get('user_name');
+        $order->user_phone = Input::get('user_phone');
+        $order->room_title = Input::get('room_title');
+        $order->room_type = Input::get('room_type');
+        $order->serial_number = Input::get('serial_number');
+        $order->total_price = Input::get('total_price');
+        $order->date_purchased = Input::get('date_purchased');
+        $order->date_finished = Input::get('date_finished');
+        $order->status_id = Input::get('status_id');
         $order->edit_time = time();
 
         $order->save();
