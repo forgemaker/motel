@@ -1,7 +1,8 @@
-define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View) ->
+define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Backbone, View, Config) ->
     View.extend
         events: _.extend(
             "click .search_user": "search"
+            'click .enable': 'active'
         , View::events)
         search: (e) ->
             (@debug) and console.log("search")
@@ -23,6 +24,20 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             #e.stopImmediatePropagation();
             this
+
+        active: (e) ->
+            e.preventDefault()
+            self = this
+            active = $(e.currentTarget).data 'active'
+            motel_id = $(e.currentTarget).data 'motel_id'
+            api_url = Config.API.Room + '/enable'
+            RT.API.POST api_url,
+                active: active
+                motel_id: motel_id
+                , (response) ->
+                    if response.success_text
+                        self.collection.fetch
+                            reset: true
 
         handle_page: ->
             data = {}

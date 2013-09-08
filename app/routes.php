@@ -22,6 +22,7 @@ Route::post('motel/upload', 'MotelController@upload');
 Route::get('room/list/{id}', 'RoomController@sublist');
 Route::get('new/list/{id}', 'NewsController@sublist');
 Route::get('rank/list/{id}', 'RankController@sublist');
+Route::post('room/enable', 'RoomController@enable');
 Route::resource('user', 'UserController');
 Route::resource('motel', 'MotelController');
 Route::resource('room', 'RoomController');

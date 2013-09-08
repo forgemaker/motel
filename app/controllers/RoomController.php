@@ -18,6 +18,25 @@ class RoomController extends \BaseController
     }
 
     /**
+     * Enable or disable all room.
+     *
+     * @return Response
+     */
+    public function enable()
+    {
+        $motel_id = Input::get('motel_id');
+        $active = Input::get('active');
+
+        $affectedRows = Room::where('motel_id', $motel_id)->update(array('active' => $active));
+
+        $data = array(
+            'success_text' => 'ok',
+            'affectedRows' => $affectedRows
+        );
+        return Response::json($data);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

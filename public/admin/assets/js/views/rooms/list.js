@@ -1,7 +1,8 @@
-define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbone, View) {
+define(["jquery", "underscore", "backbone", "views/view", "config"], function($, _, Backbone, View, Config) {
   return View.extend({
     events: _.extend({
-      "click .search_user": "search"
+      "click .search_user": "search",
+      'click .enable': 'active'
     }, View.prototype.events),
     search: function(e) {
       var form_id, form_info, model, params, self;
@@ -23,6 +24,24 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       self.options.model_name.set_params(params);
       self.collection.fetch();
       return this;
+    },
+    active: function(e) {
+      var active, api_url, motel_id, self;
+      e.preventDefault();
+      self = this;
+      active = $(e.currentTarget).data('active');
+      motel_id = $(e.currentTarget).data('motel_id');
+      api_url = Config.API.Room + '/enable';
+      return RT.API.POST(api_url, {
+        active: active,
+        motel_id: motel_id
+      }, function(response) {
+        if (response.success_text) {
+          return self.collection.fetch({
+            reset: true
+          });
+        }
+      });
     },
     handle_page: function() {
       var data, next_page, previous_page;

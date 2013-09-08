@@ -9,27 +9,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/new/list/";
+  buffer += "\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/order/list/";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 發佈優惠</a>\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/rank/list/";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 查看評價</a>\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/order/list/";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 訂單管理</a>\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/room/list/";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 房型管理</a>\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/room/add/";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 建立房型</a>\n        ";
+    + "\" style=\"color: white;\"><i class=\"icon-list\"></i> 訂單管理</a>\n        ";
   return buffer;
   }
 
@@ -151,7 +135,7 @@ function program23(depth0,data) {
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-model=\"motel\" class=\"btn btn-primary ";
+  buffer += " data-model=\"motel\" class=\"btn btn-success ";
   options = {hash:{},inverse:self.program(5, program5, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -1293,7 +1277,15 @@ function program5(depth0,data) {
   return buffer;
   }
 
-  buffer += "<article class=\"module width_full\">\n<div style=\"width:98%;margin:0 auto;\">\n    <div class=\"menu\">\n        <a class=\"btn btn-primary check_all\" data-model=\"room\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\n        <a class=\"btn btn-primary\" data-model=\"room\" href=\"#!/room/add/";
+  buffer += "<article class=\"module width_full\">\n<div style=\"width:98%;margin:0 auto;\">\n    <div class=\"menu\">\n        <a class=\"btn btn-primary check_all\" data-model=\"room\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\n        <a class=\"btn btn-warning enable\" data-active=\"1\" data-motel_id=\"";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-model=\"room\" style=\"color: white;\"><i class=\"icon-unlock\"></i> 全部打開</a>\n        <a class=\"btn btn-warning enable\" data-active=\"0\" data-motel_id=\"";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-model=\"room\" style=\"color: white;\"><i class=\"icon-lock\"></i> 全部關閉</a>\n        <a class=\"btn btn-primary\" data-model=\"room\" href=\"#!/room/add/";
   if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
