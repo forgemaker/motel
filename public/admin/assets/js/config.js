@@ -7,7 +7,8 @@ define(["jquery"], function($) {
       User: root_path + "user",
       Motel: root_path + "motel",
       New: root_path + "new",
-      Rank: root_path + "rank"
+      Rank: root_path + "rank",
+      Order: root_path + "order"
     }
   };
 });

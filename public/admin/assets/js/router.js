@@ -161,8 +161,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       "!/new/:action/:id": "new",
       "!/rank/:action": "rank",
       "!/rank/:action/:id": "rank",
-      "!/order/:action": "rank",
-      "!/order/:action/:id": "rank"
+      "!/order/:action": "order",
+      "!/order/:action/:id": "order"
     },
     initialize: function() {
       this.me = new ModelMe();
@@ -183,7 +183,10 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         this.new_model = new ModelNew();
       }
       if (!this.rank_model) {
-        return this.rank_model = new ModelRank();
+        this.rank_model = new ModelRank();
+      }
+      if (!this.order_model) {
+        return this.order_model = new ModelOrder();
       }
     },
     auth_check: function(redirect_url) {

@@ -63,7 +63,7 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
                 data.items.push item.attributes
 
             $.extend data, @handle_page()
-            $(parent_view.el).hide().html(Handlebars.templates.room_list(data)).fadeIn "slow"
+            $(parent_view.el).hide().html(Handlebars.templates.order_list(data)).fadeIn "slow"
             RT.update_table()
             RT.dialogs.loading "close"
             this

@@ -177,8 +177,8 @@ define ["jquery",
             "!/new/:action/:id": "new"
             "!/rank/:action": "rank"
             "!/rank/:action/:id": "rank"
-            "!/order/:action": "rank"
-            "!/order/:action/:id": "rank"
+            "!/order/:action": "order"
+            "!/order/:action/:id": "order"
 
         initialize: ->
             @me = new ModelMe()
@@ -192,6 +192,7 @@ define ["jquery",
             @room_model = new ModelRoom()  unless @room_model
             @new_model = new ModelNew()  unless @new_model
             @rank_model = new ModelRank()  unless @rank_model
+            @order_model = new ModelOrder()  unless @order_model
 
         auth_check: (redirect_url) ->
             if !@me.get 'isAdmin'
@@ -229,7 +230,8 @@ define ["jquery",
                         isAdmin: @me.get 'isAdmin'
                     @view_orders_list.options.page = @page or 1
                     @order_model.set_lists_url @motel_id
-                    @order_model.lists.fetch({reset: true})
+                    @order_model.lists.fetch
+                        reset: true
               when "add"
                     @update_title "新增訂單"
                     unless @view_orders_add

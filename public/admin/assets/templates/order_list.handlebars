@@ -5,21 +5,21 @@
     <ul class="pager">
         {{#previous_show}}
         <li class="previous">
-            <a href="#!/room/list/1" style="margin-right: 10px;">&larr; 第一頁</a>
+            <a href="#!/order/list/1" style="margin-right: 10px;">&larr; 第一頁</a>
         </li>
         <li class="previous">
-            <a href="#!/room/list/{{previous_page}}">&larr; 上一頁</a>
+            <a href="#!/order/list/{{previous_page}}">&larr; 上一頁</a>
         </li>
         {{/previous_show}}
         {{#next_show}}
         <li class="next">
-            <a href="#!/room/list/{{next_page}}">下一頁 &rarr;</a>
+            <a href="#!/order/list/{{next_page}}">下一頁 &rarr;</a>
         </li>
         {{/next_show}}
     </ul>
-    <form action="#" method="post" id="room_list_form">
+    <form action="#" method="post" id="order_list_form">
     <div class="table-responsive">
-    <table id="room_list" class="table table-striped table-bordered table-condensed tablesorter">
+    <table id="order_list" class="table table-striped table-bordered table-condensed tablesorter">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -27,7 +27,6 @@
                 <th>房型</th>
                 <th>休息/住宿</th>
                 <th>下單時間</th>
-                <th>原價</th>
                 <th>應收金額</th>
                 <th>狀態</th>
                 <th>動作</th>
@@ -38,15 +37,14 @@
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{id}}</td>
-            <td>{{title}}</td>
-            <td>{{&type}}</td>
-            <td>{{&active}}</td>
-            <td>{{price_1}}</td>
-            <td>{{price_2}}</td>
-            <td>{{date_time add_time}}</td>
+            <td>{{serial_number}}</td>
+            <td>{{room_title}}</td>
+            <td>{{room_type}}</td>
+            <td>{{date_purchased}}</td>
+            <td>{{total_price}}</td>
             <td>
-                <a class="btn btn-primary" data-model="room" data-id="{{id}}" href="#!/room/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
-                <a class="btn btn-danger delete" data-model="room" data-title="{{title}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
+                <a class="btn btn-primary" data-model="order" data-id="{{id}}" href="#!/order/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
+                <a class="btn btn-danger delete" data-model="order" data-title="{{title}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
             </td>
         </tr>
         {{/items}}
