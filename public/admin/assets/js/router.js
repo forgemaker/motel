@@ -155,8 +155,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       "!/motel/:action/:id": "motel",
       "!/user/:action": "user",
       "!/user/:action/:id": "user",
+      "!/room/:action": "room",
       "!/room/:action/:id": "room",
+      "!/new/:action": "new",
       "!/new/:action/:id": "new",
+      "!/rank/:action": "rank",
       "!/rank/:action/:id": "rank"
     },
     initialize: function() {
@@ -392,21 +395,20 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
+      this.motel_id = id || this.me.get('motel_id');
       switch (action) {
         case "list":
-          this.motel_id = id || 1;
           this.update_title("房型列表");
           if (!this.view_rooms_list) {
             this.view_rooms_list = new ViewRooms({
               el: "#main",
               collection: this.room_model.lists,
-              model_name: this.room_model,
-              data: {
-                motel_id: this.motel_id
-              },
-              page: this.page || 1
+              model_name: this.room_model
             });
           }
+          this.view_rooms_list.options.data = {
+            motel_id: this.motel_id
+          };
           this.view_rooms_list.options.page = this.page || 1;
           this.room_model.set_lists_url(this.motel_id);
           return this.room_model.lists.fetch({
@@ -417,12 +419,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           if (!this.view_rooms_add) {
             this.view_rooms_add = new View({
               template_name: "room_edit",
-              el: "#main",
-              data: {
-                motel_id: id
-              }
+              el: "#main"
             });
           }
+          this.view_rooms_add.options.data = {
+            motel_id: this.motel_id
+          };
           this.view_rooms_add.render();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
@@ -466,6 +468,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               model: this.room_model
             });
           }
+          this.view_room.options.data = {
+            motel_id: this.motel_id
+          };
           this.room_model.id = id;
           return this.room_model.fetch({
             success: function(model, response, options) {
@@ -555,6 +560,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           });
         case "add":
           this.update_title("新增帳號");
+          if (this.auth_check()) {
+            return;
+          }
           if (!this.view_users_add) {
             this.view_users_add = new View({
               template_name: "user_edit",

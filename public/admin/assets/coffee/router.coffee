@@ -168,8 +168,11 @@ define ["jquery",
             "!/motel/:action/:id": "motel"
             "!/user/:action": "user"
             "!/user/:action/:id": "user"
+            "!/room/:action": "room"
             "!/room/:action/:id": "room"
+            "!/new/:action": "new"
             "!/new/:action/:id": "new"
+            "!/rank/:action": "rank"
             "!/rank/:action/:id": "rank"
 
         initialize: ->
@@ -349,31 +352,31 @@ define ["jquery",
             RT.dialogs.loading "open"
             $("#main").html ""
             self = @
+            @motel_id = id || @me.get 'motel_id'
             switch action
               when "list"
-                    @motel_id = id or 1
                     @update_title "房型列表"
                     unless @view_rooms_list
-                        @view_rooms_list = new ViewRooms(
+                        @view_rooms_list = new ViewRooms
                             el: "#main"
                             collection: @room_model.lists
                             model_name: @room_model
-                            data:
-                                motel_id: @motel_id
-                            page: @page or 1
-                        )
+
+                    @view_rooms_list.options.data =
+                        motel_id: @motel_id
                     @view_rooms_list.options.page = @page or 1
                     @room_model.set_lists_url @motel_id
-                    @room_model.lists.fetch({reset: true})
+                    @room_model.lists.fetch
+                        reset: true
               when "add"
                     @update_title "新增房型"
                     unless @view_rooms_add
-                        @view_rooms_add = new View(
+                        @view_rooms_add = new View
                             template_name: "room_edit"
                             el: "#main"
-                            data:
-                                motel_id: id
-                        )
+
+                    @view_rooms_add.options.data =
+                        motel_id: @motel_id
                     @view_rooms_add.render()
                     $('#fileupload').fileupload
                         url: Config.API.Upload
@@ -403,11 +406,12 @@ define ["jquery",
               when "edit"
                     @update_title "修改房型"
                     unless @view_room
-                        @view_room = new ViewRoom(
+                        @view_room = new ViewRoom
                             el: "#main"
                             model: @room_model
-                        )
 
+                    @view_room.options.data =
+                        motel_id: @motel_id
                     @room_model.id = id
                     @room_model.fetch
                         success: (model, response, options) ->
@@ -476,6 +480,8 @@ define ["jquery",
                         reset: true
                 when "add"
                     @update_title "新增帳號"
+                    return if @auth_check()
+
                     unless @view_users_add
                         @view_users_add = new View
                             template_name: "user_edit"
@@ -522,6 +528,7 @@ define ["jquery",
                 when "add"
                     @update_title "新增摩鐵"
                     return if @auth_check()
+
                     unless @view_motels_add
                         @view_motels_add = new View
                             template_name: "motel_edit"
