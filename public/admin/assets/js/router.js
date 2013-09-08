@@ -64,7 +64,7 @@ RT.generateSerial = function(len) {
   return randomstring;
 };
 
-define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) {
+define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "models/order", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "views/orders/list", "views/orders/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) {
   var AppRouter, ajaxSettings, api_req, initialize;
   $.ajaxSetup({
     cache: false
@@ -160,7 +160,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       "!/new/:action": "new",
       "!/new/:action/:id": "new",
       "!/rank/:action": "rank",
-      "!/rank/:action/:id": "rank"
+      "!/rank/:action/:id": "rank",
+      "!/order/:action": "rank",
+      "!/order/:action/:id": "rank"
     },
     initialize: function() {
       this.me = new ModelMe();
@@ -199,6 +201,66 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       } else {
         document.title = this.site_name;
         return $(".section_title").text("");
+      }
+    },
+    order: function(action, id) {
+      var self;
+      this.reset();
+      RT.dialogs.loading("open");
+      $("#main").html("");
+      self = this;
+      this.motel_id = id || this.me.get('motel_id');
+      switch (action) {
+        case "list":
+          this.motel_id = id || 1;
+          this.update_title("訂單列表");
+          if (!this.view_orders_list) {
+            this.view_orders_list = new ViewOrders({
+              el: "#main",
+              collection: this.order_model.lists,
+              model_name: this.order_model
+            });
+          }
+          this.view_orders_list.options.data = {
+            motel_id: this.motel_id,
+            isAdmin: this.me.get('isAdmin')
+          };
+          this.view_orders_list.options.page = this.page || 1;
+          this.order_model.set_lists_url(this.motel_id);
+          return this.order_model.lists.fetch({
+            reset: true
+          });
+        case "add":
+          this.update_title("新增訂單");
+          if (!this.view_orders_add) {
+            this.view_orders_add = new View({
+              template_name: 'order_edit',
+              el: "#main"
+            });
+          }
+          this.view_orders_add.options.data = {
+            motel_id: this.motel_id
+          };
+          return this.view_orders_add.render();
+        case "edit":
+          this.update_title("修改訂單");
+          if (!this.view_order) {
+            this.view_order = new ViewOrder({
+              el: "#main",
+              model: this.order_model
+            });
+          }
+          this.view_order.options.data = {
+            motel_id: this.motel_id
+          };
+          this.order_model.id = id;
+          return this.order_model.fetch({
+            success: function(model, response, options) {
+              if (!self.order_model.hasChanged('id')) {
+                return self.order_model.trigger('change');
+              }
+            }
+          });
       }
     },
     rank: function(action, id) {

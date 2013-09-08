@@ -64,6 +64,7 @@ define ["jquery",
         "models/room",
         "models/new",
         "models/rank",
+        "models/order",
         "views/view",
         "views/users/list",
         "views/users/edit",
@@ -75,6 +76,8 @@ define ["jquery",
         "views/news/edit",
         "views/ranks/list",
         "views/ranks/edit",
+        "views/orders/list",
+        "views/orders/edit",
         "moment",
         "jquery.twzipcode",
         "jquery.serialize",
@@ -92,7 +95,7 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank) ->
+        "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) ->
     $.ajaxSetup cache: false
     ajaxSettings = dataType: "json"
     api_req = (name, callback, settings) ->
@@ -174,6 +177,8 @@ define ["jquery",
             "!/new/:action/:id": "new"
             "!/rank/:action": "rank"
             "!/rank/:action/:id": "rank"
+            "!/order/:action": "rank"
+            "!/order/:action/:id": "rank"
 
         initialize: ->
             @me = new ModelMe()
@@ -202,6 +207,53 @@ define ["jquery",
             else
                 document.title = @site_name
                 $(".section_title").text ""
+
+        order: (action, id) ->
+            @reset()
+            RT.dialogs.loading "open"
+            $("#main").html ""
+            self = @
+            @motel_id = id || @me.get 'motel_id'
+            switch action
+              when "list"
+                    @motel_id = id or 1
+                    @update_title "訂單列表"
+                    unless @view_orders_list
+                        @view_orders_list = new ViewOrders
+                            el: "#main"
+                            collection: @order_model.lists
+                            model_name: @order_model
+
+                    @view_orders_list.options.data =
+                        motel_id: @motel_id
+                        isAdmin: @me.get 'isAdmin'
+                    @view_orders_list.options.page = @page or 1
+                    @order_model.set_lists_url @motel_id
+                    @order_model.lists.fetch({reset: true})
+              when "add"
+                    @update_title "新增訂單"
+                    unless @view_orders_add
+                        @view_orders_add = new View
+                            template_name: 'order_edit'
+                            el: "#main"
+
+                    @view_orders_add.options.data =
+                        motel_id: @motel_id
+                    @view_orders_add.render()
+              when "edit"
+                    @update_title "修改訂單"
+                    unless @view_order
+                        @view_order = new ViewOrder
+                            el: "#main"
+                            model: @order_model
+
+                    @view_order.options.data =
+                        motel_id: @motel_id
+                    @order_model.id = id
+                    @order_model.fetch
+                        success: (model, response, options) ->
+                            self.order_model.trigger 'change' unless self.order_model.hasChanged 'id'
+
         rank: (action, id) ->
             @reset()
             RT.dialogs.loading "open"

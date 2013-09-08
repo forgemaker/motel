@@ -1,0 +1,112 @@
+<article class="module width_full">
+<div style="width:97%;margin:0 auto;">
+    <div class="menu">
+        <a class="btn btn-primary" data-model="room" href="#!/room/list/{{motel_id}}" style="color: white;"><i class="icon-list"></i> 檢視房型列表</a>
+    </div>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#profile" data-toggle="tab">房型資料</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="profile">
+            <form action="#" method="post" class="well" id="room_add_form">
+                {{#is_edit}}
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    最後修改日期為 {{date_time edit_time}}
+                </div>
+                {{/is_edit}}
+                <div class="form-group">
+                    <label class="control-label">房型名稱</label>
+                    <input type="text" name="title" class="form-control" placeholder="請輸入房型名稱" value="{{title}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">房型類別</label>
+                    <div class="radio">
+                        <input type="radio" name="type" value="0" {{#ifeq type '0'}}checked{{/ifeq}}{{^is_edit}}checked{{/is_edit}}>休息 (預設選項)
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="type" value="1" {{#ifeq type '1'}}checked{{/ifeq}}>住宿
+                    </div>
+                    <span class="help-block">請選擇此房型為住宿或休息型態</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">啟用房型</label>
+                    <div class="radio">
+                        <input type="radio" name="active" value="1" {{#ifeq active '1'}}checked{{/ifeq}}{{^is_edit}}checked{{/is_edit}}> 啟用(預設選項)
+                    </div>
+                    <div class="radio">
+                        <input type="radio" name="active" value="0" {{#ifeq active '0'}}checked{{/ifeq}}>關閉
+                    </div>
+                    <span class="help-block">請選擇此房型為住宿或休息型態</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">原價</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" name="price_1" class="form-control" placeholder="原價" value="{{price_1}}">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">平日特價</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" name="price_2" class="form-control" placeholder="平日特價" value="{{price_2}}">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">假日特價</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" name="price_3" class="form-control" placeholder="假日特價" value="{{price_3}}">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">上傳房型圖片</label>
+                    <div data-placement="top" data-original-title="Change collection cover" data-toggle="tooltip">
+                        <a class="btn btn-success fileinput-button">
+                            <i class="icon-cloud-upload"></i>
+                            <span>上傳房型封面</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileupload" type="file" name="upload_file">
+                        </a>
+                        <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
+                        <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
+                    </div>
+                </div>
+                <div id="upload_area" class="row">
+                    {{#is_image}}
+                    <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
+                    {{/is_image}}
+                </div>
+                <div id="progress" class="progress hide" style="margin-top:10px;">
+                    <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
+                </div>
+                <p class="help-block">*上面欄位務必填寫.</p>
+                <input type="hidden" name="motel_id" value="{{motel_id}}">
+                {{#is_edit}}
+                    <input type="hidden" name="id" value="{{id}}">
+                {{/is_edit}}
+                <button type="button" data-form="#room_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="room" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}">{{^is_edit}}建立房型{{/is_edit}}{{#is_edit}}編輯房型{{/is_edit}}</button>
+                <button class="btn" type="reset">{{^is_edit}}重新填寫{{/is_edit}}{{#is_edit}}取消編輯{{/is_edit}}</button>
+            </form>
+        </div>
+    </div>
+</div>
+</article>
+<script>
+(function($){
+    $('#myTab').tab('show');
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+        console.log(e);
+        console.log(e.target.hash); // activated tab
+        console.log(e.relatedTarget.hash); // previous tab
+    });
+}(jQuery));
+</script>
