@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `motel_id` int(11) unsigned NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `user_phone` varchar(255) NOT NULL,
-  `room_titile` varchar(255) DEFAULT NULL,
+  `room_title` varchar(255) DEFAULT NULL,
   `room_type` varchar(255) DEFAULT NULL,
   `serial_number` varchar(16) NOT NULL,
   `total_price` decimal(16,4) NOT NULL,
