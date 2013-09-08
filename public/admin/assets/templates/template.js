@@ -847,9 +847,20 @@ function program19(depth0,data) {
 this["Handlebars"]["templates"]["rank_list"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this, blockHelperMissing=helpers.blockHelperMissing;
+  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, self=this, blockHelperMissing=helpers.blockHelperMissing, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n        <a class=\"btn btn-primary check_all\" data-model=\"rank\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\n        <a class=\"btn btn-primary\" data-model=\"rank\" href=\"#!/rank/add/";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 新增評分</a>\n        <a class=\"btn btn-danger delete_all\" data-form=\"#rank_list_form\" data-model=\"rank\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除評分</a>\n        ";
+  return buffer;
+  }
+
+function program3(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n        <li class=\"previous\">\n            <a href=\"#!/rank/list/1\" style=\"margin-right: 10px;\">&larr; 第一頁</a>\n        </li>\n        <li class=\"previous\">\n            <a href=\"#!/rank/list/";
@@ -860,7 +871,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-function program3(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n        <li class=\"next\">\n            <a href=\"#!/rank/list/";
@@ -871,70 +882,115 @@ function program3(depth0,data) {
   return buffer;
   }
 
-function program5(depth0,data) {
+function program7(depth0,data) {
+  
+  
+  return "\n                <th>&nbsp;</th>\n                ";
+  }
+
+function program9(depth0,data) {
+  
+  
+  return "\n                <th>動作</th>\n                ";
+  }
+
+function program11(depth0,data,depth1) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\n        <tr>\n            <td><input type=\"checkbox\" name=\"id[]\" value=\"";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\"></td>\n            <td>";
-  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</td>\n            <td>";
-  if (stack1 = helpers.rank) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.rank; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</td>\n            <td>";
-  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</td>\n            <td>";
-  if (stack1 = helpers.description) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.description; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "</td>\n            <td>";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.date_time || depth0.date_time),stack1 ? stack1.call(depth0, depth0.add_time, options) : helperMissing.call(depth0, "date_time", depth0.add_time, options)))
-    + "</td>\n            <td>\n                <a class=\"btn btn-primary\" data-model=\"rank\" data-id=\"";
+  buffer += "\n        <tr>\n            ";
+  stack2 = ((stack1 = ((stack1 = depth1.isAdmin),typeof stack1 === functionType ? stack1.apply(depth0) : stack1)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data}));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n            <td>";
   if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" href=\"#!/rank/edit/";
-  if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+    + "</td>\n            <td>";
+  if (stack2 = helpers.rank) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.rank; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\n                <a class=\"btn btn-danger delete\" data-model=\"rank\" data-title=\"";
+    + "</td>\n            <td>";
   if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" data-id=\"";
-  if (stack2 = helpers.id) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.id; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+    + "</td>\n            <td>";
+  if (stack2 = helpers.description) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.description; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\n            </td>\n        </tr>\n        ";
+    + "</td>\n            <td>";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.date_time || depth0.date_time),stack1 ? stack1.call(depth0, depth0.add_time, options) : helperMissing.call(depth0, "date_time", depth0.add_time, options)))
+    + "</td>\n            ";
+  stack2 = ((stack1 = ((stack1 = depth1.isAdmin),typeof stack1 === functionType ? stack1.apply(depth0) : stack1)),blockHelperMissing.call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(14, program14, data),data:data}));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        </tr>\n        ";
+  return buffer;
+  }
+function program12(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n            <td><input type=\"checkbox\" name=\"id[]\" value=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></td>\n            ";
   return buffer;
   }
 
-  buffer += "<article class=\"module width_full\">\n<div style=\"width:98%;margin:0 auto;\">\n    <div class=\"menu\">\n        <a class=\"btn btn-primary check_all\" data-model=\"rank\" style=\"color: white;\"><i class=\"icon-ok\"></i> 全選列表</a>\n        <a class=\"btn btn-primary\" data-model=\"rank\" href=\"#!/rank/add/";
-  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+function program14(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n            <td>\n                <a class=\"btn btn-primary\" data-model=\"rank\" data-id=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 新增評分</a>\n        <a class=\"btn btn-danger delete_all\" data-form=\"#rank_list_form\" data-model=\"rank\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除評分</a>\n    </div>\n    <ul class=\"pager\">\n        ";
+    + "\" href=\"#!/rank/edit/";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" style=\"color: white;\"><i class=\"icon-edit\"></i> 編輯</a>&nbsp;\n                <a class=\"btn btn-danger delete\" data-model=\"rank\" data-title=\"";
+  if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-id=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\n            </td>\n            ";
+  return buffer;
+  }
+
+  buffer += "<article class=\"module width_full\">\n<div style=\"width:98%;margin:0 auto;\">\n    <div class=\"menu\">\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </div>\n    <ul class=\"pager\">\n        ";
+  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
   if (stack1 = helpers.previous_show) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.previous_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.previous_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.next_show) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"rank_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"rank_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>編號</th>\n                <th>評分</th>\n                <th>標題</th>\n                <th>內容</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"rank_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"rank_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n                <th>編號</th>\n                <th>評分</th>\n                <th>標題</th>\n                <th>內容</th>\n                <th>建立日期</th>\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n            </tr>\n        </thead>\n        <tbody>\n        ";
+  options = {hash:{},inverse:self.noop,fn:self.programWithDepth(11, program11, data, depth0),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.items) { stack1 = blockHelperMissing.call(depth0, stack1, options); }

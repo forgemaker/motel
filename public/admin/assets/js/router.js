@@ -220,7 +220,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             });
           }
           this.view_ranks_list.options.data = {
-            motel_id: this.motel_id
+            motel_id: this.motel_id,
+            isAdmin: this.me.get('isAdmin')
           };
           this.view_ranks_list.options.page = this.page || 1;
           this.rank_model.set_lists_url(this.motel_id);

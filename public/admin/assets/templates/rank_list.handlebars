@@ -1,9 +1,11 @@
 <article class="module width_full">
 <div style="width:98%;margin:0 auto;">
     <div class="menu">
+        {{#isAdmin}}
         <a class="btn btn-primary check_all" data-model="rank" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
         <a class="btn btn-primary" data-model="rank" href="#!/rank/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增評分</a>
         <a class="btn btn-danger delete_all" data-form="#rank_list_form" data-model="rank" style="color: white;"><i class="icon-trash"></i> 刪除評分</a>
+        {{/isAdmin}}
     </div>
     <ul class="pager">
         {{#previous_show}}
@@ -25,28 +27,36 @@
     <table id="rank_list" class="table table-striped table-bordered table-condensed tablesorter">
         <thead>
             <tr>
+                {{#isAdmin}}
                 <th>&nbsp;</th>
+                {{/isAdmin}}
                 <th>編號</th>
                 <th>評分</th>
                 <th>標題</th>
                 <th>內容</th>
                 <th>建立日期</th>
+                {{#isAdmin}}
                 <th>動作</th>
+                {{/isAdmin}}
             </tr>
         </thead>
         <tbody>
         {{#items}}
         <tr>
+            {{#../isAdmin}}
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
+            {{/../isAdmin}}
             <td>{{id}}</td>
             <td>{{rank}}</td>
             <td>{{title}}</td>
             <td>{{description}}</td>
             <td>{{date_time add_time}}</td>
+            {{#../isAdmin}}
             <td>
                 <a class="btn btn-primary" data-model="rank" data-id="{{id}}" href="#!/rank/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
                 <a class="btn btn-danger delete" data-model="rank" data-title="{{title}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
             </td>
+            {{/../isAdmin}}
         </tr>
         {{/items}}
         </tbody>

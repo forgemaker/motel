@@ -220,6 +220,7 @@ define ["jquery",
 
                     @view_ranks_list.options.data =
                         motel_id: @motel_id
+                        isAdmin: @me.get 'isAdmin'
                     @view_ranks_list.options.page = @page or 1
                     @rank_model.set_lists_url @motel_id
                     @rank_model.lists.fetch({reset: true})
