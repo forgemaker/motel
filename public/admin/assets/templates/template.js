@@ -1236,27 +1236,38 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
-  
-  return "登入密碼";
+  var buffer = "", stack1;
+  buffer += "\n                <div class=\"form-group\">\n                    <label class=\"control-label\">摩鐵ID</label>\n                    <input type=\"text\" name=\"motel_id\" class=\"form-control\" placeholder=\"Please enter motel ID\" value=\"";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                    <span class=\"help-block\">請在<a href=\"#!/motel/list\">摩鐵列表</a>找尋ID編號</span>\n                </div>\n                ";
+  return buffer;
   }
 
 function program7(depth0,data) {
   
   
-  return "修改密碼";
+  return "登入密碼";
   }
 
 function program9(depth0,data) {
   
   
-  return "不需要修改密碼，請留空白";
+  return "修改密碼";
   }
 
 function program11(depth0,data) {
   
+  
+  return "不需要修改密碼，請留空白";
+  }
+
+function program13(depth0,data) {
+  
   var buffer = "", stack1, options;
   buffer += "\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(14, program14, data),data:data};
   if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -1264,11 +1275,11 @@ function program11(depth0,data) {
   buffer += "\n                ";
   return buffer;
   }
-function program12(depth0,data) {
+function program14(depth0,data) {
   
   var buffer = "", stack1, options;
   buffer += "\n                <div class=\"form-group\">\n                    <label class=\"control-label\">群組:</label>\n                    <div class=\"controls\">\n                        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
   if (stack1 = helpers.all_groups) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.all_groups; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.all_groups) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -1276,7 +1287,7 @@ function program12(depth0,data) {
   buffer += "\n                    </div>\n                </div>\n                ";
   return buffer;
   }
-function program13(depth0,data) {
+function program15(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
   buffer += "\n                        <label class=\"checkbox\">\n                            <input type=\"checkbox\" name=\"user_groups[]\" value=\"";
@@ -1294,7 +1305,7 @@ function program13(depth0,data) {
   return buffer;
   }
 
-function program15(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n                    <input type=\"hidden\" name=\"id\" value=\"";
@@ -1305,7 +1316,7 @@ function program15(depth0,data) {
   return buffer;
   }
 
-function program17(depth0,data) {
+function program19(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "data-id=\"";
@@ -1316,43 +1327,43 @@ function program17(depth0,data) {
   return buffer;
   }
 
-function program19(depth0,data) {
+function program21(depth0,data) {
   
   
   return "add";
   }
 
-function program21(depth0,data) {
+function program23(depth0,data) {
   
   
   return "edit";
   }
 
-function program23(depth0,data) {
+function program25(depth0,data) {
   
   
   return "建立帳號";
   }
 
-function program25(depth0,data) {
+function program27(depth0,data) {
   
   
   return "編輯帳號";
   }
 
-function program27(depth0,data) {
+function program29(depth0,data) {
   
   
   return "重新填寫";
   }
 
-function program29(depth0,data) {
+function program31(depth0,data) {
   
   
   return "取消編輯";
   }
 
-function program31(depth0,data) {
+function program33(depth0,data) {
   
   var buffer = "", stack1, options;
   buffer += "\n        <div class=\"tab-pane\" id=\"software\">\n            <form action=\"#\" method=\"post\" class=\"well\" id=\"app_lists_form\">\n                <div class=\"menu menu_left\">\n                    <a class=\"btn btn-primary add_apps\" data-form=\"#app_lists_form\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 新增軟體</a>\n                </div>\n                <p style=\"clear:both;\">&nbsp;</p>\n                <div id=\"app_list\">\n                </div>\n                <p style=\"clear:both;\">&nbsp;</p>\n                <input type=\"hidden\" name=\"user_id\" value=\"";
@@ -1360,7 +1371,7 @@ function program31(depth0,data) {
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n            </form>\n        </div>\n        <div class=\"tab-pane\" id=\"user_apps\">\n            <form action=\"#\" method=\"post\" class=\"well\" id=\"user_apps_form\">\n                <div class=\"menu menu_left\">\n                    <a class=\"btn btn-danger delete_apps\" data-form=\"#user_apps_form\" style=\"color: white;\"><i class=\"icon-edit icon-white\"></i> 刪除軟體</a>\n                </div>\n                <div id=\"user_app_list\">\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(32, program32, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(34, program34, data),data:data};
   if (stack1 = helpers.apps) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.apps; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.apps) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -1368,7 +1379,7 @@ function program31(depth0,data) {
   buffer += "\n                </div>\n                <p style=\"clear:both;\">&nbsp;</p>\n            </form>\n        </div>\n        ";
   return buffer;
   }
-function program32(depth0,data) {
+function program34(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n                <div style=\"float:left; width:150px; height:150px; margin: 0 auto; text-align: center\">\n                    <img src=\"";
@@ -1403,23 +1414,25 @@ function program32(depth0,data) {
   if (stack1 = helpers.username) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.username; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\">僅支援英文+數字帳號</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">摩鐵ID</label>\n                    <input type=\"text\" name=\"motel_id\" class=\"form-control\" placeholder=\"Please enter motel ID\" value=\"";
-  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\">請在<a href=\"#!/motel/list\">摩鐵列表</a>找尋ID編號</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">";
-  options = {hash:{},inverse:self.program(5, program5, data),fn:self.noop,data:data};
+    + "\">\n                    <span class=\"help-block\">僅支援英文+數字帳號</span>\n                </div>\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n                <div class=\"form-group\">\n                    <label class=\"control-label\">";
+  options = {hash:{},inverse:self.program(7, program7, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</label>\n                    <input type=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Please enter password\">\n                    <p class=\"help-block\">";
-  options = {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -1433,58 +1446,58 @@ function program32(depth0,data) {
   else { stack1 = depth0.last_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n                    <span class=\"help-block\"></span>\n                </div>\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n                <p class=\"help-block\">*上面欄位務必填寫.</p>\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
-  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
-  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
-  if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n                <button type=\"button\" data-form=\"#user_add_form\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += " data-model=\"user\" class=\"btn btn-primary ";
-  options = {hash:{},inverse:self.program(19, program19, data),fn:self.noop,data:data};
+  buffer += "\n                <button type=\"button\" data-form=\"#user_add_form\" ";
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
+  buffer += " data-model=\"user\" class=\"btn btn-primary ";
+  options = {hash:{},inverse:self.program(21, program21, data),fn:self.noop,data:data};
+  if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  options = {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\">";
-  options = {hash:{},inverse:self.program(23, program23, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(25, program25, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(25, program25, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(27, program27, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</button>\n                <button class=\"btn\" type=\"reset\">";
-  options = {hash:{},inverse:self.program(27, program27, data),fn:self.noop,data:data};
+  options = {hash:{},inverse:self.program(29, program29, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  options = {hash:{},inverse:self.noop,fn:self.program(29, program29, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(31, program31, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "</button>\n            </form>\n        </div>\n        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(31, program31, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(33, program33, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }

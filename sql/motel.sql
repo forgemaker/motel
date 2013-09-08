@@ -18,8 +18,7 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`, `sorter`) VALUES
      (1,'admin','Administrator', 1),
-     (2,'members','General User', 2),
-     (3, 'guest', 'Guest User', 3);
+     (2,'members','General User', 2);
 
 
 
@@ -52,7 +51,7 @@ CREATE TABLE `users` (
   `options` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `motel_id` (`motel_id`),
-  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -22,11 +22,13 @@
                     <input type="text" name="username" class="form-control" placeholder="Please enter user email" value="{{username}}">
                     <span class="help-block">僅支援英文+數字帳號</span>
                 </div>
+                {{#isAdmin}}
                 <div class="form-group">
                     <label class="control-label">摩鐵ID</label>
                     <input type="text" name="motel_id" class="form-control" placeholder="Please enter motel ID" value="{{motel_id}}">
                     <span class="help-block">請在<a href="#!/motel/list">摩鐵列表</a>找尋ID編號</span>
                 </div>
+                {{/isAdmin}}
                 <div class="form-group">
                     <label class="control-label">{{^is_edit}}登入密碼{{/is_edit}}{{#is_edit}}修改密碼{{/is_edit}}</label>
                     <input type="password" name="password" class="form-control" placeholder="Please enter password">
