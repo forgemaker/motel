@@ -9,7 +9,9 @@
         <a class="btn btn-primary" data-model="motel" href="#!/room/add/{{id}}" style="color: white;"><i class="icon-list"></i> 建立房型</a>
         {{/is_edit}}
         <a type="button" data-form="#motel_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-primary {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}"><i class="icon-edit"></i> {{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
+        {{#isAdmin}}
         <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 檢視摩鐵列表</a>
+        {{/isAdmin}}
     </div>
     <ul id="mytab" class="nav nav-tabs">
         <li class="active"><a href="#profile" data-toggle="tab">基本資料</a></li>
@@ -70,6 +72,7 @@
                     <label class="control-label">行動電話2</label>
                     <input type="text" name="mobile_2" class="form-control" placeholder="請輸入摩鐵行動電話2" value="{{mobile_2}}">
                 </div>
+                {{#isAdmin}}
                 <div class="form-group">
                     <label class="control-label">經度</label>
                     <input type="text" name="longitude" class="form-control" placeholder="請輸入摩鐵經度" value="{{longitude}}">
@@ -89,6 +92,7 @@
                         <div class="col-lg-2"><input type="text" id="contract_end" name="contract_end" class="form-control" placeholder="請輸入合約結束日期" value="{{contract_end}}"></div>
                     </div>
                 </div>
+                {{/isAdmin}}
             </div>
             <div class="tab-pane" id="introduction">
                 <div class="form-group">

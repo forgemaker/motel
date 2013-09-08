@@ -70,6 +70,12 @@ function program11(depth0,data) {
 
 function program13(depth0,data) {
   
+  
+  return "\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/list\" style=\"color: white;\"><i class=\"icon-list\"></i> 檢視摩鐵列表</a>\n        ";
+  }
+
+function program15(depth0,data) {
+  
   var buffer = "", stack1, options;
   buffer += "\n            <div class=\"alert alert-info\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\n                上次修改日期為 ";
   options = {hash:{},data:data};
@@ -78,7 +84,34 @@ function program13(depth0,data) {
   return buffer;
   }
 
-function program15(depth0,data) {
+function program17(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n                <div class=\"form-group\">\n                    <label class=\"control-label\">經度</label>\n                    <input type=\"text\" name=\"longitude\" class=\"form-control\" placeholder=\"請輸入摩鐵經度\" value=\"";
+  if (stack1 = helpers.longitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.longitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">緯度</label>\n                    <input type=\"text\" name=\"latitude\" class=\"form-control\" placeholder=\"請輸入摩鐵緯度\" value=\"";
+  if (stack1 = helpers.latitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.latitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">單筆佣金</label>\n                    <input type=\"text\" name=\"commission\" class=\"form-control\" placeholder=\"請輸入摩鐵單筆佣金\" value=\"";
+  if (stack1 = helpers.commission) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.commission; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">合約日期</label>\n                    <div class=\"row\">\n                        <div class=\"col-lg-2\"><input type=\"text\" id=\"contract_start\" name=\"contract_start\" class=\"form-control\" placeholder=\"請輸入合約起始日期\" value=\"";
+  if (stack1 = helpers.contract_start) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.contract_start; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></div>\n                        <div class=\"col-lg-2\"><input type=\"text\" id=\"contract_end\" name=\"contract_end\" class=\"form-control\" placeholder=\"請輸入合約結束日期\" value=\"";
+  if (stack1 = helpers.contract_end) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.contract_end; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"></div>\n                    </div>\n                </div>\n                ";
+  return buffer;
+  }
+
+function program19(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n                    <input type=\"hidden\" name=\"id\" value=\"";
@@ -89,7 +122,7 @@ function program15(depth0,data) {
   return buffer;
   }
 
-function program17(depth0,data) {
+function program21(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n                    <img src=\"";
@@ -100,7 +133,7 @@ function program17(depth0,data) {
   return buffer;
   }
 
-function program19(depth0,data) {
+function program23(depth0,data) {
   
   
   return "\n                        <option value=\"2H\">2H</option>\n                        <option value=\"2.5H\">2.5H</option>\n                        <option value=\"3H\">3H</option>\n                        ";
@@ -140,8 +173,14 @@ function program19(depth0,data) {
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</a>\n        <a class=\"btn btn-primary\" data-model=\"motel\" href=\"#!/motel/list\" style=\"color: white;\"><i class=\"icon-list\"></i> 檢視摩鐵列表</a>\n    </div>\n    <ul id=\"mytab\" class=\"nav nav-tabs\">\n        <li class=\"active\"><a href=\"#profile\" data-toggle=\"tab\">基本資料</a></li>\n        <li><a href=\"#introduction\" data-toggle=\"tab\">簡介設定</a></li>\n        <li><a href=\"#time\" data-toggle=\"tab\">時間設定</a></li>\n    </ul>\n    <form action=\"#\" method=\"post\" class=\"well\" id=\"motel_add_form\">\n        <div class=\"tab-content\">\n            ";
+  buffer += "</a>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n    </div>\n    <ul id=\"mytab\" class=\"nav nav-tabs\">\n        <li class=\"active\"><a href=\"#profile\" data-toggle=\"tab\">基本資料</a></li>\n        <li><a href=\"#introduction\" data-toggle=\"tab\">簡介設定</a></li>\n        <li><a href=\"#time\" data-toggle=\"tab\">時間設定</a></li>\n    </ul>\n    <form action=\"#\" method=\"post\" class=\"well\" id=\"motel_add_form\">\n        <div class=\"tab-content\">\n            ";
+  options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -182,27 +221,13 @@ function program19(depth0,data) {
   if (stack1 = helpers.mobile_2) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.mobile_2; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">經度</label>\n                    <input type=\"text\" name=\"longitude\" class=\"form-control\" placeholder=\"請輸入摩鐵經度\" value=\"";
-  if (stack1 = helpers.longitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.longitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">緯度</label>\n                    <input type=\"text\" name=\"latitude\" class=\"form-control\" placeholder=\"請輸入摩鐵緯度\" value=\"";
-  if (stack1 = helpers.latitude) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.latitude; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">單筆佣金</label>\n                    <input type=\"text\" name=\"commission\" class=\"form-control\" placeholder=\"請輸入摩鐵單筆佣金\" value=\"";
-  if (stack1 = helpers.commission) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.commission; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">合約日期</label>\n                    <div class=\"row\">\n                        <div class=\"col-lg-2\"><input type=\"text\" id=\"contract_start\" name=\"contract_start\" class=\"form-control\" placeholder=\"請輸入合約起始日期\" value=\"";
-  if (stack1 = helpers.contract_start) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.contract_start; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\"></div>\n                        <div class=\"col-lg-2\"><input type=\"text\" id=\"contract_end\" name=\"contract_end\" class=\"form-control\" placeholder=\"請輸入合約結束日期\" value=\"";
-  if (stack1 = helpers.contract_end) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.contract_end; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\"></div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"tab-pane\" id=\"introduction\">\n                <div class=\"form-group\">\n                    <label class=\"control-label\">簡介設定</label>\n                    <input type=\"text\" name=\"introduction\" class=\"form-control\" placeholder=\"請輸入摩鐵簡介\" value=\"";
+    + "\">\n                </div>\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data};
+  if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.isAdmin) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n            </div>\n            <div class=\"tab-pane\" id=\"introduction\">\n                <div class=\"form-group\">\n                    <label class=\"control-label\">簡介設定</label>\n                    <input type=\"text\" name=\"introduction\" class=\"form-control\" placeholder=\"請輸入摩鐵簡介\" value=\"";
   if (stack1 = helpers.introduction) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.introduction; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -215,7 +240,7 @@ function program19(depth0,data) {
   else { stack1 = depth0.feature; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n                    <span class=\"help-block\">60字文字說明</span>\n                </div>\n                ";
-  options = {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
@@ -229,17 +254,17 @@ function program19(depth0,data) {
   else { stack1 = depth0.raw_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\">\n                    </div>\n                </div>\n                <div id=\"upload_area\" class=\"row\">\n                    ";
-  options = {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data};
   if (stack1 = helpers.is_image) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_image; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_image) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n                </div>\n                <div id=\"progress\" class=\"progress hide\" style=\"margin-top:10px;\">\n                    <div style=\"width: 0%;\" class=\"progress-bar progress-bar-success\"></div>\n                </div>\n            </div>\n            <div class=\"tab-pane\" id=\"time\">\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_1\">\n                        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data};
   stack2 = ((stack1 = helpers.select || depth0.select),stack1 ? stack1.call(depth0, depth0.rest_time_1, options) : helperMissing.call(depth0, "select", depth0.rest_time_1, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">假日休息時間</label>\n                    <select class=\"form-control\" name=\"rest_time_2\">\n                        ";
-  options = {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data};
   stack2 = ((stack1 = helpers.select || depth0.select),stack1 ? stack1.call(depth0, depth0.rest_time_2, options) : helperMissing.call(depth0, "select", depth0.rest_time_2, options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">平日住宿進房時間</label>\n                    <input type=\"text\" name=\"stay_time_1\" id=\"stay_time_1\" class=\"form-control\" placeholder=\"請輸入摩鐵平日住宿進房時間\" value=\"";
