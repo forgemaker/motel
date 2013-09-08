@@ -30,6 +30,7 @@
                 <th>房型</th>
                 <th>休息/住宿</th>
                 <th>下單時間</th>
+                <th>付款完成</th>
                 <th>應收金額</th>
                 <th>狀態</th>
                 <th>動作</th>
@@ -43,9 +44,14 @@
             <td>{{room_title}}</td>
             <td>{{&room_type}}</td>
             <td>{{date_purchased}}</td>
+            <td>{{date_finished}}</td>
             <td>{{total_price}}</td>
-            <td>{{status_id}}</td>
+            <td>{{status}}</td>
             <td>
+                {{#action}}
+                <a class="btn btn-primary action" data-status="1" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 進房完成</a>
+                <a class="btn btn-primary action" data-status="2" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 訂單取消</a>
+                {{/action}}
                 <a class="btn btn-primary" data-model="order" data-id="{{id}}" href="#!/order/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
                 <a class="btn btn-danger delete" data-model="order" data-title="{{title}}" data-id="{{id}}" href="#" style="color: white;"><i class="icon-trash"></i> 刪除</a>
             </td>

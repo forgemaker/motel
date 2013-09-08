@@ -60,6 +60,8 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
             @collection.each (item) ->
                 item.attributes["room_type"] = (if (+item.attributes["room_type"]) then "<span class=\"label label-warning\">住宿</span>" else "<span class=\"label label-info\">休息</span>")
                 item.attributes["total_price"] = +item.attributes["total_price"]
+                item.attributes["status"] = Config.Order.Status[item.attributes["status_id"]]
+                item.attributes["action"] = (item.attributes["status_id"] == '0') ? true : false
                 data.items.push item.attributes
 
             $.extend data, @handle_page()

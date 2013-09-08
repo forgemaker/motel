@@ -8,3 +8,5 @@ define ["jquery"], ($) ->
         New: root_path + "new"
         Rank: root_path + "rank"
         Order: root_path + "order"
+    Order:
+        Status: ['等待客人', '進房完成', '取消']

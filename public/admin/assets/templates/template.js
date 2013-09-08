@@ -873,7 +873,7 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
-  var buffer = "", stack1;
+  var buffer = "", stack1, options;
   buffer += "\n        <tr>\n            <td><input type=\"checkbox\" name=\"id[]\" value=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -895,14 +895,24 @@ function program5(depth0,data) {
   else { stack1 = depth0.date_purchased; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "</td>\n            <td>";
+  if (stack1 = helpers.date_finished) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.date_finished; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</td>\n            <td>";
   if (stack1 = helpers.total_price) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.total_price; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "</td>\n            <td>";
-  if (stack1 = helpers.status_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.status_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (stack1 = helpers.status) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.status; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\n            <td>\n                <a class=\"btn btn-primary\" data-model=\"order\" data-id=\"";
+    + "</td>\n            <td>\n                ";
+  options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
+  if (stack1 = helpers.action) { stack1 = stack1.call(depth0, options); }
+  else { stack1 = depth0.action; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if (!helpers.action) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n                <a class=\"btn btn-primary\" data-model=\"order\" data-id=\"";
   if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -919,6 +929,20 @@ function program5(depth0,data) {
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-trash\"></i> 刪除</a>\n            </td>\n        </tr>\n        ";
+  return buffer;
+  }
+function program6(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n                <a class=\"btn btn-primary action\" data-status=\"1\" data-model=\"order\" data-id=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-edit\"></i> 進房完成</a>\n                <a class=\"btn btn-primary action\" data-status=\"2\" data-model=\"order\" data-id=\"";
+  if (stack1 = helpers.id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" href=\"#\" style=\"color: white;\"><i class=\"icon-edit\"></i> 訂單取消</a>\n                ";
   return buffer;
   }
 
@@ -938,7 +962,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"order_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"order_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>訂單編號</th>\n                <th>房型</th>\n                <th>休息/住宿</th>\n                <th>下單時間</th>\n                <th>應收金額</th>\n                <th>狀態</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"order_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"order_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>訂單編號</th>\n                <th>房型</th>\n                <th>休息/住宿</th>\n                <th>下單時間</th>\n                <th>付款完成</th>\n                <th>應收金額</th>\n                <th>狀態</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
