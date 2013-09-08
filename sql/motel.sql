@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `motel_id` int(11) unsigned DEFAULT NULL,
   `ip_address` varbinary(16) NOT NULL,
   `nickname` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
@@ -49,7 +50,9 @@ CREATE TABLE `users` (
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `options` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `motel_id` (`motel_id`),
+  FOREIGN KEY (`motel_id`) REFERENCES `motels` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
