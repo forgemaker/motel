@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `news` (
 DROP TABLE IF EXISTS `ranks`;
 CREATE TABLE IF NOT EXISTS `ranks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` varchar(32) DEFAULT NULL,
   `motel_id` int(11) unsigned NOT NULL,
   `title` varchar(64) DEFAULT NULL,
   `description` text,
