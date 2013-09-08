@@ -12,6 +12,7 @@ class UserController extends \BaseController
     {
         // add user data to session
         Session::put('user_id', -1);
+        Session::put('motel_id', -1);
         Session::put('logged_in', false);
         Session::put('first_name', 'Guest');
         Session::put('last_name', '');
@@ -66,6 +67,7 @@ class UserController extends \BaseController
 
         // add user data to session
         Session::put('user_id', $user->id);
+        Session::put('motel_id', $user->motel_id);
         Session::put('logged_in', true);
         Session::put('first_name', $user->first_name);
         Session::put('last_name', $user->last_name);
@@ -96,6 +98,7 @@ class UserController extends \BaseController
         $data = array(
             'item' => array(
                 'user_id' => Session::get('user_id'),
+                'motel_id' => Session::get('motel_id'),
                 'logged_in' => Session::get('logged_in'),
                 'user_groups' => Session::get('user_groups'),
                 'first_name' => Session::get('first_name'),
@@ -138,6 +141,7 @@ class UserController extends \BaseController
         $user = User::create(array(
             'username' => Input::get('username'),
             'password' => Hash::make(Input::get('password')),
+            'motel_id' => Input::get('motel_id', null),
             'first_name' => Input::get('first_name'),
             'last_name' => Input::get('last_name'),
             'created_on' => time(),
@@ -201,6 +205,10 @@ class UserController extends \BaseController
             if (!empty($password) and ($password == $confirm_password)) {
                 $user->password = Hash::make($password);
             }
+        }
+
+        if (Input::has('motel_id')) {
+            $user->motel_id = Input::get('motel_id', null);
         }
 
         $user->username = Input::get('username');

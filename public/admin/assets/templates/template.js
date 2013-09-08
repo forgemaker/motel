@@ -1403,7 +1403,11 @@ function program32(depth0,data) {
   if (stack1 = helpers.username) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.username; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\">\n                    <span class=\"help-block\">僅支援英文+數字帳號</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">";
+    + "\">\n                    <span class=\"help-block\">僅支援英文+數字帳號</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">摩鐵ID</label>\n                    <input type=\"text\" name=\"motel_id\" class=\"form-control\" placeholder=\"Please enter motel ID\" value=\"";
+  if (stack1 = helpers.motel_id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.motel_id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\n                    <span class=\"help-block\">請在<a href=\"#!/motel/list\">摩鐵列表</a>找尋ID編號</span>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"control-label\">";
   options = {hash:{},inverse:self.program(5, program5, data),fn:self.noop,data:data};
   if (stack1 = helpers.is_edit) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
