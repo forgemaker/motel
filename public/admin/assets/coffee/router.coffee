@@ -242,6 +242,9 @@ define ["jquery",
                     @view_orders_add.options.data =
                         motel_id: @motel_id
                     @view_orders_add.render()
+                    $('#date_purchased, #date_finished').datetimepicker
+                        timeFormat: 'HH:mm:ss'
+                        dateFormat: 'yy-mm-dd'
               when "edit"
                     @update_title "修改訂單"
                     unless @view_order

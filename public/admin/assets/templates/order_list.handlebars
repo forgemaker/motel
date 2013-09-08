@@ -1,6 +1,9 @@
 <article class="module width_full">
 <div style="width:98%;margin:0 auto;">
     <div class="menu">
+        <a class="btn btn-primary check_all" data-model="order" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
+        <a class="btn btn-primary" data-model="order" href="#!/order/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增訂單</a>
+        <a class="btn btn-danger delete_all" data-form="#order_list_form" data-model="order" style="color: white;"><i class="icon-trash"></i> 刪除訂單</a>
     </div>
     <ul class="pager">
         {{#previous_show}}

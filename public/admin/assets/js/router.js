@@ -244,7 +244,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           this.view_orders_add.options.data = {
             motel_id: this.motel_id
           };
-          return this.view_orders_add.render();
+          this.view_orders_add.render();
+          return $('#date_purchased, #date_finished').datetimepicker({
+            timeFormat: 'HH:mm:ss',
+            dateFormat: 'yy-mm-dd'
+          });
         case "edit":
           this.update_title("修改訂單");
           if (!this.view_order) {
