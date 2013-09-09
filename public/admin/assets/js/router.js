@@ -170,6 +170,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       this.me.fetch({
         async: false
       });
+      this.motel = new ModelMotel();
+      this.motel.on("change", this.update_motel, this);
       if (!this.user_model) {
         this.user_model = new ModelUser();
       }
@@ -706,6 +708,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           if (!this.me.get('isAdmin' || (this.motel_id == null))) {
             return this.redirect_url.error('您並非管理者', '#!/user/edit');
           }
+          this.motel.id = this.motel_id;
+          this.motel.fetch();
           this.me.set('motel_id', this.motel_id);
           return this.redirect_url.success('成功切換權限', '#!/motel/edit');
         case "list":
@@ -846,6 +850,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             }
           });
       }
+    },
+    update_motel: function() {
+      return $('#motel_title').text(this.motel.get('title'));
     },
     update_user: function() {
       var isAdmin;

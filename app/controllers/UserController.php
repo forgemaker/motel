@@ -14,8 +14,7 @@ class UserController extends \BaseController
         Session::put('user_id', -1);
         Session::put('motel_id', -1);
         Session::put('logged_in', false);
-        Session::put('first_name', 'Guest');
-        Session::put('last_name', '');
+        Session::put('username', 'Guest');
         Session::put('user_groups', array('Guest'));
     }
 
@@ -69,8 +68,7 @@ class UserController extends \BaseController
         Session::put('user_id', $user->id);
         Session::put('motel_id', $user->motel_id);
         Session::put('logged_in', true);
-        Session::put('first_name', $user->first_name);
-        Session::put('last_name', $user->last_name);
+        Session::put('username', $user->username);
         Session::put('user_groups', $user_group);
 
         return Response::json(array('success_text' => 'ok'));
@@ -101,8 +99,7 @@ class UserController extends \BaseController
                 'motel_id' => Session::get('motel_id'),
                 'logged_in' => Session::get('logged_in'),
                 'user_groups' => Session::get('user_groups'),
-                'first_name' => Session::get('first_name'),
-                'last_name' => Session::get('last_name')
+                'username' => Session::get('username')
             )
         );
 

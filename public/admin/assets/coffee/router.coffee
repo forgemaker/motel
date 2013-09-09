@@ -186,6 +186,9 @@ define ["jquery",
             @me.fetch
                 async: false
 
+            @motel = new ModelMotel()
+            @motel.on "change", @update_motel, this
+
             # load model
             @user_model = new ModelUser()  unless @user_model
             @motel_model = new ModelMotel()  unless @motel_model
@@ -591,6 +594,8 @@ define ["jquery",
             switch action
                 when "switch"
                     return @redirect_url.error '您並非管理者', '#!/user/edit' if not @me.get 'isAdmin' or not @motel_id?
+                    @motel.id = @motel_id
+                    @motel.fetch()
                     @me.set 'motel_id', @motel_id
                     @redirect_url.success '成功切換權限', '#!/motel/edit'
                 when "list"
@@ -695,7 +700,8 @@ define ["jquery",
                                         fail: (e, data) ->
                                             alertify.error '檔案上傳失敗'
                                 , 2000)
-
+        update_motel: ->
+            $('#motel_title').text @motel.get 'title'
 
         update_user: ->
             new View(
