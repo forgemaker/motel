@@ -712,7 +712,7 @@ define ["jquery",
 
             # set isAdmin field
             isAdmin = if $.inArray('Admin', @me.get "user_groups") isnt -1 then true else false
-            @me.set 'isAdmin', isAdmin
+            @me.set 'isAdmin', isAdmin, silent: true
 
             # show admin menu
             if isAdmin

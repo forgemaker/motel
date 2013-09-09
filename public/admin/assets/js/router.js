@@ -862,7 +862,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         model: this.me
       }).render();
       isAdmin = $.inArray('Admin', this.me.get("user_groups")) !== -1 ? true : false;
-      this.me.set('isAdmin', isAdmin);
+      this.me.set('isAdmin', isAdmin, {
+        silent: true
+      });
       if (isAdmin) {
         $('.admin-panel').removeClass('hide');
       } else {
