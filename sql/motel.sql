@@ -20,7 +20,43 @@ INSERT INTO `groups` (`id`, `name`, `description`, `sorter`) VALUES
      (1,'admin','Administrator', 1),
      (2,'members','General User', 2);
 
+--
+-- Table structure for table `motels`
+--
 
+DROP TABLE IF EXISTS `motels`;
+CREATE TABLE IF NOT EXISTS `motels` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(64) NOT NULL,
+  `url` varchar(128) DEFAULT NULL,
+  `county` varchar(12) DEFAULT NULL,
+  `district` varchar(12) DEFAULT NULL,
+  `zipcode` varchar(5) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone_1` varchar(32) DEFAULT NULL,
+  `phone_2` varchar(32) DEFAULT NULL,
+  `fax` varchar(16) DEFAULT NULL,
+  `contact` varchar(16) DEFAULT NULL,
+  `mobile_1` varchar(32) DEFAULT NULL,
+  `mobile_2` varchar(32) DEFAULT NULL,
+  `commission` varchar(8) DEFAULT NULL,
+  `contract_start` varchar(10) DEFAULT NULL,
+  `contract_end` varchar(10) DEFAULT NULL,
+  `rest_time_1` varchar(8) DEFAULT NULL,
+  `rest_time_2` varchar(8) DEFAULT NULL,
+  `stay_time_1` varchar(16) DEFAULT NULL,
+  `stay_time_2` varchar(16) DEFAULT NULL,
+  `introduction` varchar(140) DEFAULT NULL,
+  `equipment` varchar(60) DEFAULT NULL,
+  `feature` varchar(60) DEFAULT NULL,
+  `raw_name` varchar(64) DEFAULT NULL,
+  `image_url` varchar(128) DEFAULT NULL,
+  `longitude` varchar(16) DEFAULT NULL,
+  `latitude` varchar(16) DEFAULT NULL,
+  `add_time` int(11) NOT NULL,
+  `edit_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `users`;
 
@@ -129,44 +165,6 @@ CREATE TABLE IF NOT EXISTS `acl` (
   KEY `resource_id` (`resource_id`),
   FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`resource_id`) REFERENCES `acl_resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `motels`
---
-
-DROP TABLE IF EXISTS `motels`;
-CREATE TABLE IF NOT EXISTS `motels` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(64) NOT NULL,
-  `url` varchar(128) DEFAULT NULL,
-  `county` varchar(12) DEFAULT NULL,
-  `district` varchar(12) DEFAULT NULL,
-  `zipcode` varchar(5) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `phone_1` varchar(32) DEFAULT NULL,
-  `phone_2` varchar(32) DEFAULT NULL,
-  `fax` varchar(16) DEFAULT NULL,
-  `contact` varchar(16) DEFAULT NULL,
-  `mobile_1` varchar(32) DEFAULT NULL,
-  `mobile_2` varchar(32) DEFAULT NULL,
-  `commission` varchar(8) DEFAULT NULL,
-  `contract_start` varchar(10) DEFAULT NULL,
-  `contract_end` varchar(10) DEFAULT NULL,
-  `rest_time_1` varchar(8) DEFAULT NULL,
-  `rest_time_2` varchar(8) DEFAULT NULL,
-  `stay_time_1` varchar(16) DEFAULT NULL,
-  `stay_time_2` varchar(16) DEFAULT NULL,
-  `introduction` varchar(140) DEFAULT NULL,
-  `equipment` varchar(60) DEFAULT NULL,
-  `feature` varchar(60) DEFAULT NULL,
-  `raw_name` varchar(64) DEFAULT NULL,
-  `image_url` varchar(128) DEFAULT NULL,
-  `longitude` varchar(16) DEFAULT NULL,
-  `latitude` varchar(16) DEFAULT NULL,
-  `add_time` int(11) NOT NULL,
-  `edit_time` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
