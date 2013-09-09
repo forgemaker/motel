@@ -181,13 +181,13 @@ define ["jquery",
             "!/order/:action/:id": "order"
 
         initialize: ->
+            @motel = new ModelMotel()
+            @motel.on "change", @update_motel, this
+
             @me = new ModelMe()
             @me.on "change", @update_user, this
             @me.fetch
                 async: false
-
-            @motel = new ModelMotel()
-            @motel.on "change", @update_motel, this
 
             # load model
             @user_model = new ModelUser()  unless @user_model
@@ -539,6 +539,7 @@ define ["jquery",
                             alertify.error "登出失敗"
                         if response.success_text
                             alertify.success "登出成功"
+                            self.motel.clear silent: true
                             self.me.fetch()
 
                 when "list"
@@ -596,7 +597,7 @@ define ["jquery",
                     return @redirect_url.error '您並非管理者', '#!/user/edit' if not @me.get 'isAdmin' or not @motel_id?
                     @motel.id = @motel_id
                     @motel.fetch()
-                    @me.set 'motel_id', @motel_id
+                    @me.set 'motel_id', @motel_id, silent: true
                     @redirect_url.success '成功切換權限', '#!/motel/edit'
                 when "list"
                     @page = id or 1
@@ -719,6 +720,11 @@ define ["jquery",
                 $('.admin-panel').removeClass 'hide'
             else
                 $('.admin-panel').addClass 'hide'
+
+            console.log @me.get 'motel_id'
+            if @me.get('logged_in') and @me.get('motel_id')?
+                @motel.id = @me.get 'motel_id'
+                @motel.fetch()
 
             # show login page if not login
             unless @me.get("logged_in")

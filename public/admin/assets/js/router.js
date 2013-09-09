@@ -165,13 +165,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       "!/order/:action/:id": "order"
     },
     initialize: function() {
+      this.motel = new ModelMotel();
+      this.motel.on("change", this.update_motel, this);
       this.me = new ModelMe();
       this.me.on("change", this.update_user, this);
       this.me.fetch({
         async: false
       });
-      this.motel = new ModelMotel();
-      this.motel.on("change", this.update_motel, this);
       if (!this.user_model) {
         this.user_model = new ModelUser();
       }
@@ -633,6 +633,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             }
             if (response.success_text) {
               alertify.success("登出成功");
+              self.motel.clear({
+                silent: true
+              });
               return self.me.fetch();
             }
           });
@@ -710,7 +713,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           }
           this.motel.id = this.motel_id;
           this.motel.fetch();
-          this.me.set('motel_id', this.motel_id);
+          this.me.set('motel_id', this.motel_id, {
+            silent: true
+          });
           return this.redirect_url.success('成功切換權限', '#!/motel/edit');
         case "list":
           this.page = id || 1;
@@ -869,6 +874,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         $('.admin-panel').removeClass('hide');
       } else {
         $('.admin-panel').addClass('hide');
+      }
+      console.log(this.me.get('motel_id'));
+      if (this.me.get('logged_in') && (this.me.get('motel_id') != null)) {
+        this.motel.id = this.me.get('motel_id');
+        this.motel.fetch();
       }
       if (!this.me.get("logged_in")) {
         return $("#login_pannel").modal({
