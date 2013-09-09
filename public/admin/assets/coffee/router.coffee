@@ -580,8 +580,9 @@ define ["jquery",
                             el: "#main"
                             collection: @motel_model.lists
                             model_name: @motel_model
-                            page: @page
 
+                    @view_motels_list.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @view_motels_list.options.page = @page
                     @motel_model.set_params page: @page
                     @motel_model.lists.fetch({reset: true})
@@ -594,6 +595,8 @@ define ["jquery",
                             template_name: "motel_edit"
                             el: "#main"
 
+                    @view_motels_add.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @view_motels_add.render()
                     $('#twzipcode').twzipcode
                         'readonly': true

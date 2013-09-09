@@ -687,10 +687,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
             this.view_motels_list = new ViewMotels({
               el: "#main",
               collection: this.motel_model.lists,
-              model_name: this.motel_model,
-              page: this.page
+              model_name: this.motel_model
             });
           }
+          this.view_motels_list.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.view_motels_list.options.page = this.page;
           this.motel_model.set_params({
             page: this.page
@@ -709,6 +711,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
               el: "#main"
             });
           }
+          this.view_motels_add.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.view_motels_add.render();
           $('#twzipcode').twzipcode({
             'readonly': true
