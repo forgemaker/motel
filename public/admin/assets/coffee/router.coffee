@@ -200,7 +200,7 @@ define ["jquery",
                 window.location = url
                 return true
             success: (message, url) ->
-                alertify.error message
+                alertify.success message
                 window.location = url
                 return true
 
@@ -589,6 +589,10 @@ define ["jquery",
             self = @
             @motel_id = id or @me.get 'motel_id'
             switch action
+                when "switch"
+                    return @redirect_url.error '您並非管理者', '#!/user/edit' if not @me.get 'isAdmin' or not @motel_id?
+                    @me.set 'motel_id', @motel_id
+                    @redirect_url.success '成功切換權限', '#!/motel/edit'
                 when "list"
                     @page = id or 1
                     @update_title "摩鐵列表"

@@ -196,7 +196,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         return true;
       },
       success: function(message, url) {
-        alertify.error(message);
+        alertify.success(message);
         window.location = url;
         return true;
       }
@@ -702,6 +702,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       self = this;
       this.motel_id = id || this.me.get('motel_id');
       switch (action) {
+        case "switch":
+          if (!this.me.get('isAdmin' || (this.motel_id == null))) {
+            return this.redirect_url.error('您並非管理者', '#!/user/edit');
+          }
+          this.me.set('motel_id', this.motel_id);
+          return this.redirect_url.success('成功切換權限', '#!/motel/edit');
         case "list":
           this.page = id || 1;
           this.update_title("摩鐵列表");
