@@ -225,7 +225,7 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
-            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
               when "list"
@@ -277,7 +277,7 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
-            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
               when "list"
@@ -325,7 +325,7 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
-            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
               when "list"
@@ -429,7 +429,7 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id or @me.get 'motel_id'
-            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
               when "list"
@@ -657,7 +657,7 @@ define ["jquery",
 
                     @view_motel.options.data =
                         isAdmin: @me.get 'isAdmin'
-                    return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+                    return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
                     @motel_model.id = @motel_id
                     @motel_model.fetch
                         success: (model, response, options) ->
