@@ -189,7 +189,19 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         return this.order_model = new ModelOrder();
       }
     },
-    auth_check: function(redirect_url) {
+    redirect_url: {
+      error: function(message, url) {
+        alertify.error(message);
+        window.location = url;
+        return true;
+      },
+      success: function(message, url) {
+        alertify.error(message);
+        window.location = url;
+        return true;
+      }
+    },
+    auth_check: function() {
       if (!this.me.get('isAdmin')) {
         alertify.error("您並非系統管理者");
         window.location = "#!/user/edit";
@@ -213,6 +225,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
+      if (this.motel_id == null) {
+        return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
+      }
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -277,6 +292,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
+      if (this.motel_id == null) {
+        return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
+      }
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -337,6 +355,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
+      if (this.motel_id == null) {
+        return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
+      }
       switch (action) {
         case "list":
           this.motel_id = id || 1;
@@ -472,6 +493,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
+      if (this.motel_id == null) {
+        return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
+      }
       switch (action) {
         case "list":
           this.update_title("房型列表");
@@ -676,6 +700,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
+      this.motel_id = id || this.me.get('motel_id');
       switch (action) {
         case "list":
           this.page = id || 1;
@@ -767,7 +792,10 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
           this.view_motel.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
-          this.motel_model.id = id || this.me.get('motel_id');
+          if (this.motel_id == null) {
+            return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
+          }
+          this.motel_model.id = this.motel_id;
           return this.motel_model.fetch({
             success: function(model, response, options) {
               if (!self.motel_model.hasChanged('id')) {

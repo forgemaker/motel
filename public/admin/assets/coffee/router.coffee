@@ -194,7 +194,17 @@ define ["jquery",
             @rank_model = new ModelRank()  unless @rank_model
             @order_model = new ModelOrder()  unless @order_model
 
-        auth_check: (redirect_url) ->
+        redirect_url:
+            error: (message, url) ->
+                alertify.error message
+                window.location = url
+                return true
+            success: (message, url) ->
+                alertify.error message
+                window.location = url
+                return true
+
+        auth_check: () ->
             if !@me.get 'isAdmin'
                 alertify.error "您並非系統管理者"
                 window.location = "#!/user/edit"
@@ -215,6 +225,8 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+
             switch action
               when "list"
                     @motel_id = id or 1
@@ -265,6 +277,8 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+
             switch action
               when "list"
                     @motel_id = id or 1
@@ -311,6 +325,8 @@ define ["jquery",
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+
             switch action
               when "list"
                     @motel_id = id or 1
@@ -412,7 +428,9 @@ define ["jquery",
             RT.dialogs.loading "open"
             $("#main").html ""
             self = @
-            @motel_id = id || @me.get 'motel_id'
+            @motel_id = id or @me.get 'motel_id'
+            return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+
             switch action
               when "list"
                     @update_title "房型列表"
@@ -569,6 +587,7 @@ define ["jquery",
             RT.dialogs.loading "open"
             $("#main").html ""
             self = @
+            @motel_id = id or @me.get 'motel_id'
             switch action
                 when "list"
                     @page = id or 1
@@ -638,7 +657,8 @@ define ["jquery",
 
                     @view_motel.options.data =
                         isAdmin: @me.get 'isAdmin'
-                    @motel_model.id = id || @me.get 'motel_id'
+                    return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if !@motel_id?
+                    @motel_model.id = @motel_id
                     @motel_model.fetch
                         success: (model, response, options) ->
                             self.motel_model.trigger 'change' unless self.motel_model.hasChanged 'id'
