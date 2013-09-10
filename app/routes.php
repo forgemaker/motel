@@ -31,3 +31,8 @@ Route::resource('room', 'RoomController');
 Route::resource('new', 'NewsController');
 Route::resource('rank', 'RankController');
 Route::resource('order', 'OrderController');
+
+Route::when('motel/*', 'auth', array('post', 'put', 'delete'));
+Route::when('room/*', 'auth', array('post', 'put', 'delete'));
+Route::when('new/*', 'auth', array('post', 'put', 'delete'));
+Route::when('rank/*', 'auth', array('post', 'put', 'delete'));
