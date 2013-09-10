@@ -39,11 +39,15 @@ class UserController extends \BaseController
      */
     public function login()
     {
-        $username = Input::get('username');
-        $password = Input::get('password');
+        $username = Input::get('username', null);
+        $password = Input::get('password', null);
+
+        if (empty($username) or empty($password)) {
+            return Response::json(array('error_text' => '帳號密碼為必填欄位'), 401);
+        }
 
         if (!Auth::attempt(array('username' => $username, 'password' => $password), true)) {
-            return Response::json(array('error_text' => 'Invaild login'));
+            return Response::json(array('error_text' => '帳號或密碼錯誤'), 401);
         }
 
         $user = User::find(Auth::user()->id);
