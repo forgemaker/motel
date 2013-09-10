@@ -42,18 +42,11 @@ class UserController extends \BaseController
         $username = Input::get('username');
         $password = Input::get('password');
 
-        $user = User::where('username', Input::get('username'))->first();
-
-        if (!$user) {
+        if (!Auth::attempt(array('username' => $username, 'password' => $password), true)) {
             return Response::json(array('error_text' => 'Invaild login'));
         }
 
-        $login = (Hash::check($password, $user->password)) ? true : false;
-
-        if (!$login) {
-            return Response::json(array('error_text' => 'Invaild login'));
-        }
-
+        $user = User::find(Auth::user()->id);
         $user_group = array();
         $group = User::find($user['id'])->groups->toArray();
         foreach ($group as $row) {
@@ -81,6 +74,8 @@ class UserController extends \BaseController
     {
         Session::flush();
         $this->guest();
+        Auth::logout();
+
         return Response::json(array('success_text' => 'ok'));
     }
 
@@ -89,7 +84,7 @@ class UserController extends \BaseController
      */
     public function showProfile()
     {
-        if (!Session::has('logged_in')) {
+        if (!Auth::check()) {
             $this->guest();
         }
 
