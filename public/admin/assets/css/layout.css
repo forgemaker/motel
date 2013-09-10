@@ -62,7 +62,7 @@ text-decoration: none;
 header#header h2.section_title {
 text-align: center;
 text-indent: 4.5%;
-width: 68%;
+width: 77%;
 background: url(../images/header_shadow.png) no-repeat left top;
 }
 
@@ -883,14 +883,16 @@ text-indent: 40px;
 font-size: 14px;}
 
 .display_username {
-    float: right;
-    width: 15%;
+    position: absolute;
+    width: 300px;
     height: 55px;
     line-height: 55px;
     color: white;
     text-align: right;
     padding-right: 10px;
     font-size: 18px;
+    top: 0px;
+    right: 0px;
 }
 
 #loading {
