@@ -3,7 +3,9 @@
     <div class="menu">
         <a type="button" data-form="#motel_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-success {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}"><i class="icon-edit"></i> {{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
         {{#isAdmin}}
+        {{#is_edit}}
         <a class="btn btn-warning" data-model="motel" href="#!/motel/switch/{{id}}" style="color: white;"><i class="icon-user"></i> 切換權限</a>
+        {{/is_edit}}
         <a class="btn btn-primary" data-model="motel" href="#!/motel/list" style="color: white;"><i class="icon-list"></i> 檢視摩鐵列表</a>
         {{/isAdmin}}
     </div>
