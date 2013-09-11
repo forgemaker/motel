@@ -176,10 +176,12 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `motel_id` int(11) unsigned NOT NULL,
   `title` varchar(64) NOT NULL,
-  `type` tinyint(1) unsigned default '0',
-  `price_1` int(6) NOT NULL default '0',
-  `price_2` int(6) NOT NULL default '0',
-  `price_3` int(6) NOT NULL default '0',
+  `rest_price_1` int(6) NOT NULL default '0',
+  `rest_price_2` int(6) NOT NULL default '0',
+  `rest_price_3` int(6) NOT NULL default '0',
+  `stay_price_1` int(6) NOT NULL default '0',
+  `stay_price_2` int(6) NOT NULL default '0',
+  `stay_price_3` int(6) NOT NULL default '0',
   `raw_name` varchar(64) DEFAULT NULL,
   `image_url` varchar(128) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -252,5 +254,3 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `edit_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
