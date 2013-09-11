@@ -32,6 +32,8 @@ Route::resource('new', 'NewsController');
 Route::resource('rank', 'RankController');
 Route::resource('order', 'OrderController');
 
+// check login for add, update and delete
+Route::when('user/*', 'auth', array('post', 'put', 'delete'));
 Route::when('motel/*', 'auth', array('post', 'put', 'delete'));
 Route::when('room/*', 'auth', array('post', 'put', 'delete'));
 Route::when('new/*', 'auth', array('post', 'put', 'delete'));
