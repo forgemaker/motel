@@ -33,7 +33,9 @@ Route::resource('rank', 'RankController');
 Route::resource('order', 'OrderController');
 
 // check login for add, update and delete
-Route::when('user/*', 'auth', array('post', 'put', 'delete'));
+Route::when('user/*', 'auth', array('put', 'delete'));
+// check add method
+Route::when('user', 'auth', array('post'));
 Route::when('motel/*', 'auth', array('post', 'put', 'delete'));
 Route::when('room/*', 'auth', array('post', 'put', 'delete'));
 Route::when('new/*', 'auth', array('post', 'put', 'delete'));
