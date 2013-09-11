@@ -26,13 +26,15 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       return this;
     },
     active: function(e) {
-      var active, api_url, motel_id, self;
+      var active, api_url, id, motel_id, self;
       e.preventDefault();
       self = this;
       active = $(e.currentTarget).data('active');
       motel_id = $(e.currentTarget).data('motel_id');
+      id = $(e.currentTarget).data('id');
       api_url = Config.API.Room + '/enable';
       return RT.API.POST(api_url, {
+        id: id,
         active: active,
         motel_id: motel_id
       }, function(response) {
@@ -64,7 +66,6 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       data.items = [];
       $(parent_view.el).empty();
       this.collection.each(function(item) {
-        item.attributes["active"] = (+item.attributes["active"] ? "<span class=\"label label-success\">啟用</span>" : '<span class="label label-default">關閉</span>');
         return data.items.push(item.attributes);
       });
       $.extend(data, this.handle_page());

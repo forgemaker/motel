@@ -26,8 +26,13 @@ class RoomController extends \BaseController
     {
         $motel_id = Input::get('motel_id');
         $active = Input::get('active');
+        $id = Input::get('id', null);
 
-        $affectedRows = Room::where('motel_id', $motel_id)->update(array('active' => $active));
+        if (isset($id)) {
+            $affectedRows = Room::where('id', $id)->update(array('active' => $active));
+        } else {
+            $affectedRows = Room::where('motel_id', $motel_id)->update(array('active' => $active));
+        }
 
         $data = array(
             'success_text' => 'ok',

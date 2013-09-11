@@ -30,8 +30,10 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
             self = this
             active = $(e.currentTarget).data 'active'
             motel_id = $(e.currentTarget).data 'motel_id'
+            id = $(e.currentTarget).data 'id'
             api_url = Config.API.Room + '/enable'
             RT.API.POST api_url,
+                id: id
                 active: active
                 motel_id: motel_id
                 , (response) ->
@@ -58,7 +60,6 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
             data.items = []
             $(parent_view.el).empty()
             @collection.each (item) ->
-                item.attributes["active"] = (if (+item.attributes["active"]) then "<span class=\"label label-success\">啟用</span>" else '<span class="label label-default">關閉</span>')
                 data.items.push item.attributes
 
             $.extend data, @handle_page()
