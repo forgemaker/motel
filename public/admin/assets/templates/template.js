@@ -367,7 +367,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"motel_list_form\">\n        <div class=\"table-responsive\">\n            <table id=\"motel_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n                <thead>\n                    <tr>\n                        <th>&nbsp;</th>\n                        <th>編號</th>\n                        <th>名稱</th>\n                        <th>縣市</th>\n                        <th>聯絡人員</th>\n                        <th>室內電話</th>\n                        <th>行動電話</th>\n                        <th>建立日期</th>\n                        <th>動作</th>\n                    </tr>\n                </thead>\n                ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"motel_list_form\">\n        <div class=\"table-responsive\">\n            <table id=\"motel_list\" class=\"table table-striped\">\n                <thead>\n                    <tr>\n                        <th>&nbsp;</th>\n                        <th>編號</th>\n                        <th>名稱</th>\n                        <th>縣市</th>\n                        <th>聯絡人員</th>\n                        <th>室內電話</th>\n                        <th>行動電話</th>\n                        <th>建立日期</th>\n                        <th>動作</th>\n                    </tr>\n                </thead>\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -666,7 +666,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"new_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"new_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>編號</th>\n                <th>優惠類型</th>\n                <th>優惠標題</th>\n                <th>起始時間</th>\n                <th>結束日期</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"new_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"new_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>編號</th>\n                <th>優惠類型</th>\n                <th>優惠標題</th>\n                <th>起始時間</th>\n                <th>結束日期</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -1024,7 +1024,7 @@ function program14(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"order_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"order_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"order_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"order_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
   if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -1348,7 +1348,7 @@ function program14(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"rank_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"rank_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"rank_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"rank_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                ";
   options = {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data};
   if (stack1 = helpers.isAdmin) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.isAdmin; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -1733,7 +1733,7 @@ function program12(depth0,data,depth1) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"room_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"room_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>房型名稱</th>\n                <th>休息原價</th>\n                <th>平日休息</th>\n                <th>假日休息</th>\n                <th>住宿原價</th>\n                <th>平日住宿</th>\n                <th>假日住宿</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody style=\"vertical-align: middle;\">\n        ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"room_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"room_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>房型名稱</th>\n                <th>休息原價</th>\n                <th>平日休息</th>\n                <th>假日休息</th>\n                <th>住宿原價</th>\n                <th>平日住宿</th>\n                <th>假日住宿</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -2132,7 +2132,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"user_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"user_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>編號</th>\n                <th>Motel</th>\n                <th>名字</th>\n                <th>姓氏</th>\n                <th>帳號</th>\n                <th>建立日期</th>\n                <th>最後登入</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"user_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"user_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>編號</th>\n                <th>Motel</th>\n                <th>名字</th>\n                <th>姓氏</th>\n                <th>帳號</th>\n                <th>建立日期</th>\n                <th>最後登入</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
