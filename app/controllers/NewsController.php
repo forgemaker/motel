@@ -22,9 +22,11 @@ class NewsController extends \BaseController
      *
      * @return Response
      */
-    public function sublist($id)
+    public function sublist($id = null)
     {
-        $news = News::where('motel_id', $id)->get()->toArray();
+        $type = Input::get('type', null);
+
+        $news = News::ofType($type)->OfMotel($id)->orderBy('add_time', 'desc')->get()->toArray();
 
         $data = array(
             'items' => $news
