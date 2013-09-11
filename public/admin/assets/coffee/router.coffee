@@ -7,19 +7,6 @@ RT.dialogs = loading: (action) ->
     else
         $("#loading").hide()
 
-RT.show_message = (id, type, message) ->
-    $(".alert").remove()
-    html = "<div class=\"alert\" style=\"display:none;\"><a class=\"close\" data-dismiss=\"alert\">×</a><span class=\"message\"></span></div>"
-    type = type or "alert-success"
-    message = message or ""
-    return false  if message is "" or id is `undefined`
-    $(html).insertBefore id
-    $(".message").text message
-    $(".alert").addClass(type).fadeIn "slow", ->
-        setTimeout ((e) ->
-            $(".alert").fadeOut "slow"
-        ), 10000
-
 RT.update_table = ->
     # pass the headers argument and assing a object
     $(".tablesorter").tablesorter

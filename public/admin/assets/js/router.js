@@ -12,24 +12,6 @@ RT.dialogs = {
   }
 };
 
-RT.show_message = function(id, type, message) {
-  var html;
-  $(".alert").remove();
-  html = "<div class=\"alert\" style=\"display:none;\"><a class=\"close\" data-dismiss=\"alert\">×</a><span class=\"message\"></span></div>";
-  type = type || "alert-success";
-  message = message || "";
-  if (message === "" || id === undefined) {
-    return false;
-  }
-  $(html).insertBefore(id);
-  $(".message").text(message);
-  return $(".alert").addClass(type).fadeIn("slow", function() {
-    return setTimeout((function(e) {
-      return $(".alert").fadeOut("slow");
-    }), 10000);
-  });
-};
-
 RT.update_table = function() {
   $(".tablesorter").tablesorter({
     headers: {
