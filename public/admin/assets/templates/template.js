@@ -1613,17 +1613,13 @@ function program5(depth0,data) {
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "\"></td>\n            <td>";
-  options = {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.programWithDepth(6, program6, data, depth0),data:data};
   stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.active, "1", options) : helperMissing.call(depth0, "ifeq", depth0.active, "1", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  options = {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data};
+  options = {hash:{},inverse:self.noop,fn:self.programWithDepth(8, program8, data, depth0),data:data};
   stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.active, "0", options) : helperMissing.call(depth0, "ifeq", depth0.active, "0", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "&nbsp;";
-  if (stack2 = helpers.title) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.title; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
-    + "</td>\n            <td>";
+  buffer += "</td>\n            <td>";
   if (stack2 = helpers.rest_price_1) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.rest_price_1; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -1677,16 +1673,22 @@ function program5(depth0,data) {
     + "\" href=\"#\"><i class=\"icon-trash\"></i> 刪除</button>\n            </td>\n        </tr>\n        ";
   return buffer;
   }
-function program6(depth0,data) {
+function program6(depth0,data,depth1) {
   
-  
-  return "<span class=\"label label-success\">啟用</span>";
+  var buffer = "", stack1;
+  buffer += "<span class=\"label label-success\" style=\"font-size: 14px\">"
+    + escapeExpression(((stack1 = depth1.title),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>";
+  return buffer;
   }
 
-function program8(depth0,data) {
+function program8(depth0,data,depth1) {
   
-  
-  return "<span class=\"label label-default\">關閉</span>";
+  var buffer = "", stack1;
+  buffer += "<span class=\"label label-default\" style=\"font-size: 14px\">"
+    + escapeExpression(((stack1 = depth1.title),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>";
+  return buffer;
   }
 
 function program10(depth0,data,depth1) {
@@ -1731,7 +1733,7 @@ function program12(depth0,data,depth1) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"room_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"room_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>房型名稱</th>\n                <th>休息原價</th>\n                <th>平日休息</th>\n                <th>假日休息</th>\n                <th>住宿原價</th>\n                <th>平日住宿</th>\n                <th>假日住宿</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody>\n        ";
+  buffer += "\n    </ul>\n    <form action=\"#\" method=\"post\" id=\"room_list_form\">\n    <div class=\"table-responsive\">\n    <table id=\"room_list\" class=\"table table-striped\">\n        <thead>\n            <tr>\n                <th>&nbsp;</th>\n                <th>房型名稱</th>\n                <th>休息原價</th>\n                <th>平日休息</th>\n                <th>假日休息</th>\n                <th>住宿原價</th>\n                <th>平日住宿</th>\n                <th>假日住宿</th>\n                <th>建立日期</th>\n                <th>動作</th>\n            </tr>\n        </thead>\n        <tbody style=\"vertical-align: middle;\">\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }

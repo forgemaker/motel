@@ -10,7 +10,6 @@ margin: 0;
 padding: 0;
 font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 background: #F8F8F8;
-font-size: 12px;
 }
 
 .clear {
@@ -1357,4 +1356,11 @@ form label {
 
 .hide {
     display: none;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857;
+    vertical-align: middle;
+    border-top: 1px solid rgb(221, 221, 221);
 }

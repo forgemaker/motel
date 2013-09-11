@@ -24,7 +24,7 @@
     </ul>
     <form action="#" method="post" id="room_list_form">
     <div class="table-responsive">
-    <table id="room_list" class="table table-striped table-bordered table-condensed tablesorter">
+    <table id="room_list" class="table table-striped">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -39,11 +39,11 @@
                 <th>動作</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="vertical-align: middle;">
         {{#items}}
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
-            <td>{{#ifeq active '1'}}<span class="label label-success">啟用</span>{{/ifeq}}{{#ifeq active '0'}}<span class="label label-default">關閉</span>{{/ifeq}}&nbsp;{{title}}</td>
+            <td>{{#ifeq active '1'}}<span class="label label-success" style="font-size: 14px">{{../title}}</span>{{/ifeq}}{{#ifeq active '0'}}<span class="label label-default" style="font-size: 14px">{{../title}}</span>{{/ifeq}}</td>
             <td>{{rest_price_1}}</td>
             <td>{{rest_price_2}}</td>
             <td>{{rest_price_3}}</td>
