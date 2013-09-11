@@ -612,6 +612,10 @@ function program5(depth0,data) {
   else { stack1 = depth0.id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
     + "</td>\r\n            <td>";
+  if (stack1 = helpers.type) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.type; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "</td>\r\n            <td>";
   if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -662,7 +666,7 @@ function program5(depth0,data) {
   else { stack1 = depth0.next_show; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.next_show) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"new_list_form\">\r\n    <div class=\"table-responsive\">\r\n    <table id=\"new_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n        <thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>編號</th>\r\n                <th>優惠標題</th>\r\n                <th>起始時間</th>\r\n                <th>結束日期</th>\r\n                <th>建立日期</th>\r\n                <th>動作</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n        ";
+  buffer += "\r\n    </ul>\r\n    <form action=\"#\" method=\"post\" id=\"new_list_form\">\r\n    <div class=\"table-responsive\">\r\n    <table id=\"new_list\" class=\"table table-striped table-bordered table-condensed tablesorter\">\r\n        <thead>\r\n            <tr>\r\n                <th>&nbsp;</th>\r\n                <th>編號</th>\r\n                <th>優惠類型</th>\r\n                <th>優惠標題</th>\r\n                <th>起始時間</th>\r\n                <th>結束日期</th>\r\n                <th>建立日期</th>\r\n                <th>動作</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n        ";
   options = {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data};
   if (stack1 = helpers.items) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.items; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }

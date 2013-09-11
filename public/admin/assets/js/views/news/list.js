@@ -45,6 +45,7 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       data.items = [];
       $(parent_view.el).empty();
       this.collection.each(function(item) {
+        item.attributes["type"] = (+item.attributes["type"] ? "<span class=\"label label-warning\">住宿</span>" : "<span class=\"label label-info\">休息</span>");
         return data.items.push(item.attributes);
       });
       $.extend(data, this.handle_page());
