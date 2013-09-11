@@ -319,7 +319,6 @@ define ["jquery",
 
             switch action
               when "list"
-                    @motel_id = id or 1
                     @update_title "優惠列表"
                     unless @view_news_list
                         @view_news_list = new ViewNews
@@ -341,6 +340,7 @@ define ["jquery",
                             el: "#main"
                     @view_news_add.options.data =
                         motel_id: @motel_id
+
                     @view_news_add.render()
                     $('#start_time, #end_time').datepicker
                         dateFormat: 'yy-mm-dd'

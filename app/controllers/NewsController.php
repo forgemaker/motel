@@ -51,6 +51,7 @@ class NewsController extends \BaseController
     {
         $new = News::create(array(
             'motel_id' => Input::get('motel_id'),
+            'type' => Input::get('type', 0),
             'title' => Input::get('title'),
             'description' => Input::get('description'),
             'start_time' => Input::get('start_time'),
@@ -101,6 +102,7 @@ class NewsController extends \BaseController
         $new = News::find($id);
 
         $new->title = Input::get('title');
+        $new->type = Input::get('type');
         $new->description = Input::get('description');
         $new->start_time = Input::get('start_time');
         $new->end_time = Input::get('end_time');
