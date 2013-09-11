@@ -64,7 +64,6 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       data.items = [];
       $(parent_view.el).empty();
       this.collection.each(function(item) {
-        item.attributes["type"] = (+item.attributes["type"] ? "<span class=\"label label-warning\">住宿</span>" : "<span class=\"label label-info\">休息</span>");
         item.attributes["active"] = (+item.attributes["active"] ? "<span class=\"label label-success\">啟用</span>" : '<span class="label label-default">關閉</span>');
         return data.items.push(item.attributes);
       });

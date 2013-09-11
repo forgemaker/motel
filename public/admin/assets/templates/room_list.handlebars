@@ -2,7 +2,7 @@
 <div style="width:98%;margin:0 auto;">
     <div class="menu">
         <a class="btn btn-primary check_all" data-model="room" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
-        <a class="btn btn-warning enable" data-active="1" data-motel_id="{{motel_id}}" data-model="room" style="color: white;"><i class="icon-unlock"></i> 全部打開</a>
+        <a class="btn btn-warning enable" data-active="1" data-motel_id="{{motel_id}}" data-model="room" style="color: white;"><i class="icon-unlock"></i> 全部啟用</a>
         <a class="btn btn-warning enable" data-active="0" data-motel_id="{{motel_id}}" data-model="room" style="color: white;"><i class="icon-lock"></i> 全部關閉</a>
         <a class="btn btn-primary" data-model="room" href="#!/room/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增房型</a>
         <a class="btn btn-danger delete_all" data-form="#room_list_form" data-model="room" style="color: white;"><i class="icon-trash"></i> 刪除房型</a>
@@ -30,7 +30,6 @@
                 <th>&nbsp;</th>
                 <th>編號</th>
                 <th>房型名稱</th>
-                <th>休息/住宿</th>
                 <th>啟用/關閉</th>
                 <th>原價</th>
                 <th>平日特價</th>
@@ -45,11 +44,10 @@
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{id}}</td>
             <td>{{title}}</td>
-            <td>{{&type}}</td>
             <td>{{&active}}</td>
-            <td>{{price_1}}</td>
-            <td>{{price_2}}</td>
-            <td>{{price_3}}</td>
+            <td>{{rest_price_1}}</td>
+            <td>{{rest_price_2}}</td>
+            <td>{{rest_price_3}}</td>
             <td>{{date_time add_time}}</td>
             <td>
                 <a class="btn btn-primary" data-model="room" data-id="{{id}}" href="#!/room/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
