@@ -198,6 +198,7 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `motel_id` int(11) unsigned NOT NULL,
+  `type` tinyint(1) unsigned default '0',
   `title` varchar(64) NOT NULL,
   `description` text,
   `start_time` varchar(10) DEFAULT NULL,
