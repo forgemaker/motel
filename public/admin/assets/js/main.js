@@ -20,7 +20,8 @@ require.config({
     'jquery.iframe-transport': '../vendor/blueimp-file-upload/js/jquery.iframe-transport',
     'jquery.fileupload': '../vendor/blueimp-file-upload/js/jquery.fileupload',
     'jquery.fileupload-validate': '../vendor/blueimp-file-upload/js/jquery.fileupload-validate',
-    'jquery.fileupload-process': '../vendor/blueimp-file-upload/js/jquery.fileupload-process'
+    'jquery.fileupload-process': '../vendor/blueimp-file-upload/js/jquery.fileupload-process',
+    nprogress: '../vendor/nprogress/nprogress'
   },
   shim: {
     'jquery.serialize': {
@@ -67,6 +68,10 @@ require.config({
     },
     'jquery.fileupload-process': {
       deps: ['jquery']
+    },
+    'nprogress': {
+      deps: ['jquery'],
+      exports: 'NProgress'
     },
     'libs/handlebars-helper': ['handlebars'],
     'templates': ['handlebars']

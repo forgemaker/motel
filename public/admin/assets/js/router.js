@@ -46,16 +46,18 @@ RT.generateSerial = function(len) {
   return randomstring;
 };
 
-define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "models/order", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "views/orders/list", "views/orders/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) {
+define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "models/me", "models/user", "models/motel", "models/room", "models/new", "models/rank", "models/order", "views/view", "views/users/list", "views/users/edit", "views/motels/list", "views/motels/edit", "views/rooms/list", "views/rooms/edit", "views/news/list", "views/news/edit", "views/ranks/list", "views/ranks/edit", "views/orders/list", "views/orders/edit", "moment", "jquery.twzipcode", "jquery.serialize", "jquery.tablesorter", "jquery.ui.datepicker", "jquery.ui.timepicker", "bootstrap.modal", "bootstrap.tab", "jquery.equalHeight", "handlebars", "libs/handlebars-helper", 'jquery.ui.widget', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-validate', "templates"], function($, _, Backbone, Config, alertify, NProgress, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) {
   var AppRouter, ajaxSettings, api_req, initialize;
   $.ajaxSetup({
     cache: false
   });
   $(document).ajaxStart(function() {
-    return RT.dialogs.loading("open");
+    RT.dialogs.loading("open");
+    return NProgress.start();
   });
   $(document).ajaxStop(function() {
-    return RT.dialogs.loading("close");
+    RT.dialogs.loading("close");
+    return NProgress.done();
   });
   ajaxSettings = {
     dataType: "json"

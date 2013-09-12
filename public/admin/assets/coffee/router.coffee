@@ -45,6 +45,7 @@ define ["jquery",
         "backbone",
         "config",
         'alertify',
+        'nprogress',
         "models/me",
         "models/user",
         "models/motel",
@@ -82,13 +83,15 @@ define ["jquery",
         'jquery.fileupload',
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
-        "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) ->
+        "templates"], ($, _, Backbone, Config, alertify, NProgress, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) ->
     # ajax set up
     $.ajaxSetup cache: false
     $(document).ajaxStart () ->
         RT.dialogs.loading "open"
+        NProgress.start()
     $(document).ajaxStop () ->
         RT.dialogs.loading "close"
+        NProgress.done()
 
     ajaxSettings = dataType: "json"
     api_req = (name, callback, settings) ->

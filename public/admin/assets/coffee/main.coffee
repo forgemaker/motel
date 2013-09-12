@@ -24,6 +24,7 @@ require.config
         'jquery.fileupload': '../vendor/blueimp-file-upload/js/jquery.fileupload'
         'jquery.fileupload-validate': '../vendor/blueimp-file-upload/js/jquery.fileupload-validate'
         'jquery.fileupload-process': '../vendor/blueimp-file-upload/js/jquery.fileupload-process'
+        nprogress: '../vendor/nprogress/nprogress'
     shim:
         'jquery.serialize':
             deps: ['jquery']
@@ -55,6 +56,9 @@ require.config
             deps: ['jquery']
         'jquery.fileupload-process':
             deps: ['jquery']
+        'nprogress':
+            deps: ['jquery']
+            exports: 'NProgress'
         'libs/handlebars-helper': ['handlebars']
         'templates': ['handlebars']
     urlArgs: (new Date()).getTime()
