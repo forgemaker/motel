@@ -28,10 +28,14 @@ class NewsController extends \BaseController
         $offset = Input::get('offset', null);
         $limit = Input::get('limit', null);
 
-        $items = News::with('motel')->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get()->toArray();
+        $items = News::with('motel')->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
+
+        if (count($items->toArray()) == 0) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
 
         $data = array(
-            'items' => $items
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }
@@ -77,14 +81,14 @@ class NewsController extends \BaseController
      */
     public function show($id)
     {
-        $new = News::with('motel')->find($id);
+        $item = News::with('motel')->find($id);
 
-        if (!isset($new)) {
-            return Response::json(array('error_text' => '尚未找到資料 404 not found'), 404);
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
         }
 
         $data = array(
-            'item' => $new->toArray()
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
