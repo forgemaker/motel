@@ -1405,8 +1405,8 @@ form label {
   display: block;
   position: fixed;
   z-index: 100;
-  top: 15px;
   right: 15px;
+  bottom: 15px;
 }
 
 #nprogress .spinner-icon {
