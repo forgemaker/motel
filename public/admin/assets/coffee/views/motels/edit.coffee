@@ -12,5 +12,4 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
 
         $("#contract_start, #contract_end").datepicker dateFormat: "yy-mm-dd"
         $("#stay_time_1, #stay_time_2").timepicker()
-        RT.dialogs.loading "close"
         this

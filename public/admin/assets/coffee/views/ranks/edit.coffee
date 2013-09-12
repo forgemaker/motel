@@ -6,5 +6,4 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
         parent_view.model.attributes["rank_" + parent_view.model.attributes["rank"]] = true
         $.extend data, parent_view.model.attributes
         $(parent_view.el).hide().html(Handlebars.templates.rank_edit(data)).fadeIn "slow"
-        RT.dialogs.loading "close"
         this

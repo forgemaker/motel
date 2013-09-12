@@ -97,7 +97,6 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
                         if response.success_text
                             alertify.success form_info.username + " 帳號新增成功"
                             $("input[type=text], input[type=password]").val ""
-                            RT.dialogs.loading "close"
                             window.location = "#!/user/list"
 
                 when "motel"
@@ -217,7 +216,6 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
                 $(@el).hide().html Handlebars.templates[template_name](data)
             RT.update_table()    if is_table
             @$el.fadeIn "slow"    if display
-            RT.dialogs.loading "close"    if display
             this
 
         render: ->

@@ -83,17 +83,19 @@ define ["jquery",
         'jquery.fileupload-process',
         'jquery.fileupload-validate',
         "templates"], ($, _, Backbone, Config, alertify, ModelMe, ModelUser, ModelMotel, ModelRoom, ModelNew, ModelRank, ModelOrder, View, ViewUsers, ViewUser, ViewMotels, ViewMotel, ViewRooms, ViewRoom, ViewNews, ViewNew, ViewRanks, ViewRank, ViewOrders, ViewOrder) ->
+    # ajax set up
     $.ajaxSetup cache: false
+    $(document).ajaxStart () ->
+        RT.dialogs.loading "open"
+    $(document).ajaxStop () ->
+        RT.dialogs.loading "close"
+
     ajaxSettings = dataType: "json"
     api_req = (name, callback, settings) ->
         settings = (if (not settings) then {} else settings)
         $.ajax $.extend({}, ajaxSettings,
             url: name
             type: (if (settings.data) then "POST" else "GET")
-            beforeSend: (jqXHR, settings) ->
-                RT.dialogs.loading "open"
-            complete: (jqXHR, textStatus) ->
-                RT.dialogs.loading "close"
             success: callback
             error: (xhr, status, errorThrown) ->
                 message = "Unknown error. Please try again later."
@@ -211,7 +213,6 @@ define ["jquery",
 
         order: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
@@ -263,7 +264,6 @@ define ["jquery",
 
         rank: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
@@ -310,7 +310,6 @@ define ["jquery",
 
         new: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             @motel_id = id || @me.get 'motel_id'
@@ -414,7 +413,6 @@ define ["jquery",
                                 , 2000)
         room: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             @motel_id = id or @me.get 'motel_id'
@@ -515,7 +513,6 @@ define ["jquery",
 
         user: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             switch action
@@ -574,7 +571,6 @@ define ["jquery",
 
         motel: (action, id) ->
             @reset()
-            RT.dialogs.loading "open"
             $("#main").html ""
             self = @
             @motel_id = id or @me.get 'motel_id'
@@ -719,7 +715,6 @@ define ["jquery",
                     keyboard: false
 
         home: ->
-            RT.dialogs.loading "close"
 
         reset: ->
             @user.reset()  if typeof @user isnt "undefined" and typeof @user.reset isnt "undefined"

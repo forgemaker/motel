@@ -51,6 +51,12 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
   $.ajaxSetup({
     cache: false
   });
+  $(document).ajaxStart(function() {
+    return RT.dialogs.loading("open");
+  });
+  $(document).ajaxStop(function() {
+    return RT.dialogs.loading("close");
+  });
   ajaxSettings = {
     dataType: "json"
   };
@@ -59,12 +65,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     return $.ajax($.extend({}, ajaxSettings, {
       url: name,
       type: (settings.data ? "POST" : "GET"),
-      beforeSend: function(jqXHR, settings) {
-        return RT.dialogs.loading("open");
-      },
-      complete: function(jqXHR, textStatus) {
-        return RT.dialogs.loading("close");
-      },
       success: callback,
       error: function(xhr, status, errorThrown) {
         var error, message;
@@ -205,7 +205,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     order: function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
@@ -272,7 +271,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     rank: function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
@@ -334,7 +332,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     "new": function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
@@ -471,7 +468,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     room: function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
@@ -602,7 +598,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     user: function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       switch (action) {
@@ -682,7 +677,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
     motel: function(action, id) {
       var self;
       this.reset();
-      RT.dialogs.loading("open");
       $("#main").html("");
       self = this;
       this.motel_id = id || this.me.get('motel_id');
@@ -867,9 +861,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
         });
       }
     },
-    home: function() {
-      return RT.dialogs.loading("close");
-    },
+    home: function() {},
     reset: function() {
       if (typeof this.user !== "undefined" && typeof this.user.reset !== "undefined") {
         return this.user.reset();

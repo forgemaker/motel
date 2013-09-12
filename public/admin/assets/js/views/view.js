@@ -106,7 +106,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
             if (response.success_text) {
               alertify.success(form_info.username + " 帳號新增成功");
               $("input[type=text], input[type=password]").val("");
-              RT.dialogs.loading("close");
               return window.location = "#!/user/list";
             }
           });
@@ -258,9 +257,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       }
       if (display) {
         this.$el.fadeIn("slow");
-      }
-      if (display) {
-        RT.dialogs.loading("close");
       }
       return this;
     },

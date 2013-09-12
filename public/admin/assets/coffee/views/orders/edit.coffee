@@ -6,5 +6,4 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
         parent_view.model.attributes["type"] = +parent_view.model.attributes["type"]
         $.extend data, parent_view.model.attributes
         $(parent_view.el).hide().html(Handlebars.templates.order_edit(data)).fadeIn "slow"
-        RT.dialogs.loading "close"
         this

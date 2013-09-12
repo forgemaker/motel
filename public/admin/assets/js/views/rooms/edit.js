@@ -7,7 +7,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       $(parent_view.el).empty();
       $.extend(data, parent_view.model.attributes);
       $(parent_view.el).hide().html(Handlebars.templates.room_edit(data)).fadeIn("slow");
-      RT.dialogs.loading("close");
       return this;
     }
   });

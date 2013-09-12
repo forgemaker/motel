@@ -71,7 +71,6 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       $.extend(data, this.handle_page());
       $(parent_view.el).hide().html(Handlebars.templates.room_list(data)).fadeIn("slow");
       RT.update_table();
-      RT.dialogs.loading("close");
       return this;
     }
   });

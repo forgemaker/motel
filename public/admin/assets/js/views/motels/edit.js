@@ -16,7 +16,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
         dateFormat: "yy-mm-dd"
       });
       $("#stay_time_1, #stay_time_2").timepicker();
-      RT.dialogs.loading("close");
       return this;
     }
   });

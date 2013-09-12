@@ -50,7 +50,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       $.extend(data, this.handle_page());
       $(parent_view.el).hide().html(Handlebars.templates.motel_list(data)).fadeIn("slow");
       RT.update_table();
-      RT.dialogs.loading("close");
       return this;
     }
   });
