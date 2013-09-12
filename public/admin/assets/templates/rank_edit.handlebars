@@ -16,6 +16,11 @@
                 </div>
                 {{/is_edit}}
                 <div class="form-group">
+                    <label class="control-label">手機編號</label>
+                    <input type="text" name="uid" class="form-control" placeholder="請輸入手機編號" value="{{uid}}">
+                    <span class="help-block"></span>
+                </div>
+                <div class="form-group">
                     <label class="control-label">評分級別</label>
                     <div class="radio">
                         <input type="radio" name="rank" value="5" {{#ifeq this.rank '5'}}checked{{/ifeq}}{{^is_edit}}checked{{/is_edit}}>5 (最高)

@@ -51,6 +51,7 @@ class RankController extends \BaseController
     {
         $rank = Rank::create(array(
             'motel_id' => Input::get('motel_id'),
+            'uid' => Input::get('uid', null),
             'rank' => Input::get('rank', 1),
             'title' => Input::get('title', null),
             'description' => Input::get('description', null),
@@ -98,6 +99,7 @@ class RankController extends \BaseController
         $rank = Rank::find($id);
 
         $rank->title = Input::get('title');
+        $rank->uid = Input::get('uid');
         $rank->rank = Input::get('rank', 1);
         $rank->title = Input::get('title', null);
         $rank->description = Input::get('description', null);

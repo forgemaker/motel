@@ -281,7 +281,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', "models/me", "
       }
       switch (action) {
         case "list":
-          this.motel_id = id || 1;
           this.update_title("優惠列表");
           if (!this.view_ranks_list) {
             this.view_ranks_list = new ViewRanks({

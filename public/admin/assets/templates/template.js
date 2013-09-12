@@ -1125,7 +1125,11 @@ function program19(depth0,data) {
   else { stack1 = depth0.is_edit; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.is_edit) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">評分級別</label>\r\n                    <div class=\"radio\">\r\n                        <input type=\"radio\" name=\"rank\" value=\"5\" ";
+  buffer += "\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">手機編號</label>\r\n                    <input type=\"text\" name=\"uid\" class=\"form-control\" placeholder=\"請輸入手機編號\" value=\"";
+  if (stack1 = helpers.uid) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.uid; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\">\r\n                    <span class=\"help-block\"></span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label class=\"control-label\">評分級別</label>\r\n                    <div class=\"radio\">\r\n                        <input type=\"radio\" name=\"rank\" value=\"5\" ";
   options = {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data};
   stack2 = ((stack1 = helpers.ifeq || depth0.ifeq),stack1 ? stack1.call(depth0, depth0.rank, "5", options) : helperMissing.call(depth0, "ifeq", depth0.rank, "5", options));
   if(stack2 || stack2 === 0) { buffer += stack2; }

@@ -271,7 +271,6 @@ define ["jquery",
 
             switch action
               when "list"
-                    @motel_id = id or 1
                     @update_title "優惠列表"
                     unless @view_ranks_list
                         @view_ranks_list = new ViewRanks
