@@ -25,11 +25,13 @@ class NewsController extends \BaseController
     public function sublist($id = null)
     {
         $type = Input::get('type', null);
+        $offset = Input::get('offset', null);
+        $limit = Input::get('limit', null);
 
-        $news = News::ofType($type)->OfMotel($id)->orderBy('add_time', 'desc')->get()->toArray();
+        $items = News::with('motel')->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get()->toArray();
 
         $data = array(
-            'items' => $news
+            'items' => $items
         );
         return Response::json($data);
     }

@@ -12,6 +12,32 @@ class News extends Eloquent
     protected $guarded = array('id', 'motel_id');
     public $timestamps = false;
 
+    public $limit = 10;
+    public $offset = 0;
+
+    /**
+     * Relationship with motel model
+     *
+     */
+    public function motel()
+    {
+        return $this->belongsTo('Motel');
+    }
+
+    public function scopeOfLimit($query, $limit = null)
+    {
+        $limit = (isset($limit)) ? intval($limit) : $this->limit;
+
+        return $query->take($limit);
+    }
+
+    public function scopeOfOffset($query, $offset = null)
+    {
+        $offset = (isset($offset)) ? intval($offset) : $this->offset;
+
+        return $query->skip($offset);
+    }
+
     public function scopeOfType($query, $type = null)
     {
         if (!isset($type)) {
