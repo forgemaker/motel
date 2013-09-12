@@ -77,7 +77,16 @@ class NewsController extends \BaseController
      */
     public function show($id)
     {
+        $new = News::with('motel')->find($id);
 
+        if (!isset($new)) {
+            return Response::json(array('error_text' => '尚未找到資料 404 not found'), 404);
+        }
+
+        $data = array(
+            'item' => $new->toArray()
+        );
+        return Response::json($data);
     }
 
     /**
