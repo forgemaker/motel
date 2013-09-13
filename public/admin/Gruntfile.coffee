@@ -181,9 +181,6 @@ module.exports = (grunt) ->
                     {src: '<%= pkg.app %>/.htaccess', dest: '<%= pkg.dist %>/.htaccess'}
                     {src: '<%= pkg.dist %>/assets/vendor/requirejs/require.js', dest: '<%= pkg.dist %>/assets/js/require.js'}
                     {src: '<%= pkg.app %>/assets/js/main-built.js', dest: '<%= pkg.dist %>/assets/js/main.' + filetime + '.js'}
-                    {expand: true, src: ['system/**'], dest: '<%= pkg.release %>/'}
-                    {expand: true, src: ['application/**'], dest: '<%= pkg.release %>/'}
-                    {expand: true, src: ['sparks/**'], dest: '<%= pkg.release %>/'}
                 ]
 
         replace:

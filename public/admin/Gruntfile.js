@@ -216,18 +216,6 @@ module.exports = function(grunt) {
           }, {
             src: '<%= pkg.app %>/assets/js/main-built.js',
             dest: '<%= pkg.dist %>/assets/js/main.' + filetime + '.js'
-          }, {
-            expand: true,
-            src: ['system/**'],
-            dest: '<%= pkg.release %>/'
-          }, {
-            expand: true,
-            src: ['application/**'],
-            dest: '<%= pkg.release %>/'
-          }, {
-            expand: true,
-            src: ['sparks/**'],
-            dest: '<%= pkg.release %>/'
           }
         ]
       }
