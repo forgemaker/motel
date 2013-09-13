@@ -14,7 +14,7 @@ module.exports = (grunt) ->
     project_config =
         app: '.'
         test: 'test'
-        dist: 'dist/public'
+        dist: 'dist'
         release: 'dist'
         build: 'build'
     grunt.initConfig
@@ -188,12 +188,12 @@ module.exports = (grunt) ->
 
         replace:
             release:
-                src: '<%= pkg.release %>/application/views/template/layout.php'
-                dest: '<%= pkg.release %>/application/views/template/layout.php'
+                src: '<%= pkg.release %>/index.html'
+                dest: '<%= pkg.release %>/index.html'
                 replacements: [
                     {
-                        from: '.css'
-                        to: '.' + filetime + '.css'
+                        from: 'layout.css'
+                        to: 'layout.' + filetime + '.css'
                     },
                     {
                         from: 'js/main'
@@ -202,15 +202,6 @@ module.exports = (grunt) ->
                     {
                         from: 'vendor/requirejs/'
                         to: 'js/'
-                    }
-                ]
-            main:
-                src: '<%= pkg.dist %>/index.php'
-                dest: '<%= pkg.dist %>/index.php'
-                replacements: [
-                    {
-                        from: 'define(\'ENVIRONMENT\', \'development\');'
-                        to: 'define(\'ENVIRONMENT\', \'production\');'
                     }
                 ]
 
@@ -234,7 +225,7 @@ module.exports = (grunt) ->
         grunt.task.run ['requirejs:build', 'requirejs:release', 'cssmin:release', 'clean:js']
         grunt.file.mkdir project_config.dist + '/assets/js'
         grunt.task.run 'copy:release'
-        grunt.task.run ['replace:release', 'replace:main']
+        grunt.task.run ['replace:release']
         grunt.task.run 'clean:release'
 
     # Dependencies

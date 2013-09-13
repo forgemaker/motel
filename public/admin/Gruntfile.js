@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   project_config = {
     app: '.',
     test: 'test',
-    dist: 'dist/public',
+    dist: 'dist',
     release: 'dist',
     build: 'build'
   };
@@ -234,28 +234,18 @@ module.exports = function(grunt) {
     },
     replace: {
       release: {
-        src: '<%= pkg.release %>/application/views/template/layout.php',
-        dest: '<%= pkg.release %>/application/views/template/layout.php',
+        src: '<%= pkg.release %>/index.html',
+        dest: '<%= pkg.release %>/index.html',
         replacements: [
           {
-            from: '.css',
-            to: '.' + filetime + '.css'
+            from: 'layout.css',
+            to: 'layout.' + filetime + '.css'
           }, {
             from: 'js/main',
             to: 'js/main.' + filetime
           }, {
             from: 'vendor/requirejs/',
             to: 'js/'
-          }
-        ]
-      },
-      main: {
-        src: '<%= pkg.dist %>/index.php',
-        dest: '<%= pkg.dist %>/index.php',
-        replacements: [
-          {
-            from: 'define(\'ENVIRONMENT\', \'development\');',
-            to: 'define(\'ENVIRONMENT\', \'production\');'
           }
         ]
       }
@@ -280,7 +270,7 @@ module.exports = function(grunt) {
     grunt.task.run(['requirejs:build', 'requirejs:release', 'cssmin:release', 'clean:js']);
     grunt.file.mkdir(project_config.dist + '/assets/js');
     grunt.task.run('copy:release');
-    grunt.task.run(['replace:release', 'replace:main']);
+    grunt.task.run(['replace:release']);
     return grunt.task.run('clean:release');
   });
   grunt.loadNpmTasks('grunt-shell');
