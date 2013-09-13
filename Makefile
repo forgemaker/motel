@@ -8,3 +8,6 @@ all:
 admin:
 	cd public/admin && npm install
 	cd public/admin && ./node_modules/.bin/grunt release
+
+release: admin
+	[ -d public/admin/dist ] && rsync -avr --delete public/admin/dist/* /home/www/motel/www/public/admin/
