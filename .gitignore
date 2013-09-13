@@ -6,3 +6,4 @@ composer.lock
 .DS_Store
 app/config/database.php
 uploads
+public/admin/assets/js/main-built.js
