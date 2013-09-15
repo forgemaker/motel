@@ -739,11 +739,11 @@ define ["jquery",
         ).on "click", ".check_all", (ev) ->
             ev.preventDefault()
             $("input[type=checkbox]").each ->
-                checked = $(this).attr("checked")
+                checked = $(this).prop("checked")
                 if checked
-                    $(this).attr "checked", false
+                    $(this).prop "checked", false
                 else
-                    $(this).attr "checked", true
+                    $(this).prop "checked", true
         .on "click", "#login-button", (ev) ->
             form_id = $(this).data("form")
             form_info = $(form_id).serializeObject()

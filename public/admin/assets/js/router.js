@@ -892,11 +892,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       ev.preventDefault();
       return $("input[type=checkbox]").each(function() {
         var checked;
-        checked = $(this).attr("checked");
+        checked = $(this).prop("checked");
         if (checked) {
-          return $(this).attr("checked", false);
+          return $(this).prop("checked", false);
         } else {
-          return $(this).attr("checked", true);
+          return $(this).prop("checked", true);
         }
       });
     }).on("click", "#login-button", function(ev) {
