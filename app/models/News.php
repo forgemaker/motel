@@ -16,7 +16,7 @@ class News extends Eloquent
     public $offset = 0;
 
     /**
-     * Relationship with motel model
+     * Relationship with model
      *
      */
     public function motel()

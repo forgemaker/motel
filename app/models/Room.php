@@ -11,4 +11,57 @@ class Room extends Eloquent
     protected $fillable = array('motel_id', 'title', 'type', 'price_1', 'price_2', 'price_3', 'raw_name', 'image_url', 'add_time', 'edit_time');
     protected $guarded = array('id', 'motel_id');
     public $timestamps = false;
+
+    public $limit = 10;
+    public $offset = 0;
+
+    /**
+     * Relationship with model
+     *
+     */
+    public function motel()
+    {
+        return $this->belongsTo('Motel');
+    }
+
+    public function scopeOfActive($query, $active = null)
+    {
+        if (!isset($active)) {
+            return $query;
+        }
+
+        return $query->where('active', intval($active));
+    }
+
+    public function scopeOfLimit($query, $limit = null)
+    {
+        $limit = (isset($limit)) ? intval($limit) : $this->limit;
+
+        return $query->take($limit);
+    }
+
+    public function scopeOfOffset($query, $offset = null)
+    {
+        $offset = (isset($offset)) ? intval($offset) : $this->offset;
+
+        return $query->skip($offset);
+    }
+
+    public function scopeOfType($query, $type = null)
+    {
+        if (!isset($type)) {
+            return $query;
+        }
+
+        return $query->where('type', $type);
+    }
+
+    public function scopeOfMotel($query, $motel_id = null)
+    {
+        if (!isset($motel_id)) {
+            return $motel_id;
+        }
+
+        return $query->where('motel_id', intval($motel_id));
+    }
 }

@@ -46,12 +46,22 @@ class RoomController extends \BaseController
      *
      * @return Response
      */
-    public function sublist($id)
+    public function sublist($id = null)
     {
-        $rooms = Room::where('motel_id', $id)->get()->toArray();
+        $type = Input::get('type', null);
+        $active = Input::get('active', null);
+        $offset = Input::get('offset', null);
+        $limit = Input::get('limit', null);
+
+        $items = Room::with('motel')->OfActive($active)->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
+
+        if (count($items->toArray()) == 0) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
 
         $data = array(
-            'items' => $rooms
+            'count' => count($items->toArray()),
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }
