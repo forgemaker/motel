@@ -17,6 +17,7 @@ init:
 
 admin:
 	cd public/admin && npm install
+	cd public/admin && ./node_modules/.bin/grunt handlebars
 	cd public/admin && ./node_modules/.bin/grunt release
 
 release: admin
