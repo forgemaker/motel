@@ -22,3 +22,6 @@ admin:
 
 release: admin
 	[ -d public/admin/dist ] && rsync -avr --delete public/admin/dist/* /home/www/motel/www/public/admin/
+	[ -d app ] && rsync -avr app/* /home/www/motel/www/app
+	chown -R www-data:www-data /home/www/motel/www/app
+	chown -R www-data:www-data /home/www/motel/www/public/admin
