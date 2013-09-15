@@ -76,12 +76,10 @@ class RoomController extends \BaseController
         $room = Room::create(array(
             'motel_id' => Input::get('motel_id'),
             'title' => Input::get('title'),
-            'rest_price_1' => Input::get('rest_price_1', 0),
-            'rest_price_2' => Input::get('rest_price_2', 0),
-            'rest_price_3' => Input::get('rest_price_3', 0),
-            'stay_price_1' => Input::get('stay_price_1', 0),
-            'stay_price_2' => Input::get('stay_price_2', 0),
-            'stay_price_3' => Input::get('stay_price_3', 0),
+            'type' => Input::get('type', 0),
+            'price_1' => Input::get('price_1', 0),
+            'price_2' => Input::get('price_2', 0),
+            'price_3' => Input::get('price_3', 0),
             'raw_name' => Input::get('raw_name'),
             'image_url' => Input::get('image_url'),
             'active' => Input::get('active', 1),
@@ -129,12 +127,10 @@ class RoomController extends \BaseController
         $room = Room::find($id);
 
         $room->title = Input::get('title');
-        $room->rest_price_1 = Input::get('rest_price_1', 0);
-        $room->rest_price_2 = Input::get('rest_price_2', 0);
-        $room->rest_price_3 = Input::get('rest_price_3', 0);
-        $room->stay_price_1 = Input::get('stay_price_1', 0);
-        $room->stay_price_2 = Input::get('stay_price_2', 0);
-        $room->stay_price_3 = Input::get('stay_price_3', 0);
+        $room->type = Input::get('type', 0);
+        $room->price_1 = Input::get('price_1', 0);
+        $room->price_2 = Input::get('price_2', 0);
+        $room->price_3 = Input::get('price_3', 0);
         $room->raw_name = Input::get('raw_name');
         $room->image_url = Input::get('image_url');
         $room->active = Input::get('active', 1);

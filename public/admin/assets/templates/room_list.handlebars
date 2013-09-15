@@ -29,12 +29,10 @@
             <tr>
                 <th>&nbsp;</th>
                 <th>房型名稱</th>
-                <th>休息原價</th>
-                <th>平日休息</th>
-                <th>假日休息</th>
-                <th>住宿原價</th>
-                <th>平日住宿</th>
-                <th>假日住宿</th>
+                <th>休息/住宿</th>
+                <th>原價</th>
+                <th>平日特價</th>
+                <th>假日特價</th>
                 <th>建立日期</th>
                 <th>動作</th>
             </tr>
@@ -44,12 +42,10 @@
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             <td>{{#ifeq active '1'}}<span class="label label-success" style="font-size: 14px">{{../title}}</span>{{/ifeq}}{{#ifeq active '0'}}<span class="label label-default" style="font-size: 14px">{{../title}}</span>{{/ifeq}}</td>
-            <td>{{rest_price_1}}</td>
-            <td>{{rest_price_2}}</td>
-            <td>{{rest_price_3}}</td>
-            <td>{{stay_price_1}}</td>
-            <td>{{stay_price_2}}</td>
-            <td>{{stay_price_3}}</td>
+            <td>{{#ifeq type '1'}}<span class="label label-warning" style="font-size: 14px">住宿</span>{{/ifeq}}{{#ifeq type '0'}}<span class="label label-info" style="font-size: 14px">休息</span>{{/ifeq}}</td>
+            <td>{{price_1}}</td>
+            <td>{{price_2}}</td>
+            <td>{{price_3}}</td>
             <td>{{date_time add_time}}</td>
             <td>
                 {{#ifeq active '1'}}
