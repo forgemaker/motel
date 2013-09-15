@@ -108,7 +108,16 @@ class RoomController extends \BaseController
      */
     public function show($id)
     {
+        $item = Room::with('motel')->find($id);
 
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
+        $data = array(
+            'item' => $item->toArray()
+        );
+        return Response::json($data);
     }
 
     /**
