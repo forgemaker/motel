@@ -8,3 +8,4 @@ app/config/database.php
 uploads
 public/admin/assets/js/main-built.js
 public/admin/dist
+public/admin/assets/templates/template.js
