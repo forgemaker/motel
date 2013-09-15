@@ -1,6 +1,16 @@
 .PHONY: all
 
 all:
+	@echo '==== Welcome Motel Project ===='
+	@echo
+	@echo 'initial project: make init'
+	@echo
+	@echo 'build project: make admin'
+	@echo
+	@echo 'deploy project: make release'
+	@echo
+
+init:
 	curl -sS https://getcomposer.org/installer | php
 	php composer.phar install
 	npm install

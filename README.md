@@ -9,3 +9,15 @@ for Linux system
 ```
 $ make
 ```
+
+## build project
+
+```
+$ make admin
+```
+
+## deploy project
+
+```
+$ make release
+```
