@@ -58,7 +58,6 @@ class MotelController extends \BaseController
      */
     public function store()
     {
-        return Response::json(array('error_text' => '404 not found'), 404);
         $motel = Motel::create(array(
             'title' => Input::get('title'),
             'url' => Input::get('url'),
