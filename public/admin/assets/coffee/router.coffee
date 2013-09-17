@@ -439,10 +439,12 @@ define ["jquery",
               when "add"
                     @update_title "新增房型"
                     unless @view_rooms_add
-                        @view_rooms_add = new View
+                        @view_rooms_add = new ViewRoom
                             template_name: "room_edit"
+                            model: @room_model
                             el: "#main"
 
+                    @room_model.clear silent: true
                     @view_rooms_add.options.data =
                         motel_id: @motel_id
                     @view_rooms_add.render()
@@ -478,6 +480,7 @@ define ["jquery",
                             el: "#main"
                             model: @room_model
 
+                    @room_model.clear silent: true
                     @view_room.options.data =
                         motel_id: @motel_id
                     @room_model.id = id

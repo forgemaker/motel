@@ -1,6 +1,6 @@
 <article class="module width_full">
 <div style="width:97%;margin:0 auto;">
-    <form action="#" method="post" class="well" id="motel_add_form">
+    <form action="#" method="post" id="motel_add_form">
     <div class="menu">
         <a type="button" data-form="#motel_add_form" data-message="{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-success save"><i class="icon-edit"></i>&nbsp;{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
         {{#isAdmin}}
@@ -15,7 +15,7 @@
         <li><a href="#introduction" data-toggle="tab">簡介設定</a></li>
         <li><a href="#time" data-toggle="tab">時間設定</a></li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content well">
         {{#is_edit}}
         <div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

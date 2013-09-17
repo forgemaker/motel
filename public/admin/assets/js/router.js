@@ -497,11 +497,15 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         case "add":
           this.update_title("新增房型");
           if (!this.view_rooms_add) {
-            this.view_rooms_add = new View({
+            this.view_rooms_add = new ViewRoom({
               template_name: "room_edit",
+              model: this.room_model,
               el: "#main"
             });
           }
+          this.room_model.clear({
+            silent: true
+          });
           this.view_rooms_add.options.data = {
             motel_id: this.motel_id
           };
@@ -548,6 +552,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
               model: this.room_model
             });
           }
+          this.room_model.clear({
+            silent: true
+          });
           this.view_room.options.data = {
             motel_id: this.motel_id
           };
