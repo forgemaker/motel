@@ -21,7 +21,7 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             self.collection.fetch()
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
-            #e.stopImmediatePropagation();
+            e.stopImmediatePropagation();
             this
 
         handle_page: ->

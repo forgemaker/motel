@@ -19,6 +19,7 @@ define(["jquery", "underscore", "backbone", "alertify", "views/view"], function(
           return window.location = "#!/motel/list";
         }
       });
+      e.stopImmediatePropagation();
       return this;
     },
     render: function() {

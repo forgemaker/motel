@@ -22,6 +22,7 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       }
       self.options.model_name.set_params(params);
       self.collection.fetch();
+      e.stopImmediatePropagation();
       return this;
     },
     handle_page: function() {
