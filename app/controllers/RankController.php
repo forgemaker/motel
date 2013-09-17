@@ -24,10 +24,11 @@ class RankController extends \BaseController
      */
     public function sublist($id)
     {
-        $ranks = Rank::where('motel_id', $id)->get()->toArray();
+        $items = Rank::where('motel_id', $id)->get();
 
         $data = array(
-            'items' => $ranks
+            'count' => count($items->toArray()),
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }

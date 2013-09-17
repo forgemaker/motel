@@ -44,10 +44,11 @@ class OrderController extends \BaseController
      */
     public function sublist($id)
     {
-        $orders = Order::where('motel_id', $id)->get()->toArray();
+        $items = Order::where('motel_id', $id)->get();
 
         $data = array(
-            'items' => $orders
+            'count' => count($items->toArray()),
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }
