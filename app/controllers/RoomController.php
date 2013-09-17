@@ -55,10 +55,6 @@ class RoomController extends \BaseController
 
         $items = Room::with('motel')->OfActive($active)->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
 
-        if (count($items->toArray()) == 0) {
-            return Response::json(array('error_text' => '404 not found'), 404);
-        }
-
         $data = array(
             'count' => count($items->toArray()),
             'items' => $items->toArray()

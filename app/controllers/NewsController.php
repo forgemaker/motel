@@ -30,10 +30,6 @@ class NewsController extends \BaseController
 
         $items = News::with('motel')->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
 
-        if (count($items->toArray()) == 0) {
-            return Response::json(array('error_text' => '404 not found'), 404);
-        }
-
         $data = array(
             'items' => $items->toArray()
         );
