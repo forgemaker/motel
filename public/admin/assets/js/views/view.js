@@ -72,7 +72,7 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       return false;
     },
     add: function(e) {
-      var api_url, error, form_id, form_info, name, type;
+      var api_url, error, form_id, form_info, type;
       this.debug && console.log("add");
       e.preventDefault();
       $(".form-group").removeClass("has-error");
@@ -83,38 +83,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       api_url = Config.API[type.ucFirst()];
       error = false;
       switch (type) {
-        case "user":
-          if (!$.trim(form_info.username) || !$.trim(form_info.password)) {
-            for (name in form_info) {
-              if (!$.trim(form_info[name])) {
-                $(form_id + " input[name=" + name + "]").parent().addClass("has-error");
-                error = true;
-              }
-            }
-            if (error) {
-              alertify.error("紅色欄位務必填寫");
-            }
-            e.stopImmediatePropagation();
-            return false;
-          }
-          if ($.trim(form_info.password) !== $.trim(form_info.confirm_password)) {
-            $(form_id + " input[name=password]").parent().addClass("has-error");
-            $(form_id + " input[name=confirm_password]").parent().addClass("has-error");
-            alertify.error("登入密碼跟確認密碼必須相等");
-            e.stopImmediatePropagation();
-            return false;
-          }
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success(form_info.username + " 帳號新增成功");
-              $("input[type=text], input[type=password]").val("");
-              return window.location = "#!/user/list";
-            }
-          });
-          break;
         case "room":
           RT.API.POST(api_url, form_info, function(response) {
             if (response.error_text) {
@@ -174,15 +142,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       form_info = $(form_id).serializeObject();
       api_url = Config.API[type.ucFirst()] + "/" + id;
       switch (type) {
-        case "user":
-          if ($.trim(form_info.password) !== "" && $.trim(form_info.password) !== $.trim(form_info.confirm_password)) {
-            $(form_id + " input[name=password]").parent().addClass("has-error");
-            $(form_id + " input[name=confirm_password]").parent().addClass("has-error");
-            alertify.error("修改密碼跟確認密碼必須相等");
-            e.stopImmediatePropagation();
-            return false;
-          }
-          break;
         case "room":
           for (name in form_info) {
             if (!$.trim(form_info[name])) {

@@ -1,6 +1,7 @@
 define ["jquery", "underscore", "backbone", "collections/motels", "config", "alertify"], ($, _, Backbone, CollectionMotels, Config, alertify) ->
     Backbone.Model.extend
         urlRoot: Config.API.Motel
+
         initialize: ->
             @lists = new CollectionMotels()
             @lists.url = Config.API.Motel

@@ -164,7 +164,19 @@ class UserController extends \BaseController
      */
     public function show($id)
     {
-        //
+        $item = User::find($id)->toArray();
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
+        //$user['user_group'] = User::find($id)->groups->toArray();
+        $item['all_groups'] = DB::select('select a.id, name, description, IF(b.user_id, true, false) as active from groups a left join users_groups b on b.group_id = a.id and b.user_id = ?', array($id));
+
+        $data = array(
+            'item' => $item
+        );
+        return Response::json($data);
     }
 
     /**

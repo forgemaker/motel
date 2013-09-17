@@ -551,10 +551,12 @@ define ["jquery",
                     return if @auth_check()
 
                     unless @view_users_add
-                        @view_users_add = new View
+                        @view_users_add = new ViewUser
                             template_name: "user_edit"
                             el: "#main"
+                            model: @user_model
 
+                    @user_model.clear silent: true
                     @view_users_add.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_users_add.render()
@@ -565,6 +567,7 @@ define ["jquery",
                             el: "#main"
                             model: @user_model
 
+                    @user_model.clear silent: true
                     @view_user.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @user_model.id = id || @me.get 'user_id'

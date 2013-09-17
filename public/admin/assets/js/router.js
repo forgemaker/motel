@@ -646,11 +646,15 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             return;
           }
           if (!this.view_users_add) {
-            this.view_users_add = new View({
+            this.view_users_add = new ViewUser({
               template_name: "user_edit",
-              el: "#main"
+              el: "#main",
+              model: this.user_model
             });
           }
+          this.user_model.clear({
+            silent: true
+          });
           this.view_users_add.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
@@ -663,6 +667,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
               model: this.user_model
             });
           }
+          this.user_model.clear({
+            silent: true
+          });
           this.view_user.options.data = {
             isAdmin: this.me.get('isAdmin')
           };

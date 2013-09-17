@@ -1,14 +1,34 @@
-define(["jquery", "underscore", "backbone", "collections/users", "config"], function($, _, Backbone, CollectionUsers, Config) {
+define(["jquery", "underscore", "backbone", "collections/users", "config", "alertify"], function($, _, Backbone, CollectionUsers, Config, alertify) {
   return Backbone.Model.extend({
+    urlRoot: Config.API.User,
     initialize: function() {
       this.lists = new CollectionUsers();
-      return this.lists.url = Config.API.User;
+      this.lists.url = Config.API.User;
+      return this.on("invalid", function(model, error) {
+        return alertify.error(error);
+      });
+    },
+    validate: function(attributes) {
+      if ($.trim(attributes.password) !== $.trim(attributes.confirm_password)) {
+        $("input[name=password]").parent().addClass("has-error");
+        $("input[name=confirm_password]").parent().addClass("has-error");
+        return '登入密碼跟確認密碼必須相等';
+      }
+      if (attributes.username === '') {
+        $("input[name=username]").parent().addClass("has-error");
+        return '帳號必須填寫';
+      }
+      if (attributes.first_name === '') {
+        $("input[name=first_name]").parent().addClass("has-error");
+        return '名字必須填寫';
+      }
+      if (attributes.last_name === '') {
+        $("input[name=last_name]").parent().addClass("has-error");
+        return '姓氏必須填寫';
+      }
     },
     set_params: function(params) {
       return this.lists.url = Config.API.User + "?" + $.param(params);
-    },
-    url: function() {
-      return Config.API.User + "/" + this.id + "/edit";
     },
     parse: function(response) {
       $.extend(response.item, {
