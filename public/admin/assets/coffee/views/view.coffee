@@ -1,14 +1,3 @@
-#
-# * The main portion of a page
-# *
-# * Each RT.View should define the following properties:
-# *     el: a CSS path or the parent element
-# *     template_name: the data-id of the Mustache template to use for displaying the model or collection
-# * Each RT.View should also specify one of the following for default rendering:
-# *     model: a single object that the view will display using the template
-# *     collection: a set of objects, each of which will be displayed using the template
-#
-
 define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbone, alertify, Config) ->
     Backbone.View.extend
         initialize: ->
@@ -21,8 +10,6 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
             @debug = false
 
         events:
-            "click .add": "add"
-            "click .edit": "edit"
             "click .delete": "delete_item"
             "click .delete_all": "delete_all"
 
@@ -64,81 +51,6 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
                         alertify.success "刪除成功"
                         $("input:checked").each ->
                             $(this).parent().parent().remove()
-
-            # call return false or e.stopPropagation() or e.stopImmediatePropagation();
-            e.stopImmediatePropagation()
-            false
-
-        add: (e) ->
-            (@debug) and console.log "add"
-            e.preventDefault()
-            $(".form-group").removeClass "has-error"
-            $(".help-block").text ""
-            type = $(e.currentTarget).data("model")
-            form_id = $(e.currentTarget).data("form")
-            form_info = $(form_id).serializeObject()
-            api_url = Config.API[type.ucFirst()]
-            error = false
-            switch type
-                when "room"
-                    RT.API.POST api_url, form_info, (response) ->
-                        if response.error_text
-                            alertify.error response.error_text
-                        if response.success_text
-                            alertify.success form_info.title + " 新增成功"
-                            window.location = "#!/room/list/" + form_info.motel_id
-
-                when "new"
-                    RT.API.POST api_url, form_info, (response) ->
-                        if response.error_text
-                            alertify.error response.error_text
-                        if response.success_text
-                            alertify.success form_info.title + " 新增成功"
-                            window.location = "#!/new/list/" + form_info.motel_id
-
-                when "rank"
-                    RT.API.POST api_url, form_info, (response) ->
-                        if response.error_text
-                            alertify.error response.error_text
-                        if response.success_text
-                            alertify.success "評分成功"
-                            window.location = "#!/rank/list/" + form_info.motel_id
-
-                when "order"
-                    RT.API.POST api_url, form_info, (response) ->
-                        if response.error_text
-                            alertify.error response.error_text
-                        if response.success_text
-                            alertify.success "訂單建立成功"
-                            window.location = "#!/order/list/" + form_info.motel_id
-
-            # call return false or e.stopPropagation() or e.stopImmediatePropagation();
-            e.stopImmediatePropagation()
-            this
-
-        edit: (e) ->
-            (@debug) and console.log "edit"
-            e.preventDefault()
-            $(".form-group").removeClass "has-error"
-            $(".help-block").text ""
-            type = $(e.currentTarget).data("model")
-            id = $(e.currentTarget).data("id")
-            form_id = $(e.currentTarget).data("form")
-            form_info = $(form_id).serializeObject()
-            api_url = Config.API[type.ucFirst()] + "/" + id
-            switch type
-                when "room"
-                    for name of form_info
-                        unless $.trim(form_info[name])
-                            $(form_id + " input[name=" + name + "]").parent().addClass "has-error"
-                            error = true
-
-            # update data
-            RT.API.PUT api_url, form_info, (response) ->
-                if response.error_text
-                    alertify.error "修改失敗"
-                if response.success_text
-                    alertify.success "修改成功"
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()

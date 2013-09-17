@@ -15,8 +15,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       return this.debug = false;
     },
     events: {
-      "click .add": "add",
-      "click .edit": "edit",
       "click .delete": "delete_item",
       "click .delete_all": "delete_all"
     },
@@ -68,96 +66,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
           }
         });
       }
-      e.stopImmediatePropagation();
-      return false;
-    },
-    add: function(e) {
-      var api_url, error, form_id, form_info, type;
-      this.debug && console.log("add");
-      e.preventDefault();
-      $(".form-group").removeClass("has-error");
-      $(".help-block").text("");
-      type = $(e.currentTarget).data("model");
-      form_id = $(e.currentTarget).data("form");
-      form_info = $(form_id).serializeObject();
-      api_url = Config.API[type.ucFirst()];
-      error = false;
-      switch (type) {
-        case "room":
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success(form_info.title + " 新增成功");
-              return window.location = "#!/room/list/" + form_info.motel_id;
-            }
-          });
-          break;
-        case "new":
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success(form_info.title + " 新增成功");
-              return window.location = "#!/new/list/" + form_info.motel_id;
-            }
-          });
-          break;
-        case "rank":
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success("評分成功");
-              return window.location = "#!/rank/list/" + form_info.motel_id;
-            }
-          });
-          break;
-        case "order":
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success("訂單建立成功");
-              return window.location = "#!/order/list/" + form_info.motel_id;
-            }
-          });
-      }
-      e.stopImmediatePropagation();
-      return this;
-    },
-    edit: function(e) {
-      var api_url, error, form_id, form_info, id, name, type;
-      this.debug && console.log("edit");
-      e.preventDefault();
-      $(".form-group").removeClass("has-error");
-      $(".help-block").text("");
-      type = $(e.currentTarget).data("model");
-      id = $(e.currentTarget).data("id");
-      form_id = $(e.currentTarget).data("form");
-      form_info = $(form_id).serializeObject();
-      api_url = Config.API[type.ucFirst()] + "/" + id;
-      switch (type) {
-        case "room":
-          for (name in form_info) {
-            if (!$.trim(form_info[name])) {
-              $(form_id + " input[name=" + name + "]").parent().addClass("has-error");
-              error = true;
-            }
-          }
-      }
-      RT.API.PUT(api_url, form_info, function(response) {
-        if (response.error_text) {
-          alertify.error("修改失敗");
-        }
-        if (response.success_text) {
-          return alertify.success("修改成功");
-        }
-      });
       e.stopImmediatePropagation();
       return false;
     },

@@ -48,15 +48,15 @@
             {{/../isAdmin}}
             <td>{{serial_number}}</td>
             <td>{{room_title}}</td>
-            <td>{{&room_type}}</td>
+            <td>{{#ifeq room_type '1'}}<span class="label label-warning" style="font-size: 14px">住宿</span>{{/ifeq}}{{#ifeq room_type '0'}}<span class="label label-info" style="font-size: 14px">休息</span>{{/ifeq}}</td>
             <td>{{date_purchased}}</td>
             <td>{{date_finished}}</td>
             <td>{{total_price}}</td>
             <td>{{status}}</td>
             <td>
                 {{#action}}
-                <a class="btn btn-primary action" data-status="1" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 進房完成</a>
-                <a class="btn btn-primary action" data-status="2" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 訂單取消</a>
+                <a class="btn btn-warning action" data-status="1" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 進房完成</a>
+                <a class="btn btn-warning action" data-status="2" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 訂單取消</a>
                 {{/action}}
                 {{#../isAdmin}}
                 <a class="btn btn-primary" data-model="order" data-id="{{id}}" href="#!/order/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;

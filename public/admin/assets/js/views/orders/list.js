@@ -65,10 +65,9 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
       $(parent_view.el).empty();
       this.collection.each(function(item) {
         var _ref;
-        item.attributes["room_type"] = (+item.attributes["room_type"] ? "<span class=\"label label-warning\">住宿</span>" : "<span class=\"label label-info\">休息</span>");
         item.attributes["total_price"] = +item.attributes["total_price"];
         item.attributes["status"] = Config.Order.Status[item.attributes["status_id"]];
-        item.attributes["action"] = (_ref = item.attributes["status_id"] === '0') != null ? _ref : {
+        item.attributes["action"] = (_ref = +item.attributes["status_id"] === 0) != null ? _ref : {
           "true": false
         };
         return data.items.push(item.attributes);
