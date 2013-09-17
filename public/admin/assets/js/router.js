@@ -281,7 +281,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
-          this.update_title("優惠列表");
+          this.update_title("評價列表");
           if (!this.view_ranks_list) {
             this.view_ranks_list = new ViewRanks({
               el: "#main",
@@ -299,25 +299,32 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             reset: true
           });
         case "add":
-          this.update_title("新增優惠消息");
+          this.update_title("新增評價");
           if (!this.view_ranks_add) {
-            this.view_ranks_add = new View({
+            this.view_ranks_add = new ViewRank({
               template_name: 'rank_edit',
-              el: "#main"
+              el: "#main",
+              model: this.rank_model
             });
           }
+          this.rank_model.clear({
+            silent: true
+          });
           this.view_ranks_add.options.data = {
             motel_id: this.motel_id
           };
           return this.view_ranks_add.render();
         case "edit":
-          this.update_title("修改優惠");
+          this.update_title("修改評價");
           if (!this.view_rank) {
             this.view_rank = new ViewRank({
               el: "#main",
               model: this.rank_model
             });
           }
+          this.rank_model.clear({
+            silent: true
+          });
           this.view_rank.options.data = {
             motel_id: this.motel_id
           };

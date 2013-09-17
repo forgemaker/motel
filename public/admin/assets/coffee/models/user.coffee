@@ -27,6 +27,7 @@ define ["jquery", "underscore", "backbone", "collections/users", "config", "aler
             @lists.url = Config.API.User + "?" + $.param(params)
 
         parse: (response) ->
+            return false if !response.item
             $.extend response.item,
                 is_edit: true
 

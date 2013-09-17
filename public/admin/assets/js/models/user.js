@@ -31,6 +31,9 @@ define(["jquery", "underscore", "backbone", "collections/users", "config", "aler
       return this.lists.url = Config.API.User + "?" + $.param(params);
     },
     parse: function(response) {
+      if (!response.item) {
+        return false;
+      }
       $.extend(response.item, {
         is_edit: true
       });

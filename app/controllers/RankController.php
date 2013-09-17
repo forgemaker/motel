@@ -70,7 +70,16 @@ class RankController extends \BaseController
      */
     public function show($id)
     {
+        $item = Rank::find($id)->toArray();
 
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
+        $data = array(
+            'item' => $item
+        );
+        return Response::json($data);
     }
 
     /**
@@ -81,9 +90,9 @@ class RankController extends \BaseController
      */
     public function edit($id)
     {
-        $rank = Rank::find($id)->toArray();
+        $item = Rank::find($id)->toArray();
         $data = array(
-            'item' => $rank
+            'item' => $item
         );
         return Response::json($data);
     }

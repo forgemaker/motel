@@ -274,7 +274,7 @@ define ["jquery",
 
             switch action
               when "list"
-                    @update_title "優惠列表"
+                    @update_title "評價列表"
                     unless @view_ranks_list
                         @view_ranks_list = new ViewRanks
                             el: "#main"
@@ -288,22 +288,25 @@ define ["jquery",
                     @rank_model.set_lists_url @motel_id
                     @rank_model.lists.fetch({reset: true})
               when "add"
-                    @update_title "新增優惠消息"
+                    @update_title "新增評價"
                     unless @view_ranks_add
-                        @view_ranks_add = new View
+                        @view_ranks_add = new ViewRank
                             template_name: 'rank_edit'
                             el: "#main"
+                            model: @rank_model
 
+                    @rank_model.clear silent: true
                     @view_ranks_add.options.data =
                         motel_id: @motel_id
                     @view_ranks_add.render()
               when "edit"
-                    @update_title "修改優惠"
+                    @update_title "修改評價"
                     unless @view_rank
                         @view_rank = new ViewRank
                             el: "#main"
                             model: @rank_model
 
+                    @rank_model.clear silent: true
                     @view_rank.options.data =
                         motel_id: @motel_id
                     @rank_model.id = id
