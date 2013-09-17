@@ -215,7 +215,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
-          this.motel_id = id || 1;
           this.update_title("訂單列表");
           if (!this.view_orders_list) {
             this.view_orders_list = new ViewOrders({
@@ -236,19 +235,19 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         case "add":
           this.update_title("新增訂單");
           if (!this.view_orders_add) {
-            this.view_orders_add = new View({
+            this.view_orders_add = new ViewOrder({
               template_name: 'order_edit',
-              el: "#main"
+              el: "#main",
+              model: this.order_model
             });
           }
+          this.order_model.clear({
+            silent: true
+          });
           this.view_orders_add.options.data = {
             motel_id: this.motel_id
           };
-          this.view_orders_add.render();
-          return $('#date_purchased, #date_finished').datetimepicker({
-            timeFormat: 'HH:mm:ss',
-            dateFormat: 'yy-mm-dd'
-          });
+          return this.view_orders_add.render();
         case "edit":
           this.update_title("修改訂單");
           if (!this.view_order) {
@@ -257,6 +256,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
               model: this.order_model
             });
           }
+          this.order_model.clear({
+            silent: true
+          });
           this.view_order.options.data = {
             motel_id: this.motel_id
           };

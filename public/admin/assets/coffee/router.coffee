@@ -223,7 +223,6 @@ define ["jquery",
 
             switch action
               when "list"
-                    @motel_id = id or 1
                     @update_title "訂單列表"
                     unless @view_orders_list
                         @view_orders_list = new ViewOrders
@@ -241,16 +240,15 @@ define ["jquery",
               when "add"
                     @update_title "新增訂單"
                     unless @view_orders_add
-                        @view_orders_add = new View
+                        @view_orders_add = new ViewOrder
                             template_name: 'order_edit'
                             el: "#main"
+                            model: @order_model
 
+                    @order_model.clear silent: true
                     @view_orders_add.options.data =
                         motel_id: @motel_id
                     @view_orders_add.render()
-                    $('#date_purchased, #date_finished').datetimepicker
-                        timeFormat: 'HH:mm:ss'
-                        dateFormat: 'yy-mm-dd'
               when "edit"
                     @update_title "修改訂單"
                     unless @view_order
@@ -258,6 +256,7 @@ define ["jquery",
                             el: "#main"
                             model: @order_model
 
+                    @order_model.clear silent: true
                     @view_order.options.data =
                         motel_id: @motel_id
                     @order_model.id = id

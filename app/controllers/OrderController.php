@@ -78,7 +78,7 @@ class OrderController extends \BaseController
             'room_type' => Input::get('room_type', null),
             'serial_number' => Input::get('serial_number', null),
             'total_price' => Input::get('total_price', null),
-            'date_purchased' => Input::get('date_purchased', null),
+            'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
             'status_id' => Input::get('status_id', 0),
             'add_time' => time(),
@@ -96,7 +96,16 @@ class OrderController extends \BaseController
      */
     public function show($id)
     {
+        $item = Order::find($id)->toArray();
 
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
+        $data = array(
+            'item' => $item
+        );
+        return Response::json($data);
     }
 
     /**
@@ -107,9 +116,14 @@ class OrderController extends \BaseController
      */
     public function edit($id)
     {
-        $order = Order::find($id)->toArray();
+        $item = Order::find($id)->toArray();
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
         $data = array(
-            'item' => $order
+            'item' => $item
         );
         return Response::json($data);
     }
