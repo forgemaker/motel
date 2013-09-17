@@ -735,13 +735,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             isAdmin: this.me.get('isAdmin')
           };
           this.view_motels_add.render();
-          $('#twzipcode').twzipcode({
-            'readonly': true
-          });
-          $('#contract_start, #contract_end').datepicker({
-            dateFormat: 'yy-mm-dd'
-          });
-          $('#stay_time_1, #stay_time_2').timepicker();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
             dataType: 'json',

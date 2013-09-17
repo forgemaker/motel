@@ -614,11 +614,6 @@ define ["jquery",
                     @view_motels_add.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_motels_add.render()
-                    $('#twzipcode').twzipcode
-                        'readonly': true
-                    $('#contract_start, #contract_end').datepicker
-                        dateFormat: 'yy-mm-dd'
-                    $('#stay_time_1, #stay_time_2').timepicker()
                     # jquery upload plugin
                     $('#fileupload').fileupload
                         url: Config.API.Upload
