@@ -339,15 +339,16 @@ define ["jquery",
               when "add"
                     @update_title "新增優惠消息"
                     unless @view_news_add
-                        @view_news_add = new View
+                        @view_news_add = new ViewNew
                             template_name: 'new_edit'
                             el: "#main"
+                            model: @new_model
+
                     @view_news_add.options.data =
                         motel_id: @motel_id
 
+                    @new_model.clear silent: true
                     @view_news_add.render()
-                    $('#start_time, #end_time').datepicker
-                        dateFormat: 'yy-mm-dd'
                     $('#fileupload').fileupload
                         url: Config.API.Upload
                         dataType: 'json'
@@ -382,14 +383,13 @@ define ["jquery",
 
                     @view_new.options.data =
                         motel_id: @motel_id
+                    @new_model.clear silent: true
                     @new_model.id = id
                     @new_model.fetch
                         success: (model, response, options) ->
                             self.new_model.trigger 'change' unless self.new_model.hasChanged 'id'
                             setTimeout(
                                 () ->
-                                    $('#start_time, #end_time').datepicker
-                                        dateFormat: 'yy-mm-dd'
                                     # jquery upload plugin
                                     $('#fileupload').fileupload
                                         url: Config.API.Upload

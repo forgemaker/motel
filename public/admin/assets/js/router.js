@@ -368,18 +368,19 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         case "add":
           this.update_title("新增優惠消息");
           if (!this.view_news_add) {
-            this.view_news_add = new View({
+            this.view_news_add = new ViewNew({
               template_name: 'new_edit',
-              el: "#main"
+              el: "#main",
+              model: this.new_model
             });
           }
           this.view_news_add.options.data = {
             motel_id: this.motel_id
           };
-          this.view_news_add.render();
-          $('#start_time, #end_time').datepicker({
-            dateFormat: 'yy-mm-dd'
+          this.new_model.clear({
+            silent: true
           });
+          this.view_news_add.render();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
             dataType: 'json',
@@ -425,6 +426,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           this.view_new.options.data = {
             motel_id: this.motel_id
           };
+          this.new_model.clear({
+            silent: true
+          });
           this.new_model.id = id;
           return this.new_model.fetch({
             success: function(model, response, options) {
@@ -432,9 +436,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
                 self.new_model.trigger('change');
               }
               return setTimeout(function() {
-                $('#start_time, #end_time').datepicker({
-                  dateFormat: 'yy-mm-dd'
-                });
                 return $('#fileupload').fileupload({
                   url: Config.API.Upload,
                   dataType: 'json',
