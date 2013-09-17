@@ -4,10 +4,15 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       if (this.model) {
         this.model.on("change", this.render, this);
       }
+      if (this.model) {
+        this.model.on("error", function(model, xhr, options) {
+          return alertify.error(xhr.responseJSON.error_text);
+        }, this);
+      }
       if (this.collection) {
         this.collection.on("reset", this.render, this);
       }
-      return this.debug = true;
+      return this.debug = false;
     },
     events: {
       "click .add": "add",
@@ -16,12 +21,12 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       "click .delete_all": "delete_all"
     },
     delete_item: function(e) {
-      var api_url, id, model;
+      var api_url, id, type;
       this.debug && console.log("delete");
       e.preventDefault();
       id = $(e.currentTarget).data("id");
-      model = $(e.currentTarget).data("model");
-      api_url = Config.API[model.ucFirst()] + "/" + id;
+      type = $(e.currentTarget).data("model");
+      api_url = Config.API[type.ucFirst()] + "/" + id;
       if (confirm("確定刪除此筆資料?")) {
         RT.API.DELETE(api_url, null, function(response) {
           if (response.error_text) {
@@ -37,14 +42,14 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       return false;
     },
     delete_all: function(e) {
-      var api_url, form_id, form_info, length, model;
+      var api_url, form_id, form_info, length, type;
       this.debug && console.log("delete all");
       e.preventDefault();
       form_id = $(e.currentTarget).data("form");
       form_info = $(form_id).serializeObject();
-      model = $(e.currentTarget).data("model");
+      type = $(e.currentTarget).data("model");
       length = $("input:checked").length;
-      api_url = Config.API[model.ucFirst()] + "/all";
+      api_url = Config.API[type.ucFirst()] + "/all";
       if (length === 0) {
         alertify.error("尚未選取任何項目");
         e.stopImmediatePropagation();
@@ -67,17 +72,17 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
       return false;
     },
     add: function(e) {
-      var api_url, error, form_id, form_info, model, name;
+      var api_url, error, form_id, form_info, name, type;
       this.debug && console.log("add");
       e.preventDefault();
       $(".form-group").removeClass("has-error");
       $(".help-block").text("");
-      model = $(e.currentTarget).data("model");
+      type = $(e.currentTarget).data("model");
       form_id = $(e.currentTarget).data("form");
       form_info = $(form_id).serializeObject();
-      api_url = Config.API[model.ucFirst()];
+      api_url = Config.API[type.ucFirst()];
       error = false;
-      switch (model) {
+      switch (type) {
         case "user":
           if (!$.trim(form_info.username) || !$.trim(form_info.password)) {
             for (name in form_info) {
@@ -107,23 +112,6 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
               alertify.success(form_info.username + " 帳號新增成功");
               $("input[type=text], input[type=password]").val("");
               return window.location = "#!/user/list";
-            }
-          });
-          break;
-        case "motel":
-          if (!$.trim(form_info.title)) {
-            $(form_id + " input[name=title]").parent().addClass("has-error");
-            alertify.error("紅色欄位務必填寫");
-            e.stopImmediatePropagation();
-            return false;
-          }
-          RT.API.POST(api_url, form_info, function(response) {
-            if (response.error_text) {
-              alertify.error(response.error_text);
-            }
-            if (response.success_text) {
-              alertify.success(form_info.title + " 摩鐵新增成功");
-              return window.location = "#!/motel/list";
             }
           });
           break;
@@ -172,20 +160,20 @@ define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _
           });
       }
       e.stopImmediatePropagation();
-      return false;
+      return this;
     },
     edit: function(e) {
-      var api_url, error, form_id, form_info, id, model, name;
+      var api_url, error, form_id, form_info, id, name, type;
       this.debug && console.log("edit");
       e.preventDefault();
       $(".form-group").removeClass("has-error");
       $(".help-block").text("");
-      model = $(e.currentTarget).data("model");
+      type = $(e.currentTarget).data("model");
       id = $(e.currentTarget).data("id");
       form_id = $(e.currentTarget).data("form");
       form_info = $(form_id).serializeObject();
-      api_url = Config.API[model.ucFirst()] + "/" + id;
-      switch (model) {
+      api_url = Config.API[type.ucFirst()] + "/" + id;
+      switch (type) {
         case "user":
           if ($.trim(form_info.password) !== "" && $.trim(form_info.password) !== $.trim(form_info.confirm_password)) {
             $(form_id + " input[name=password]").parent().addClass("has-error");

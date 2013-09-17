@@ -1,7 +1,8 @@
 <article class="module width_full">
 <div style="width:97%;margin:0 auto;">
+    <form action="#" method="post" class="well" id="motel_add_form">
     <div class="menu">
-        <a type="button" data-form="#motel_add_form" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-success {{^is_edit}}add{{/is_edit}}{{#is_edit}}edit{{/is_edit}}"><i class="icon-edit"></i> {{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
+        <a type="button" data-form="#motel_add_form" data-message="{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}" {{#is_edit}}data-id="{{id}}"{{/is_edit}} data-model="motel" class="btn btn-success save"><i class="icon-edit"></i>&nbsp;{{^is_edit}}建立摩鐵{{/is_edit}}{{#is_edit}}編輯摩鐵{{/is_edit}}</a>
         {{#isAdmin}}
         {{#is_edit}}
         <a class="btn btn-warning" data-model="motel" href="#!/motel/switch/{{id}}" style="color: white;"><i class="icon-user"></i> 切換權限</a>
@@ -14,154 +15,153 @@
         <li><a href="#introduction" data-toggle="tab">簡介設定</a></li>
         <li><a href="#time" data-toggle="tab">時間設定</a></li>
     </ul>
-    <form action="#" method="post" class="well" id="motel_add_form">
-        <div class="tab-content">
+    <div class="tab-content">
+        {{#is_edit}}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            上次修改日期為 {{date_time edit_time}}
+        </div>
+        {{/is_edit}}
+        <div class="tab-pane active" id="profile">
+            <div class="form-group">
+                <label class="control-label">名稱</label>
+                <input type="text" name="title" class="form-control" placeholder="請輸入摩鐵名稱" value="{{title}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">官方網址</label>
+                <input type="text" name="url" class="form-control" placeholder="請輸入摩鐵官方網址" value="{{url}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">縣市</label>
+                <div id="twzipcode" class="row">
+                    <div class="col-lg-2" data-role="county" data-style="form-control"></div>
+                    <div class="col-lg-2" data-role="district" data-style="form-control"></div>
+                    <div class="col-lg-2" data-role="zipcode" data-style="form-control"></div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">地址</label>
+                <input type="text" name="address" class="form-control" placeholder="請輸入摩鐵地址" value="{{address}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">室內電話1</label>
+                <input type="text" name="phone_1" class="form-control" placeholder="請輸入摩鐵室內電話1" value="{{phone_1}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">室內電話2</label>
+                <input type="text" name="phone_2" class="form-control" placeholder="請輸入摩鐵室內電話2" value="{{phone_2}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">傳真</label>
+                <input type="text" name="fax" class="form-control" placeholder="請輸入摩鐵傳真號碼" value="{{fax}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">聯絡人員</label>
+                <input type="text" name="contact" class="form-control" placeholder="請輸入摩鐵聯絡人員" value="{{contact}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">行動電話1</label>
+                <input type="text" name="mobile_1" class="form-control" placeholder="請輸入摩鐵行動電話1" value="{{mobile_1}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">行動電話2</label>
+                <input type="text" name="mobile_2" class="form-control" placeholder="請輸入摩鐵行動電話2" value="{{mobile_2}}">
+            </div>
+            {{#isAdmin}}
+            <div class="form-group">
+                <label class="control-label">經度</label>
+                <input type="text" name="longitude" class="form-control" placeholder="請輸入摩鐵經度" value="{{longitude}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">緯度</label>
+                <input type="text" name="latitude" class="form-control" placeholder="請輸入摩鐵緯度" value="{{latitude}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">單筆佣金</label>
+                <input type="text" name="commission" class="form-control" placeholder="請輸入摩鐵單筆佣金" value="{{commission}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">合約日期</label>
+                <div class="row">
+                    <div class="col-lg-2"><input type="text" id="contract_start" name="contract_start" class="form-control" placeholder="請輸入合約起始日期" value="{{contract_start}}"></div>
+                    <div class="col-lg-2"><input type="text" id="contract_end" name="contract_end" class="form-control" placeholder="請輸入合約結束日期" value="{{contract_end}}"></div>
+                </div>
+            </div>
+            {{/isAdmin}}
+        </div>
+        <div class="tab-pane" id="introduction">
+            <div class="form-group">
+                <label class="control-label">簡介設定</label>
+                <input type="text" name="introduction" class="form-control" placeholder="請輸入摩鐵簡介" value="{{introduction}}">
+                <span class="help-block">140字文字說明</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">設備</label>
+                <input type="text" name="equipment" class="form-control" placeholder="請輸入摩鐵設備" value="{{equipment}}">
+                <p class="help-block">60字文字說明</p>
+            </div>
+            <div class="form-group">
+                <label class="control-label">特色</label>
+                <input type="text" name="feature" class="form-control" placeholder="請輸入摩鐵特色" value="{{feature}}">
+                <span class="help-block">60字文字說明</span>
+            </div>
             {{#is_edit}}
-            <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                上次修改日期為 {{date_time edit_time}}
-            </div>
+                <input type="hidden" name="id" value="{{id}}">
             {{/is_edit}}
-            <div class="tab-pane active" id="profile">
-                <div class="form-group">
-                    <label class="control-label">名稱</label>
-                    <input type="text" name="title" class="form-control" placeholder="請輸入摩鐵名稱" value="{{title}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">官方網址</label>
-                    <input type="text" name="url" class="form-control" placeholder="請輸入摩鐵官方網址" value="{{url}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">縣市</label>
-                    <div id="twzipcode" class="row">
-                        <div class="col-lg-2" data-role="county" data-style="form-control"></div>
-                        <div class="col-lg-2" data-role="district" data-style="form-control"></div>
-                        <div class="col-lg-2" data-role="zipcode" data-style="form-control"></div>
-                    </div>
-                    <div style="clear:both"></div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">地址</label>
-                    <input type="text" name="address" class="form-control" placeholder="請輸入摩鐵地址" value="{{address}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">室內電話1</label>
-                    <input type="text" name="phone_1" class="form-control" placeholder="請輸入摩鐵室內電話1" value="{{phone_1}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">室內電話2</label>
-                    <input type="text" name="phone_2" class="form-control" placeholder="請輸入摩鐵室內電話2" value="{{phone_2}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">傳真</label>
-                    <input type="text" name="fax" class="form-control" placeholder="請輸入摩鐵傳真號碼" value="{{fax}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">聯絡人員</label>
-                    <input type="text" name="contact" class="form-control" placeholder="請輸入摩鐵聯絡人員" value="{{contact}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">行動電話1</label>
-                    <input type="text" name="mobile_1" class="form-control" placeholder="請輸入摩鐵行動電話1" value="{{mobile_1}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">行動電話2</label>
-                    <input type="text" name="mobile_2" class="form-control" placeholder="請輸入摩鐵行動電話2" value="{{mobile_2}}">
-                </div>
-                {{#isAdmin}}
-                <div class="form-group">
-                    <label class="control-label">經度</label>
-                    <input type="text" name="longitude" class="form-control" placeholder="請輸入摩鐵經度" value="{{longitude}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">緯度</label>
-                    <input type="text" name="latitude" class="form-control" placeholder="請輸入摩鐵緯度" value="{{latitude}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">單筆佣金</label>
-                    <input type="text" name="commission" class="form-control" placeholder="請輸入摩鐵單筆佣金" value="{{commission}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">合約日期</label>
-                    <div class="row">
-                        <div class="col-lg-2"><input type="text" id="contract_start" name="contract_start" class="form-control" placeholder="請輸入合約起始日期" value="{{contract_start}}"></div>
-                        <div class="col-lg-2"><input type="text" id="contract_end" name="contract_end" class="form-control" placeholder="請輸入合約結束日期" value="{{contract_end}}"></div>
-                    </div>
-                </div>
-                {{/isAdmin}}
-            </div>
-            <div class="tab-pane" id="introduction">
-                <div class="form-group">
-                    <label class="control-label">簡介設定</label>
-                    <input type="text" name="introduction" class="form-control" placeholder="請輸入摩鐵簡介" value="{{introduction}}">
-                    <span class="help-block">140字文字說明</span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">設備</label>
-                    <input type="text" name="equipment" class="form-control" placeholder="請輸入摩鐵設備" value="{{equipment}}">
-                    <p class="help-block">60字文字說明</p>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">特色</label>
-                    <input type="text" name="feature" class="form-control" placeholder="請輸入摩鐵特色" value="{{feature}}">
-                    <span class="help-block">60字文字說明</span>
-                </div>
-                {{#is_edit}}
-                    <input type="hidden" name="id" value="{{id}}">
-                {{/is_edit}}
-                <div class="form-group">
-                    <label class="control-label">上傳圖片</label>
-                    <div data-placement="top" data-original-title="Change collection cover" data-toggle="tooltip">
-                        <a class="btn btn-success fileinput-button">
-                            <i class="icon-cloud-upload"></i>
-                            <span>上傳摩鐵封面</span>
-                            <!-- The file input field used as target for the file upload widget -->
-                            <input id="fileupload" type="file" name="upload_file">
-                        </a>
-                        <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
-                        <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
-                    </div>
-                </div>
-                <div id="upload_area" class="row">
-                    {{#is_image}}
-                    <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
-                    {{/is_image}}
-                </div>
-                <div id="progress" class="progress hide" style="margin-top:10px;">
-                    <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
+            <div class="form-group">
+                <label class="control-label">上傳圖片</label>
+                <div data-placement="top" data-original-title="Change collection cover" data-toggle="tooltip">
+                    <a class="btn btn-success fileinput-button">
+                        <i class="icon-cloud-upload"></i>
+                        <span>上傳摩鐵封面</span>
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload" type="file" name="upload_file">
+                    </a>
+                    <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
+                    <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
                 </div>
             </div>
-            <div class="tab-pane" id="time">
-                <div class="form-group">
-                    <label class="control-label">平日休息時間</label>
-                    <select class="form-control" name="rest_time_1">
-                        {{#select rest_time_1}}
-                        <option value="2H">2H</option>
-                        <option value="2.5H">2.5H</option>
-                        <option value="3H">3H</option>
-                        {{/select}}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">假日休息時間</label>
-                    <select class="form-control" name="rest_time_2">
-                        {{#select rest_time_2}}
-                        <option value="2H">2H</option>
-                        <option value="2.5H">2.5H</option>
-                        <option value="3H">3H</option>
-                        {{/select}}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">平日住宿進房時間</label>
-                    <input type="text" name="stay_time_1" id="stay_time_1" class="form-control" placeholder="請輸入摩鐵平日住宿進房時間" value="{{stay_time_1}}">
-                </div>
-                <div class="form-group">
-                    <label class="control-label">假日住宿進房時間</label>
-                    <input type="text" name="stay_time_2" id="stay_time_2" class="form-control" placeholder="請輸入摩鐵假日住宿進房時間" value="{{stay_time_2}}">
-                </div>
+            <div id="upload_area" class="row">
+                {{#is_image}}
+                <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
+                {{/is_image}}
+            </div>
+            <div id="progress" class="progress hide" style="margin-top:10px;">
+                <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
             </div>
         </div>
+        <div class="tab-pane" id="time">
+            <div class="form-group">
+                <label class="control-label">平日休息時間</label>
+                <select class="form-control" name="rest_time_1">
+                    {{#select rest_time_1}}
+                    <option value="2H">2H</option>
+                    <option value="2.5H">2.5H</option>
+                    <option value="3H">3H</option>
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">假日休息時間</label>
+                <select class="form-control" name="rest_time_2">
+                    {{#select rest_time_2}}
+                    <option value="2H">2H</option>
+                    <option value="2.5H">2.5H</option>
+                    <option value="3H">3H</option>
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">平日住宿進房時間</label>
+                <input type="text" name="stay_time_1" id="stay_time_1" class="form-control" placeholder="請輸入摩鐵平日住宿進房時間" value="{{stay_time_1}}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">假日住宿進房時間</label>
+                <input type="text" name="stay_time_2" id="stay_time_2" class="form-control" placeholder="請輸入摩鐵假日住宿進房時間" value="{{stay_time_2}}">
+            </div>
+        </div>
+    </div>
     </form>
 </div>
 </article>

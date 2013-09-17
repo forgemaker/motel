@@ -58,6 +58,7 @@ class MotelController extends \BaseController
      */
     public function store()
     {
+        return Response::json(array('error_text' => '404 not found'), 404);
         $motel = Motel::create(array(
             'title' => Input::get('title'),
             'url' => Input::get('url'),
@@ -100,7 +101,16 @@ class MotelController extends \BaseController
      */
     public function show($id)
     {
-        //
+        $item = Motel::find($id)->toArray();
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
+        $data = array(
+            'item' => $item
+        );
+        return Response::json($data);
     }
 
     /**
@@ -111,9 +121,14 @@ class MotelController extends \BaseController
      */
     public function edit($id)
     {
-        $motel = Motel::find($id)->toArray();
+        $item = Motel::find($id)->toArray();
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '404 not found'), 404);
+        }
+
         $data = array(
-            'item' => $motel
+            'item' => $item
         );
         return Response::json($data);
     }

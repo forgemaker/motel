@@ -13,8 +13,12 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
     Backbone.View.extend
         initialize: ->
             @model.on "change", @render, this if @model
+            # listen model error handle
+            @model.on "error", (model, xhr, options) ->
+                alertify.error xhr.responseJSON.error_text
+            , this if @model
             @collection.on "reset", @render, this if @collection
-            @debug = true
+            @debug = false
 
         events:
             "click .add": "add"
@@ -26,8 +30,8 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
             (@debug) and console.log "delete"
             e.preventDefault()
             id = $(e.currentTarget).data("id")
-            model = $(e.currentTarget).data("model")
-            api_url = Config.API[model.ucFirst()] + "/" + id
+            type = $(e.currentTarget).data("model")
+            api_url = Config.API[type.ucFirst()] + "/" + id
             if confirm("確定刪除此筆資料?")
                 RT.API.DELETE api_url, null, (response) ->
                     if response.error_text
@@ -45,9 +49,9 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
             e.preventDefault()
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
-            model = $(e.currentTarget).data("model")
+            type = $(e.currentTarget).data("model")
             length = $("input:checked").length
-            api_url = Config.API[model.ucFirst()] + "/all"
+            api_url = Config.API[type.ucFirst()] + "/all"
             if length is 0
                 alertify.error "尚未選取任何項目"
                 e.stopImmediatePropagation()
@@ -70,12 +74,12 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
             e.preventDefault()
             $(".form-group").removeClass "has-error"
             $(".help-block").text ""
-            model = $(e.currentTarget).data("model")
+            type = $(e.currentTarget).data("model")
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
-            api_url = Config.API[model.ucFirst()]
+            api_url = Config.API[type.ucFirst()]
             error = false
-            switch model
+            switch type
                 when "user"
                     if not $.trim(form_info.username) or not $.trim(form_info.password)
                         for name of form_info
@@ -98,19 +102,6 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
                             alertify.success form_info.username + " 帳號新增成功"
                             $("input[type=text], input[type=password]").val ""
                             window.location = "#!/user/list"
-
-                when "motel"
-                    unless $.trim(form_info.title)
-                        $(form_id + " input[name=title]").parent().addClass "has-error"
-                        alertify.error "紅色欄位務必填寫"
-                        e.stopImmediatePropagation()
-                        return false
-                    RT.API.POST api_url, form_info, (response) ->
-                        if response.error_text
-                            alertify.error response.error_text
-                        if response.success_text
-                            alertify.success form_info.title + " 摩鐵新增成功"
-                            window.location = "#!/motel/list"
 
                 when "room"
                     RT.API.POST api_url, form_info, (response) ->
@@ -146,19 +137,19 @@ define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbo
 
             # call return false or e.stopPropagation() or e.stopImmediatePropagation();
             e.stopImmediatePropagation()
-            false
+            this
 
         edit: (e) ->
             (@debug) and console.log "edit"
             e.preventDefault()
             $(".form-group").removeClass "has-error"
             $(".help-block").text ""
-            model = $(e.currentTarget).data("model")
+            type = $(e.currentTarget).data("model")
             id = $(e.currentTarget).data("id")
             form_id = $(e.currentTarget).data("form")
             form_info = $(form_id).serializeObject()
-            api_url = Config.API[model.ucFirst()] + "/" + id
-            switch model
+            api_url = Config.API[type.ucFirst()] + "/" + id
+            switch type
                 when "user"
                     if $.trim(form_info.password) isnt "" and $.trim(form_info.password) isnt $.trim(form_info.confirm_password)
                         $(form_id + " input[name=password]").parent().addClass "has-error"

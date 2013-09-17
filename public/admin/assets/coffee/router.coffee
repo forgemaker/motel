@@ -87,10 +87,10 @@ define ["jquery",
     # ajax set up
     $.ajaxSetup cache: false
     $(document).ajaxStart () ->
-        RT.dialogs.loading "open"
+        RT.dialogs.loading 'open'
         NProgress.start()
     $(document).ajaxStop () ->
-        RT.dialogs.loading "close"
+        RT.dialogs.loading 'close'
         NProgress.done()
 
     ajaxSettings = dataType: "json"
@@ -605,10 +605,12 @@ define ["jquery",
                     return if @auth_check()
 
                     unless @view_motels_add
-                        @view_motels_add = new View
+                        @view_motels_add = new ViewMotel
                             template_name: "motel_edit"
+                            model: @motel_model
                             el: "#main"
 
+                    @motel_model.clear silent: true
                     @view_motels_add.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_motels_add.render()
@@ -649,7 +651,7 @@ define ["jquery",
                         @view_motel = new ViewMotel
                             el: "#main"
                             model: @motel_model
-
+                    @motel_model.clear silent: true
                     @view_motel.options.data =
                         isAdmin: @me.get 'isAdmin'
                     return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
@@ -706,7 +708,6 @@ define ["jquery",
             else
                 $('.admin-panel').addClass 'hide'
 
-            console.log @me.get 'motel_id'
             if @me.get('logged_in') and @me.get('motel_id')?
                 @motel.id = @me.get 'motel_id'
                 @motel.fetch()

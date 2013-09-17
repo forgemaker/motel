@@ -52,11 +52,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
     cache: false
   });
   $(document).ajaxStart(function() {
-    RT.dialogs.loading("open");
+    RT.dialogs.loading('open');
     return NProgress.start();
   });
   $(document).ajaxStop(function() {
-    RT.dialogs.loading("close");
+    RT.dialogs.loading('close');
     return NProgress.done();
   });
   ajaxSettings = {
@@ -722,11 +722,15 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             return;
           }
           if (!this.view_motels_add) {
-            this.view_motels_add = new View({
+            this.view_motels_add = new ViewMotel({
               template_name: "motel_edit",
+              model: this.motel_model,
               el: "#main"
             });
           }
+          this.motel_model.clear({
+            silent: true
+          });
           this.view_motels_add.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
@@ -780,6 +784,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
               model: this.motel_model
             });
           }
+          this.motel_model.clear({
+            silent: true
+          });
           this.view_motel.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
@@ -851,7 +858,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       } else {
         $('.admin-panel').addClass('hide');
       }
-      console.log(this.me.get('motel_id'));
       if (this.me.get('logged_in') && (this.me.get('motel_id') != null)) {
         this.motel.id = this.me.get('motel_id');
         this.motel.fetch();
