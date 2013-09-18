@@ -243,8 +243,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
     },
     auth_check: function() {
       if (!this.me.get('isAdmin')) {
-        alertify.error("您並非系統管理者");
-        window.location = "#!/user/edit";
+        this.redirect_url.error("您並非系統管理者", "#!/user/edit");
         return true;
       }
       return false;
@@ -482,6 +481,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "all":
+          if (this.auth_check()) {
+            return;
+          }
           this.update_title("所有房型列表");
           this.view_rooms_list.options.data = {
             motel_id: this.me.get('motel_id'),
@@ -497,7 +499,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             motel_id: this.motel_id
           };
           this.view_rooms_list.options.page = this.page || 1;
-          this.room_model.set_lists_url(this.motel_id);
+          this.room_model.set_lists_url(+this.motel_id);
           return this.room_model.lists.fetch({
             reset: true
           });

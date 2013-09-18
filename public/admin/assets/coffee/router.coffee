@@ -257,8 +257,7 @@ define ["jquery",
 
         auth_check: () ->
             if !@me.get 'isAdmin'
-                alertify.error "您並非系統管理者"
-                window.location = "#!/user/edit"
+                @redirect_url.error "您並非系統管理者", "#!/user/edit"
                 return true
             return false
 
@@ -429,6 +428,7 @@ define ["jquery",
 
             switch action
                 when "all"
+                    return if @auth_check()
                     @update_title "所有房型列表"
                     @view_rooms_list.options.data =
                         motel_id: @me.get 'motel_id'
@@ -441,7 +441,7 @@ define ["jquery",
                     @view_rooms_list.options.data =
                         motel_id: @motel_id
                     @view_rooms_list.options.page = @page or 1
-                    @room_model.set_lists_url @motel_id
+                    @room_model.set_lists_url +@motel_id
                     @room_model.lists.fetch
                         reset: true
                 when "add"
