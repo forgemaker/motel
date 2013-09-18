@@ -22,9 +22,12 @@ class RankController extends \BaseController
      *
      * @return Response
      */
-    public function sublist($id)
+    public function sublist($id = null)
     {
-        $items = Rank::where('motel_id', $id)->get();
+        $offset = Input::get('offset', null);
+        $limit = Input::get('limit', null);
+
+        $items = Rank::with('motel')->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
 
         $data = array(
             'count' => count($items->toArray()),
@@ -71,14 +74,14 @@ class RankController extends \BaseController
      */
     public function show($id)
     {
-        $item = Rank::find($id)->toArray();
+        $item = Rank::find($id);
 
         if (!isset($item)) {
             return Response::json(array('error_text' => '404 not found'), 404);
         }
 
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }

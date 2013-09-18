@@ -21,7 +21,7 @@ Route::get('user/logout', 'UserController@logout');
 Route::post('motel/upload', 'MotelController@upload');
 Route::get('room/list/{id?}', 'RoomController@sublist');
 Route::get('new/list/{id?}', 'NewsController@sublist');
-Route::get('rank/list/{id}', 'RankController@sublist');
+Route::get('rank/list/{id?}', 'RankController@sublist');
 Route::get('order/list/{id}', 'OrderController@sublist');
 Route::post('room/enable', 'RoomController@enable');
 Route::post('order/action', 'OrderController@action');

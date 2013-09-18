@@ -1,29 +1,8 @@
 define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Backbone, View, Config) ->
     View.extend
         events: _.extend(
-            "click .search_user": "search"
             'click .enable': 'active'
         , View::events)
-        search: (e) ->
-            (@debug) and console.log("search")
-            e.preventDefault()
-            self = this
-            form_id = $(e.currentTarget).data("form")
-            form_info = $(form_id).serializeObject()
-            model = $(e.currentTarget).data("model")
-            params = undefined
-            switch model
-                when "user"
-                    params =
-                        first_name: form_info.first_name
-                        last_name: form_info.last_name
-                        email: form_info.email
-            self.options.model_name.set_params params
-            self.collection.fetch()
-
-            # call return false or e.stopPropagation() or e.stopImmediatePropagation();
-            #e.stopImmediatePropagation();
-            this
 
         active: (e) ->
             e.preventDefault()

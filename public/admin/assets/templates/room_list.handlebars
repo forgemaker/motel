@@ -47,7 +47,7 @@
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
             {{#../isAdmin}}
-            <td>{{motel.title}}</td>
+            <td><a href="#!/motel/edit/{{motel.id}}">{{motel.title}}</a></td>
             {{/../isAdmin}}
             <td>{{#ifeq active '1'}}<span class="label label-success" style="font-size: 14px">{{../title}}</span>{{/ifeq}}{{#ifeq active '0'}}<span class="label label-default" style="font-size: 14px">{{../title}}</span>{{/ifeq}}</td>
             <td>{{#ifeq type '1'}}<span class="label label-warning" style="font-size: 14px">住宿</span>{{/ifeq}}{{#ifeq type '0'}}<span class="label label-info" style="font-size: 14px">休息</span>{{/ifeq}}</td>
