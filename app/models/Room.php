@@ -58,8 +58,8 @@ class Room extends Eloquent
 
     public function scopeOfMotel($query, $motel_id = null)
     {
-        if (!isset($motel_id)) {
-            return $motel_id;
+        if (!isset($motel_id) or $motel_id == 'all') {
+            return $query;
         }
 
         return $query->where('motel_id', intval($motel_id));

@@ -428,6 +428,14 @@ define ["jquery",
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
+                when "all"
+                    @update_title "所有房型列表"
+                    @view_rooms_list.options.data =
+                        motel_id: @motel_id
+                        isAdmin: @me.get 'isAdmin'
+                    @room_model.set_lists_url 'all'
+                    @room_model.lists.fetch
+                        reset: true
                 when "list"
                     @update_title "房型列表"
                     @view_rooms_list.options.data =

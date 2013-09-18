@@ -28,6 +28,9 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
+                {{#isAdmin}}
+                <th>摩鐵名稱</th>
+                {{/isAdmin}}
                 <th>房型名稱</th>
                 <th>休息/住宿</th>
                 <th>原價</th>
@@ -41,6 +44,9 @@
         {{#items}}
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
+            {{#../isAdmin}}
+            <td>{{motel.title}}</td>
+            {{/../isAdmin}}
             <td>{{#ifeq active '1'}}<span class="label label-success" style="font-size: 14px">{{../title}}</span>{{/ifeq}}{{#ifeq active '0'}}<span class="label label-default" style="font-size: 14px">{{../title}}</span>{{/ifeq}}</td>
             <td>{{#ifeq type '1'}}<span class="label label-warning" style="font-size: 14px">住宿</span>{{/ifeq}}{{#ifeq type '0'}}<span class="label label-info" style="font-size: 14px">休息</span>{{/ifeq}}</td>
             <td>{{price_1}}</td>

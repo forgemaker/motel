@@ -481,6 +481,16 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
       }
       switch (action) {
+        case "all":
+          this.update_title("所有房型列表");
+          this.view_rooms_list.options.data = {
+            motel_id: this.motel_id,
+            isAdmin: this.me.get('isAdmin')
+          };
+          this.room_model.set_lists_url('all');
+          return this.room_model.lists.fetch({
+            reset: true
+          });
         case "list":
           this.update_title("房型列表");
           this.view_rooms_list.options.data = {
