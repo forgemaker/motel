@@ -487,7 +487,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           this.update_title("所有房型列表");
           this.view_rooms_list.options.data = {
             motel_id: this.me.get('motel_id'),
-            isAdmin: this.me.get('isAdmin')
+            isAdmin: this.me.get('isAdmin'),
+            hideEnable: true
           };
           this.room_model.set_lists_url('all');
           return this.room_model.lists.fetch({

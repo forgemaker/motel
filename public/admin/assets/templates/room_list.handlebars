@@ -2,8 +2,10 @@
 <div style="width:98%;margin:0 auto;">
     <div class="menu">
         <a class="btn btn-primary check_all" data-model="room" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
+        {{^hideEnable}}
         <a class="btn btn-warning enable" data-active="1" data-motel_id="{{motel_id}}" data-model="room"><i class="icon-unlock"></i> 全部啟用</a>
         <a class="btn btn-danger enable" data-active="0" data-motel_id="{{motel_id}}" data-model="room"><i class="icon-lock"></i> 全部關閉</a>
+        {{/hideEnable}}
         <a class="btn btn-primary" data-model="room" href="#!/room/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增房型</a>
         <a class="btn btn-danger delete_all" data-form="#room_list_form" data-model="room"><i class="icon-trash"></i> 刪除房型</a>
     </div>

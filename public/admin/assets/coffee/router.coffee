@@ -433,6 +433,7 @@ define ["jquery",
                     @view_rooms_list.options.data =
                         motel_id: @me.get 'motel_id'
                         isAdmin: @me.get 'isAdmin'
+                        hideEnable: true
                     @room_model.set_lists_url 'all'
                     @room_model.lists.fetch
                         reset: true
