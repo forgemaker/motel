@@ -431,7 +431,7 @@ define ["jquery",
                 when "all"
                     @update_title "所有房型列表"
                     @view_rooms_list.options.data =
-                        motel_id: @motel_id
+                        motel_id: @me.get 'motel_id'
                         isAdmin: @me.get 'isAdmin'
                     @room_model.set_lists_url 'all'
                     @room_model.lists.fetch

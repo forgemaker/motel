@@ -484,7 +484,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         case "all":
           this.update_title("所有房型列表");
           this.view_rooms_list.options.data = {
-            motel_id: this.motel_id,
+            motel_id: this.me.get('motel_id'),
             isAdmin: this.me.get('isAdmin')
           };
           this.room_model.set_lists_url('all');
