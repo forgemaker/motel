@@ -16,7 +16,6 @@ define ["jquery", "underscore", "backbone", "views/view", "alertify"], ($, _, Ba
                 success: (model, response, options) ->
                     alertify.success message + "成功"
                     window.location = "#!/new/list/" + form_info.motel_id
-            e.stopImmediatePropagation()
             this
 
         render: ->

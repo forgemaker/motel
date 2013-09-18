@@ -19,7 +19,6 @@ define(["jquery", "underscore", "backbone", "views/view", "alertify"], function(
           return window.location = "#!/user/list";
         }
       });
-      e.stopImmediatePropagation();
       return this;
     },
     render: function() {

@@ -189,6 +189,62 @@ define ["jquery",
             @rank_model = new ModelRank()  unless @rank_model
             @order_model = new ModelOrder()  unless @order_model
 
+            # load view
+            @view_orders_list = new ViewOrders
+                el: "#main"
+                collection: @order_model.lists
+                model_name: @order_model
+
+            @view_order_edit = new ViewOrder
+                el: "#main"
+                model: @order_model
+
+
+            @view_news_list = new ViewNews
+                el: "#main"
+                collection: @new_model.lists
+                model_name: @new_model
+
+            @view_new_edit = new ViewNew
+                el: "#main"
+                model: @new_model
+
+            @view_ranks_list = new ViewRanks
+                el: "#main"
+                collection: @rank_model.lists
+                model_name: @rank_model
+
+            @view_rank_edit = new ViewRank
+                el: "#main"
+                model: @rank_model
+
+            @view_rooms_list = new ViewRooms
+                el: "#main"
+                collection: @room_model.lists
+                model_name: @room_model
+
+            @view_room_edit = new ViewRoom
+                el: "#main"
+                model: @room_model
+
+            @view_users_list = new ViewUsers
+                el: "#main"
+                collection: @user_model.lists
+                model_name: @user_model
+
+            @view_user_edit = new ViewUser
+                el: "#main"
+                model: @user_model
+
+            @view_motels_list = new ViewMotels
+                el: "#main"
+                collection: @motel_model.lists
+                model_name: @motel_model
+
+            @view_motel_edit = new ViewMotel
+                model: @motel_model
+                el: "#main"
+
         redirect_url:
             error: (message, url) ->
                 alertify.error message
@@ -222,14 +278,8 @@ define ["jquery",
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
-              when "list"
+                when "list"
                     @update_title "訂單列表"
-                    unless @view_orders_list
-                        @view_orders_list = new ViewOrders
-                            el: "#main"
-                            collection: @order_model.lists
-                            model_name: @order_model
-
                     @view_orders_list.options.data =
                         motel_id: @motel_id
                         isAdmin: @me.get 'isAdmin'
@@ -237,28 +287,17 @@ define ["jquery",
                     @order_model.set_lists_url @motel_id
                     @order_model.lists.fetch
                         reset: true
-              when "add"
+                when "add"
                     @update_title "新增訂單"
-                    unless @view_orders_add
-                        @view_orders_add = new ViewOrder
-                            template_name: 'order_edit'
-                            el: "#main"
-                            model: @order_model
-
                     @order_model.clear silent: true
-                    @view_orders_add.options.data =
+                    @view_order_edit.options.data =
                         motel_id: @motel_id
-                    @view_orders_add.render()
-              when "edit"
+                    @view_order_edit.render()
+                when "edit"
                     @update_title "修改訂單"
-                    unless @view_order
-                        @view_order = new ViewOrder
-                            el: "#main"
-                            model: @order_model
-
                     @order_model.clear silent: true
-                    @view_order.options.data =
-                        motel_id: @motel_id
+                    @view_order_edit.options.data =
+                        motel_id: @me.get 'motel_id'
                     @order_model.id = id
                     @order_model.fetch
                         success: (model, response, options) ->
@@ -272,42 +311,25 @@ define ["jquery",
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
-              when "list"
+                when "list"
                     @update_title "評價列表"
-                    unless @view_ranks_list
-                        @view_ranks_list = new ViewRanks
-                            el: "#main"
-                            collection: @rank_model.lists
-                            model_name: @rank_model
-
                     @view_ranks_list.options.data =
                         motel_id: @motel_id
                         isAdmin: @me.get 'isAdmin'
                     @view_ranks_list.options.page = @page or 1
                     @rank_model.set_lists_url @motel_id
                     @rank_model.lists.fetch({reset: true})
-              when "add"
+                when "add"
                     @update_title "新增評價"
-                    unless @view_ranks_add
-                        @view_ranks_add = new ViewRank
-                            template_name: 'rank_edit'
-                            el: "#main"
-                            model: @rank_model
-
                     @rank_model.clear silent: true
-                    @view_ranks_add.options.data =
+                    @view_rank_edit.options.data =
                         motel_id: @motel_id
-                    @view_ranks_add.render()
-              when "edit"
+                    @view_rank_edit.render()
+                when "edit"
                     @update_title "修改評價"
-                    unless @view_rank
-                        @view_rank = new ViewRank
-                            el: "#main"
-                            model: @rank_model
-
                     @rank_model.clear silent: true
-                    @view_rank.options.data =
-                        motel_id: @motel_id
+                    @view_rank_edit.options.data =
+                        motel_id: @me.get 'motel_id'
                     @rank_model.id = id
                     @rank_model.fetch
                         success: (model, response, options) ->
@@ -321,33 +343,20 @@ define ["jquery",
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
-              when "list"
+                when "list"
                     @update_title "優惠列表"
-                    unless @view_news_list
-                        @view_news_list = new ViewNews
-                            el: "#main"
-                            collection: @new_model.lists
-                            model_name: @new_model
-
                     @view_news_list.options.data =
                         motel_id: @motel_id
                     @view_news_list.options.page = @page or 1
                     @new_model.set_lists_url @motel_id
                     @new_model.lists.fetch
                         reset: true
-              when "add"
+                when "add"
                     @update_title "新增優惠消息"
-                    unless @view_news_add
-                        @view_news_add = new ViewNew
-                            template_name: 'new_edit'
-                            el: "#main"
-                            model: @new_model
-
-                    @view_news_add.options.data =
+                    @view_new_edit.options.data =
                         motel_id: @motel_id
-
                     @new_model.clear silent: true
-                    @view_news_add.render()
+                    @view_new_edit.render()
                     $('#fileupload').fileupload
                         url: Config.API.Upload
                         dataType: 'json'
@@ -373,15 +382,10 @@ define ["jquery",
                                 alertify.error data.files[data.index].error
                         fail: (e, data) ->
                             alertify.error '檔案上傳失敗'
-              when "edit"
+                when "edit"
                     @update_title "修改優惠"
-                    unless @view_new
-                        @view_new = new ViewNew
-                            el: "#main"
-                            model: @new_model
-
-                    @view_new.options.data =
-                        motel_id: @motel_id
+                    @view_new_edit.options.data =
+                        motel_id: @me.get 'motel_id'
                     @new_model.clear silent: true
                     @new_model.id = id
                     @new_model.fetch
@@ -424,32 +428,20 @@ define ["jquery",
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
-              when "list"
+                when "list"
                     @update_title "房型列表"
-                    unless @view_rooms_list
-                        @view_rooms_list = new ViewRooms
-                            el: "#main"
-                            collection: @room_model.lists
-                            model_name: @room_model
-
                     @view_rooms_list.options.data =
                         motel_id: @motel_id
                     @view_rooms_list.options.page = @page or 1
                     @room_model.set_lists_url @motel_id
                     @room_model.lists.fetch
                         reset: true
-              when "add"
+                when "add"
                     @update_title "新增房型"
-                    unless @view_rooms_add
-                        @view_rooms_add = new ViewRoom
-                            template_name: "room_edit"
-                            model: @room_model
-                            el: "#main"
-
                     @room_model.clear silent: true
-                    @view_rooms_add.options.data =
+                    @view_room_edit.options.data =
                         motel_id: @motel_id
-                    @view_rooms_add.render()
+                    @view_room_edit.render()
                     $('#fileupload').fileupload
                         url: Config.API.Upload
                         dataType: 'json'
@@ -475,16 +467,11 @@ define ["jquery",
                                 alertify.error data.files[data.index].error
                         fail: (e, data) ->
                             alertify.error '檔案上傳失敗'
-              when "edit"
+                when "edit"
                     @update_title "修改房型"
-                    unless @view_room
-                        @view_room = new ViewRoom
-                            el: "#main"
-                            model: @room_model
-
                     @room_model.clear silent: true
-                    @view_room.options.data =
-                        motel_id: @motel_id
+                    @view_room_edit.options.data =
+                        motel_id: @me.get 'motel_id'
                     @room_model.id = id
                     @room_model.fetch
                         success: (model, response, options) ->
@@ -532,19 +519,10 @@ define ["jquery",
                             alertify.success "登出成功"
                             self.motel.clear silent: true
                             self.me.fetch()
-
                 when "list"
                     @page = id or 1
                     @update_title "帳號列表"
                     return if @auth_check()
-
-                    unless @view_users_list
-                        @view_users_list = new ViewUsers
-                            el: "#main"
-                            collection: @user_model.lists
-                            model_name: @user_model
-                            page: @page
-
                     @view_users_list.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_users_list.options.page = @page
@@ -554,26 +532,14 @@ define ["jquery",
                 when "add"
                     @update_title "新增帳號"
                     return if @auth_check()
-
-                    unless @view_users_add
-                        @view_users_add = new ViewUser
-                            template_name: "user_edit"
-                            el: "#main"
-                            model: @user_model
-
                     @user_model.clear silent: true
-                    @view_users_add.options.data =
+                    @view_user_edit.options.data =
                         isAdmin: @me.get 'isAdmin'
-                    @view_users_add.render()
+                    @view_user_edit.render()
                 when "edit"
                     @update_title "修改帳號"
-                    unless @view_user
-                        @view_user = new ViewUser
-                            el: "#main"
-                            model: @user_model
-
                     @user_model.clear silent: true
-                    @view_user.options.data =
+                    @view_user_edit.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @user_model.id = id || @me.get 'user_id'
                     @user_model.fetch
@@ -596,13 +562,6 @@ define ["jquery",
                     @page = id or 1
                     @update_title "摩鐵列表"
                     return if @auth_check()
-
-                    unless @view_motels_list
-                        @view_motels_list = new ViewMotels
-                            el: "#main"
-                            collection: @motel_model.lists
-                            model_name: @motel_model
-
                     @view_motels_list.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_motels_list.options.page = @page
@@ -611,17 +570,10 @@ define ["jquery",
                 when "add"
                     @update_title "新增摩鐵"
                     return if @auth_check()
-
-                    unless @view_motels_add
-                        @view_motels_add = new ViewMotel
-                            template_name: "motel_edit"
-                            model: @motel_model
-                            el: "#main"
-
                     @motel_model.clear silent: true
-                    @view_motels_add.options.data =
+                    @view_motel_edit.options.data =
                         isAdmin: @me.get 'isAdmin'
-                    @view_motels_add.render()
+                    @view_motel_edit.render()
                     # jquery upload plugin
                     $('#fileupload').fileupload
                         url: Config.API.Upload
@@ -649,15 +601,11 @@ define ["jquery",
                         fail: (e, data) ->
                             alertify.error '檔案上傳失敗'
                 when "edit"
-                    @update_title "修改摩鐵"
-                    unless @view_motel
-                        @view_motel = new ViewMotel
-                            el: "#main"
-                            model: @motel_model
-                    @motel_model.clear silent: true
-                    @view_motel.options.data =
-                        isAdmin: @me.get 'isAdmin'
                     return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
+                    @update_title "修改摩鐵"
+                    @motel_model.clear silent: true
+                    @view_motel_edit.options.data =
+                        isAdmin: @me.get 'isAdmin'
                     @motel_model.id = @motel_id
                     @motel_model.fetch
                         success: (model, response, options) ->

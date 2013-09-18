@@ -172,8 +172,62 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         this.rank_model = new ModelRank();
       }
       if (!this.order_model) {
-        return this.order_model = new ModelOrder();
+        this.order_model = new ModelOrder();
       }
+      this.view_orders_list = new ViewOrders({
+        el: "#main",
+        collection: this.order_model.lists,
+        model_name: this.order_model
+      });
+      this.view_order_edit = new ViewOrder({
+        el: "#main",
+        model: this.order_model
+      });
+      this.view_news_list = new ViewNews({
+        el: "#main",
+        collection: this.new_model.lists,
+        model_name: this.new_model
+      });
+      this.view_new_edit = new ViewNew({
+        el: "#main",
+        model: this.new_model
+      });
+      this.view_ranks_list = new ViewRanks({
+        el: "#main",
+        collection: this.rank_model.lists,
+        model_name: this.rank_model
+      });
+      this.view_rank_edit = new ViewRank({
+        el: "#main",
+        model: this.rank_model
+      });
+      this.view_rooms_list = new ViewRooms({
+        el: "#main",
+        collection: this.room_model.lists,
+        model_name: this.room_model
+      });
+      this.view_room_edit = new ViewRoom({
+        el: "#main",
+        model: this.room_model
+      });
+      this.view_users_list = new ViewUsers({
+        el: "#main",
+        collection: this.user_model.lists,
+        model_name: this.user_model
+      });
+      this.view_user_edit = new ViewUser({
+        el: "#main",
+        model: this.user_model
+      });
+      this.view_motels_list = new ViewMotels({
+        el: "#main",
+        collection: this.motel_model.lists,
+        model_name: this.motel_model
+      });
+      return this.view_motel_edit = new ViewMotel({
+        model: this.motel_model,
+        el: "#main"
+      });
     },
     redirect_url: {
       error: function(message, url) {
@@ -216,13 +270,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       switch (action) {
         case "list":
           this.update_title("訂單列表");
-          if (!this.view_orders_list) {
-            this.view_orders_list = new ViewOrders({
-              el: "#main",
-              collection: this.order_model.lists,
-              model_name: this.order_model
-            });
-          }
           this.view_orders_list.options.data = {
             motel_id: this.motel_id,
             isAdmin: this.me.get('isAdmin')
@@ -234,33 +281,20 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "add":
           this.update_title("新增訂單");
-          if (!this.view_orders_add) {
-            this.view_orders_add = new ViewOrder({
-              template_name: 'order_edit',
-              el: "#main",
-              model: this.order_model
-            });
-          }
           this.order_model.clear({
             silent: true
           });
-          this.view_orders_add.options.data = {
+          this.view_order_edit.options.data = {
             motel_id: this.motel_id
           };
-          return this.view_orders_add.render();
+          return this.view_order_edit.render();
         case "edit":
           this.update_title("修改訂單");
-          if (!this.view_order) {
-            this.view_order = new ViewOrder({
-              el: "#main",
-              model: this.order_model
-            });
-          }
           this.order_model.clear({
             silent: true
           });
-          this.view_order.options.data = {
-            motel_id: this.motel_id
+          this.view_order_edit.options.data = {
+            motel_id: this.me.get('motel_id')
           };
           this.order_model.id = id;
           return this.order_model.fetch({
@@ -284,13 +318,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       switch (action) {
         case "list":
           this.update_title("評價列表");
-          if (!this.view_ranks_list) {
-            this.view_ranks_list = new ViewRanks({
-              el: "#main",
-              collection: this.rank_model.lists,
-              model_name: this.rank_model
-            });
-          }
           this.view_ranks_list.options.data = {
             motel_id: this.motel_id,
             isAdmin: this.me.get('isAdmin')
@@ -302,33 +329,20 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "add":
           this.update_title("新增評價");
-          if (!this.view_ranks_add) {
-            this.view_ranks_add = new ViewRank({
-              template_name: 'rank_edit',
-              el: "#main",
-              model: this.rank_model
-            });
-          }
           this.rank_model.clear({
             silent: true
           });
-          this.view_ranks_add.options.data = {
+          this.view_rank_edit.options.data = {
             motel_id: this.motel_id
           };
-          return this.view_ranks_add.render();
+          return this.view_rank_edit.render();
         case "edit":
           this.update_title("修改評價");
-          if (!this.view_rank) {
-            this.view_rank = new ViewRank({
-              el: "#main",
-              model: this.rank_model
-            });
-          }
           this.rank_model.clear({
             silent: true
           });
-          this.view_rank.options.data = {
-            motel_id: this.motel_id
+          this.view_rank_edit.options.data = {
+            motel_id: this.me.get('motel_id')
           };
           this.rank_model.id = id;
           return this.rank_model.fetch({
@@ -352,13 +366,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       switch (action) {
         case "list":
           this.update_title("優惠列表");
-          if (!this.view_news_list) {
-            this.view_news_list = new ViewNews({
-              el: "#main",
-              collection: this.new_model.lists,
-              model_name: this.new_model
-            });
-          }
           this.view_news_list.options.data = {
             motel_id: this.motel_id
           };
@@ -369,20 +376,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "add":
           this.update_title("新增優惠消息");
-          if (!this.view_news_add) {
-            this.view_news_add = new ViewNew({
-              template_name: 'new_edit',
-              el: "#main",
-              model: this.new_model
-            });
-          }
-          this.view_news_add.options.data = {
+          this.view_new_edit.options.data = {
             motel_id: this.motel_id
           };
           this.new_model.clear({
             silent: true
           });
-          this.view_news_add.render();
+          this.view_new_edit.render();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
             dataType: 'json',
@@ -419,14 +419,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "edit":
           this.update_title("修改優惠");
-          if (!this.view_new) {
-            this.view_new = new ViewNew({
-              el: "#main",
-              model: this.new_model
-            });
-          }
-          this.view_new.options.data = {
-            motel_id: this.motel_id
+          this.view_new_edit.options.data = {
+            motel_id: this.me.get('motel_id')
           };
           this.new_model.clear({
             silent: true
@@ -489,13 +483,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       switch (action) {
         case "list":
           this.update_title("房型列表");
-          if (!this.view_rooms_list) {
-            this.view_rooms_list = new ViewRooms({
-              el: "#main",
-              collection: this.room_model.lists,
-              model_name: this.room_model
-            });
-          }
           this.view_rooms_list.options.data = {
             motel_id: this.motel_id
           };
@@ -506,20 +493,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "add":
           this.update_title("新增房型");
-          if (!this.view_rooms_add) {
-            this.view_rooms_add = new ViewRoom({
-              template_name: "room_edit",
-              model: this.room_model,
-              el: "#main"
-            });
-          }
           this.room_model.clear({
             silent: true
           });
-          this.view_rooms_add.options.data = {
+          this.view_room_edit.options.data = {
             motel_id: this.motel_id
           };
-          this.view_rooms_add.render();
+          this.view_room_edit.render();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
             dataType: 'json',
@@ -556,17 +536,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
         case "edit":
           this.update_title("修改房型");
-          if (!this.view_room) {
-            this.view_room = new ViewRoom({
-              el: "#main",
-              model: this.room_model
-            });
-          }
           this.room_model.clear({
             silent: true
           });
-          this.view_room.options.data = {
-            motel_id: this.motel_id
+          this.view_room_edit.options.data = {
+            motel_id: this.me.get('motel_id')
           };
           this.room_model.id = id;
           return this.room_model.fetch({
@@ -639,14 +613,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           if (this.auth_check()) {
             return;
           }
-          if (!this.view_users_list) {
-            this.view_users_list = new ViewUsers({
-              el: "#main",
-              collection: this.user_model.lists,
-              model_name: this.user_model,
-              page: this.page
-            });
-          }
           this.view_users_list.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
@@ -662,32 +628,19 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           if (this.auth_check()) {
             return;
           }
-          if (!this.view_users_add) {
-            this.view_users_add = new ViewUser({
-              template_name: "user_edit",
-              el: "#main",
-              model: this.user_model
-            });
-          }
           this.user_model.clear({
             silent: true
           });
-          this.view_users_add.options.data = {
+          this.view_user_edit.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
-          return this.view_users_add.render();
+          return this.view_user_edit.render();
         case "edit":
           this.update_title("修改帳號");
-          if (!this.view_user) {
-            this.view_user = new ViewUser({
-              el: "#main",
-              model: this.user_model
-            });
-          }
           this.user_model.clear({
             silent: true
           });
-          this.view_user.options.data = {
+          this.view_user_edit.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
           this.user_model.id = id || this.me.get('user_id');
@@ -723,13 +676,6 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           if (this.auth_check()) {
             return;
           }
-          if (!this.view_motels_list) {
-            this.view_motels_list = new ViewMotels({
-              el: "#main",
-              collection: this.motel_model.lists,
-              model_name: this.motel_model
-            });
-          }
           this.view_motels_list.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
@@ -745,20 +691,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           if (this.auth_check()) {
             return;
           }
-          if (!this.view_motels_add) {
-            this.view_motels_add = new ViewMotel({
-              template_name: "motel_edit",
-              model: this.motel_model,
-              el: "#main"
-            });
-          }
           this.motel_model.clear({
             silent: true
           });
-          this.view_motels_add.options.data = {
+          this.view_motel_edit.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
-          this.view_motels_add.render();
+          this.view_motel_edit.render();
           return $('#fileupload').fileupload({
             url: Config.API.Upload,
             dataType: 'json',
@@ -794,22 +733,16 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             }
           });
         case "edit":
-          this.update_title("修改摩鐵");
-          if (!this.view_motel) {
-            this.view_motel = new ViewMotel({
-              el: "#main",
-              model: this.motel_model
-            });
-          }
-          this.motel_model.clear({
-            silent: true
-          });
-          this.view_motel.options.data = {
-            isAdmin: this.me.get('isAdmin')
-          };
           if (this.motel_id == null) {
             return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
           }
+          this.update_title("修改摩鐵");
+          this.motel_model.clear({
+            silent: true
+          });
+          this.view_motel_edit.options.data = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.motel_model.id = this.motel_id;
           return this.motel_model.fetch({
             success: function(model, response, options) {
