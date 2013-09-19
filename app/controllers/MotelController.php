@@ -9,10 +9,15 @@ class MotelController extends \BaseController
      */
     public function index()
     {
-        $motels = Motel::all()->toArray();
+        $offset = Input::get('offset', null);
+        $limit = Input::get('limit', null);
+        $field = Input::get('field', 'add_time');
+        $sort = Input::get('sort', 'desc');
+
+        $items = Motel::ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort)->get();
 
         $data = array(
-            'items' => $motels
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }
