@@ -19,7 +19,9 @@ define(["jquery", "underscore", "backbone", "alertify", "views/view"], function(
         console.log(results);
         if (status === google.maps.GeocoderStatus.OK) {
           $('input[name="longitude"]').val(results[0].geometry.location.lng());
+          $('#longitude').text(results[0].geometry.location.lng());
           $('input[name="latitude"]').val(results[0].geometry.location.lat());
+          $('#latitude').text(results[0].geometry.location.lat());
           return alertify.success('轉換成功');
         } else {
           return alertify.error('查無經緯度');

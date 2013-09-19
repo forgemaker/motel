@@ -45,14 +45,9 @@
                 <input type="text" name="address" class="form-control" placeholder="請輸入摩鐵地址" value="{{address}}">
                 <br />
                 <a id="addressToLatLng" class="btn btn-warning" href="#" style="color: white;"><i class="icon-user"></i> 轉換座標</a>
-            </div>
-            <div class="form-group">
-                <label class="control-label">經度</label>
-                <input type="text" name="longitude" class="form-control" placeholder="請輸入摩鐵經度" value="{{longitude}}" disabled>
-            </div>
-            <div class="form-group">
-                <label class="control-label">緯度</label>
-                <input type="text" name="latitude" class="form-control" placeholder="請輸入摩鐵緯度" value="{{latitude}}" disabled>
+                <input type="hidden" name="longitude" class="form-control" placeholder="請輸入摩鐵經度" value="{{longitude}}">
+                <input type="hidden" name="latitude" class="form-control" placeholder="請輸入摩鐵緯度" value="{{latitude}}">
+                <span class="help-block">目前經緯度座標為: <span class="label label-success" id="longitude">{{longitude}}</span>,<span class="label label-warning" id="latitude">{{latitude}}</span></span>
             </div>
             <div class="form-group">
                 <label class="control-label">室內電話1</label>

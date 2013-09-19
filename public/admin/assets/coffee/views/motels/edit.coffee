@@ -20,7 +20,9 @@ define ["jquery", "underscore", "backbone", "alertify", "views/view"], ($, _, Ba
                 console.log results
                 if (status is google.maps.GeocoderStatus.OK)
                     $('input[name="longitude"]').val(results[0].geometry.location.lng())
+                    $('#longitude').text(results[0].geometry.location.lng())
                     $('input[name="latitude"]').val(results[0].geometry.location.lat())
+                    $('#latitude').text(results[0].geometry.location.lat())
                     alertify.success '轉換成功'
                 else
                     alertify.error '查無經緯度'
