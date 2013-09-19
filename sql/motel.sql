@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `motels` (
   `image_url` varchar(128) DEFAULT NULL,
   `longitude` varchar(16) DEFAULT NULL,
   `latitude` varchar(16) DEFAULT NULL,
-  `rank` decimal(16,4) DEFAULT 0.0,
+  `rank` decimal(2,1) DEFAULT 0.0,
   `add_time` int(11) NOT NULL,
   `edit_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
