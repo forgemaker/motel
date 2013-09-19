@@ -3,7 +3,27 @@ define ["jquery", "underscore", "backbone", "alertify", "views/view"], ($, _, Ba
     View.extend
         events: _.extend
             "click #motel_add_form .save": "save"
+            "click #addressToLatLng": "addressToLatLng"
         , View::events
+
+        addressToLatLng: (e) ->
+            e.preventDefault()
+            county = $('#county').val()
+            district = $('#district').val()
+            address = $('input[name="address"]').val()
+            addr = county + district + address
+            geocoder = new google.maps.Geocoder()
+            geocoder.geocode
+                "address": addr
+            , (results, status) ->
+                console.log status
+                console.log results
+                if (status is google.maps.GeocoderStatus.OK)
+                    $('input[name="longitude"]').val(results[0].geometry.location.lng())
+                    $('input[name="latitude"]').val(results[0].geometry.location.lat())
+                    alertify.success '轉換成功'
+                else
+                    alertify.error '查無經緯度'
 
         save: (e) ->
             e.preventDefault()

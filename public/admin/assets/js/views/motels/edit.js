@@ -1,8 +1,31 @@
 define(["jquery", "underscore", "backbone", "alertify", "views/view"], function($, _, Backbone, alertify, View) {
   return View.extend({
     events: _.extend({
-      "click #motel_add_form .save": "save"
+      "click #motel_add_form .save": "save",
+      "click #addressToLatLng": "addressToLatLng"
     }, View.prototype.events),
+    addressToLatLng: function(e) {
+      var addr, address, county, district, geocoder;
+      e.preventDefault();
+      county = $('#county').val();
+      district = $('#district').val();
+      address = $('input[name="address"]').val();
+      addr = county + district + address;
+      geocoder = new google.maps.Geocoder();
+      return geocoder.geocode({
+        "address": addr
+      }, function(results, status) {
+        console.log(status);
+        console.log(results);
+        if (status === google.maps.GeocoderStatus.OK) {
+          $('input[name="longitude"]').val(results[0].geometry.location.lng());
+          $('input[name="latitude"]').val(results[0].geometry.location.lat());
+          return alertify.success('轉換成功');
+        } else {
+          return alertify.error('查無經緯度');
+        }
+      });
+    },
     save: function(e) {
       var form_id, form_info, message;
       e.preventDefault();
