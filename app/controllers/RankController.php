@@ -53,6 +53,13 @@ class RankController extends \BaseController
      */
     public function store()
     {
+        $motel_id = Input::get('motel_id', 0);
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => 'motel not found'), 404);
+        }
+
         $rank = Rank::create(array(
             'motel_id' => Input::get('motel_id'),
             'uid' => Input::get('uid', null),
@@ -62,6 +69,9 @@ class RankController extends \BaseController
             'add_time' => time(),
             'edit_time' => time()
         ));
+
+        $motel->rank = ($motel->rank + Input::get('rank', 1))/2;
+        $motel->save();
 
         return Response::json(array('success_text' => 'ok'));
     }
