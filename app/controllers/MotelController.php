@@ -13,12 +13,24 @@ class MotelController extends \BaseController
         $limit = Input::get('limit', null);
         $field = Input::get('field', 'add_time');
         $sort = Input::get('sort', 'desc');
+        $longitude = Input::get('longitude', null);
+        $latitude = Input::get('latitude', null);
 
-        $items = Motel::ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort)->get();
+        if (isset($longitude) and isset($latitude)) {
+            $longitude = floatval($longitude);
+            $latitude = floatval($latitude);
+            $select = DB::raw('*, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance');
+        } else {
+            $select = '*';
+        }
+
+        $items = Motel::select($select)->ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort)->get();
 
         $data = array(
+            'counts' => $items->count(),
             'items' => $items->toArray()
         );
+
         return Response::json($data);
     }
 
