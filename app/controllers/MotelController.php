@@ -117,14 +117,18 @@ class MotelController extends \BaseController
      */
     public function show($id)
     {
-        $item = Motel::find($id)->toArray();
+        $item = Motel::find($id);
 
-        if (!isset($item)) {
+        if (empty($item)) {
             return Response::json(array('error_text' => '404 not found'), 404);
         }
 
+        // update views count.
+        $item->views = $item->views + 1;
+        $item->save();
+
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
