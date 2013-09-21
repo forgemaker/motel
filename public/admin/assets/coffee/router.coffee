@@ -451,31 +451,6 @@ define ["jquery",
                     @view_room_edit.options.data =
                         motel_id: @motel_id
                     @view_room_edit.render()
-                    $('#fileupload').fileupload
-                        url: Config.API.Upload
-                        dataType: 'json'
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                        # 5MB
-                        maxFileSize: 5000000
-                        done: (e, data) ->
-                            if !data.result.file_name
-                                alertify.error 'Fail to upload file.'
-                                return
-                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                            $('#image_url').val image_url
-                            $('#raw_name').val data.result.file_name
-                            $('#progress').hide 'slow', () ->
-                                $(this).find('.progress-bar').css 'width', '0%'
-                        progressall: (e, data) ->
-                            $('#progress').removeClass('hide').show()
-                            progress = parseInt data.loaded / data.total * 100, 10
-                            $('#progress .progress-bar').css 'width', progress + '%'
-                        processalways: (e, data) ->
-                            if (data.files[data.index].error)
-                                alertify.error data.files[data.index].error
-                        fail: (e, data) ->
-                            alertify.error '檔案上傳失敗'
                 when "edit"
                     @update_title "修改房型"
                     @room_model.clear silent: true
@@ -485,35 +460,6 @@ define ["jquery",
                     @room_model.fetch
                         success: (model, response, options) ->
                             self.room_model.trigger 'change' unless self.room_model.hasChanged 'id'
-                            setTimeout(
-                                () ->
-                                    # jquery upload plugin
-                                    $('#fileupload').fileupload
-                                        url: Config.API.Upload
-                                        dataType: 'json'
-                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                                        # 5MB
-                                        maxFileSize: 5000000
-                                        done: (e, data) ->
-                                            if !data.result.file_name
-                                                alertify.error 'Fail to upload file.'
-                                                return
-                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                                            $('#image_url').val image_url
-                                            $('#raw_name').val data.result.file_name
-                                            $('#progress').hide 'slow', () ->
-                                                $(this).find('.progress-bar').css 'width', '0%'
-                                        progressall: (e, data) ->
-                                            $('#progress').removeClass('hide').show()
-                                            progress = parseInt data.loaded / data.total * 100, 10
-                                            $('#progress .progress-bar').css 'width', progress + '%'
-                                        processalways: (e, data) ->
-                                            if (data.files[data.index].error)
-                                                alertify.error data.files[data.index].error
-                                        fail: (e, data) ->
-                                            alertify.error '檔案上傳失敗'
-                                , 2000)
 
         user: (action, id) ->
             @reset()

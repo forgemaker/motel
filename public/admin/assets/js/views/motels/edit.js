@@ -15,8 +15,6 @@ define(["jquery", "underscore", "backbone", "alertify", "views/view"], function(
       return geocoder.geocode({
         "address": addr
       }, function(results, status) {
-        console.log(status);
-        console.log(results);
         if (status === google.maps.GeocoderStatus.OK) {
           $('input[name="longitude"]').val(results[0].geometry.location.lng());
           $('#longitude').text(results[0].geometry.location.lng());

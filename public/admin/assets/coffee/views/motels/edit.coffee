@@ -16,8 +16,6 @@ define ["jquery", "underscore", "backbone", "alertify", "views/view"], ($, _, Ba
             geocoder.geocode
                 "address": addr
             , (results, status) ->
-                console.log status
-                console.log results
                 if (status is google.maps.GeocoderStatus.OK)
                     $('input[name="longitude"]').val(results[0].geometry.location.lng())
                     $('#longitude').text(results[0].geometry.location.lng())
