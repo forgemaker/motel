@@ -356,31 +356,6 @@ define ["jquery",
                         motel_id: @motel_id
                     @new_model.clear silent: true
                     @view_new_edit.render()
-                    $('#fileupload').fileupload
-                        url: Config.API.Upload
-                        dataType: 'json'
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                        # 5MB
-                        maxFileSize: 5000000
-                        done: (e, data) ->
-                            if !data.result.file_name
-                                alertify.error 'Fail to upload file.'
-                                return
-                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                            $('#image_url').val image_url
-                            $('#raw_name').val data.result.file_name
-                            $('#progress').hide 'slow', () ->
-                                $(this).find('.progress-bar').css 'width', '0%'
-                        progressall: (e, data) ->
-                            $('#progress').removeClass('hide').show()
-                            progress = parseInt data.loaded / data.total * 100, 10
-                            $('#progress .progress-bar').css 'width', progress + '%'
-                        processalways: (e, data) ->
-                            if (data.files[data.index].error)
-                                alertify.error data.files[data.index].error
-                        fail: (e, data) ->
-                            alertify.error '檔案上傳失敗'
                 when "edit"
                     @update_title "修改優惠"
                     @view_new_edit.options.data =
@@ -390,35 +365,6 @@ define ["jquery",
                     @new_model.fetch
                         success: (model, response, options) ->
                             self.new_model.trigger 'change' unless self.new_model.hasChanged 'id'
-                            setTimeout(
-                                () ->
-                                    # jquery upload plugin
-                                    $('#fileupload').fileupload
-                                        url: Config.API.Upload
-                                        dataType: 'json'
-                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                                        # 5MB
-                                        maxFileSize: 5000000
-                                        done: (e, data) ->
-                                            if !data.result.file_name
-                                                alertify.error 'Fail to upload file.'
-                                                return
-                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                                            $('#image_url').val image_url
-                                            $('#raw_name').val data.result.file_name
-                                            $('#progress').hide 'slow', () ->
-                                                $(this).find('.progress-bar').css 'width', '0%'
-                                        progressall: (e, data) ->
-                                            $('#progress').removeClass('hide').show()
-                                            progress = parseInt data.loaded / data.total * 100, 10
-                                            $('#progress .progress-bar').css 'width', progress + '%'
-                                        processalways: (e, data) ->
-                                            if (data.files[data.index].error)
-                                                alertify.error data.files[data.index].error
-                                        fail: (e, data) ->
-                                            alertify.error '檔案上傳失敗'
-                                , 2000)
         room: (action, id) ->
             @reset()
             $("#main").html ""
@@ -529,32 +475,6 @@ define ["jquery",
                     @view_motel_edit.options.data =
                         isAdmin: @me.get 'isAdmin'
                     @view_motel_edit.render()
-                    # jquery upload plugin
-                    $('#fileupload').fileupload
-                        url: Config.API.Upload
-                        dataType: 'json'
-                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                        # 5MB
-                        maxFileSize: 5000000
-                        done: (e, data) ->
-                            if !data.result.file_name
-                                alertify.error 'Fail to upload file.'
-                                return
-                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                            $('#image_url').val image_url
-                            $('#raw_name').val data.result.file_name
-                            $('#progress').hide 'slow', () ->
-                                $(this).find('.progress-bar').css 'width', '0%'
-                        progressall: (e, data) ->
-                            $('#progress').removeClass('hide').show()
-                            progress = parseInt data.loaded / data.total * 100, 10
-                            $('#progress .progress-bar').css 'width', progress + '%'
-                        processalways: (e, data) ->
-                            if (data.files[data.index].error)
-                                alertify.error data.files[data.index].error
-                        fail: (e, data) ->
-                            alertify.error '檔案上傳失敗'
                 when "edit"
                     return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
                     @update_title "修改摩鐵"
@@ -565,35 +485,6 @@ define ["jquery",
                     @motel_model.fetch
                         success: (model, response, options) ->
                             self.motel_model.trigger 'change' unless self.motel_model.hasChanged 'id'
-                            setTimeout(
-                                () ->
-                                    # jquery upload plugin
-                                    $('#fileupload').fileupload
-                                        url: Config.API.Upload
-                                        dataType: 'json'
-                                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                                        # 5MB
-                                        maxFileSize: 5000000
-                                        done: (e, data) ->
-                                            if !data.result.file_name
-                                                alertify.error 'Fail to upload file.'
-                                                return
-                                            image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                                            $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                                            $('#image_url').val image_url
-                                            $('#raw_name').val data.result.file_name
-                                            $('#progress').hide 'slow', () ->
-                                                $(this).find('.progress-bar').css 'width', '0%'
-                                        progressall: (e, data) ->
-                                            $('#progress').removeClass('hide').show()
-                                            progress = parseInt data.loaded / data.total * 100, 10
-                                            $('#progress .progress-bar').css 'width', progress + '%'
-                                        processalways: (e, data) ->
-                                            if (data.files[data.index].error)
-                                                alertify.error data.files[data.index].error
-                                        fail: (e, data) ->
-                                            alertify.error '檔案上傳失敗'
-                                , 2000)
         update_motel: ->
             $('#motel_title').text @motel.get 'title'
 

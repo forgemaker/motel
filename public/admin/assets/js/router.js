@@ -381,41 +381,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           this.new_model.clear({
             silent: true
           });
-          this.view_new_edit.render();
-          return $('#fileupload').fileupload({
-            url: Config.API.Upload,
-            dataType: 'json',
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize: 5000000,
-            done: function(e, data) {
-              var image_url;
-              if (!data.result.file_name) {
-                alertify.error('Fail to upload file.');
-                return;
-              }
-              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
-              $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
-              $('#image_url').val(image_url);
-              $('#raw_name').val(data.result.file_name);
-              return $('#progress').hide('slow', function() {
-                return $(this).find('.progress-bar').css('width', '0%');
-              });
-            },
-            progressall: function(e, data) {
-              var progress;
-              $('#progress').removeClass('hide').show();
-              progress = parseInt(data.loaded / data.total * 100, 10);
-              return $('#progress .progress-bar').css('width', progress + '%');
-            },
-            processalways: function(e, data) {
-              if (data.files[data.index].error) {
-                return alertify.error(data.files[data.index].error);
-              }
-            },
-            fail: function(e, data) {
-              return alertify.error('檔案上傳失敗');
-            }
-          });
+          return this.view_new_edit.render();
         case "edit":
           this.update_title("修改優惠");
           this.view_new_edit.options.data = {
@@ -428,44 +394,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           return this.new_model.fetch({
             success: function(model, response, options) {
               if (!self.new_model.hasChanged('id')) {
-                self.new_model.trigger('change');
+                return self.new_model.trigger('change');
               }
-              return setTimeout(function() {
-                return $('#fileupload').fileupload({
-                  url: Config.API.Upload,
-                  dataType: 'json',
-                  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                  maxFileSize: 5000000,
-                  done: function(e, data) {
-                    var image_url;
-                    if (!data.result.file_name) {
-                      alertify.error('Fail to upload file.');
-                      return;
-                    }
-                    image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
-                    $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
-                    $('#image_url').val(image_url);
-                    $('#raw_name').val(data.result.file_name);
-                    return $('#progress').hide('slow', function() {
-                      return $(this).find('.progress-bar').css('width', '0%');
-                    });
-                  },
-                  progressall: function(e, data) {
-                    var progress;
-                    $('#progress').removeClass('hide').show();
-                    progress = parseInt(data.loaded / data.total * 100, 10);
-                    return $('#progress .progress-bar').css('width', progress + '%');
-                  },
-                  processalways: function(e, data) {
-                    if (data.files[data.index].error) {
-                      return alertify.error(data.files[data.index].error);
-                    }
-                  },
-                  fail: function(e, data) {
-                    return alertify.error('檔案上傳失敗');
-                  }
-                });
-              }, 2000);
             }
           });
       }
@@ -640,41 +570,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           this.view_motel_edit.options.data = {
             isAdmin: this.me.get('isAdmin')
           };
-          this.view_motel_edit.render();
-          return $('#fileupload').fileupload({
-            url: Config.API.Upload,
-            dataType: 'json',
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize: 5000000,
-            done: function(e, data) {
-              var image_url;
-              if (!data.result.file_name) {
-                alertify.error('Fail to upload file.');
-                return;
-              }
-              image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
-              $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
-              $('#image_url').val(image_url);
-              $('#raw_name').val(data.result.file_name);
-              return $('#progress').hide('slow', function() {
-                return $(this).find('.progress-bar').css('width', '0%');
-              });
-            },
-            progressall: function(e, data) {
-              var progress;
-              $('#progress').removeClass('hide').show();
-              progress = parseInt(data.loaded / data.total * 100, 10);
-              return $('#progress .progress-bar').css('width', progress + '%');
-            },
-            processalways: function(e, data) {
-              if (data.files[data.index].error) {
-                return alertify.error(data.files[data.index].error);
-              }
-            },
-            fail: function(e, data) {
-              return alertify.error('檔案上傳失敗');
-            }
-          });
+          return this.view_motel_edit.render();
         case "edit":
           if (this.motel_id == null) {
             return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
@@ -690,44 +586,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           return this.motel_model.fetch({
             success: function(model, response, options) {
               if (!self.motel_model.hasChanged('id')) {
-                self.motel_model.trigger('change');
+                return self.motel_model.trigger('change');
               }
-              return setTimeout(function() {
-                return $('#fileupload').fileupload({
-                  url: Config.API.Upload,
-                  dataType: 'json',
-                  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-                  maxFileSize: 5000000,
-                  done: function(e, data) {
-                    var image_url;
-                    if (!data.result.file_name) {
-                      alertify.error('Fail to upload file.');
-                      return;
-                    }
-                    image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
-                    $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
-                    $('#image_url').val(image_url);
-                    $('#raw_name').val(data.result.file_name);
-                    return $('#progress').hide('slow', function() {
-                      return $(this).find('.progress-bar').css('width', '0%');
-                    });
-                  },
-                  progressall: function(e, data) {
-                    var progress;
-                    $('#progress').removeClass('hide').show();
-                    progress = parseInt(data.loaded / data.total * 100, 10);
-                    return $('#progress .progress-bar').css('width', progress + '%');
-                  },
-                  processalways: function(e, data) {
-                    if (data.files[data.index].error) {
-                      return alertify.error(data.files[data.index].error);
-                    }
-                  },
-                  fail: function(e, data) {
-                    return alertify.error('檔案上傳失敗');
-                  }
-                });
-              }, 2000);
             }
           });
       }

@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "backbone", "alertify", "views/view"], function($, _, Backbone, alertify, View) {
+define(["jquery", "underscore", "backbone", "alertify", "views/view", 'config'], function($, _, Backbone, alertify, View, Config) {
   return View.extend({
     events: _.extend({
       "click #motel_add_form .save": "save",
@@ -60,6 +60,40 @@ define(["jquery", "underscore", "backbone", "alertify", "views/view"], function(
         dateFormat: "yy-mm-dd"
       });
       $("#stay_time_1, #stay_time_2").timepicker();
+      $('#fileupload').fileupload({
+        url: Config.API.Upload,
+        dataType: 'json',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: 5000000,
+        done: function(e, data) {
+          var image_url;
+          if (!data.result.file_name) {
+            alertify.error('Fail to upload file.');
+            return;
+          }
+          image_url = window.location.protocol + '//' + window.location.hostname + '/uploads/' + data.result.file_name;
+          $('#upload_area').html('<img src="' + image_url + '" class="img-rounded" style="width: 400px; height: 200px;">');
+          $('#image_url').val(image_url);
+          $('#raw_name').val(data.result.file_name);
+          return $('#progress').hide('slow', function() {
+            return $(this).find('.progress-bar').css('width', '0%');
+          });
+        },
+        progressall: function(e, data) {
+          var progress;
+          $('#progress').removeClass('hide').show();
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return $('#progress .progress-bar').css('width', progress + '%');
+        },
+        processalways: function(e, data) {
+          if (data.files[data.index].error) {
+            return alertify.error(data.files[data.index].error);
+          }
+        },
+        fail: function(e, data) {
+          return alertify.error('檔案上傳失敗');
+        }
+      });
       return this;
     }
   });

@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "alertify", "views/view"], ($, _, Backbone, alertify, View) ->
+define ["jquery", "underscore", "backbone", "alertify", "views/view", 'config'], ($, _, Backbone, alertify, View, Config) ->
 
     View.extend
         events: _.extend
@@ -52,4 +52,30 @@ define ["jquery", "underscore", "backbone", "alertify", "views/view"], ($, _, Ba
 
             $("#contract_start, #contract_end").datepicker dateFormat: "yy-mm-dd"
             $("#stay_time_1, #stay_time_2").timepicker()
+            # jquery upload plugin
+            $('#fileupload').fileupload
+                url: Config.API.Upload
+                dataType: 'json'
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+                # 5MB
+                maxFileSize: 5000000
+                done: (e, data) ->
+                    if !data.result.file_name
+                        alertify.error 'Fail to upload file.'
+                        return
+                    image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
+                    $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
+                    $('#image_url').val image_url
+                    $('#raw_name').val data.result.file_name
+                    $('#progress').hide 'slow', () ->
+                        $(this).find('.progress-bar').css 'width', '0%'
+                progressall: (e, data) ->
+                    $('#progress').removeClass('hide').show()
+                    progress = parseInt data.loaded / data.total * 100, 10
+                    $('#progress .progress-bar').css 'width', progress + '%'
+                processalways: (e, data) ->
+                    if (data.files[data.index].error)
+                        alertify.error data.files[data.index].error
+                fail: (e, data) ->
+                    alertify.error '檔案上傳失敗'
             this
