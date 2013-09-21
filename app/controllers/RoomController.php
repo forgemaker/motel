@@ -52,8 +52,16 @@ class RoomController extends \BaseController
         $active = Input::get('active', null);
         $offset = Input::get('offset', null);
         $limit = Input::get('limit', null);
+        $field = Input::get('field', 'add_time');
+        $sort = Input::get('sort', 'desc');
 
-        $items = Room::with('motel')->OfActive($active)->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
+        $items = Room::with('motel')->OfActive($active)
+            ->ofType($type)
+            ->OfMotel($id)
+            ->ofLimit($limit)
+            ->ofOffset($offset)
+            ->ofOrderBy($field, $sort)
+            ->get();
 
         $data = array(
             'count' => count($items->toArray()),
@@ -72,6 +80,41 @@ class RoomController extends \BaseController
         //
     }
 
+    public function  update_room_price($motel, $type = 0)
+    {
+        $prefix = ($type == 0) ? 'rest' : 'stay';
+        $change = false;
+        $price_1 = Input::get('price_1', 0);
+        $price_2 = Input::get('price_2', 0);
+        $price_3 = Input::get('price_3', 0);
+        $diff_price_2 = $price_1 - $price_2;
+        $diff_price_3 = $price_1 - $price_3;
+
+        if ($price_2 > 0 and ($price_2 < $motel->{$prefix . '_price_1'} or $motel->{$prefix . '_price_1'} == 0)) {
+            $motel->{$prefix . '_price_1'} = $price_2;
+            $change = true;
+        }
+
+        if ($price_3 > 0 and ($price_3 < $motel->{$prefix . '_price_2'} or $motel->{$prefix . '_price_2'} == 0)) {
+            $motel->{$prefix . '_price_2'} = $price_3;
+            $change = true;
+        }
+
+        if ($diff_price_2 > 0 and ($diff_price_2 > $motel->{$prefix . '_diff_price_1'} or $motel->{$prefix . '_diff_price_1'} == 0)) {
+            $motel->{$prefix . '_diff_price_1'} = $diff_price_2;
+            $change = true;
+        }
+
+        if ($diff_price_3 > 0 and ($diff_price_3 > $motel->{$prefix . '_diff_price_2'} or $motel->{$prefix . '_diff_price_2'} == 0)) {
+            $motel->{$prefix . '_diff_price_2'} = $diff_price_3;
+            $change = true;
+        }
+
+        if ($change) {
+            $motel->save();
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -79,6 +122,14 @@ class RoomController extends \BaseController
      */
     public function store()
     {
+        $motel_id = Input::get('motel_id', 0);
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => 'motel not found'), 404);
+        }
+
+        $this->update_room_price($motel, Input::get('type', 0));
         $room = Room::create(array(
             'motel_id' => Input::get('motel_id'),
             'title' => Input::get('title'),
@@ -139,6 +190,14 @@ class RoomController extends \BaseController
      */
     public function update($id)
     {
+        $motel_id = Input::get('motel_id', 0);
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => 'motel not found'), 404);
+        }
+        $this->update_room_price($motel, Input::get('type', 0));
+
         $room = Room::find($id);
 
         $room->title = Input::get('title');

@@ -12,8 +12,24 @@ class Motel extends Eloquent
     protected $guarded = array('id');
     public $timestamps = false;
 
-    public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc')
+    public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc', $type = 'rest')
     {
+        $start_time = date('N') . '1900';
+        $end_time = date('N') . '2000';
+        $time = date('NHi');
+
+        if ($time <= $end_time and $time >= $start_time) {
+            $price_field = 'price_1';
+        } else {
+            $price_field = 'price_2';
+        }
+
+        if ($field == 'price') {
+            $field = $type . '_' . $price_field;
+        } elseif ($field == 'diff_price') {
+            $field = $type . '_diff_' . $price_field;
+        }
+
         return $query->orderBy($field, $sort);
     }
 

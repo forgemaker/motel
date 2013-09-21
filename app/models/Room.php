@@ -24,6 +24,11 @@ class Room extends Eloquent
         return $this->belongsTo('Motel');
     }
 
+    public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc')
+    {
+        return $query->orderBy($field, $sort);
+    }
+
     public function scopeOfActive($query, $active = null)
     {
         if (!isset($active)) {

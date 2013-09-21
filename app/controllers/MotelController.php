@@ -15,6 +15,7 @@ class MotelController extends \BaseController
         $sort = Input::get('sort', 'desc');
         $longitude = Input::get('longitude', null);
         $latitude = Input::get('latitude', null);
+        $type = Input::get('type', 'rest');
 
         if (isset($longitude) and isset($latitude)) {
             $longitude = floatval($longitude);
@@ -24,7 +25,7 @@ class MotelController extends \BaseController
             $select = '*';
         }
 
-        $items = Motel::select($select)->ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort)->get();
+        $items = Motel::select($select)->ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort, $type)->get();
 
         $data = array(
             'counts' => $items->count(),
