@@ -73,17 +73,21 @@
                         <i class="icon-cloud-upload"></i>
                         <span>上傳房型封面</span>
                         <!-- The file input field used as target for the file upload widget -->
-                        <input id="fileupload" type="file" name="upload_file">
+                        <input id="fileupload" type="file" name="upload_file" multiple>
                     </a>
-                    <input type="hidden" id="image_url" name="image_url" value="{{image_url}}">
-                    <input type="hidden" id="raw_name" name="raw_name" value="{{raw_name}}">
                 </div>
             </div>
             <div id="upload_area" class="row">
                 {{#is_image}}
-                <img src="{{image_url}}" class="img-rounded" style="width: 400px; height: 200px;">
+                {{#each raw_name}}
+                <div style="float:left; margin: 5px;">
+                <img src="{{../prefix}}{{this}}" class="img-rounded" style="width: 200px; height: 200px;">
+                <input type="hidden" name="raw_name[]" value="{{this}}">
+                </div>
+                {{/each}}
                 {{/is_image}}
             </div>
+            <p style="clear: both;"></p>
             <div id="progress" class="progress hide" style="margin-top:10px;">
                 <div style="width: 0%;" class="progress-bar progress-bar-success"></div>
             </div>

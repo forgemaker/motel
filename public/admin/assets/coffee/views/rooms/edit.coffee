@@ -23,6 +23,10 @@ define ["jquery", "underscore", "backbone", "views/view", "alertify", "config"],
             data = @options.data or {}
             $(parent_view.el).empty()
             $.extend data, parent_view.model.attributes
+            if parent_view.model.get('raw_name') != ''
+                data.raw_name = $.parseJSON parent_view.model.get('raw_name')
+                data.prefix = Config.Upload.path
+                data.is_image = true
             $(parent_view.el).hide().html(Handlebars.templates.room_edit(data)).fadeIn "slow"
             $('#fileupload').fileupload
                 url: Config.API.Upload
@@ -31,13 +35,11 @@ define ["jquery", "underscore", "backbone", "views/view", "alertify", "config"],
                 # 5MB
                 maxFileSize: 5000000
                 done: (e, data) ->
-                    if !data.result.file_name
+                    if !data.result.file_name or data.result.file_name is ''
                         alertify.error 'Fail to upload file.'
                         return
                     image_url = window.location.protocol + '//' + window.location.hostname +  '/uploads/' + data.result.file_name
-                    $('#upload_area').html '<img src="'+image_url+'" class="img-rounded" style="width: 400px; height: 200px;">'
-                    $('#image_url').val image_url
-                    $('#raw_name').val data.result.file_name
+                    $('#upload_area').append '<div style="float:left; margin: 5px;"><img src="'+image_url+'" class="img-rounded" style="width: 200px; height: 200px;"><input type="hidden" name="raw_name[]" value="'+data.result.file_name+'" /></div>'
                     $('#progress').hide 'slow', () ->
                         $(this).find('.progress-bar').css 'width', '0%'
                 progressall: (e, data) ->

@@ -14,6 +14,9 @@ define(["jquery"], function($) {
     },
     Order: {
       Status: ['等待客人', '進房完成', '取消']
+    },
+    Upload: {
+      path: prefix + 'uploads/'
     }
   };
 });
