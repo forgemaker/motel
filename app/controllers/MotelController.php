@@ -16,16 +16,22 @@ class MotelController extends \BaseController
         $longitude = Input::get('longitude', null);
         $latitude = Input::get('latitude', null);
         $type = Input::get('type', 'rest');
+        $motel_id = array();
 
         if (isset($longitude) and isset($latitude)) {
             $longitude = floatval($longitude);
             $latitude = floatval($latitude);
+            $items = Motel::select(DB::raw('id, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance'))->ofLimit($limit)->ofOffset($offset)->ofOrderBy('distance', 'asc', $type)->get()->toArray();
+            foreach ($items as $row) {
+                $motel_id[] = $row['id'];
+            }
             $select = DB::raw('*, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance');
+            $limit = $offset = null;
         } else {
             $select = '*';
         }
 
-        $items = Motel::select($select)->ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort, $type)->get();
+        $items = Motel::select($select)->ofWhereIn($motel_id)->ofLimit($limit)->ofOffset($offset)->ofOrderBy($field, $sort, $type)->get();
 
         $data = array(
             'counts' => $items->count(),

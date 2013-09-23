@@ -33,6 +33,16 @@ class Motel extends Eloquent
         return $query->orderBy($field, $sort);
     }
 
+    public function scopeOfWhereIn($query, $id = array())
+    {
+        if (empty($id)) {
+            return $query;
+        }
+
+
+        return $query->whereIn('id', $id);
+    }
+
     public function scopeOfLimit($query, $limit = null)
     {
         $limit = (isset($limit)) ? intval($limit) : $this->limit;
