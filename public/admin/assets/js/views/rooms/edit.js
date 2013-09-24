@@ -27,7 +27,7 @@ define(["jquery", "underscore", "backbone", "views/view", "alertify", "config"],
       data = this.options.data || {};
       $(parent_view.el).empty();
       $.extend(data, parent_view.model.attributes);
-      if (parent_view.model.get('raw_name') !== '') {
+      if (parent_view.model.get('raw_name') && parent_view.model.get('raw_name') !== '') {
         data.raw_name = $.parseJSON(parent_view.model.get('raw_name'));
         data.prefix = Config.Upload.path;
         data.is_image = true;
