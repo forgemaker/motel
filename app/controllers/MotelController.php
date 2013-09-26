@@ -16,13 +16,21 @@ class MotelController extends \BaseController
         $longitude = Input::get('longitude', null);
         $latitude = Input::get('latitude', null);
         $type = Input::get('type', 'rest');
+        $ignore = Input::get('ignore', 0);
         $type_id = ($type == 'rest') ? '0' : '1';
         $motel_id = array();
 
         if (isset($longitude) and isset($latitude)) {
             $longitude = floatval($longitude);
             $latitude = floatval($latitude);
-            $items = Motel::select(DB::raw('id, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance'))->ofLimit($limit)->ofOffset($offset)->ofOrderBy('distance', 'asc', $type)->get()->toArray();
+            $items = Motel::select(DB::raw('id, IFNULL(room_count, 0) as room_count, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance'))
+                ->leftJoin(DB::raw('(SELECT motel_id, count(*) AS room_count FROM `rooms` WHERE active =1 AND type = '.$type_id.' GROUP BY motel_id) as b'), function($join) {
+                    $join->on('motels.id', '=', 'b.motel_id');
+                })
+                ->ofRoomCount($ignore)
+                ->ofLimit($limit)
+                ->ofOffset($offset)
+                ->get()->toArray();
             foreach ($items as $row) {
                 $motel_id[] = $row['id'];
             }
@@ -36,6 +44,7 @@ class MotelController extends \BaseController
             ->leftJoin(DB::raw('(SELECT motel_id, count(*) AS room_count FROM `rooms` WHERE active =1 AND type = '.$type_id.' GROUP BY motel_id) as b'), function($join) {
                 $join->on('motels.id', '=', 'b.motel_id');
             })
+            ->ofRoomCount($ignore)
             ->ofWhereIn($motel_id)
             ->ofLimit($limit)
             ->ofOffset($offset)

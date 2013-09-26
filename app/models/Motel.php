@@ -12,6 +12,9 @@ class Motel extends Eloquent
     protected $guarded = array('id');
     public $timestamps = false;
 
+    public $limit = 10;
+    public $offset = 0;
+
     public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc', $type = 'rest')
     {
         $start_time = date('N') . '1900';
@@ -33,12 +36,20 @@ class Motel extends Eloquent
         return $query->orderBy($field, $sort);
     }
 
+    public function scopeOfRoomCount($query, $ignore = '0')
+    {
+        if (empty($ignore)) {
+            return $query;
+        }
+
+        return $query->where('room_count', '!=', 0);
+    }
+
     public function scopeOfWhereIn($query, $id = array())
     {
         if (empty($id)) {
             return $query;
         }
-
 
         return $query->whereIn('id', $id);
     }
