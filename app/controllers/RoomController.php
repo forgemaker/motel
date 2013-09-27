@@ -60,14 +60,15 @@ class RoomController extends \BaseController
         $page = Input::get('page', 1);
 
         // get total count
-        $total_counts = Room::with('motel')->OfMotel($id)->count();
+        $total_counts = Room::OfMotel($id)->count();
         $total_pages = ceil($total_counts/$limit);
 
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
 
-        $items = Room::with('motel')
+        $items = Room::select(DB::raw('rooms.*, motels.title as motel_title'))
+            ->leftJoin('motels', 'rooms.motel_id', '=', 'motels.id')
             ->OfActive($active)
             ->ofType($type)
             ->OfMotel($id)
