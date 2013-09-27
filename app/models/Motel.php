@@ -12,9 +12,6 @@ class Motel extends Eloquent
     protected $guarded = array('id');
     public $timestamps = false;
 
-    public $limit = 10;
-    public $offset = 0;
-
     public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc', $type = 'rest')
     {
         $start_time = date('N') . '1900';
@@ -56,15 +53,19 @@ class Motel extends Eloquent
 
     public function scopeOfLimit($query, $limit = null)
     {
-        $limit = (isset($limit)) ? intval($limit) : $this->limit;
+        if (empty($limit)) {
+            return $query;
+        }
 
-        return $query->take($limit);
+        return $query->take(intval($limit));
     }
 
     public function scopeOfOffset($query, $offset = null)
     {
-        $offset = (isset($offset)) ? intval($offset) : $this->offset;
+        if (empty($offset)) {
+            return $query;
+        }
 
-        return $query->skip($offset);
+        return $query->skip(intval($offset));
     }
 }

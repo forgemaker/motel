@@ -26,17 +26,19 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
       return this;
     },
     handle_page: function() {
-      var data, next_page, previous_page;
+      var data, next_page, previous_page, total_pages;
       data = {};
-      next_page = +this.options.page + 1;
-      previous_page = +this.options.page - 1;
-      this.options.page = (+this.options.page > 1 ? this.options.page : 1);
+      total_pages = this.collection.total_pages;
+      next_page = total_pages < (this.options.page + 1) ? total_pages : this.options.page + 1;
+      previous_page = (this.options.page - 1) <= 0 ? 1 : this.options.page - 1;
       data = {
-        previous_show: (previous_page > 0 ? true : false),
-        next_show: (next_page > 1 && this.collection.length > 0 ? true : false),
+        previous_show: this.options.page > 1 ? true : false,
+        next_show: this.options.page < total_pages ? true : false,
         previous_page: previous_page,
-        next_page: next_page
+        next_page: next_page,
+        total_pages: total_pages
       };
+      console.log(data);
       return data;
     },
     render: function() {

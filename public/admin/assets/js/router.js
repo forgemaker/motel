@@ -544,7 +544,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
           return this.redirect_url.success('成功切換權限', '#!/motel/edit');
         case "list":
-          this.page = id || 1;
+          this.page = +id || 1;
           this.update_title("摩鐵列表");
           if (this.auth_check()) {
             return;

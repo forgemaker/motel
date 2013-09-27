@@ -460,7 +460,7 @@ define ["jquery",
                     @me.set 'motel_id', @motel_id, silent: true
                     @redirect_url.success '成功切換權限', '#!/motel/edit'
                 when "list"
-                    @page = id or 1
+                    @page = +id or 1
                     @update_title "摩鐵列表"
                     return if @auth_check()
                     @view_motels_list.options.data =

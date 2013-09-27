@@ -2,6 +2,9 @@
 
 class MotelController extends \BaseController
 {
+    public $limit = 10;
+    public $offset = 0;
+
     /**
      * Display a listing of the resource.
      *
@@ -9,16 +12,25 @@ class MotelController extends \BaseController
      */
     public function index()
     {
-        $offset = Input::get('offset', null);
-        $limit = Input::get('limit', null);
+        $offset = Input::get('offset', $this->offset);
+        $limit = Input::get('limit', $this->limit);
         $field = Input::get('field', 'add_time');
         $sort = Input::get('sort', 'desc');
         $longitude = Input::get('longitude', null);
         $latitude = Input::get('latitude', null);
         $type = Input::get('type', 'rest');
         $ignore = Input::get('ignore', 0);
+        $page = Input::get('page', 1);
         $type_id = ($type == 'rest') ? '0' : '1';
         $motel_id = array();
+
+        // get total count
+        $total_counts = DB::table('motels')->count();
+        $total_pages = ceil($total_counts/$limit);
+
+        if ($page > 1) {
+            $offset = ($page - 1) * $limit;
+        }
 
         if (isset($longitude) and isset($latitude)) {
             $longitude = floatval($longitude);
@@ -35,7 +47,7 @@ class MotelController extends \BaseController
                 $motel_id[] = $row['id'];
             }
             $select = DB::raw('motels.*, IFNULL(room_count, 0) as room_count, round(6378.138*2*asin(sqrt(pow(sin( (latitude*pi()/180-'.$latitude.'*pi()/180)/2),2)+cos(latitude*pi()/180)*cos(' . $latitude . '*pi()/180)* pow(sin( (longitude*pi()/180-' . $longitude . '*pi()/180)/2),2)))*1000) as distance');
-            $limit = $offset = null;
+            $offset = null;
         } else {
             $select = DB::raw('motels.*, IFNULL(room_count, 0) as room_count');
         }
@@ -52,7 +64,7 @@ class MotelController extends \BaseController
             ->get();
 
         $data = array(
-            'counts' => $items->count(),
+            'total_pages' => $total_pages,
             'items' => $items->toArray()
         );
 
