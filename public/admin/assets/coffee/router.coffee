@@ -165,6 +165,7 @@ define ["jquery",
             "!/user/:action/:id": "user"
             "!/room/:action": "room"
             "!/room/:action/:id": "room"
+            "!/room/:action/:id/:page": "room"
             "!/new/:action": "new"
             "!/new/:action/:id": "new"
             "!/rank/:action": "rank"
@@ -365,32 +366,38 @@ define ["jquery",
                     @new_model.fetch
                         success: (model, response, options) ->
                             self.new_model.trigger 'change' unless self.new_model.hasChanged 'id'
-        room: (action, id) ->
+        room: (action, id, page) ->
             @reset()
             $("#main").html ""
             self = @
-            @motel_id = id or @me.get 'motel_id'
+            @motel_id = +id or @me.get 'motel_id'
+            @page = +page or 1
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
-                when "all"
-                    return if @auth_check()
-                    @update_title "所有房型列表"
-                    @view_rooms_list.options.data =
-                        motel_id: @me.get 'motel_id'
-                        isAdmin: @me.get 'isAdmin'
-                        hideEnable: true
-                    @room_model.set_lists_url 'all'
-                    @room_model.lists.fetch
-                        reset: true
                 when "list"
-                    @update_title "房型列表"
-                    @view_rooms_list.options.data =
-                        motel_id: @motel_id
-                    @view_rooms_list.options.page = @page or 1
-                    @room_model.set_lists_url +@motel_id
-                    @room_model.lists.fetch
-                        reset: true
+                    if id is "all"
+                        return if @auth_check()
+                        @update_title "全部房型列表"
+                        @view_rooms_list.options.data =
+                            motel_id: @me.get 'motel_id'
+                            isAdmin: @me.get 'isAdmin'
+                            hideEnable: true
+                            room_id: id
+
+                        @view_rooms_list.options.page = @page or 1
+                        @room_model.set_lists_url 'all', page: @page
+                        return @room_model.lists.fetch
+                            reset: true
+                    else
+                        @update_title "房型列表"
+                        @view_rooms_list.options.data =
+                            motel_id: @motel_id
+                            room_id: id
+                        @view_rooms_list.options.page = @page or 1
+                        @room_model.set_lists_url @motel_id
+                        @room_model.lists.fetch
+                            reset: true
                 when "add"
                     @update_title "新增房型"
                     @room_model.clear silent: true

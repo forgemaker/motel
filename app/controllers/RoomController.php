@@ -2,6 +2,9 @@
 
 class RoomController extends \BaseController
 {
+    public $limit = 10;
+    public $offset = 0;
+
     /**
      * Display a listing of the resource.
      *
@@ -50,12 +53,22 @@ class RoomController extends \BaseController
     {
         $type = Input::get('type', null);
         $active = Input::get('active', null);
-        $offset = Input::get('offset', null);
-        $limit = Input::get('limit', null);
+        $offset = Input::get('offset', $this->offset);
+        $limit = Input::get('limit', $this->limit);
         $field = Input::get('field', 'add_time');
         $sort = Input::get('sort', 'desc');
+        $page = Input::get('page', 1);
 
-        $items = Room::with('motel')->OfActive($active)
+        // get total count
+        $total_counts = Room::with('motel')->OfMotel($id)->count();
+        $total_pages = ceil($total_counts/$limit);
+
+        if ($page > 1) {
+            $offset = ($page - 1) * $limit;
+        }
+
+        $items = Room::with('motel')
+            ->OfActive($active)
             ->ofType($type)
             ->OfMotel($id)
             ->ofLimit($limit)
@@ -64,7 +77,7 @@ class RoomController extends \BaseController
             ->get();
 
         $data = array(
-            'count' => count($items->toArray()),
+            'total_pages' => $total_pages,
             'items' => $items->toArray()
         );
         return Response::json($data);

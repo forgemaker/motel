@@ -12,9 +12,6 @@ class Room extends Eloquent
     protected $guarded = array('id', 'motel_id');
     public $timestamps = false;
 
-    public $limit = 10;
-    public $offset = 0;
-
     /**
      * Relationship with model
      *
@@ -40,16 +37,20 @@ class Room extends Eloquent
 
     public function scopeOfLimit($query, $limit = null)
     {
-        $limit = (isset($limit)) ? intval($limit) : $this->limit;
+        if (empty($limit)) {
+            return $query;
+        }
 
-        return $query->take($limit);
+        return $query->take(intval($limit));
     }
 
     public function scopeOfOffset($query, $offset = null)
     {
-        $offset = (isset($offset)) ? intval($offset) : $this->offset;
+        if (empty($offset)) {
+            return $query;
+        }
 
-        return $query->skip($offset);
+        return $query->skip(intval($offset));
     }
 
     public function scopeOfType($query, $type = null)

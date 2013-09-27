@@ -12,15 +12,18 @@
     <ul class="pager">
         {{#previous_show}}
         <li class="previous">
-            <a href="#!/room/list/1" style="margin-right: 10px;">&larr; 第一頁</a>
+            <a href="#!/room/list/{{room_id}}/1" style="margin-right: 10px;">&larr; 第一頁</a>
         </li>
         <li class="previous">
-            <a href="#!/room/list/{{previous_page}}">&larr; 上一頁</a>
+            <a href="#!/room/list/{{room_id}}/{{previous_page}}">&larr; 上一頁</a>
         </li>
         {{/previous_show}}
         {{#next_show}}
         <li class="next">
-            <a href="#!/room/list/{{next_page}}">下一頁 &rarr;</a>
+            <a href="#!/room/list/{{room_id}}/{{total_pages}}">最後一頁 &rarr;</a>
+        </li>
+        <li class="next">
+            <a href="#!/room/list/{{room_id}}/{{next_page}}">下一頁 &rarr;</a>
         </li>
         {{/next_show}}
     </ul>

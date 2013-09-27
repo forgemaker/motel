@@ -22,8 +22,10 @@ define ["jquery", "underscore", "backbone", "collections/rooms", "config", "aler
                 $("input[name=price_3]").parent().addClass "has-error"
                 return '特價(平日)必須填寫'
 
-        set_lists_url: (motel_id) ->
-            @lists.url = Config.API.Room + "/list/" + motel_id
+        set_lists_url: (motel_id, params) ->
+            query_string = if (params) then $.param(params) else ''
+            console.log query_string
+            @lists.url = Config.API.Room + "/list/" + motel_id + "?" + query_string
 
         parse: (response) ->
             return false if !response.item

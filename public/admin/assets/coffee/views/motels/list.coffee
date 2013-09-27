@@ -25,7 +25,6 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             this
 
         handle_page: ->
-            data = {}
             total_pages = @collection.total_pages
             next_page = if (total_pages < (@options.page + 1)) then total_pages else (@options.page + 1)
             previous_page = if ((@options.page - 1) <= 0) then 1 else (@options.page - 1)
@@ -35,7 +34,6 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
                 previous_page: previous_page
                 next_page: next_page
                 total_pages: total_pages
-            console.log data
             data
 
         render: ->

@@ -141,6 +141,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       "!/user/:action/:id": "user",
       "!/room/:action": "room",
       "!/room/:action/:id": "room",
+      "!/room/:action/:id/:page": "room",
       "!/new/:action": "new",
       "!/new/:action/:id": "new",
       "!/rank/:action": "rank",
@@ -400,40 +401,49 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
           });
       }
     },
-    room: function(action, id) {
+    room: function(action, id, page) {
       var self;
       this.reset();
       $("#main").html("");
       self = this;
-      this.motel_id = id || this.me.get('motel_id');
+      this.motel_id = +id || this.me.get('motel_id');
+      this.page = +page || 1;
       if (this.motel_id == null) {
         return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
       }
       switch (action) {
-        case "all":
-          if (this.auth_check()) {
-            return;
-          }
-          this.update_title("所有房型列表");
-          this.view_rooms_list.options.data = {
-            motel_id: this.me.get('motel_id'),
-            isAdmin: this.me.get('isAdmin'),
-            hideEnable: true
-          };
-          this.room_model.set_lists_url('all');
-          return this.room_model.lists.fetch({
-            reset: true
-          });
         case "list":
-          this.update_title("房型列表");
-          this.view_rooms_list.options.data = {
-            motel_id: this.motel_id
-          };
-          this.view_rooms_list.options.page = this.page || 1;
-          this.room_model.set_lists_url(+this.motel_id);
-          return this.room_model.lists.fetch({
-            reset: true
-          });
+          if (id === "all") {
+            if (this.auth_check()) {
+              return;
+            }
+            this.update_title("全部房型列表");
+            this.view_rooms_list.options.data = {
+              motel_id: this.me.get('motel_id'),
+              isAdmin: this.me.get('isAdmin'),
+              hideEnable: true,
+              room_id: id
+            };
+            this.view_rooms_list.options.page = this.page || 1;
+            this.room_model.set_lists_url('all', {
+              page: this.page
+            });
+            return this.room_model.lists.fetch({
+              reset: true
+            });
+          } else {
+            this.update_title("房型列表");
+            this.view_rooms_list.options.data = {
+              motel_id: this.motel_id,
+              room_id: id
+            };
+            this.view_rooms_list.options.page = this.page || 1;
+            this.room_model.set_lists_url(this.motel_id);
+            return this.room_model.lists.fetch({
+              reset: true
+            });
+          }
+          break;
         case "add":
           this.update_title("新增房型");
           this.room_model.clear({

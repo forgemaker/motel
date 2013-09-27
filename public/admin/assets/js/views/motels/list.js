@@ -27,7 +27,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
     },
     handle_page: function() {
       var data, next_page, previous_page, total_pages;
-      data = {};
       total_pages = this.collection.total_pages;
       next_page = total_pages < (this.options.page + 1) ? total_pages : this.options.page + 1;
       previous_page = (this.options.page - 1) <= 0 ? 1 : this.options.page - 1;
@@ -38,7 +37,6 @@ define(["jquery", "underscore", "backbone", "views/view"], function($, _, Backbo
         next_page: next_page,
         total_pages: total_pages
       };
-      console.log(data);
       return data;
     },
     render: function() {
