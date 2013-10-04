@@ -12,9 +12,9 @@ module.exports = (grunt) ->
     filetime = random_string(32)
     # Project configuration
     project_config =
-        app: 'public'
+        app: '.'
         test: 'test'
-        dist: 'dist/public'
+        dist: 'dist'
         release: 'dist'
         build: 'build'
     grunt.initConfig
@@ -32,41 +32,38 @@ module.exports = (grunt) ->
                     verbose: true
                     install: false
                     copy: false
-        livereload:
-            port: 35729
-        regarde:
+
+        watch:
             html:
                 files: ['<%= pkg.app %>/assets/**/*.{html,htm}']
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             scss:
                 files: ['<%= pkg.app %>/assets/**/*.scss'],
                 tasks: ['compass:dev']
-                events: true
             css:
                 files: ['<%= pkg.app %>/assets/**/*.css'],
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             js:
                 files: '<%= pkg.app %>/assets/**/*.js',
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             coffee:
                 files: '<%= pkg.app %>/assets/**/*.coffee',
                 tasks: ['coffee']
-                events: true
             grunt:
                 files: 'Gruntfile.coffee',
                 tasks: ['coffee']
-                events: true
             php:
                 files: ['**/*.php'],
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             handlebars:
                 files: '<%= pkg.app %>/**/*.handlebars',
-                tasks: ['handlebars', 'livereload']
-                events: true
+                tasks: ['handlebars']
+                options:
+                    livereload: true
         compass:
             dev:
                 options:
@@ -181,19 +178,16 @@ module.exports = (grunt) ->
                     {src: '<%= pkg.app %>/.htaccess', dest: '<%= pkg.dist %>/.htaccess'}
                     {src: '<%= pkg.dist %>/assets/vendor/requirejs/require.js', dest: '<%= pkg.dist %>/assets/js/require.js'}
                     {src: '<%= pkg.app %>/assets/js/main-built.js', dest: '<%= pkg.dist %>/assets/js/main.' + filetime + '.js'}
-                    {expand: true, src: ['system/**'], dest: '<%= pkg.release %>/'}
-                    {expand: true, src: ['application/**'], dest: '<%= pkg.release %>/'}
-                    {expand: true, src: ['sparks/**'], dest: '<%= pkg.release %>/'}
                 ]
 
         replace:
             release:
-                src: '<%= pkg.release %>/application/views/template/layout.php'
-                dest: '<%= pkg.release %>/application/views/template/layout.php'
+                src: '<%= pkg.release %>/index.html'
+                dest: '<%= pkg.release %>/index.html'
                 replacements: [
                     {
-                        from: '.css'
-                        to: '.' + filetime + '.css'
+                        from: 'layout.css'
+                        to: 'layout.' + filetime + '.css'
                     },
                     {
                         from: 'js/main'
@@ -202,15 +196,6 @@ module.exports = (grunt) ->
                     {
                         from: 'vendor/requirejs/'
                         to: 'js/'
-                    }
-                ]
-            main:
-                src: '<%= pkg.dist %>/index.php'
-                dest: '<%= pkg.dist %>/index.php'
-                replacements: [
-                    {
-                        from: 'define(\'ENVIRONMENT\', \'development\');'
-                        to: 'define(\'ENVIRONMENT\', \'production\');'
                     }
                 ]
 
@@ -225,7 +210,7 @@ module.exports = (grunt) ->
         (grunt.file.exists '<%= pkg.app %>/assets/vendor') || grunt.task.run 'bower:install'
 
     # run local server by grunt-contrib-connect plugin
-    grunt.registerTask 'default', ['init', 'livereload-start', 'regarde']
+    grunt.registerTask 'default', ['init', 'watch']
     grunt.registerTask 'cleanup', ['clean:cleanup']
     grunt.registerTask 'release', () ->
         grunt.log.writeln 'deploy project'
@@ -234,14 +219,14 @@ module.exports = (grunt) ->
         grunt.task.run ['requirejs:build', 'requirejs:release', 'cssmin:release', 'clean:js']
         grunt.file.mkdir project_config.dist + '/assets/js'
         grunt.task.run 'copy:release'
-        grunt.task.run ['replace:release', 'replace:main']
+        grunt.task.run ['replace:release']
         grunt.task.run 'clean:release'
 
     # Dependencies
     grunt.loadNpmTasks 'grunt-shell'
     grunt.loadNpmTasks 'grunt-regarde'
     grunt.loadNpmTasks 'grunt-contrib-connect'
-    grunt.loadNpmTasks 'grunt-contrib-livereload'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-compass'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-contrib-copy'

@@ -1,3 +1,4 @@
+
 module.exports = function(grunt) {
   var filetime, project_config, random_string;
   random_string = function(string_length) {
@@ -89,11 +90,10 @@ module.exports = function(grunt) {
       dev: {
         options: {
           /*
-          Load config from config.rb file
-          basePath: 'assets'
-          config: 'config.rb'
+                              Load config from config.rb file
+                              basePath: 'assets'
+                              config: 'config.rb'
           */
-
           sassDir: '<%= pkg.app %>/assets/sass',
           cssDir: '<%= pkg.app %>/assets/css',
           imagesDir: '<%= pkg.app %>/assets/images',
@@ -141,11 +141,10 @@ module.exports = function(grunt) {
       release: {
         options: {
           /*
-          support generate Source Maps, make sure requirejs version in 2.1.2
-          optimize: 'uglify2'
-          generateSourceMaps: true
+                              support generate Source Maps, make sure requirejs version in 2.1.2
+                              optimize: 'uglify2'
+                              generateSourceMaps: true
           */
-
           appDir: "<%= pkg.app %>/",
           baseUrl: "assets/js/",
           dir: "<%= pkg.dist %>",
