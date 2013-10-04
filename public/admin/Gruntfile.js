@@ -40,49 +40,49 @@ module.exports = function(grunt) {
         }
       }
     },
-    livereload: {
-      port: 35729
-    },
-    regarde: {
+    watch: {
       html: {
         files: ['<%= pkg.app %>/assets/**/*.{html,htm}'],
-        tasks: ['livereload'],
-        events: true
+        options: {
+          livereload: true
+        }
       },
       scss: {
         files: ['<%= pkg.app %>/assets/**/*.scss'],
-        tasks: ['compass:dev'],
-        events: true
+        tasks: ['compass:dev']
       },
       css: {
         files: ['<%= pkg.app %>/assets/**/*.css'],
-        tasks: ['livereload'],
-        events: true
+        options: {
+          livereload: true
+        }
       },
       js: {
         files: '<%= pkg.app %>/assets/**/*.js',
-        tasks: ['livereload'],
-        events: true
+        options: {
+          livereload: true
+        }
       },
       coffee: {
         files: '<%= pkg.app %>/assets/**/*.coffee',
-        tasks: ['coffee'],
-        events: true
+        tasks: ['coffee']
       },
       grunt: {
         files: 'Gruntfile.coffee',
-        tasks: ['coffee'],
-        events: true
+        tasks: ['coffee']
       },
       php: {
         files: ['**/*.php'],
-        tasks: ['livereload'],
-        events: true
+        options: {
+          livereload: true
+        }
       },
       handlebars: {
         files: '<%= pkg.app %>/**/*.handlebars',
-        tasks: ['handlebars', 'livereload'],
-        events: true
+        tasks: ['handlebars'],
+        options: {
+          livereload: true
+        }
       }
     },
     compass: {
@@ -249,7 +249,7 @@ module.exports = function(grunt) {
     grunt.log.writeln('Initial project');
     return (grunt.file.exists('<%= pkg.app %>/assets/vendor')) || grunt.task.run('bower:install');
   });
-  grunt.registerTask('default', ['init', 'livereload-start', 'regarde']);
+  grunt.registerTask('default', ['init', 'watch']);
   grunt.registerTask('cleanup', ['clean:cleanup']);
   grunt.registerTask('release', function() {
     grunt.log.writeln('deploy project');
@@ -264,7 +264,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-regarde');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-livereload');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-copy');

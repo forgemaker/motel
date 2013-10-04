@@ -32,7 +32,8 @@
     "mocha-phantomjs": "~2.0.2",
     "grunt-contrib-handlebars": "~0.5.9",
     "requirejs": "~2.1.8",
-    "bower": "~1.1.2"
+    "bower": "~1.1.2",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "optionalDependencies": {},
   "scripts": {

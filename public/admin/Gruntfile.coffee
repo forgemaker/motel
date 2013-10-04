@@ -32,41 +32,38 @@ module.exports = (grunt) ->
                     verbose: true
                     install: false
                     copy: false
-        livereload:
-            port: 35729
-        regarde:
+
+        watch:
             html:
                 files: ['<%= pkg.app %>/assets/**/*.{html,htm}']
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             scss:
                 files: ['<%= pkg.app %>/assets/**/*.scss'],
                 tasks: ['compass:dev']
-                events: true
             css:
                 files: ['<%= pkg.app %>/assets/**/*.css'],
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             js:
                 files: '<%= pkg.app %>/assets/**/*.js',
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             coffee:
                 files: '<%= pkg.app %>/assets/**/*.coffee',
                 tasks: ['coffee']
-                events: true
             grunt:
                 files: 'Gruntfile.coffee',
                 tasks: ['coffee']
-                events: true
             php:
                 files: ['**/*.php'],
-                tasks: ['livereload']
-                events: true
+                options:
+                    livereload: true
             handlebars:
                 files: '<%= pkg.app %>/**/*.handlebars',
-                tasks: ['handlebars', 'livereload']
-                events: true
+                tasks: ['handlebars']
+                options:
+                    livereload: true
         compass:
             dev:
                 options:
@@ -213,7 +210,7 @@ module.exports = (grunt) ->
         (grunt.file.exists '<%= pkg.app %>/assets/vendor') || grunt.task.run 'bower:install'
 
     # run local server by grunt-contrib-connect plugin
-    grunt.registerTask 'default', ['init', 'livereload-start', 'regarde']
+    grunt.registerTask 'default', ['init', 'watch']
     grunt.registerTask 'cleanup', ['clean:cleanup']
     grunt.registerTask 'release', () ->
         grunt.log.writeln 'deploy project'
@@ -229,7 +226,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-shell'
     grunt.loadNpmTasks 'grunt-regarde'
     grunt.loadNpmTasks 'grunt-contrib-connect'
-    grunt.loadNpmTasks 'grunt-contrib-livereload'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-compass'
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-contrib-copy'
