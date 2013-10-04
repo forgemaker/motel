@@ -30,7 +30,6 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
                 previous_page: previous_page
                 next_page: next_page
                 total_pages: total_pages
-            console.log data
             data
 
         render: ->

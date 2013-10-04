@@ -491,7 +491,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             }
           });
         case "list":
-          this.page = id || 1;
+          this.page = +id || 1;
           this.update_title("帳號列表");
           if (this.auth_check()) {
             return;

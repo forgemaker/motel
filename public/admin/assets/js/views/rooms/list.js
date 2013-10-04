@@ -35,7 +35,6 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
         next_page: next_page,
         total_pages: total_pages
       };
-      console.log(data);
       return data;
     },
     render: function() {

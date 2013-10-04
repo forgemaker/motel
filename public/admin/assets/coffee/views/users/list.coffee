@@ -25,16 +25,15 @@ define ["jquery", "underscore", "backbone", "views/view"], ($, _, Backbone, View
             this
 
         handle_page: ->
-            data = {}
-            next_page = +@options.page + 1
-            previous_page = +@options.page - 1
-            @options.page = (if (+@options.page > 1) then @options.page else 1)
+            total_pages = @collection.total_pages
+            next_page = if (total_pages < (@options.page + 1)) then total_pages else (@options.page + 1)
+            previous_page = if ((@options.page - 1) <= 0) then 1 else (@options.page - 1)
             data =
-                previous_show: (if (previous_page > 0) then true else false)
-                next_show: (if (next_page > 1 and @collection.length > 0) then true else false)
+                previous_show: if (@options.page > 1) then true else false
+                next_show: if (@options.page < total_pages) then true else false
                 previous_page: previous_page
                 next_page: next_page
-
+                total_pages: total_pages
             data
 
         render: ->

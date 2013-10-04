@@ -428,7 +428,7 @@ define ["jquery",
                             self.motel.clear silent: true
                             self.me.fetch()
                 when "list"
-                    @page = id or 1
+                    @page = +id or 1
                     @update_title "帳號列表"
                     return if @auth_check()
                     @view_users_list.options.data =
