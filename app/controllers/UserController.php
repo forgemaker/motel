@@ -2,6 +2,9 @@
 
 class UserController extends \BaseController
 {
+    public $limit = 10;
+    public $offset = 0;
+
     public function __construct()
     {
         $this->group[1] = 'Admin';
@@ -25,11 +28,29 @@ class UserController extends \BaseController
      */
     public function index()
     {
+        $offset = Input::get('offset', $this->offset);
+        $limit = Input::get('limit', $this->limit);
+        $field = Input::get('field', 'id');
+        $sort = Input::get('sort', 'desc');
+        $page = Input::get('page', 1);
+
+        // get total count
+        $total_counts = User::all()->count();
+        $total_pages = ceil($total_counts/$limit);
+
+        if ($page > 1) {
+            $offset = ($page - 1) * $limit;
+        }
+
         // get user list
-        $users = User::all()->toArray();
+        $items = User::ofLimit($limit)
+            ->ofOffset($offset)
+            ->ofOrderBy($field, $sort)
+            ->get();
 
         $data = array(
-            'items' => $users
+            'total_pages' => $total_pages,
+            'items' => $items->toArray()
         );
         return Response::json($data);
     }

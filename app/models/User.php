@@ -22,6 +22,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     protected $guarded = array('id');
     public $timestamps = false;
 
+    public function scopeOfOrderBy($query, $field = 'add_time', $sort = 'desc')
+    {
+        return $query->orderBy($field, $sort);
+    }
+
+    public function scopeOfLimit($query, $limit = null)
+    {
+        if (empty($limit)) {
+            return $query;
+        }
+
+        return $query->take(intval($limit));
+    }
+
+    public function scopeOfOffset($query, $offset = null)
+    {
+        if (empty($offset)) {
+            return $query;
+        }
+
+        return $query->skip(intval($offset));
+    }
+
     /**
      * Get the unique identifier for the user.
      *
