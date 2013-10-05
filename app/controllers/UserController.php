@@ -143,22 +143,31 @@ class UserController extends \BaseController
      */
     public function store()
     {
-        $count = User::where('username', Input::get('username'))->count();
+        $motel_id = Input::get('motel_id', null);
+        $count = User::where('username', trim(Input::get('username')))->count();
         if ($count > 0) {
-            return Response::json(array('error_text' => '帳號已存在'));
+            return Response::json(array('error_text' => '帳號已存在'), 401);
         }
 
-        $password = Input::get('password');
-        $confirm_password = Input::get('confirm_password');
-        if (empty($password) or empty($confirm_password)) {
-            return Response::json(array('error_text' => '兩次密碼輸入不同'));
+        // check motel exist
+        if (isset($motel_id)) {
+            $motel = Motel::find($motel_id);
+            if (empty($motel)) {
+                return Response::json(array('error_text' => '摩鐵不存在'), 401);
+            }
+        }
+
+        $password = Input::get('password', null);
+        $confirm_password = Input::get('confirm_password', null);
+        if (empty($password) or empty($confirm_password) or $password != $confirm_password) {
+            return Response::json(array('error_text' => '密碼空值或兩次密碼輸入不同'), 401);
         }
 
         // insert user account.
         $user = User::create(array(
             'username' => Input::get('username'),
             'password' => Hash::make(Input::get('password')),
-            'motel_id' => Input::get('motel_id', null),
+            'motel_id' => $motel_id,
             'first_name' => Input::get('first_name'),
             'last_name' => Input::get('last_name'),
             'created_on' => time(),
@@ -185,7 +194,7 @@ class UserController extends \BaseController
      */
     public function show($id)
     {
-        $item = User::find($id)->toArray();
+        $item = User::find($id);
 
         if (!isset($item)) {
             return Response::json(array('error_text' => '404 not found'), 404);
@@ -195,7 +204,7 @@ class UserController extends \BaseController
         $item['all_groups'] = DB::select('select a.id, name, description, IF(b.user_id, true, false) as active from groups a left join users_groups b on b.group_id = a.id and b.user_id = ?', array($id));
 
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
