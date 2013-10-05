@@ -16,12 +16,6 @@ define ["jquery", "underscore", "backbone", "collections/users", "config", "aler
             if attributes.username is ''
                 $("input[name=username]").parent().addClass "has-error"
                 return '帳號必須填寫'
-            if attributes.first_name is ''
-                $("input[name=first_name]").parent().addClass "has-error"
-                return '名字必須填寫'
-            if attributes.last_name is ''
-                $("input[name=last_name]").parent().addClass "has-error"
-                return '姓氏必須填寫'
 
         set_params: (params) ->
             @lists.url = Config.API.User + "?" + $.param(params)

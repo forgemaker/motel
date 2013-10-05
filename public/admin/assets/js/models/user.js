@@ -18,14 +18,6 @@ define(["jquery", "underscore", "backbone", "collections/users", "config", "aler
         $("input[name=username]").parent().addClass("has-error");
         return '帳號必須填寫';
       }
-      if (attributes.first_name === '') {
-        $("input[name=first_name]").parent().addClass("has-error");
-        return '名字必須填寫';
-      }
-      if (attributes.last_name === '') {
-        $("input[name=last_name]").parent().addClass("has-error");
-        return '姓氏必須填寫';
-      }
     },
     set_params: function(params) {
       return this.lists.url = Config.API.User + "?" + $.param(params);
