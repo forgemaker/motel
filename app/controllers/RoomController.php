@@ -67,7 +67,7 @@ class RoomController extends \BaseController
             $offset = ($page - 1) * $limit;
         }
 
-        $items = Room::select(DB::raw('rooms.*, motels.title as motel_title'))
+        $items = Room::select(DB::raw('rooms.*, motels.title as motel_title, motels.rest_time_1, motels.rest_time_2'))
             ->leftJoin('motels', 'rooms.motel_id', '=', 'motels.id')
             ->OfActive($active)
             ->ofType($type)
