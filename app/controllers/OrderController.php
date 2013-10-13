@@ -55,7 +55,7 @@ class OrderController extends \BaseController
         $page = Input::get('page', 1);
 
         // get total count
-        $total_counts = Room::OfMotel($id)->count();
+        $total_counts = Order::OfMotel($id)->count();
         $total_pages = ceil($total_counts/$limit);
 
         if ($page > 1) {
