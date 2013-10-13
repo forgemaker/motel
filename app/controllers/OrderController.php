@@ -2,6 +2,10 @@
 
 class OrderController extends \BaseController
 {
+
+    public $limit = 10;
+    public $offset = 0;
+
     /**
      * Display a listing of the resource.
      *
@@ -44,10 +48,28 @@ class OrderController extends \BaseController
      */
     public function sublist($id)
     {
-        $items = Order::where('motel_id', $id)->get();
+        $offset = Input::get('offset', $this->offset);
+        $limit = Input::get('limit', $this->limit);
+        $field = Input::get('field', 'add_time');
+        $sort = Input::get('sort', 'desc');
+        $page = Input::get('page', 1);
+
+        // get total count
+        $total_counts = Room::OfMotel($id)->count();
+        $total_pages = ceil($total_counts/$limit);
+
+        if ($page > 1) {
+            $offset = ($page - 1) * $limit;
+        }
+
+        $items = Order::OfMotel($id)
+            ->ofLimit($limit)
+            ->ofOffset($offset)
+            ->ofOrderBy($field, $sort)
+            ->get();
 
         $data = array(
-            'count' => count($items->toArray()),
+            'total_pages' => $total_pages,
             'items' => $items->toArray()
         );
         return Response::json($data);

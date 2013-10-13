@@ -25,8 +25,9 @@ define ["jquery", "underscore", "backbone", "collections/orders", "config", "ale
                 $("input[name=status_id]").parent().addClass "has-error"
                 return '狀態必須填寫'
 
-        set_lists_url: (motel_id) ->
-            @lists.url = Config.API.Order + "/list/" + motel_id
+        set_lists_url: (motel_id, params) ->
+            query_string = if (params) then $.param(params) else ''
+            @lists.url = Config.API.Order + "/list/" + motel_id + "?" + query_string
 
         parse: (response) ->
             return false if !response.item

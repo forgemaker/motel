@@ -29,7 +29,6 @@ define(["jquery", "underscore", "backbone", "collections/rooms", "config", "aler
     set_lists_url: function(motel_id, params) {
       var query_string;
       query_string = params ? $.param(params) : '';
-      console.log(query_string);
       return this.lists.url = Config.API.Room + "/list/" + motel_id + "?" + query_string;
     },
     parse: function(response) {

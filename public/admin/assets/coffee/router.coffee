@@ -172,6 +172,7 @@ define ["jquery",
             "!/rank/:action/:id": "rank"
             "!/order/:action": "order"
             "!/order/:action/:id": "order"
+            "!/order/:action/:id/:page": "order"
 
         initialize: ->
             @motel = new ModelMotel()
@@ -270,11 +271,12 @@ define ["jquery",
                 document.title = @site_name
                 $(".section_title").text ""
 
-        order: (action, id) ->
+        order: (action, id, page) ->
             @reset()
             $("#main").html ""
             self = @
-            @motel_id = id || @me.get 'motel_id'
+            @motel_id = +id or @me.get 'motel_id'
+            @page = +page or 1
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
@@ -284,7 +286,7 @@ define ["jquery",
                         motel_id: @motel_id
                         isAdmin: @me.get 'isAdmin'
                     @view_orders_list.options.page = @page or 1
-                    @order_model.set_lists_url @motel_id
+                    @order_model.set_lists_url @motel_id, page: @page
                     @order_model.lists.fetch
                         reset: true
                 when "add"

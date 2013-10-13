@@ -30,8 +30,10 @@ define(["jquery", "underscore", "backbone", "collections/orders", "config", "ale
         return '狀態必須填寫';
       }
     },
-    set_lists_url: function(motel_id) {
-      return this.lists.url = Config.API.Order + "/list/" + motel_id;
+    set_lists_url: function(motel_id, params) {
+      var query_string;
+      query_string = params ? $.param(params) : '';
+      return this.lists.url = Config.API.Order + "/list/" + motel_id + "?" + query_string;
     },
     parse: function(response) {
       if (!response.item) {

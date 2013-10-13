@@ -147,7 +147,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       "!/rank/:action": "rank",
       "!/rank/:action/:id": "rank",
       "!/order/:action": "order",
-      "!/order/:action/:id": "order"
+      "!/order/:action/:id": "order",
+      "!/order/:action/:id/:page": "order"
     },
     initialize: function() {
       this.motel = new ModelMotel();
@@ -258,12 +259,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         return $(".section_title").text("");
       }
     },
-    order: function(action, id) {
+    order: function(action, id, page) {
       var self;
       this.reset();
       $("#main").html("");
       self = this;
-      this.motel_id = id || this.me.get('motel_id');
+      this.motel_id = +id || this.me.get('motel_id');
+      this.page = +page || 1;
       if (this.motel_id == null) {
         return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
       }
@@ -275,7 +277,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             isAdmin: this.me.get('isAdmin')
           };
           this.view_orders_list.options.page = this.page || 1;
-          this.order_model.set_lists_url(this.motel_id);
+          this.order_model.set_lists_url(this.motel_id, {
+            page: this.page
+          });
           return this.order_model.lists.fetch({
             reset: true
           });

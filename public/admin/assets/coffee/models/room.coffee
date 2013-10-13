@@ -24,7 +24,6 @@ define ["jquery", "underscore", "backbone", "collections/rooms", "config", "aler
 
         set_lists_url: (motel_id, params) ->
             query_string = if (params) then $.param(params) else ''
-            console.log query_string
             @lists.url = Config.API.Room + "/list/" + motel_id + "?" + query_string
 
         parse: (response) ->
