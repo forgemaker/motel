@@ -146,8 +146,15 @@ class OrderController extends \BaseController
      */
     public function store()
     {
+        $motel_id = intval(Input::get('motel_id'));
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
         $order = Order::create(array(
-            'motel_id' => Input::get('motel_id'),
+            'motel_id' => intval(Input::get('motel_id')),
             'uid' => Input::get('uid'),
             'user_name' => Input::get('user_name', null),
             'user_phone' => Input::get('user_phone', null),
@@ -157,7 +164,7 @@ class OrderController extends \BaseController
             'total_price' => Input::get('total_price', null),
             'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
-            'status_id' => Input::get('status_id', 0),
+            'status_id' => (Auth::check()) ? intval(Input::get('status_id', 0)) : 0,
             'add_time' => time(),
             'edit_time' => time()
         ));
@@ -173,14 +180,14 @@ class OrderController extends \BaseController
      */
     public function show($id)
     {
-        $item = Order::find($id)->toArray();
+        $item = Order::find($id);
 
         if (!isset($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+            return Response::json(array('error_text' => '訂單不存在'), 404);
         }
 
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
@@ -193,14 +200,14 @@ class OrderController extends \BaseController
      */
     public function edit($id)
     {
-        $item = Order::find($id)->toArray();
+        $item = Order::find($id);
 
         if (!isset($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+            return Response::json(array('error_text' => '訂單不存在'), 404);
         }
 
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
@@ -215,18 +222,51 @@ class OrderController extends \BaseController
     {
         $order = Order::find($id);
 
-        $order->uid = Input::get('uid');
-        $order->user_name = Input::get('user_name');
-        $order->user_phone = Input::get('user_phone');
+        $uid = Input::get('uid', null);
+        $rank = intval(Input::get('rank', 1));
+        $title = Input::get('title', null);
+        $description = Input::get('description', null);
+
+        if (!isset($order)) {
+            return Response::json(array('error_text' => '訂單不存在'), 404);
+        }
+
+        // update from mobile phone
+        if (!Auth::check()) {
+            if ($order->status_id == "0" or $order->status_id == "2") {
+                return Response::json(array('error_text' => '此訂單尚未完成或被取消'), 401);
+            }
+
+            if ($order->uid != Input::get('uid', null)) {
+                return Response::json(array('error_text' => '你沒有存取操作權限'), 401);
+            }
+
+            if ($rank < 1 or $rank > 5) {
+                return Response::json(array('error_text' => '評分請介於 1~5'), 401);
+            }
+
+            $order->rank = $rank;
+            $order->title = $title;
+            $order->description = $description;
+
+            $order->edit_time = time();
+            $order->save();
+            $this->update_rank($order->motel_id);
+            return Response::json(array('success_text' => 'ok'));
+        }
+
+        $order->uid = $uid;
+        $order->user_name = Input::get('user_name', null);
+        $order->user_phone = Input::get('user_phone', null);
         $order->room_title = Input::get('room_title');
         $order->room_type = Input::get('room_type');
         $order->total_price = Input::get('total_price');
         $order->date_purchased = Input::get('date_purchased');
         $order->date_finished = Input::get('date_finished');
-        $order->status_id = Input::get('status_id');
-        $order->rank = Input::get('rank', 1);
-        $order->title = Input::get('title', null);
-        $order->description = Input::get('description', null);
+        $order->status_id = Input::get('status_id', 0);
+        $order->rank = $rank;
+        $order->title = $title;
+        $order->description = $description;
 
         $order->edit_time = time();
         $order->save();

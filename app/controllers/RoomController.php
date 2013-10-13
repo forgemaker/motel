@@ -140,7 +140,7 @@ class RoomController extends \BaseController
         $motel = Motel::find($motel_id);
 
         if (!isset($motel)) {
-            return Response::json(array('error_text' => 'motel not found'), 404);
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
 
         $this->update_room_price($motel, Input::get('type', 0));
@@ -207,7 +207,7 @@ class RoomController extends \BaseController
         $motel = Motel::find($motel_id);
 
         if (!isset($motel)) {
-            return Response::json(array('error_text' => 'motel not found'), 404);
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
         $this->update_room_price($motel, Input::get('type', 0));
 
