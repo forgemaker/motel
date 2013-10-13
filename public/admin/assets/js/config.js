@@ -9,7 +9,7 @@ define(["jquery"], function($) {
       User: prefix + "user",
       Motel: prefix + "motel",
       New: prefix + "new",
-      Rank: prefix + "rank",
+      Rank: prefix + "order",
       Order: prefix + "order"
     },
     Order: {

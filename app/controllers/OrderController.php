@@ -63,6 +63,25 @@ class OrderController extends \BaseController
         //
     }
 
+    public function update_rank($motel_id = 0)
+    {
+        if (empty($motel_id)) {
+            return false;
+        }
+
+        $motel = Motel::find($motel_id);
+
+        $item = DB::table('orders')
+            ->select(DB::raw('count(*) as count, SUM(rank) as sum'))
+            ->where('motel_id', '=', $motel_id)
+            ->whereNotNull('rank')
+            ->groupBy('motel_id')
+            ->first();
+
+        $motel->rank = $item->sum / $item->count;
+        $motel->save();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -149,9 +168,14 @@ class OrderController extends \BaseController
         $order->date_purchased = Input::get('date_purchased');
         $order->date_finished = Input::get('date_finished');
         $order->status_id = Input::get('status_id');
-        $order->edit_time = time();
+        $order->rank = Input::get('rank', 1);
+        $order->title = Input::get('title', null);
+        $order->description = Input::get('description', null);
 
+        $order->edit_time = time();
         $order->save();
+
+        $this->update_rank($order->motel_id);
         return Response::json(array('success_text' => 'ok'));
     }
 

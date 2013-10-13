@@ -12,7 +12,7 @@ class UpdateRankTable extends Migration
     public function up()
     {
         Schema::table('orders', function($table) {
-            $table->smallInteger('rank', 1)->default(1)->after('status_id');
+            $table->smallInteger('rank', 1)->nullable()->after('status_id');
             $table->text('description')->nullable()->after('status_id');
             $table->string('title', 255)->nullable()->after('status_id');
         });

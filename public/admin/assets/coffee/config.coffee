@@ -7,7 +7,7 @@ define ["jquery"], ($) ->
         User: prefix + "user"
         Motel: prefix + "motel"
         New: prefix + "new"
-        Rank: prefix + "rank"
+        Rank: prefix + "order"
         Order: prefix + "order"
     Order:
         Status: ['等待客人', '進房完成', '取消']
