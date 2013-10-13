@@ -18,8 +18,10 @@ define(["jquery", "underscore", "backbone", "collections/ranks", "config", "aler
         return '標題必須填寫';
       }
     },
-    set_lists_url: function(motel_id) {
-      return this.lists.url = Config.API.Rank + "/list/" + motel_id;
+    set_lists_url: function(motel_id, params) {
+      var query_string;
+      query_string = params ? $.param(params) : '';
+      return this.lists.url = Config.API.Rank + "/list/" + motel_id + "?" + query_string;
     },
     parse: function(response) {
       if (!response.item) {

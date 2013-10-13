@@ -16,8 +16,9 @@ define ["jquery", "underscore", "backbone", "collections/ranks", "config", "aler
                 $("input[name=title]").parent().addClass "has-error"
                 return '標題必須填寫'
 
-        set_lists_url: (motel_id) ->
-            @lists.url = Config.API.Rank + "/list/" + motel_id
+        set_lists_url: (motel_id, params) ->
+            query_string = if (params) then $.param(params) else ''
+            @lists.url = Config.API.Rank + "/list/" + motel_id + "?" + query_string
 
         parse: (response) ->
             return false if !response.item

@@ -170,6 +170,7 @@ define ["jquery",
             "!/new/:action/:id": "new"
             "!/rank/:action": "rank"
             "!/rank/:action/:id": "rank"
+            "!/rank/:action/:id/:page": "rank"
             "!/order/:action": "order"
             "!/order/:action/:id": "order"
             "!/order/:action/:id/:page": "order"
@@ -305,11 +306,12 @@ define ["jquery",
                         success: (model, response, options) ->
                             self.order_model.trigger 'change' unless self.order_model.hasChanged 'id'
 
-        rank: (action, id) ->
+        rank: (action, id, page) ->
             @reset()
             $("#main").html ""
             self = @
-            @motel_id = id || @me.get 'motel_id'
+            @motel_id = +id or @me.get 'motel_id'
+            @page = +page or 1
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
@@ -319,7 +321,7 @@ define ["jquery",
                         motel_id: @motel_id
                         isAdmin: @me.get 'isAdmin'
                     @view_ranks_list.options.page = @page or 1
-                    @rank_model.set_lists_url @motel_id
+                    @rank_model.set_lists_url @motel_id, page: @page
                     @rank_model.lists.fetch({reset: true})
                 when "add"
                     @update_title "新增評價"
