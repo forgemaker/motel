@@ -46,23 +46,27 @@ class OrderController extends \BaseController
      *
      * @return Response
      */
-    public function sublist($id)
+    public function sublist($id = null)
     {
         $offset = Input::get('offset', $this->offset);
         $limit = Input::get('limit', $this->limit);
         $field = Input::get('field', 'add_time');
         $sort = Input::get('sort', 'desc');
         $page = Input::get('page', 1);
+        $uid = Input::get('uid', null);
 
         // get total count
-        $total_counts = Order::OfMotel($id)->count();
+        $total_counts = Order::OfMotel($id)->OfUid($uid)->count();
         $total_pages = ceil($total_counts/$limit);
 
         if ($page > 1) {
             $offset = ($page - 1) * $limit;
         }
 
-        $items = Order::OfMotel($id)
+        $items = Order::select(DB::raw('orders.*, motels.title as motel_title'))
+            ->OfMotel($id)
+            ->leftJoin('motels', 'orders.motel_id', '=', 'motels.id')
+            ->OfUid($uid)
             ->ofLimit($limit)
             ->ofOffset($offset)
             ->ofOrderBy($field, $sort)

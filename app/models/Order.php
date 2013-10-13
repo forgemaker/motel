@@ -44,6 +44,15 @@ class Order extends Eloquent
         return $query->skip(intval($offset));
     }
 
+    public function scopeOfUid($query, $uid = null)
+    {
+        if (!isset($uid)) {
+            return $query;
+        }
+
+        return $query->where('uid', $uid);
+    }
+
     public function scopeOfMotel($query, $motel_id = null)
     {
         if (!isset($motel_id) or $motel_id == 'all') {
