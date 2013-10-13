@@ -13,10 +13,6 @@ define(["jquery", "underscore", "backbone", "collections/orders", "config", "ale
         $("input[name=uid]").parent().addClass("has-error");
         return '手機編號必須填寫';
       }
-      if (attributes.serial_number === '') {
-        $("input[name=serial_number]").parent().addClass("has-error");
-        return '訂單編號必須填寫';
-      }
       if (attributes.user_name === '') {
         $("input[name=user_name]").parent().addClass("has-error");
         return '姓名必須填寫';

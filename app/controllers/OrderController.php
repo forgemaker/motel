@@ -109,6 +109,37 @@ class OrderController extends \BaseController
     }
 
     /**
+     *
+     * Generate an activation code
+     *
+     * @param int
+     * @param string
+     * @return string
+     */
+    public function generate_code($length = 11, $type = 'auto')
+    {
+        $code = "";
+        switch ($type) {
+            case 'digit':
+                $chars = '1234567890';
+            break;
+            case 'word':
+                $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            break;
+            default:
+                $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            break;
+        }
+
+        srand((double) microtime()*1000000);
+        for ($i=0; $i<$length; $i++) {
+            $code .= substr ($chars, rand() % strlen($chars), 1);
+        }
+
+        return $code;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @return Response
@@ -122,7 +153,7 @@ class OrderController extends \BaseController
             'user_phone' => Input::get('user_phone', null),
             'room_title' => Input::get('room_title', null),
             'room_type' => Input::get('room_type', null),
-            'serial_number' => Input::get('serial_number', null),
+            'serial_number' => strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit'),
             'total_price' => Input::get('total_price', null),
             'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
@@ -189,7 +220,6 @@ class OrderController extends \BaseController
         $order->user_phone = Input::get('user_phone');
         $order->room_title = Input::get('room_title');
         $order->room_type = Input::get('room_type');
-        $order->serial_number = Input::get('serial_number');
         $order->total_price = Input::get('total_price');
         $order->date_purchased = Input::get('date_purchased');
         $order->date_finished = Input::get('date_finished');
