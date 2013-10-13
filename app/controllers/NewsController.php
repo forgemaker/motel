@@ -2,6 +2,10 @@
 
 class NewsController extends \BaseController
 {
+
+    public $limit = 10;
+    public $offset = 0;
+
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +29,29 @@ class NewsController extends \BaseController
     public function sublist($id = null)
     {
         $type = Input::get('type', null);
-        $offset = Input::get('offset', null);
-        $limit = Input::get('limit', null);
+        $offset = Input::get('offset', $this->offset);
+        $limit = Input::get('limit', $this->limit);
+        $field = Input::get('field', 'add_time');
+        $sort = Input::get('sort', 'desc');
+        $page = Input::get('page', 1);
 
-        $items = News::with('motel')->ofType($type)->OfMotel($id)->ofLimit($limit)->ofOffset($offset)->orderBy('add_time', 'desc')->get();
+        // get total count
+        $total_counts = News::OfMotel($id)->count();
+        $total_pages = ceil($total_counts/$limit);
+
+        if ($page > 1) {
+            $offset = ($page - 1) * $limit;
+        }
+
+        $items = News::with('motel')
+            ->ofType($type)
+            ->OfMotel($id)
+            ->ofLimit($limit)
+            ->ofOffset($offset)
+            ->orderBy('add_time', 'desc')->get();
 
         $data = array(
+            'total_pages' => $total_pages,
             'items' => $items->toArray()
         );
         return Response::json($data);

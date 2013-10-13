@@ -166,8 +166,9 @@ define ["jquery",
             "!/room/:action": "room"
             "!/room/:action/:id": "room"
             "!/room/:action/:id/:page": "room"
-            "!/new/:action": "new"
-            "!/new/:action/:id": "new"
+            "!/new/:action": "news"
+            "!/new/:action/:id": "news"
+            "!/new/:action/:id/:page": "news"
             "!/rank/:action": "rank"
             "!/rank/:action/:id": "rank"
             "!/rank/:action/:id/:page": "rank"
@@ -322,7 +323,8 @@ define ["jquery",
                         isAdmin: @me.get 'isAdmin'
                     @view_ranks_list.options.page = @page or 1
                     @rank_model.set_lists_url @motel_id, page: @page
-                    @rank_model.lists.fetch({reset: true})
+                    @rank_model.lists.fetch
+                        reset: true
                 when "add"
                     @update_title "新增評價"
                     @rank_model.clear silent: true
@@ -339,11 +341,12 @@ define ["jquery",
                         success: (model, response, options) ->
                             self.rank_model.trigger 'change' unless self.rank_model.hasChanged 'id'
 
-        new: (action, id) ->
+        news: (action, id, page) ->
             @reset()
             $("#main").html ""
             self = @
-            @motel_id = id || @me.get 'motel_id'
+            @motel_id = +id or @me.get 'motel_id'
+            @page = +page or 1
             return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
 
             switch action
@@ -352,7 +355,7 @@ define ["jquery",
                     @view_news_list.options.data =
                         motel_id: @motel_id
                     @view_news_list.options.page = @page or 1
-                    @new_model.set_lists_url @motel_id
+                    @new_model.set_lists_url @motel_id, page: @page
                     @new_model.lists.fetch
                         reset: true
                 when "add"
