@@ -249,7 +249,7 @@ module.exports = function(grunt) {
     grunt.log.writeln('Initial project');
     return (grunt.file.exists('<%= pkg.app %>/assets/vendor')) || grunt.task.run('bower:install');
   });
-  grunt.registerTask('default', ['init', 'watch']);
+  grunt.registerTask('default', ['init', 'handlebars', 'watch']);
   grunt.registerTask('cleanup', ['clean:cleanup']);
   grunt.registerTask('release', function() {
     grunt.log.writeln('deploy project');

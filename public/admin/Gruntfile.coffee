@@ -210,7 +210,7 @@ module.exports = (grunt) ->
         (grunt.file.exists '<%= pkg.app %>/assets/vendor') || grunt.task.run 'bower:install'
 
     # run local server by grunt-contrib-connect plugin
-    grunt.registerTask 'default', ['init', 'watch']
+    grunt.registerTask 'default', ['init', 'handlebars', 'watch']
     grunt.registerTask 'cleanup', ['clean:cleanup']
     grunt.registerTask 'release', () ->
         grunt.log.writeln 'deploy project'
