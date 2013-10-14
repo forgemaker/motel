@@ -32,6 +32,10 @@ class OrderController extends \BaseController
         $status_id = Input::get('status_id');
         $order = Order::find($id);
 
+        if (!isset($order)) {
+            return Response::json(array('error_text' => '訂單不存在'), 404);
+        }
+
         $order->status_id = $status_id;
         $order->save();
 
@@ -96,6 +100,10 @@ class OrderController extends \BaseController
         }
 
         $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
 
         $item = DB::table('orders')
             ->select(DB::raw('count(*) as count, SUM(rank) as sum'))
@@ -222,14 +230,14 @@ class OrderController extends \BaseController
     {
         $order = Order::find($id);
 
+        if (!isset($order)) {
+            return Response::json(array('error_text' => '訂單不存在'), 404);
+        }
+
         $uid = Input::get('uid', null);
         $rank = intval(Input::get('rank', 1));
         $title = Input::get('title', null);
         $description = Input::get('description', null);
-
-        if (!isset($order)) {
-            return Response::json(array('error_text' => '訂單不存在'), 404);
-        }
 
         // update from mobile phone
         if (!Auth::check()) {
