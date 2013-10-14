@@ -157,7 +157,7 @@ class MotelController extends \BaseController
         $item = Motel::find($id);
 
         if (empty($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
 
         // update views count.
@@ -178,14 +178,18 @@ class MotelController extends \BaseController
      */
     public function edit($id)
     {
-        $item = Motel::find($id)->toArray();
+        $item = Motel::find($id);
 
-        if (!isset($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+        if (empty($item)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
 
+        // update views count.
+        $item->views = $item->views + 1;
+        $item->save();
+
         $data = array(
-            'item' => $item
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }

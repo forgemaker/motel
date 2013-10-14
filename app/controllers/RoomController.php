@@ -171,7 +171,7 @@ class RoomController extends \BaseController
         $item = Room::with('motel')->find($id);
 
         if (!isset($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+            return Response::json(array('error_text' => '房型不存在'), 404);
         }
 
         $data = array(
@@ -188,9 +188,14 @@ class RoomController extends \BaseController
      */
     public function edit($id)
     {
-        $room = Room::find($id)->toArray();
+        $item = Room::with('motel')->find($id);
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '房型不存在'), 404);
+        }
+
         $data = array(
-            'item' => $room
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }

@@ -74,8 +74,15 @@ class NewsController extends \BaseController
      */
     public function store()
     {
+        $motel_id = Input::get('motel_id', 0);
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
         $new = News::create(array(
-            'motel_id' => Input::get('motel_id'),
+            'motel_id' => $motel_id,
             'type' => Input::get('type', 0),
             'title' => Input::get('title'),
             'description' => Input::get('description'),
@@ -101,7 +108,7 @@ class NewsController extends \BaseController
         $item = News::with('motel')->find($id);
 
         if (!isset($item)) {
-            return Response::json(array('error_text' => '404 not found'), 404);
+            return Response::json(array('error_text' => '最新消息不存在'), 404);
         }
 
         $data = array(
@@ -118,9 +125,14 @@ class NewsController extends \BaseController
      */
     public function edit($id)
     {
-        $new = News::find($id)->toArray();
+        $item = News::with('motel')->find($id);
+
+        if (!isset($item)) {
+            return Response::json(array('error_text' => '最新消息不存在'), 404);
+        }
+
         $data = array(
-            'item' => $new
+            'item' => $item->toArray()
         );
         return Response::json($data);
     }
@@ -134,6 +146,10 @@ class NewsController extends \BaseController
     public function update($id)
     {
         $new = News::find($id);
+
+        if (!isset($new)) {
+            return Response::json(array('error_text' => '最新消息不存在'), 404);
+        }
 
         $new->title = Input::get('title');
         $new->type = Input::get('type');
