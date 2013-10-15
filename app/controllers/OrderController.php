@@ -167,9 +167,9 @@ class OrderController extends \BaseController
             'user_name' => Input::get('user_name', null),
             'user_phone' => Input::get('user_phone', null),
             'room_title' => Input::get('room_title', null),
-            'room_type' => Input::get('room_type', null),
+            'room_type' => Input::get('room_type', 1),
             'serial_number' => strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit'),
-            'total_price' => Input::get('total_price', null),
+            'total_price' => Input::get('total_price', 0),
             'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
             'status_id' => (Auth::check()) ? intval(Input::get('status_id', 0)) : 0,
@@ -178,6 +178,7 @@ class OrderController extends \BaseController
         ));
 
         return Response::json(array('success_text' => 'ok'));
+
     }
 
     /**
