@@ -36,6 +36,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '訂單不存在'), 404);
         }
 
+        $order->date_finished = date('Y-m-d H:i:s');
         $order->status_id = $status_id;
         $order->save();
 
