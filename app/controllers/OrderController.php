@@ -162,21 +162,38 @@ class OrderController extends \BaseController
     {
         $motel_id = intval(Input::get('motel_id'));
         $motel = Motel::find($motel_id);
+        $total_price = intval(Input::get('total_price', 0));
+        $room_type = intval(Input::get('room_type', 0));
+        $user_name = Input::get('user_name', null);
+        $user_phone = Input::get('user_phone', null);
+        $room_title = Input::get('room_title', null);
 
         if (!isset($motel)) {
             return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
+        if ($total_price <= 0) {
+            return Response::json(array('error_text' => '你尚未輸入價格'), 401);
+        }
+
+        if ($room_type < 0 or $room_type > 1) {
+            return Response::json(array('error_text' => '房型必須為休息(0)/住宿(1)'), 401);
+        }
+
+        if (empty($user_name) or empty($user_phone) or empty($room_title)) {
+            return Response::json(array('error_text' => '姓名，電話，房型名稱必須填寫'), 401);
         }
 
         $serial_number = strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit');
         $order = Order::create(array(
             'motel_id' => intval(Input::get('motel_id')),
             'uid' => Input::get('uid'),
-            'user_name' => Input::get('user_name', null),
-            'user_phone' => Input::get('user_phone', null),
-            'room_title' => Input::get('room_title', null),
-            'room_type' => Input::get('room_type', 1),
+            'user_name' => $user_name,
+            'user_phone' => $user_phone,
+            'room_title' => $room_title,
+            'room_type' => $room_type,
             'serial_number' => $serial_number,
-            'total_price' => Input::get('total_price', 0),
+            'total_price' => $total_price,
             'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
             'status_id' => (Auth::check()) ? intval(Input::get('status_id', 0)) : 0,
