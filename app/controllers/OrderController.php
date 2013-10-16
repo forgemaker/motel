@@ -162,6 +162,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
 
+        $serial_number = strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit');
         $order = Order::create(array(
             'motel_id' => intval(Input::get('motel_id')),
             'uid' => Input::get('uid'),
@@ -169,7 +170,7 @@ class OrderController extends \BaseController
             'user_phone' => Input::get('user_phone', null),
             'room_title' => Input::get('room_title', null),
             'room_type' => Input::get('room_type', 1),
-            'serial_number' => strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit'),
+            'serial_number' => $serial_number,
             'total_price' => Input::get('total_price', 0),
             'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
             'date_finished' => Input::get('date_finished', null),
@@ -178,7 +179,13 @@ class OrderController extends \BaseController
             'edit_time' => time()
         ));
 
-        return Response::json(array('success_text' => 'ok'));
+        $data = array(
+            'success_text' => 'ok',
+            'serial_number' => $serial_number,
+            'id' => $order->id
+        );
+
+        return Response::json($data);
 
     }
 
