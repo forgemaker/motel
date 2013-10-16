@@ -59,9 +59,13 @@ class OrderController extends \BaseController
         $sort = Input::get('sort', 'desc');
         $page = Input::get('page', 1);
         $uid = Input::get('uid', null);
+        $status_id = Input::get('status_id', null);
 
         // get total count
-        $total_counts = Order::OfMotel($id)->OfUid($uid)->count();
+        $total_counts = Order::OfMotel($id)
+            ->OfUid($uid)
+            ->OfStatus($status_id)
+            ->count();
         $total_pages = ceil($total_counts/$limit);
 
         if ($page > 1) {
@@ -72,6 +76,7 @@ class OrderController extends \BaseController
             ->OfMotel($id)
             ->leftJoin('motels', 'orders.motel_id', '=', 'motels.id')
             ->OfUid($uid)
+            ->OfStatus($status_id)
             ->ofLimit($limit)
             ->ofOffset($offset)
             ->ofOrderBy($field, $sort)

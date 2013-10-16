@@ -44,6 +44,15 @@ class Order extends Eloquent
         return $query->skip(intval($offset));
     }
 
+    public function scopeOfStatus($query, $status_id = null)
+    {
+        if (!isset($status_id)) {
+            return $query;
+        }
+
+        return $query->where('status_id', $status_id);
+    }
+
     public function scopeOfUid($query, $uid = null)
     {
         if (!isset($uid)) {
