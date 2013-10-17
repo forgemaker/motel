@@ -29,7 +29,7 @@
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th>Motel</th>
+                <th>所屬摩鐵</th>
                 <th>名字</th>
                 <th>姓氏</th>
                 <th>帳號</th>
@@ -42,7 +42,7 @@
         {{#items}}
         <tr>
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
-            <td><a href='#!/motel/edit/{{motel_id}}'>{{motel_id}}</a></td>
+            <td><a href='#!/motel/edit/{{motel_id}}'>{{motel_title}}</a></td>
             <td>{{first_name}}</td>
             <td>{{last_name}}</td>
             <td>{{username}}</td>
