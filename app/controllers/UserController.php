@@ -43,7 +43,9 @@ class UserController extends \BaseController
         }
 
         // get user list
-        $items = User::ofLimit($limit)
+        $items = User::select(DB::raw('users.*, motels.title as motel_title'))
+            ->leftJoin('motels', 'users.motel_id', '=', 'motels.id')
+            ->ofLimit($limit)
             ->ofOffset($offset)
             ->ofOrderBy($field, $sort)
             ->get();
