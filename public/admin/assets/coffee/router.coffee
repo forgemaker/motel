@@ -492,6 +492,8 @@ define ["jquery",
                 when "edit"
                     return @redirect_url.error '尚未找到 Motel 相關資料', '#!/user/edit' if not @motel_id?
                     @update_title "修改摩鐵"
+                    @motel_model.options =
+                        isAdmin: @me.get 'isAdmin'
                     @motel_model.clear silent: true
                     @view_motel_edit.options.data =
                         isAdmin: @me.get 'isAdmin'

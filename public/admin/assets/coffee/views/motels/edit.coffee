@@ -36,7 +36,6 @@ define ["jquery", "underscore", "backbone", "alertify", "views/view", 'config'],
             @model.save form_info,
                 success: (model, response, options) ->
                     alertify.success message + "成功"
-                    window.location = "#!/motel/list"
             this
 
         render: () ->

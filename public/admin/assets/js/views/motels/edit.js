@@ -38,8 +38,7 @@ define(["jquery", "underscore", "backbone", "alertify", "views/view", 'config'],
       });
       this.model.save(form_info, {
         success: function(model, response, options) {
-          alertify.success(message + "成功");
-          return window.location = "#!/motel/list";
+          return alertify.success(message + "成功");
         }
       });
       return this;

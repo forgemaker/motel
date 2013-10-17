@@ -9,9 +9,31 @@ define(["jquery", "underscore", "backbone", "collections/motels", "config", "ale
       });
     },
     validate: function(attributes) {
+      var self;
+      self = this;
       if (attributes.title === '') {
         $('input[name="title"]').parent().addClass("has-error");
         return "名稱不能空白";
+      }
+      if (attributes.longitude === '' || attributes.latitude === '') {
+        return "請點選轉換經座標按鈕";
+      }
+      if (self.options.isAdmin) {
+        if (attributes.contract_start === '') {
+          $('input[name="contract_start"]').parent().addClass("has-error");
+          $('input[name="contract_start"]').focus();
+          return "合約開始時間不能空白";
+        }
+        if (attributes.contract_end === '') {
+          $('input[name="contract_end"]').parent().addClass("has-error");
+          $('input[name="contract_end"]').focus();
+          return "合約結束時間不能空白";
+        }
+        if (attributes.contract_start >= attributes.contract_end) {
+          $('input[name="contract_start"]').parent().addClass("has-error");
+          $('input[name="contract_start"]').focus();
+          return "合約開始時間不能大於合約結束時間";
+        }
       }
     },
     set_params: function(params) {

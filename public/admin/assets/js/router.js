@@ -598,6 +598,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             return this.redirect_url.error('尚未找到 Motel 相關資料', '#!/user/edit');
           }
           this.update_title("修改摩鐵");
+          this.motel_model.options = {
+            isAdmin: this.me.get('isAdmin')
+          };
           this.motel_model.clear({
             silent: true
           });

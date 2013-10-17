@@ -9,9 +9,25 @@ define ["jquery", "underscore", "backbone", "collections/motels", "config", "ale
                 alertify.error error
 
         validate: (attributes) ->
+            self = @
             if attributes.title is ''
                 $('input[name="title"]').parent().addClass "has-error"
                 return "名稱不能空白"
+            if attributes.longitude is '' or attributes.latitude is ''
+                return "請點選轉換經座標按鈕"
+            if (self.options.isAdmin)
+                if attributes.contract_start is ''
+                    $('input[name="contract_start"]').parent().addClass "has-error"
+                    $('input[name="contract_start"]').focus()
+                    return "合約開始時間不能空白"
+                if attributes.contract_end is ''
+                    $('input[name="contract_end"]').parent().addClass "has-error"
+                    $('input[name="contract_end"]').focus()
+                    return "合約結束時間不能空白"
+                if attributes.contract_start >= attributes.contract_end
+                    $('input[name="contract_start"]').parent().addClass "has-error"
+                    $('input[name="contract_start"]').focus()
+                    return "合約開始時間不能大於合約結束時間"
 
         set_params: (params) ->
             @lists.url = Config.API.Motel + "?" + $.param(params)
