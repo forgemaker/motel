@@ -80,6 +80,16 @@ class UserController extends \BaseController
             $user_group[] = $this->group[$row['group_id']];
         }
 
+        // check user contract
+        if (!in_array('Admin', $user_group)) {
+            $motel = Motel::find($user->motel_id);
+            $now = date('Y-m-d');
+            if ($now < $motel->contract_start or $now > $motel->contract_end) {
+                Auth::logout();
+                return Response::json(array('error_text' => '帳戶已經過期，請聯絡管理者'), 401);
+            }
+        }
+
         // update user last login time
         $user->last_login = time();
         $user->save();
