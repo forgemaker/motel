@@ -272,6 +272,10 @@ class OrderController extends \BaseController
 
         // update from mobile phone
         if (!Auth::check()) {
+            if ($order->rank >= 1 and $order->rank <=5) {
+                return Response::json(array('error_text' => '您已經評價過了'), 401);
+            }
+
             if ($order->status_id == "0" or $order->status_id == "2") {
                 return Response::json(array('error_text' => '此訂單尚未完成或被取消'), 401);
             }
