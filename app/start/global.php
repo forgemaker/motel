@@ -80,4 +80,6 @@ App::down(function()
 |
 */
 
+date_default_timezone_set("Asia/Taipei");
+
 require app_path().'/filters.php';
