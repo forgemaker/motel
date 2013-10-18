@@ -273,18 +273,38 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
-          this.update_title("訂單列表");
-          this.view_orders_list.options.data = {
-            motel_id: this.motel_id,
-            isAdmin: this.me.get('isAdmin')
-          };
-          this.view_orders_list.options.page = this.page || 1;
-          this.order_model.set_lists_url(this.motel_id, {
-            page: this.page
-          });
-          return this.order_model.lists.fetch({
-            reset: true
-          });
+          if (id === "all") {
+            if (this.auth_check()) {
+              return;
+            }
+            this.update_title("全部訂單列表");
+            this.view_orders_list.options.data = {
+              motel_id: 'all',
+              isAdmin: this.me.get('isAdmin'),
+              hideButton: true
+            };
+            this.view_orders_list.options.page = this.page || 1;
+            this.order_model.set_lists_url('all', {
+              page: this.page
+            });
+            return this.order_model.lists.fetch({
+              reset: true
+            });
+          } else {
+            this.update_title("訂單列表");
+            this.view_orders_list.options.data = {
+              motel_id: this.motel_id,
+              isAdmin: this.me.get('isAdmin')
+            };
+            this.view_orders_list.options.page = this.page || 1;
+            this.order_model.set_lists_url(this.motel_id, {
+              page: this.page
+            });
+            return this.order_model.lists.fetch({
+              reset: true
+            });
+          }
+          break;
         case "add":
           this.update_title("新增訂單");
           this.order_model.clear({
@@ -324,18 +344,38 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
-          this.update_title("評價列表");
-          this.view_ranks_list.options.data = {
-            motel_id: this.motel_id,
-            isAdmin: this.me.get('isAdmin')
-          };
-          this.view_ranks_list.options.page = this.page || 1;
-          this.rank_model.set_lists_url(this.motel_id, {
-            page: this.page
-          });
-          return this.rank_model.lists.fetch({
-            reset: true
-          });
+          if (id === "all") {
+            if (this.auth_check()) {
+              return;
+            }
+            this.update_title("全部評價列表");
+            this.view_ranks_list.options.data = {
+              motel_id: 'all',
+              isAdmin: this.me.get('isAdmin'),
+              hideButton: true
+            };
+            this.view_ranks_list.options.page = this.page || 1;
+            this.rank_model.set_lists_url('all', {
+              page: this.page
+            });
+            return this.rank_model.lists.fetch({
+              reset: true
+            });
+          } else {
+            this.update_title("評價列表");
+            this.view_ranks_list.options.data = {
+              motel_id: this.motel_id,
+              isAdmin: this.me.get('isAdmin')
+            };
+            this.view_ranks_list.options.page = this.page || 1;
+            this.rank_model.set_lists_url(this.motel_id, {
+              page: this.page
+            });
+            return this.rank_model.lists.fetch({
+              reset: true
+            });
+          }
+          break;
         case "add":
           this.update_title("新增評價");
           this.rank_model.clear({
@@ -375,17 +415,37 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
-          this.update_title("優惠列表");
-          this.view_news_list.options.data = {
-            motel_id: this.motel_id
-          };
-          this.view_news_list.options.page = this.page || 1;
-          this.new_model.set_lists_url(this.motel_id, {
-            page: this.page
-          });
-          return this.new_model.lists.fetch({
-            reset: true
-          });
+          if (id === "all") {
+            if (this.auth_check()) {
+              return;
+            }
+            this.update_title("全部優惠列表");
+            this.view_news_list.options.data = {
+              motel_id: 'all',
+              isAdmin: this.me.get('isAdmin'),
+              hideButton: true
+            };
+            this.view_news_list.options.page = this.page || 1;
+            this.new_model.set_lists_url('all', {
+              page: this.page
+            });
+            return this.new_model.lists.fetch({
+              reset: true
+            });
+          } else {
+            this.update_title("優惠列表");
+            this.view_news_list.options.data = {
+              motel_id: this.motel_id
+            };
+            this.view_news_list.options.page = this.page || 1;
+            this.new_model.set_lists_url(this.motel_id, {
+              page: this.page
+            });
+            return this.new_model.lists.fetch({
+              reset: true
+            });
+          }
+          break;
         case "add":
           this.update_title("新增優惠消息");
           this.view_new_edit.options.data = {
@@ -431,7 +491,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             }
             this.update_title("全部房型列表");
             this.view_rooms_list.options.data = {
-              motel_id: this.me.get('motel_id'),
+              motel_id: 'all',
               isAdmin: this.me.get('isAdmin'),
               hideEnable: true,
               room_id: id

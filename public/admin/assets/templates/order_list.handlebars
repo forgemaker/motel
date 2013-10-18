@@ -3,7 +3,9 @@
     <div class="menu">
         {{#isAdmin}}
         <a class="btn btn-primary check_all" data-model="order" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
+        {{^hideButton}}
         <a class="btn btn-primary" data-model="order" href="#!/order/add/{{motel_id}}" style="color: white;"><i class="icon-edit"></i> 新增訂單</a>
+        {{/hideButton}}
         <a class="btn btn-danger delete_all" data-form="#order_list_form" data-model="order" style="color: white;"><i class="icon-trash"></i> 刪除訂單</a>
         {{/isAdmin}}
     </div>
@@ -33,6 +35,9 @@
                 {{#isAdmin}}
                 <th>&nbsp;</th>
                 {{/isAdmin}}
+                {{#isAdmin}}
+                <th>摩鐵名稱</th>
+                {{/isAdmin}}
                 <th>訂單編號</th>
                 <th>房型</th>
                 <th>休息/住宿</th>
@@ -48,6 +53,9 @@
         <tr>
             {{#../isAdmin}}
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
+            {{/../isAdmin}}
+            {{#../isAdmin}}
+            <td><a href="#!/motel/edit/{{motel_id}}">{{motel_title}}</a></td>
             {{/../isAdmin}}
             <td>{{serial_number}}</td>
             <td>{{room_title}}</td>

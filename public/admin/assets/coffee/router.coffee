@@ -283,14 +283,28 @@ define ["jquery",
 
             switch action
                 when "list"
-                    @update_title "訂單列表"
-                    @view_orders_list.options.data =
-                        motel_id: @motel_id
-                        isAdmin: @me.get 'isAdmin'
-                    @view_orders_list.options.page = @page or 1
-                    @order_model.set_lists_url @motel_id, page: @page
-                    @order_model.lists.fetch
-                        reset: true
+                    if id is "all"
+                        return if @auth_check()
+                        @update_title "全部訂單列表"
+                        @view_orders_list.options.data =
+                            motel_id: 'all'
+                            isAdmin: @me.get 'isAdmin'
+                            hideButton: true
+
+                        @view_orders_list.options.page = @page or 1
+                        @order_model.set_lists_url 'all', page: @page
+                        @order_model.lists.fetch
+                            reset: true
+                    else
+                        @update_title "訂單列表"
+                        @view_orders_list.options.data =
+                            motel_id: @motel_id
+                            isAdmin: @me.get 'isAdmin'
+
+                        @view_orders_list.options.page = @page or 1
+                        @order_model.set_lists_url @motel_id, page: @page
+                        @order_model.lists.fetch
+                            reset: true
                 when "add"
                     @update_title "新增訂單"
                     @order_model.clear silent: true
@@ -317,14 +331,27 @@ define ["jquery",
 
             switch action
                 when "list"
-                    @update_title "評價列表"
-                    @view_ranks_list.options.data =
-                        motel_id: @motel_id
-                        isAdmin: @me.get 'isAdmin'
-                    @view_ranks_list.options.page = @page or 1
-                    @rank_model.set_lists_url @motel_id, page: @page
-                    @rank_model.lists.fetch
-                        reset: true
+                    if id is "all"
+                        return if @auth_check()
+                        @update_title "全部評價列表"
+                        @view_ranks_list.options.data =
+                            motel_id: 'all'
+                            isAdmin: @me.get 'isAdmin'
+                            hideButton: true
+
+                        @view_ranks_list.options.page = @page or 1
+                        @rank_model.set_lists_url 'all', page: @page
+                        return @rank_model.lists.fetch
+                            reset: true
+                    else
+                        @update_title "評價列表"
+                        @view_ranks_list.options.data =
+                            motel_id: @motel_id
+                            isAdmin: @me.get 'isAdmin'
+                        @view_ranks_list.options.page = @page or 1
+                        @rank_model.set_lists_url @motel_id, page: @page
+                        @rank_model.lists.fetch
+                            reset: true
                 when "add"
                     @update_title "新增評價"
                     @rank_model.clear silent: true
@@ -351,13 +378,26 @@ define ["jquery",
 
             switch action
                 when "list"
-                    @update_title "優惠列表"
-                    @view_news_list.options.data =
-                        motel_id: @motel_id
-                    @view_news_list.options.page = @page or 1
-                    @new_model.set_lists_url @motel_id, page: @page
-                    @new_model.lists.fetch
-                        reset: true
+                    if id is "all"
+                        return if @auth_check()
+                        @update_title "全部優惠列表"
+                        @view_news_list.options.data =
+                            motel_id: 'all'
+                            isAdmin: @me.get 'isAdmin'
+                            hideButton: true
+
+                        @view_news_list.options.page = @page or 1
+                        @new_model.set_lists_url 'all', page: @page
+                        @new_model.lists.fetch
+                            reset: true
+                    else
+                        @update_title "優惠列表"
+                        @view_news_list.options.data =
+                            motel_id: @motel_id
+                        @view_news_list.options.page = @page or 1
+                        @new_model.set_lists_url @motel_id, page: @page
+                        @new_model.lists.fetch
+                            reset: true
                 when "add"
                     @update_title "新增優惠消息"
                     @view_new_edit.options.data =
@@ -387,7 +427,7 @@ define ["jquery",
                         return if @auth_check()
                         @update_title "全部房型列表"
                         @view_rooms_list.options.data =
-                            motel_id: @me.get 'motel_id'
+                            motel_id: 'all'
                             isAdmin: @me.get 'isAdmin'
                             hideEnable: true
                             room_id: id

@@ -35,6 +35,9 @@
                 {{#isAdmin}}
                 <th>&nbsp;</th>
                 {{/isAdmin}}
+                {{#isAdmin}}
+                <th>摩鐵名稱</th>
+                {{/isAdmin}}
                 <th>訂單編號</th>
                 <th>姓名</th>
                 <th>聯絡電話</th>
@@ -52,6 +55,9 @@
         <tr>
             {{#../isAdmin}}
             <td><input type="checkbox" name="id[]" value="{{id}}"></td>
+            {{/../isAdmin}}
+            {{#../isAdmin}}
+            <td><a href="#!/motel/edit/{{motel_id}}">{{motel_title}}</a></td>
             {{/../isAdmin}}
             <td>{{serial_number}}</td>
             <td>{{user_name}}</td>

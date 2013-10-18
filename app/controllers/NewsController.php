@@ -43,7 +43,8 @@ class NewsController extends \BaseController
             $offset = ($page - 1) * $limit;
         }
 
-        $items = News::with('motel')
+        $items = News::select(DB::raw('news.*, motels.title as motel_title'))
+            ->leftJoin('motels', 'news.motel_id', '=', 'motels.id')
             ->ofType($type)
             ->OfMotel($id)
             ->ofLimit($limit)
