@@ -184,7 +184,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '姓名，電話，房型名稱必須填寫'), 401);
         }
 
-        $serial_number = strtoupper($this->generate_code('1', 'word')) . $this->generate_code('10', 'digit');
+        $serial_number = strtoupper($this->generate_code('1', 'word')) . $this->generate_code('4', 'digit');
         $order = Order::create(array(
             'motel_id' => intval(Input::get('motel_id')),
             'uid' => Input::get('uid'),
