@@ -71,11 +71,12 @@ class RoomController extends \BaseController
             ->ofLimit(1)
             ->get();
 
-        if (empty($room->toArray())) {
+        $item = $room->toArray();
+        if (empty($item)) {
             return Response::json(array('error_text' => '目前無任何空房'), 401);
         }
 
-        return Response::json(array('success_text' => 'ok', 'item' => $room->toArray()[0]));
+        return Response::json(array('success_text' => 'ok', 'item' => $item[0]));
     }
 
     /**
