@@ -49,6 +49,40 @@ class RoomController extends \BaseController
      *
      * @return Response
      */
+    public function quick($id = null)
+    {
+        $type = Input::get('type', 0);
+
+        $motel = Motel::find($id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
+        if ($type == 0) {
+            $field = 'price_2';
+        } else {
+            $field = 'price_3';
+        }
+
+        $room = Room::OfMotel($id)
+            ->OfActive(1)
+            ->ofOrderBy($field, 'asc')
+            ->ofLimit(1)
+            ->get();
+
+        if (empty($room->toArray())) {
+            return Response::json(array('error_text' => '目前無任何空房'), 401);
+        }
+
+        return Response::json(array('success_text' => 'ok', 'item' => $room->toArray()[0]));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function sublist($id = null)
     {
         $type = Input::get('type', null);

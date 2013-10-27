@@ -19,6 +19,7 @@ Route::get('user/CurrentData', 'UserController@showProfile');
 Route::post('user/login', 'UserController@login');
 Route::get('user/logout', 'UserController@logout');
 Route::post('motel/upload', 'MotelController@upload');
+Route::get('room/quick/{id}', 'RoomController@quick');
 Route::get('room/list/{id?}', 'RoomController@sublist');
 Route::get('new/list/{id?}', 'NewsController@sublist');
 Route::get('rank/list/{id?}', 'RankController@sublist');
