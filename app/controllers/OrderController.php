@@ -28,12 +28,44 @@ class OrderController extends \BaseController
      */
     public function action()
     {
+        // 1: 進房完成
+        // 2: 取消訂單
+        $default_action = array('1', '2');
+
         $id = Input::get('id');
+        $uid = Input::get('uid', null);
+        $serial_number = Input::get('serial_number', null);
         $status_id = Input::get('status_id');
         $order = Order::find($id);
 
         if (!isset($order)) {
             return Response::json(array('error_text' => '訂單不存在'), 404);
+        }
+
+        if ($order->status_id != 0) {
+            return Response::json(array('error_text' => '此訂單以完成或取消'), 200);
+        }
+
+        if (!in_array($status_id, $default_action)) {
+            return Response::json(array('error_text' => '訂單狀態錯誤'), 401);
+        }
+
+        // login user
+        if (!in_array('Admin', Session::get('user_groups')) and Auth::check()) {
+            if ($order->motel_id != Session::get('motel_id')) {
+                return Response::json(array('error_text' => '您並非管理者'), 401);
+            }
+        }
+
+        // Anonymous user
+        if (!Auth::check()) {
+            if ($status_id != '2') {
+                return Response::json(array('error_text' => '你尚未有此權限'), 401);
+            }
+
+            if ($uid != $order->uid or $serial_number != $order->serial_number) {
+                return Response::json(array('error_text' => '您並非此訂單客戶'), 401);
+            }
         }
 
         $order->date_finished = date('Y-m-d H:i:s');
@@ -184,7 +216,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '姓名，電話，房型名稱必須填寫'), 401);
         }
 
-        $serial_number = strtoupper($this->generate_code('1', 'word')) . $this->generate_code('4', 'digit');
+        $serial_number = strtoupper($this->generate_code('5'));
         $order = Order::create(array(
             'motel_id' => intval(Input::get('motel_id')),
             'uid' => Input::get('uid'),
