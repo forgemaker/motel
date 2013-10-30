@@ -193,15 +193,26 @@ class OrderController extends \BaseController
     public function store()
     {
         $motel_id = intval(Input::get('motel_id'));
-        $motel = Motel::find($motel_id);
+        $room_id = intval(Input::get('room_id'));
+        $is_weekend = intval(Input::get('is_weekend', 0));
         $total_price = intval(Input::get('total_price', 0));
         $room_type = intval(Input::get('room_type', 0));
         $user_name = Input::get('user_name', null);
         $user_phone = Input::get('user_phone', null);
-        $room_title = Input::get('room_title', null);
+        $uid = Input::get('uid', null);
+        $motel = Motel::find($motel_id);
+        $room = Room::find($room_id);
+
+        if (!isset($uid)) {
+            return Response::json(array('error_text' => '手機號碼不存在'), 404);
+        }
 
         if (!isset($motel)) {
             return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
+        if (!isset($room)) {
+            return Response::json(array('error_text' => '房型不存在'), 404);
         }
 
         if ($total_price <= 0) {
@@ -212,21 +223,46 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '房型必須為休息(0)/住宿(1)'), 401);
         }
 
-        if (empty($user_name) or empty($user_phone) or empty($room_title)) {
-            return Response::json(array('error_text' => '姓名，電話，房型名稱必須填寫'), 401);
+        if (empty($user_name) or empty($user_phone)) {
+            return Response::json(array('error_text' => '姓名，電話必須填寫'), 401);
         }
 
-        $serial_number = strtoupper($this->generate_code('5'));
+        if ($motel_id != $room->motel_id) {
+            return Response::json(array('error_text' => '房型不在摩鐵清單內'), 401);
+        }
+
+        if ($room->active == '0') {
+            return Response::json(array('error_text' => '房型關閉中'), 401);
+        }
+
+        $now = date('Y-m-d H:i:s');
+        if ($room->type == '0') {
+            $enter_time = date('Y-m-d H:i:s', strtotime("+1 hour"));
+        } else {
+            if ($is_weekend == 0) {
+                $enter_time = date('Y-m-d') . ' ' . $motel->stay_time_1;
+            } else {
+                $enter_time = date('Y-m-d') . ' ' . $motel->stay_time_2;
+            }
+
+        }
+        //echo $enter_time;
+        $serial_number = strtoupper($this->generate_code('6'));
         $order = Order::create(array(
-            'motel_id' => intval(Input::get('motel_id')),
+            'motel_id' => $motel_id,
+            'room_id' => $room_id,
+            'is_weekend' => $is_weekend,
             'uid' => Input::get('uid'),
             'user_name' => $user_name,
             'user_phone' => $user_phone,
-            'room_title' => $room_title,
-            'room_type' => $room_type,
+            'room_title' => $room->title,
+            'room_type' => $room->type,
             'serial_number' => $serial_number,
             'total_price' => $total_price,
-            'date_purchased' => Input::get('date_purchased', date('Y-m-d H:i:s')),
+            'enter_time' => $enter_time,
+            'motel_data' => json_encode($motel->toArray()),
+            'room_data' => json_encode($room->toArray()),
+            'date_purchased' => Input::get('date_purchased', $now),
             'date_finished' => Input::get('date_finished', null),
             'status_id' => (Auth::check()) ? intval(Input::get('status_id', 0)) : 0,
             'add_time' => time(),
