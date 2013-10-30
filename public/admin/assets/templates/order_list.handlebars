@@ -42,7 +42,7 @@
                 <th>房型</th>
                 <th>休息/住宿</th>
                 <th>下單時間</th>
-                <th>付款完成</th>
+                <th>進房時間</th>
                 <th>應收金額</th>
                 <th>狀態</th>
                 <th>動作</th>
@@ -61,7 +61,7 @@
             <td>{{room_title}}</td>
             <td>{{#ifeq room_type '1'}}<span class="label label-warning" style="font-size: 14px">住宿</span>{{/ifeq}}{{#ifeq room_type '0'}}<span class="label label-info" style="font-size: 14px">休息</span>{{/ifeq}}</td>
             <td>{{date_purchased}}</td>
-            <td>{{date_finished}}</td>
+            <td>{{enter_time}}</td>
             <td>{{total_price}}</td>
             <td>{{status}}</td>
             <td>

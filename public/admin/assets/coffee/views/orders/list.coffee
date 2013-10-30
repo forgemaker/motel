@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Backbone, View, Config) ->
+define ["jquery", "underscore", "backbone", "views/view", "config", "moment"], ($, _, Backbone, View, Config, moment) ->
     View.extend
         events: _.extend(
             "click .search_user": "search"
