@@ -18,6 +18,10 @@ define ["jquery", "underscore", "backbone", "collections/news", "config", "alert
             if attributes.end_time is ''
                 $("input[name=end_time]").parent().addClass "has-error"
                 return '結束日期必須填寫'
+            if attributes.start_time >= attributes.end_time
+                $('input[name="start_time"]').parent().addClass "has-error"
+                $('input[name="start_time"]').focus()
+                return "起始時間不能大於結束時間"
 
         set_lists_url: (motel_id, params) ->
             query_string = if (params) then $.param(params) else ''

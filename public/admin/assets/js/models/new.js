@@ -21,6 +21,11 @@ define(["jquery", "underscore", "backbone", "collections/news", "config", "alert
         $("input[name=end_time]").parent().addClass("has-error");
         return '結束日期必須填寫';
       }
+      if (attributes.start_time >= attributes.end_time) {
+        $('input[name="start_time"]').parent().addClass("has-error");
+        $('input[name="start_time"]').focus();
+        return "起始時間不能大於結束時間";
+      }
     },
     set_lists_url: function(motel_id, params) {
       var query_string;
