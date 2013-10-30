@@ -70,4 +70,13 @@ class Room extends Eloquent
 
         return $query->where('motel_id', intval($motel_id));
     }
+
+    public function scopeOfMotelIn($query, $motel_id = null)
+    {
+        if (!isset($motel_id) or empty($motel_id) or !is_array($motel_id)) {
+            return $query;
+        }
+
+        return $query->whereIn('motel_id', $motel_id);
+    }
 }

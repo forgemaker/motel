@@ -63,9 +63,34 @@ class MotelController extends \BaseController
             ->ofOrderBy($field, $sort, $type)
             ->get();
 
+        $motel_id = $motels = $rooms = array();
+        foreach ($items->toArray() as $row) {
+            array_push($motel_id, $row['id']);
+        }
+
+        if (!empty($motel_id)) {
+            $rooms = Room::OfMotelIn($motel_id)
+                ->OfActive(1)
+                ->ofOrderBy('price_2', 'asc')
+                ->groupBy('motel_id')
+                ->get();
+            foreach ($rooms->toArray() as $row) {
+                $rooms[$row['motel_id']] = $row;
+            }
+        }
+
+        foreach ($items->toArray() as $row) {
+            $row['room'] = array();
+            if (isset($rooms[$row['id']])) {
+                $row['room'] = $rooms[$row['id']];
+            }
+
+            $motels[] = $row;
+        }
+
         $data = array(
             'total_pages' => $total_pages,
-            'items' => $items->toArray()
+            'items' => $motels
         );
 
         return Response::json($data);
