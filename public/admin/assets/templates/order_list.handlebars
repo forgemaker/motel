@@ -66,8 +66,8 @@
             <td>{{status}}</td>
             <td>
                 {{#action}}
-                <a class="btn btn-warning action" data-status="1" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 進房完成</a>
-                <a class="btn btn-warning action" data-status="2" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 訂單取消</a>
+                <a class="btn btn-success action" data-status="1" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 完成</a>
+                <a class="btn btn-warning action" data-status="2" data-model="order" data-id="{{id}}" href="#" style="color: white;"><i class="icon-edit"></i> 取消</a>
                 {{/action}}
                 {{#../isAdmin}}
                 <a class="btn btn-primary" data-model="order" data-id="{{id}}" href="#!/order/edit/{{id}}" style="color: white;"><i class="icon-edit"></i> 編輯</a>&nbsp;
