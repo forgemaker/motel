@@ -29,6 +29,7 @@ class NewsController extends \BaseController
     public function sublist($id = null)
     {
         $type = Input::get('type', null);
+        $outdate = Input::get('outdate', null);
         $offset = Input::get('offset', $this->offset);
         $limit = Input::get('limit', $this->limit);
         $field = Input::get('field', 'add_time');
@@ -46,6 +47,7 @@ class NewsController extends \BaseController
         $items = News::select(DB::raw('news.*, motels.title as motel_title'))
             ->leftJoin('motels', 'news.motel_id', '=', 'motels.id')
             ->ofType($type)
+            ->OfOutdate($outdate)
             ->OfMotel($id)
             ->ofLimit($limit)
             ->ofOffset($offset)

@@ -55,4 +55,14 @@ class News extends Eloquent
 
         return $query->where('motel_id', intval($motel_id));
     }
+
+    public function scopeOfOutdate($query, $outdate = null)
+    {
+        if (!isset($outdate)) {
+            return $query;
+        }
+
+        $date = date('Y-m-d');
+        return $query->where('start_time', '<=', $date)->where('end_time', '>=', $date);
+    }
 }
