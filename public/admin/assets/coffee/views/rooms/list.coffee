@@ -2,7 +2,22 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
     View.extend
         events: _.extend(
             'click .enable': 'active'
+            'click .active': 'set_weekend'
         , View::events)
+
+        set_weekend: (e) ->
+            e.preventDefault()
+            self = this
+            is_weekend = $(e.currentTarget).data 'is_weekend'
+            motel_id = $(e.currentTarget).data 'motel_id'
+            api_url = Config.API.Motel + '/enable'
+            RT.API.POST api_url,
+                is_weekend: is_weekend
+                motel_id: motel_id
+                , (response) ->
+                    if response.success_text
+                        self.collection.fetch
+                            reset: true
 
         active: (e) ->
             e.preventDefault()
@@ -36,11 +51,14 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
             parent_view = this
             data = @options.data or {}
             data.items = []
+            data.is_weekend = if (@collection.is_weekend) then true else false
+            data.motel_id = @collection.motel_id
             $(parent_view.el).empty()
             @collection.each (item) ->
                 data.items.push item.attributes
 
             $.extend data, @handle_page()
+            console.log data
             $(parent_view.el).hide().html(Handlebars.templates.room_list(data)).fadeIn "slow"
             RT.update_table()
             this

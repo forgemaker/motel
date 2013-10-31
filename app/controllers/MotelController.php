@@ -6,6 +6,36 @@ class MotelController extends \BaseController
     public $offset = 0;
 
     /**
+     * Enable or disable weekend mode.
+     *
+     * @return Response
+     */
+    public function enable()
+    {
+        $is_weekend = Input::get('is_weekend', 0);
+        $id = Input::get('motel_id', null);
+
+        $motel = Motel::find($id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
+        if ($id != Session::get('motel_id')) {
+            return Response::json(array('error_text' => '您並非管理者'), 401);
+        }
+
+        $affectedRows = Motel::where('id', $id)->update(array('is_weekend' => $is_weekend));
+
+        $data = array(
+            'success_text' => 'ok',
+            'affectedRows' => $affectedRows
+        );
+
+        return Response::json($data);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

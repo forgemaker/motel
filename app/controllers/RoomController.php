@@ -112,8 +112,18 @@ class RoomController extends \BaseController
             ->ofOrderBy($field, $sort)
             ->get();
 
+        $is_weekend = 0;
+        if (isset($id)) {
+            $motel = Motel::find($id);
+            if (isset($motel)) {
+                $is_weekend = $motel->is_weekend;
+            }
+        }
+
         $data = array(
             'total_pages' => $total_pages,
+            'motel_id' => $id,
+            'is_weekend' => $is_weekend,
             'items' => $items->toArray()
         );
         return Response::json($data);

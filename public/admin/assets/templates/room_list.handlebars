@@ -1,6 +1,7 @@
 <article class="module width_full">
 <div style="width:98%;margin:0 auto;">
     <div class="menu">
+        {{#is_weekend}}<a class="btn btn-danger active" data-is_weekend="0" data-motel_id="{{motel_id}}" style="color: white;"><i class="glyphicon glyphicon-remove"></i> 停用假日模式</a>{{/is_weekend}}{{^is_weekend}}<a class="btn btn-success active" data-is_weekend="1" data-motel_id="{{motel_id}}" data-model="room" style="color: white;"><i class="icon-ok"></i> 啟用假日模式</a>{{/is_weekend}}
         <a class="btn btn-primary check_all" data-model="room" style="color: white;"><i class="icon-ok"></i> 全選列表</a>
         {{^hideEnable}}
         <a class="btn btn-warning enable" data-active="1" data-motel_id="{{motel_id}}" data-model="room"><i class="icon-unlock"></i> 全部啟用</a>
