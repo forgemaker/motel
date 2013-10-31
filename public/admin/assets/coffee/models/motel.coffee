@@ -15,6 +15,8 @@ define ["jquery", "underscore", "backbone", "collections/motels", "config", "ale
                 return "名稱不能空白"
             if attributes.longitude is '' or attributes.latitude is ''
                 return "請點選轉換經座標按鈕"
+            if attributes.stay_time_1 is '' or attributes.stay_time_2 is ''
+                return "住宿進房時間必須填寫"
             if (self.options.isAdmin)
                 if attributes.contract_start is ''
                     $('input[name="contract_start"]').parent().addClass "has-error"
