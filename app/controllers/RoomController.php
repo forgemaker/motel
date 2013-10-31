@@ -31,6 +31,16 @@ class RoomController extends \BaseController
         $active = Input::get('active');
         $id = Input::get('id', null);
 
+        $motel = Motel::find($motel_id);
+
+        if (!isset($motel)) {
+            return Response::json(array('error_text' => '摩鐵不存在'), 404);
+        }
+
+        if ($id != Session::get('motel_id')) {
+            return Response::json(array('error_text' => '您並非管理者'), 401);
+        }
+
         if (isset($id)) {
             $affectedRows = Room::where('id', $id)->update(array('active' => $active));
         } else {
