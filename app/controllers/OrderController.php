@@ -196,7 +196,6 @@ class OrderController extends \BaseController
         $room_id = intval(Input::get('room_id'));
         $is_weekend = intval(Input::get('is_weekend', 0));
         $total_price = intval(Input::get('total_price', 0));
-        $room_type = intval(Input::get('room_type', 0));
         $user_name = Input::get('user_name', null);
         $user_phone = Input::get('user_phone', null);
         $uid = Input::get('uid', null);
@@ -217,10 +216,6 @@ class OrderController extends \BaseController
 
         if ($total_price <= 0) {
             return Response::json(array('error_text' => '你尚未輸入價格'), 401);
-        }
-
-        if ($room_type < 0 or $room_type > 1) {
-            return Response::json(array('error_text' => '房型必須為休息(0)/住宿(1)'), 401);
         }
 
         if (empty($user_name) or empty($user_phone)) {
