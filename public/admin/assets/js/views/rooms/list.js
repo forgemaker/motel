@@ -2,7 +2,7 @@ define(["jquery", "underscore", "backbone", "views/view", "config"], function($,
   return View.extend({
     events: _.extend({
       'click .enable': 'active',
-      'click .active': 'set_weekend'
+      'click .set_weekend': 'set_weekend'
     }, View.prototype.events),
     set_weekend: function(e) {
       var api_url, is_weekend, motel_id, self;

@@ -2,7 +2,7 @@ define ["jquery", "underscore", "backbone", "views/view", "config"], ($, _, Back
     View.extend
         events: _.extend(
             'click .enable': 'active'
-            'click .active': 'set_weekend'
+            'click .set_weekend': 'set_weekend'
         , View::events)
 
         set_weekend: (e) ->
