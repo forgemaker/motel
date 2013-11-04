@@ -61,10 +61,10 @@
             <td>{{date_time add_time}}</td>
             <td>
                 {{#ifeq active '1'}}
-                <button class="btn btn-danger enable" data-active="0" data-id="{{../id}}"><i class="icon-lock"></i> 關閉</button>
+                <button class="btn btn-danger enable" data-motel_id="{{../motel_id}}" data-active="0" data-id="{{../id}}"><i class="icon-lock"></i> 關閉</button>
                 {{/ifeq}}
                 {{#ifeq active '0'}}
-                <button class="btn btn-warning enable" data-active="1" data-id="{{../id}}"><i class="icon-unlock"></i> 啟用</button>
+                <button class="btn btn-warning enable" data-motel_id="{{../motel_id}}" data-active="1" data-id="{{../id}}"><i class="icon-unlock"></i> 啟用</button>
                 {{/ifeq}}
                 <a class="btn btn-primary" data-model="room" data-id="{{id}}" href="#!/room/edit/{{id}}" style="color: #fff"><i class="icon-edit"></i> 編輯</a>
                 <button class="btn btn-danger delete" data-model="room" data-title="{{title}}" data-id="{{id}}" href="#"><i class="icon-trash"></i> 刪除</button>
