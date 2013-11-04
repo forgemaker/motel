@@ -37,7 +37,7 @@ class RoomController extends \BaseController
             return Response::json(array('error_text' => '摩鐵不存在'), 404);
         }
 
-        if ($id != Session::get('motel_id')) {
+        if ($motel_id != Session::get('motel_id')) {
             return Response::json(array('error_text' => '您並非管理者'), 401);
         }
 
@@ -151,37 +151,17 @@ class RoomController extends \BaseController
 
     public function  update_room_price($motel, $type = 0)
     {
-        $prefix = ($type == 0) ? 'rest' : 'stay';
-        $change = false;
-        $price_1 = Input::get('price_1', 0);
-        $price_2 = Input::get('price_2', 0);
-        $price_3 = Input::get('price_3', 0);
-        $diff_price_2 = $price_1 - $price_2;
-        $diff_price_3 = $price_1 - $price_3;
-
-        if ($price_2 > 0 and ($price_2 < $motel->{$prefix . '_price_1'} or $motel->{$prefix . '_price_1'} == 0)) {
-            $motel->{$prefix . '_price_1'} = $price_2;
-            $change = true;
-        }
-
-        if ($price_3 > 0 and ($price_3 < $motel->{$prefix . '_price_2'} or $motel->{$prefix . '_price_2'} == 0)) {
-            $motel->{$prefix . '_price_2'} = $price_3;
-            $change = true;
-        }
-
-        if ($diff_price_2 > 0 and ($diff_price_2 > $motel->{$prefix . '_diff_price_1'} or $motel->{$prefix . '_diff_price_1'} == 0)) {
-            $motel->{$prefix . '_diff_price_1'} = $diff_price_2;
-            $change = true;
-        }
-
-        if ($diff_price_3 > 0 and ($diff_price_3 > $motel->{$prefix . '_diff_price_2'} or $motel->{$prefix . '_diff_price_2'} == 0)) {
-            $motel->{$prefix . '_diff_price_2'} = $diff_price_3;
-            $change = true;
-        }
-
-        if ($change) {
-            $motel->save();
-        }
+        $rest = DB::select('select min(`price_2`) as rest_price_1, min(`price_3`) as rest_price_2, max(`price_1` - `price_2`) as rest_diff_price_1, max(`price_1` - `price_3`) as rest_diff_price_2 from rooms where motel_id = ? and type = 0', array($motel->id));
+        $stay = DB::select('select min(`price_2`) as stay_price_1, min(`price_3`) as stay_price_2, max(`price_1` - `price_2`) as stay_diff_price_1, max(`price_1` - `price_3`) as stay_diff_price_2 from rooms where motel_id = ? and type = 1', array($motel->id));
+        $motel->rest_price_1 = $rest[0]->rest_price_1;
+        $motel->rest_price_2 = $rest[0]->rest_price_2;
+        $motel->rest_diff_price_1 = $rest[0]->rest_diff_price_1;
+        $motel->rest_diff_price_2 = $rest[0]->rest_diff_price_2;
+        $motel->stay_price_1 = $stay[0]->stay_price_1;
+        $motel->stay_price_2 = $stay[0]->stay_price_2;
+        $motel->stay_diff_price_1 = $stay[0]->stay_diff_price_1;
+        $motel->stay_diff_price_2 = $stay[0]->stay_diff_price_2;
+        $motel->save();
     }
 
     /**
