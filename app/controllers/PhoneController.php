@@ -38,9 +38,23 @@ class PhoneController extends \BaseController
      * @param  int      $id
      * @return Response
      */
-    public function show($id)
+    public function show($uid = null)
     {
-        //
+        if (!isset($uid) or empty($uid)) {
+            return Response::json(array('error_text' => '請輸入手機 UID'), 401);
+        }
+
+        $phone = Phone::ofUid($uid)->get();
+
+        if (empty($phone->toArray())) {
+            return Response::json(array('error_text' => '無此資料'), 404);
+        }
+
+        $data = array(
+            'item' => $phone->toArray()[0]
+        );
+
+        return Response::json($data);
     }
 
     /**

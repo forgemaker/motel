@@ -33,6 +33,7 @@ Route::resource('room', 'RoomController');
 Route::resource('new', 'NewsController');
 Route::resource('rank', 'RankController');
 Route::resource('order', 'OrderController');
+Route::resource('phone', 'PhoneController');
 
 // check login for add, update and delete
 Route::when('user/*', 'auth', array('put', 'delete'));

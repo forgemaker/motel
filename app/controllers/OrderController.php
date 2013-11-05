@@ -251,6 +251,7 @@ class OrderController extends \BaseController
         } elseif ($coupon != 0) {
             $phone = Phone::find($phone->toArray()[0]['id']);
             $phone->coupon = $phone->coupon - $coupon;
+            $phone->edit_time = time();
             $phone->save();
         }
 
@@ -387,6 +388,7 @@ class OrderController extends \BaseController
             } else {
                 $phone = Phone::find($phone->toArray()[0]['id']);
                 $phone->coupon = $phone->coupon + 1;
+                $phone->edit_time = time();
                 $phone->save();
             }
 
