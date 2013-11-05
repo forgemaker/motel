@@ -199,6 +199,7 @@ class OrderController extends \BaseController
         $user_name = Input::get('user_name', null);
         $user_phone = Input::get('user_phone', null);
         $uid = Input::get('uid', null);
+        $coupon = intval(Input::get('coupon', 0));
         $motel = Motel::find($motel_id);
         $room = Room::find($room_id);
 
@@ -230,6 +231,29 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '房型關閉中'), 401);
         }
 
+        // check uid exist
+        $phone = Phone::ofUid($uid)->get();
+        $user_coupon = 0;
+        if (empty($phone->toArray())) {
+            Phone::create(array(
+                'uid' => $uid,
+                'coupon' => 0,
+                'add_time' => time(),
+                'edit_time' => time()
+            ));
+        } else {
+            $user_coupon = $phone->toArray()[0]['coupon'];
+        }
+
+        // update user coupon
+        if ($coupon > $user_coupon) {
+            return Response::json(array('error_text' => '您的 coupon 點數不足'), 401);
+        } elseif ($coupon != 0) {
+            $phone = Phone::find($phone->toArray()[0]['id']);
+            $phone->coupon = $phone->coupon - $coupon;
+            $phone->save();
+        }
+
         $now = date('Y-m-d H:i:s');
         if ($room->type == '0') {
             $enter_time = date('Y-m-d H:i:s', strtotime("+1 hour"));
@@ -239,9 +263,8 @@ class OrderController extends \BaseController
             } else {
                 $enter_time = date('Y-m-d') . ' ' . $motel->stay_time_2;
             }
-
         }
-        //echo $enter_time;
+
         $serial_number = strtoupper($this->generate_code('6'));
         $order = Order::create(array(
             'motel_id' => $motel_id,
@@ -255,6 +278,7 @@ class OrderController extends \BaseController
             'serial_number' => $serial_number,
             'total_price' => $total_price,
             'enter_time' => $enter_time,
+            'coupon' => $coupon,
             'motel_data' => json_encode($motel->toArray()),
             'room_data' => json_encode($room->toArray()),
             'date_purchased' => Input::get('date_purchased', $now),
