@@ -29,7 +29,7 @@ class Phone extends Eloquent
         return $query->skip($offset);
     }
 
-    public function scopeOfMotel($query, $uid = null)
+    public function scopeOfUid($query, $uid = null)
     {
         if (!isset($uid)) {
             return $query;
