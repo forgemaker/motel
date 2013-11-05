@@ -351,6 +351,21 @@ class OrderController extends \BaseController
                 return Response::json(array('error_text' => '評分請介於 1~5'), 401);
             }
 
+            // check uid exist then update coupon
+            $phone = Phone::ofUid($uid)->get();
+            if (empty($phone->toArray())) {
+                Phone::create(array(
+                    'uid' => $uid,
+                    'coupon' => 1,
+                    'add_time' => time(),
+                    'edit_time' => time()
+                ));
+            } else {
+                $phone = Phone::find($phone->toArray()[0]['id']);
+                $phone->coupon = $phone->coupon + 1;
+                $phone->save();
+            }
+
             $order->rank = $rank;
             $order->title = $title;
             $order->description = $description;
