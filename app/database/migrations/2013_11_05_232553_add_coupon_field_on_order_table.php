@@ -12,7 +12,7 @@ class AddCouponFieldOnOrderTable extends Migration
     public function up()
     {
         Schema::table('orders', function($table) {
-            $table->integer('coupon');
+            $table->integer('coupon')->default(0);
         });
     }
 

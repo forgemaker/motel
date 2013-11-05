@@ -15,7 +15,7 @@ class CreatePhonesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('uid', 100)->unique();
-            $table->integer('coupon');
+            $table->integer('coupon')->default(0);
             $table->integer('add_time');
             $table->integer('edit_time');
         });
