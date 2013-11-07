@@ -216,8 +216,7 @@ module.exports = (grunt) ->
         grunt.log.writeln 'deploy project'
         grunt.task.run 'clean:dist'
         (grunt.file.exists project_config.app + '/assets/vendor') || grunt.task.run 'bower:install'
-        grunt.task.run ['requirejs:build', 'requirejs:release', 'cssmin:release', 'clean:js']
-        grunt.file.mkdir project_config.dist + '/assets/js'
+        grunt.task.run ['handlebars', 'requirejs:build', 'requirejs:release', 'cssmin:release', 'clean:js']
         grunt.task.run 'copy:release'
         grunt.task.run ['replace:release']
         grunt.task.run 'clean:release'
