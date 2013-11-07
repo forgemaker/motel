@@ -234,7 +234,7 @@ class OrderController extends \BaseController
         // check uid exist
         $phone = Phone::ofUid($uid)->get();
         $user_coupon = 0;
-        if (empty($phone->toArray())) {
+        if (empty($phone)) {
             Phone::create(array(
                 'uid' => $uid,
                 'coupon' => 0,
@@ -378,7 +378,7 @@ class OrderController extends \BaseController
 
             // check uid exist then update coupon
             $phone = Phone::ofUid($uid)->get();
-            if (empty($phone->toArray())) {
+            if (empty($phone)) {
                 Phone::create(array(
                     'uid' => $uid,
                     'coupon' => 1,
