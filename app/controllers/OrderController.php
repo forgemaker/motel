@@ -232,9 +232,9 @@ class OrderController extends \BaseController
         }
 
         // check uid exist
-        $phone = Phone::ofUid($uid)->get();
+        $phone = Phone::ofUid($uid)->first();
         $user_coupon = 0;
-        if (empty($phone)) {
+        if (empty($phone->id)) {
             Phone::create(array(
                 'uid' => $uid,
                 'coupon' => 0,
@@ -242,7 +242,7 @@ class OrderController extends \BaseController
                 'edit_time' => time()
             ));
         } else {
-            $user_coupon = $phone->toArray()[0]['coupon'];
+            $user_coupon = $phone->coupon;
         }
 
         // update user coupon
@@ -358,6 +358,10 @@ class OrderController extends \BaseController
         $title = Input::get('title', null);
         $description = Input::get('description', null);
 
+        if (empty($uid)) {
+            return Response::json(array('error_text' => 'UID 尚未輸入'), 404);
+        }
+
         // update from mobile phone
         if (!Auth::check()) {
             if ($order->rank >= 1 and $order->rank <=5) {
@@ -377,8 +381,8 @@ class OrderController extends \BaseController
             }
 
             // check uid exist then update coupon
-            $phone = Phone::ofUid($uid)->get();
-            if (empty($phone)) {
+            $phone = Phone::ofUid($uid)->first();
+            if (empty($phone->id)) {
                 Phone::create(array(
                     'uid' => $uid,
                     'coupon' => 1,
@@ -386,7 +390,6 @@ class OrderController extends \BaseController
                     'edit_time' => time()
                 ));
             } else {
-                $phone = Phone::find($phone->toArray()[0]['id']);
                 $phone->coupon = $phone->coupon + 1;
                 $phone->edit_time = time();
                 $phone->save();
