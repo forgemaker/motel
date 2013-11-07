@@ -50,7 +50,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '訂單狀態錯誤'), 401);
         }
 
-        // login user
+        // check login user
         if (!in_array('Admin', Session::get('user_groups')) and Auth::check()) {
             if ($order->motel_id != Session::get('motel_id')) {
                 return Response::json(array('error_text' => '您並非管理者'), 401);
@@ -354,12 +354,16 @@ class OrderController extends \BaseController
         }
 
         $uid = Input::get('uid', null);
-        $rank = intval(Input::get('rank', 1));
+        $rank = intval(Input::get('rank', null));
         $title = Input::get('title', null);
         $description = Input::get('description', null);
 
         if (empty($uid)) {
             return Response::json(array('error_text' => 'UID 尚未輸入'), 404);
+        }
+
+        if (empty($rank)) {
+            return Response::json(array('error_text' => '評分尚未填寫'), 401);
         }
 
         // update from mobile phone
@@ -403,6 +407,13 @@ class OrderController extends \BaseController
             $order->save();
             $this->update_rank($order->motel_id);
             return Response::json(array('success_text' => 'ok'));
+        }
+
+        // check login user
+        if (!in_array('Admin', Session::get('user_groups')) and Auth::check()) {
+            if ($order->motel_id != Session::get('motel_id')) {
+                return Response::json(array('error_text' => '您並非管理者'), 401);
+            }
         }
 
         $order->uid = $uid;
