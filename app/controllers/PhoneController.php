@@ -35,7 +35,7 @@ class PhoneController extends \BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int      $id
+     * @param  int      $uid
      * @return Response
      */
     public function show($uid = null)
@@ -44,14 +44,14 @@ class PhoneController extends \BaseController
             return Response::json(array('error_text' => '請輸入手機 UID'), 401);
         }
 
-        $phone = Phone::ofUid($uid)->get();
+        $phone = Phone::ofUid($uid)->first();
 
-        if (empty($phone->toArray())) {
+        if (empty($phone->id)) {
             return Response::json(array('error_text' => '無此資料'), 404);
         }
 
         $data = array(
-            'item' => $phone->toArray()[0]
+            'item' => $phone->toArray()
         );
 
         return Response::json($data);
