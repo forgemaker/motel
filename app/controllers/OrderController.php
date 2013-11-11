@@ -249,7 +249,6 @@ class OrderController extends \BaseController
         if ($coupon > $user_coupon) {
             return Response::json(array('error_text' => '您的 coupon 點數不足'), 401);
         } elseif ($coupon != 0) {
-            $phone = Phone::find($phone->toArray()[0]['id']);
             $phone->coupon = $phone->coupon - $coupon;
             $phone->edit_time = time();
             $phone->save();
