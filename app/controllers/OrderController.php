@@ -215,7 +215,7 @@ class OrderController extends \BaseController
             return Response::json(array('error_text' => '房型不存在'), 404);
         }
 
-        if ($total_price <= 0) {
+        if ($total_price < 0) {
             return Response::json(array('error_text' => '你尚未輸入價格'), 401);
         }
 
