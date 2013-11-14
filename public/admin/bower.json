@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "jquery": "~1.10.2",
-    "backbone-amd": "~1.0.0",
+    "backbone-amd": "~1.1.0",
     "underscore-amd": "~1.5.1",
     "requirejs": "~2.1.8",
     "handlebars": "~1.0.0",
