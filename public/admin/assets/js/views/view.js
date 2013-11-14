@@ -1,4 +1,12 @@
 define(["jquery", "underscore", "backbone", "alertify", "config"], function($, _, Backbone, alertify, Config) {
+  var View;
+  View = Backbone.View;
+  Backbone.View = View.extend({
+    constructor: function(options) {
+      this.options = options;
+      return View.apply(this, arguments);
+    }
+  });
   return Backbone.View.extend({
     initialize: function() {
       if (this.model) {

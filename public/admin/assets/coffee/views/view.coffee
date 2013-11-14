@@ -1,4 +1,10 @@
 define ["jquery", "underscore", "backbone", "alertify", "config"], ($, _, Backbone, alertify, Config) ->
+    View = Backbone.View
+    Backbone.View = View.extend
+        constructor: (options) ->
+            @options = options
+            View.apply(this, arguments)
+
     Backbone.View.extend
         initialize: ->
             @model.on "change", @render, this if @model
