@@ -66,6 +66,7 @@ define ["jquery",
         "views/ranks/edit",
         "views/orders/list",
         "views/orders/edit",
+        "sockieio",
         "moment",
         "jquery.twzipcode",
         "jquery.serialize",
@@ -248,6 +249,12 @@ define ["jquery",
             @view_motel_edit = new ViewMotel
                 model: @motel_model
                 el: "#main"
+
+            # socket io client (for order admin)
+            @socket = io.connect('http://' + window.location.hostname + ':3000');
+            @socket.on 'welcome message', (data) ->
+                console.log(data.title)
+                @socket.emit('my other event', { my: 'data' })
 
         redirect_url:
             error: (message, url) ->

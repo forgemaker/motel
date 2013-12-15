@@ -7,8 +7,8 @@
 <script src="http://m.tw:3000/socket.io/socket.io.js"></script>
 <script>
     var socket = io.connect('http://localhost:3000');
-    socket.on('welcome', function (data) {
-        console.log(data);
+    socket.on('welcome message', function (data) {
+        console.log(data.title);
         socket.emit('my other event', { my: 'data' });
     });
 </script>
