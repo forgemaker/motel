@@ -300,9 +300,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             this.order_model.set_lists_url(this.motel_id, {
               page: this.page
             });
-            return this.order_model.lists.fetch({
-              reset: true
-            });
+            return this.order_model.stream();
           }
           break;
         case "add":
@@ -709,6 +707,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
     },
     home: function() {},
     reset: function() {
+      this.order_model.unstream();
       if (typeof this.user !== "undefined" && typeof this.user.reset !== "undefined") {
         return this.user.reset();
       }

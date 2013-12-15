@@ -4,6 +4,7 @@ define ["jquery", "underscore", "backbone", "views/view", "config", "moment"], (
             "click .search_user": "search"
             'click .action': 'action'
         , View::events)
+
         search: (e) ->
             (@debug) and console.log("search")
             e.preventDefault()

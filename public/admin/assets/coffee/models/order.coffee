@@ -8,6 +8,26 @@ define ["jquery", "underscore", "backbone", "collections/orders", "config", "ale
             @on "invalid", (model, error) ->
                 alertify.error error
 
+        stream: (options = {}) ->
+            # Cancel any potential previous stream
+            this.unstream();
+
+            _update = _.bind(() ->
+                this.lists.fetch
+                    reset: true
+                this._intervalFetch = window.setTimeout(_update, options.interval || 5000)
+            , this)
+
+            _update()
+
+        unstream: () ->
+            if this._intervalFetch
+                window.clearTimeout(this._intervalFetch)
+                delete this._intervalFetch
+
+        isStreaming : () ->
+             !_.isUndefined(this._intervalFetch)
+
         validate: (attributes) ->
             if attributes.uid is ''
                 $("input[name=uid]").parent().addClass "has-error"

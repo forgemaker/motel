@@ -303,8 +303,8 @@ define ["jquery",
 
                         @view_orders_list.options.page = @page or 1
                         @order_model.set_lists_url @motel_id, page: @page
-                        @order_model.lists.fetch
-                            reset: true
+                        # fetch data in loop
+                        @order_model.stream()
                 when "add"
                     @update_title "新增訂單"
                     @order_model.clear silent: true
@@ -574,6 +574,7 @@ define ["jquery",
         home: ->
 
         reset: ->
+            @order_model.unstream()
             @user.reset()  if typeof @user isnt "undefined" and typeof @user.reset isnt "undefined"
     )
     initialize = ->

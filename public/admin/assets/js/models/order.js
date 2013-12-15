@@ -8,6 +8,29 @@ define(["jquery", "underscore", "backbone", "collections/orders", "config", "ale
         return alertify.error(error);
       });
     },
+    stream: function(options) {
+      var _update;
+      if (options == null) {
+        options = {};
+      }
+      this.unstream();
+      _update = _.bind(function() {
+        this.lists.fetch({
+          reset: true
+        });
+        return this._intervalFetch = window.setTimeout(_update, options.interval || 5000);
+      }, this);
+      return _update();
+    },
+    unstream: function() {
+      if (this._intervalFetch) {
+        window.clearTimeout(this._intervalFetch);
+        return delete this._intervalFetch;
+      }
+    },
+    isStreaming: function() {
+      return !_.isUndefined(this._intervalFetch);
+    },
     validate: function(attributes) {
       if (attributes.uid === '') {
         $("input[name=uid]").parent().addClass("has-error");
