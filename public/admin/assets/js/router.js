@@ -236,13 +236,11 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       });
       this.socket = io.connect('http://' + window.location.hostname + ':3000');
       this.socket.on('welcome message', function(data) {
-        console.log(data.title);
         return self.socket.emit('my other event', {
           my: 'data'
         });
       });
       this.socket.on('push order data', function(data) {
-        console.log(data.title);
         alertify.success("新訂單加入");
         return self.order_model.lists.fetch({
           reset: true

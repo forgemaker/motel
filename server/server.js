@@ -5,9 +5,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('get order data', function (data) {
         console.log(data);
         // send order data to admin panel
-        socket.broadcast.emit('push order data', {
-            title: 'You have new order, please check it.'
-        });
+        socket.broadcast.emit('push order data', data);
     });
 
     socket.on('disconnect', function () {

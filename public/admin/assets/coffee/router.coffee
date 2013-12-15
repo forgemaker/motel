@@ -254,11 +254,9 @@ define ["jquery",
             # socket io client (for order admin)
             @socket = io.connect('http://' + window.location.hostname + ':3000');
             @socket.on 'welcome message', (data) ->
-                console.log(data.title)
                 self.socket.emit('my other event', { my: 'data' })
 
             @socket.on 'push order data', (data) ->
-                console.log(data.title)
                 alertify.success "新訂單加入"
                 self.order_model.lists.fetch
                     reset: true

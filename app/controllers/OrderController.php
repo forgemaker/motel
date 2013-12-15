@@ -299,7 +299,7 @@ class OrderController extends \BaseController
         );
 
         // send notification
-        $this->_notify();
+        $this->_notify($order->toArray());
 
         return Response::json($data);
 
@@ -310,7 +310,7 @@ class OrderController extends \BaseController
      *
      * @return null
      */
-    public function _notify($id)
+    public function _notify($data = array())
     {
         $elephant = new ElephantIOClient('http://localhost:3000', 'socket.io', 1, false, true, true);
 
@@ -319,7 +319,7 @@ class OrderController extends \BaseController
             ElephantIOClient::TYPE_EVENT,
             null,
             null,
-            json_encode(array('name' => 'get order data', 'args' => 'bar'))
+            json_encode(array('name' => 'get order data', 'args' => $data))
         );
         $elephant->close();
     }
