@@ -257,9 +257,11 @@ define ["jquery",
                 self.socket.emit('my other event', { my: 'data' })
 
             @socket.on 'push order data', (data) ->
-                alertify.success "新訂單加入"
-                self.order_model.lists.fetch
-                    reset: true
+                motel_id = +self.me.get 'motel_id'
+                if (motel_id is data.motel_id)
+                    alertify.success "新訂單加入"
+                    self.order_model.lists.fetch
+                        reset: true
 
             @socket.on 'user disconnected', (data) ->
                 console.log('user disconnected')

@@ -241,10 +241,14 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         });
       });
       this.socket.on('push order data', function(data) {
-        alertify.success("新訂單加入");
-        return self.order_model.lists.fetch({
-          reset: true
-        });
+        var motel_id;
+        motel_id = +self.me.get('motel_id');
+        if (motel_id === data.motel_id) {
+          alertify.success("新訂單加入");
+          return self.order_model.lists.fetch({
+            reset: true
+          });
+        }
       });
       return this.socket.on('user disconnected', function(data) {
         return console.log('user disconnected');
