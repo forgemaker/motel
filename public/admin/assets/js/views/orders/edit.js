@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "backbone", "views/view", "alertify"], function($, _, Backbone, View, alertify) {
+define(["jquery", "underscore", "backbone", "views/view", "alertify", "sockieio"], function($, _, Backbone, View, alertify) {
   return View.extend({
     events: _.extend({
       "click #order_add_form .save": "save"
@@ -16,7 +16,9 @@ define(["jquery", "underscore", "backbone", "views/view", "alertify"], function(
       this.model.save(form_info, {
         success: function(model, response, options) {
           alertify.success(message + "成功");
-          return window.location = "#!/order/list/" + form_info.motel_id;
+          window.location = "#!/order/list/" + form_info.motel_id;
+          this.socket = io.connect('http://' + window.location.hostname + ':3000');
+          return this.socket.emit('get order data', form_info);
         }
       });
       return this;

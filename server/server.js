@@ -5,8 +5,12 @@ io.sockets.on('connection', function (socket) {
     socket.on('get order data', function (data) {
         console.log(data);
         // send order data to admin panel
-        socket.emit('push order data', {
+        socket.broadcast.emit('push order data', {
             title: 'You have new order, please check it.'
         });
+    });
+
+    socket.on('disconnect', function () {
+        io.sockets.emit('user disconnected');
     });
 });

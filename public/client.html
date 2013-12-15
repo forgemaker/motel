@@ -6,11 +6,12 @@
 <title>Socket.io Client</title>
 <script src="http://m.tw:3000/socket.io/socket.io.js"></script>
 <script>
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('http://' + window.location.hostname + ':3000');
     socket.on('welcome message', function (data) {
         console.log(data.title);
         socket.emit('my other event', { my: 'data' });
     });
+    socket.emit('get order data', { my: 'data' });
 </script>
 </head>
 <body>

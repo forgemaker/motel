@@ -178,6 +178,7 @@ define ["jquery",
             "!/order/:action/:id/:page": "order"
 
         initialize: ->
+            self = @
             @motel = new ModelMotel()
             @motel.on "change", @update_motel, this
 
@@ -254,7 +255,16 @@ define ["jquery",
             @socket = io.connect('http://' + window.location.hostname + ':3000');
             @socket.on 'welcome message', (data) ->
                 console.log(data.title)
-                @socket.emit('my other event', { my: 'data' })
+                self.socket.emit('my other event', { my: 'data' })
+
+            @socket.on 'push order data', (data) ->
+                console.log(data.title)
+                alertify.success "新訂單加入"
+                self.order_model.lists.fetch
+                    reset: true
+
+            @socket.on 'user disconnected', (data) ->
+                console.log('user disconnected')
 
         redirect_url:
             error: (message, url) ->

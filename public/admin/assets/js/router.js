@@ -153,6 +153,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       "!/order/:action/:id/:page": "order"
     },
     initialize: function() {
+      var self;
+      self = this;
       this.motel = new ModelMotel();
       this.motel.on("change", this.update_motel, this);
       this.me = new ModelMe();
@@ -233,11 +235,21 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         el: "#main"
       });
       this.socket = io.connect('http://' + window.location.hostname + ':3000');
-      return this.socket.on('welcome message', function(data) {
+      this.socket.on('welcome message', function(data) {
         console.log(data.title);
-        return this.socket.emit('my other event', {
+        return self.socket.emit('my other event', {
           my: 'data'
         });
+      });
+      this.socket.on('push order data', function(data) {
+        console.log(data.title);
+        alertify.success("新訂單加入");
+        return self.order_model.lists.fetch({
+          reset: true
+        });
+      });
+      return this.socket.on('user disconnected', function(data) {
+        return console.log('user disconnected');
       });
     },
     redirect_url: {

@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "views/view", "alertify"], ($, _, Backbone, View, alertify) ->
+define ["jquery", "underscore", "backbone", "views/view", "alertify", "sockieio"], ($, _, Backbone, View, alertify) ->
     View.extend
         events: _.extend
             "click #order_add_form .save": "save"
@@ -16,6 +16,9 @@ define ["jquery", "underscore", "backbone", "views/view", "alertify"], ($, _, Ba
                 success: (model, response, options) ->
                     alertify.success message + "成功"
                     window.location = "#!/order/list/" + form_info.motel_id
+                    # send message to anther via socket.io
+                    @socket = io.connect('http://' + window.location.hostname + ':3000');
+                    @socket.emit('get order data', form_info)
             this
 
         render: ->
