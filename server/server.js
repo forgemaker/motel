@@ -1,10 +1,8 @@
-var http = require('http');
-var backboneio = require('backbone.io');
+var io = require('socket.io').listen(3000);
 
-var app = http.createServer();
-app.listen(3000);
-
-var backend = backboneio.createBackend();
-backend.use(backboneio.middleware.memoryStore());
-
-backboneio.listen(app, { mybackend: backend });
+io.sockets.on('connection', function (socket) {
+    socket.emit('welcome', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
