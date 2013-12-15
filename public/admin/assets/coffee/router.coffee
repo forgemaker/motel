@@ -310,8 +310,8 @@ define ["jquery",
 
                         @view_orders_list.options.page = @page or 1
                         @order_model.set_lists_url @motel_id, page: @page
-                        # fetch data in loop
-                        @order_model.stream()
+                        @order_model.lists.fetch
+                            reset: true
                 when "add"
                     @update_title "新增訂單"
                     @order_model.clear silent: true

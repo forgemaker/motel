@@ -307,7 +307,9 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             this.order_model.set_lists_url(this.motel_id, {
               page: this.page
             });
-            return this.order_model.stream();
+            return this.order_model.lists.fetch({
+              reset: true
+            });
           }
           break;
         case "add":
