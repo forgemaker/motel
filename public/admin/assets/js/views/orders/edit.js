@@ -16,9 +16,7 @@ define(["jquery", "underscore", "backbone", "views/view", "alertify", "sockieio"
       this.model.save(form_info, {
         success: function(model, response, options) {
           alertify.success(message + "成功");
-          window.location = "#!/order/list/" + form_info.motel_id;
-          this.socket = io.connect('http://' + window.location.hostname + ':3000');
-          return this.socket.emit('get order data', form_info);
+          return window.location = "#!/order/list/" + form_info.motel_id;
         }
       });
       return this;

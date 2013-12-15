@@ -1,10 +1,13 @@
 <?php
 
+use ElephantIO\Client as ElephantIOClient;
+
 class OrderController extends \BaseController
 {
-
     public $limit = 10;
     public $offset = 0;
+
+    public function __construct() {}
 
     /**
      * Display a listing of the resource.
@@ -118,6 +121,7 @@ class OrderController extends \BaseController
             'total_pages' => $total_pages,
             'items' => $items->toArray()
         );
+
         return Response::json($data);
     }
 
@@ -294,8 +298,30 @@ class OrderController extends \BaseController
             'id' => $order->id
         );
 
+        // send notification
+        $this->_notify();
+
         return Response::json($data);
 
+    }
+
+    /**
+     * Send notification to client.
+     *
+     * @return null
+     */
+    public function _notify($id)
+    {
+        $elephant = new ElephantIOClient('http://localhost:3000', 'socket.io', 1, false, true, true);
+
+        $elephant->init();
+        $elephant->send(
+            ElephantIOClient::TYPE_EVENT,
+            null,
+            null,
+            json_encode(array('name' => 'get order data', 'args' => 'bar'))
+        );
+        $elephant->close();
     }
 
     /**

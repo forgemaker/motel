@@ -5,7 +5,9 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"way/generators": "dev-master",
-        "juy/profiler" : "dev-master"
+        "juy/profiler" : "dev-master",
+        "rickysu/phpsocket.io": "dev-master",
+        "wisembly/elephant.io": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
