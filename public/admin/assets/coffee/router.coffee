@@ -261,7 +261,7 @@ define ["jquery",
                 motel_id = +self.me.get 'motel_id'
                 if (motel_id is data.motel_id)
                     # play notification audio
-                    $('#sound').html '<audio autoplay="autoplay"><source src="assets/sound/facebook.mp3" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="assets/sound/facebook.mp3" /></audio>'
+                    $('#sound').html '<audio autoplay="autoplay"><source src="assets/sound/facebook.mp3" type="audio/mpeg" /><source src="assets/sound/facebook.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="assets/sound/facebook.mp3" /></audio>'
                     alertify.success "有新訂單加入，請查看"
                     # refresh data in order list page
                     if self.in_order_list
