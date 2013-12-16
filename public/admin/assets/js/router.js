@@ -248,15 +248,13 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         if (motel_id === data.motel_id) {
           alertify.success("有新訂單加入，請查看");
           if (self.in_order_list) {
-            self.reset_new_order_count();
-            return self.order_model.lists.fetch({
+            self.order_model.lists.fetch({
               reset: true
             });
-          } else {
-            new_count = +$('#new_order_count').text() + 1;
-            $('#new_order_count').text(new_count);
-            return $('#new_order_count').removeClass('hide');
           }
+          new_count = +$('#new_order_count').text() + 1;
+          $('#new_order_count').text(new_count);
+          return $('#new_order_count').removeClass('hide');
         }
       });
       return this.socket.on('user disconnected', function(data) {

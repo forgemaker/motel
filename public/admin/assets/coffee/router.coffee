@@ -264,13 +264,11 @@ define ["jquery",
                     alertify.success "有新訂單加入，請查看"
                     # refresh data in order list page
                     if self.in_order_list
-                        self.reset_new_order_count()
                         self.order_model.lists.fetch
                             reset: true
-                    else
-                        new_count = +$('#new_order_count').text() + 1
-                        $('#new_order_count').text new_count
-                        $('#new_order_count').removeClass 'hide'
+                    new_count = +$('#new_order_count').text() + 1
+                    $('#new_order_count').text new_count
+                    $('#new_order_count').removeClass 'hide'
 
             @socket.on 'user disconnected', (data) ->
                 console.log('user disconnected')

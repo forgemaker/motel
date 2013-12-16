@@ -15,8 +15,7 @@ define(["jquery", "underscore", "backbone", "views/view", "alertify", "sockieio"
       });
       this.model.save(form_info, {
         success: function(model, response, options) {
-          alertify.success(message + "成功");
-          return window.location = "#!/order/list/" + form_info.motel_id;
+          return alertify.success(message + "成功");
         }
       });
       return this;
