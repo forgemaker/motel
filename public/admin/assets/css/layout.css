@@ -1450,7 +1450,7 @@ form label {
     font-weight: bold;
     font-size: 0.9em;
     color: #fff;
-    padding: 2px;
+    padding: 2px 4px;
     background-color: red;
     border-radius: 10px;
 }
