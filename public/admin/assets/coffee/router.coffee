@@ -264,6 +264,7 @@ define ["jquery",
                     alertify.success "有新訂單加入，請查看"
                     # refresh data in order list page
                     if self.in_order_list
+                        self.reset_new_order_count()
                         self.order_model.lists.fetch
                             reset: true
                     else
@@ -273,6 +274,10 @@ define ["jquery",
 
             @socket.on 'user disconnected', (data) ->
                 console.log('user disconnected')
+
+        reset_new_order_count: () ->
+            $('#new_order_count').text '0'
+            $('#new_order_count').addClass 'hide'
 
         redirect_url:
             error: (message, url) ->
@@ -309,6 +314,8 @@ define ["jquery",
             switch action
                 when "list"
                     @in_order_list = true
+                    # reset new order count
+                    @reset_new_order_count()
                     if id is "all"
                         return if @auth_check()
                         @update_title "全部訂單列表"
