@@ -22,7 +22,7 @@ require.config({
     'jquery.fileupload-validate': '../vendor/blueimp-file-upload/js/jquery.fileupload-validate',
     'jquery.fileupload-process': '../vendor/blueimp-file-upload/js/jquery.fileupload-process',
     nprogress: '../vendor/nprogress/nprogress',
-    sockieio: 'http://' + window.location.hostname + ':3000/socket.io/socket.io'
+    sockieio: 'socket.io'
   },
   shim: {
     'jquery.serialize': {
