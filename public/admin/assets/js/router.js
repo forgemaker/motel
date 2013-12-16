@@ -242,7 +242,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         });
       });
       this.socket.on('push order data', function(data) {
-        var motel_id;
+        var motel_id, new_count;
         motel_id = +self.me.get('motel_id');
         console.log(self.in_order_list);
         if (motel_id === data.motel_id) {
@@ -251,6 +251,10 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
             return self.order_model.lists.fetch({
               reset: true
             });
+          } else {
+            new_count = +$('#new_order_count').text() + 1;
+            $('#new_order_count').text(new_count);
+            return $('#new_order_count').removeClass('hide');
           }
         }
       });

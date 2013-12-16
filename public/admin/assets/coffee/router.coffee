@@ -266,6 +266,10 @@ define ["jquery",
                     if self.in_order_list
                         self.order_model.lists.fetch
                             reset: true
+                    else
+                        new_count = +$('#new_order_count').text() + 1
+                        $('#new_order_count').text new_count
+                        $('#new_order_count').removeClass 'hide'
 
             @socket.on 'user disconnected', (data) ->
                 console.log('user disconnected')
