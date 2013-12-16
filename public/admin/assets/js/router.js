@@ -244,8 +244,8 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       this.socket.on('push order data', function(data) {
         var motel_id, new_count;
         motel_id = +self.me.get('motel_id');
-        console.log(self.in_order_list);
         if (motel_id === data.motel_id) {
+          $('#sound').html('<audio autoplay="autoplay"><source src="assets/sound/facebook.mp3" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="assets/sound/facebook.mp3" /></audio>');
           alertify.success("有新訂單加入，請查看");
           if (self.in_order_list) {
             self.order_model.lists.fetch({

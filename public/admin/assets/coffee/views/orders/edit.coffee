@@ -17,7 +17,7 @@ define ["jquery", "underscore", "backbone", "views/view", "alertify", "sockieio"
                     alertify.success message + "成功"
                     # window.location = "#!/order/list/" + form_info.motel_id
                     # send message to anther via socket.io
-                    # @socket = io.connect('http://' + window.location.hostname + ':3000');
+                    # @socket = io.connect('http://' + window.location.hostname + ':443');
                     # @socket.emit('get order data', form_info)
             this
 
