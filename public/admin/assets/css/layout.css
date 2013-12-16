@@ -1446,3 +1446,15 @@ form label {
   100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
 
+#new_order_count {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #fff;
+    padding: 2px;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.hide {
+    display: none;
+}
