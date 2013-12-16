@@ -235,7 +235,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
         model: this.motel_model,
         el: "#main"
       });
-      this.socket = io.connect('http://' + window.location.hostname + ':3000');
+      this.socket = io.connect('http://' + window.location.hostname + ':443');
       this.socket.on('welcome message', function(data) {
         return self.socket.emit('my other event', {
           my: 'data'

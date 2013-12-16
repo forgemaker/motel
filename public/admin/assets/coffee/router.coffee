@@ -253,7 +253,7 @@ define ["jquery",
                 el: "#main"
 
             # socket io client (for order admin)
-            @socket = io.connect('http://' + window.location.hostname + ':3000');
+            @socket = io.connect('http://' + window.location.hostname + ':443');
             @socket.on 'welcome message', (data) ->
                 self.socket.emit('my other event', { my: 'data' })
 
