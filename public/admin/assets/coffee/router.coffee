@@ -179,6 +179,7 @@ define ["jquery",
 
         initialize: ->
             self = @
+            @in_order_list = false
             @motel = new ModelMotel()
             @motel.on "change", @update_motel, this
 
@@ -258,10 +259,13 @@ define ["jquery",
 
             @socket.on 'push order data', (data) ->
                 motel_id = +self.me.get 'motel_id'
+                console.log self.in_order_list
                 if (motel_id is data.motel_id)
-                    alertify.success "新訂單加入"
-                    self.order_model.lists.fetch
-                        reset: true
+                    alertify.success "有新訂單加入，請查看"
+                    # refresh data in order list page
+                    if self.in_order_list
+                        self.order_model.lists.fetch
+                            reset: true
 
             @socket.on 'user disconnected', (data) ->
                 console.log('user disconnected')
@@ -300,6 +304,7 @@ define ["jquery",
 
             switch action
                 when "list"
+                    @in_order_list = true
                     if id is "all"
                         return if @auth_check()
                         @update_title "全部訂單列表"
@@ -591,7 +596,7 @@ define ["jquery",
         home: ->
 
         reset: ->
-            @order_model.unstream()
+            @in_order_list = false
             @user.reset()  if typeof @user isnt "undefined" and typeof @user.reset isnt "undefined"
     )
     initialize = ->

@@ -155,6 +155,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
     initialize: function() {
       var self;
       self = this;
+      this.in_order_list = false;
       this.motel = new ModelMotel();
       this.motel.on("change", this.update_motel, this);
       this.me = new ModelMe();
@@ -243,11 +244,14 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       this.socket.on('push order data', function(data) {
         var motel_id;
         motel_id = +self.me.get('motel_id');
+        console.log(self.in_order_list);
         if (motel_id === data.motel_id) {
-          alertify.success("新訂單加入");
-          return self.order_model.lists.fetch({
-            reset: true
-          });
+          alertify.success("有新訂單加入，請查看");
+          if (self.in_order_list) {
+            return self.order_model.lists.fetch({
+              reset: true
+            });
+          }
         }
       });
       return this.socket.on('user disconnected', function(data) {
@@ -294,6 +298,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
       }
       switch (action) {
         case "list":
+          this.in_order_list = true;
           if (id === "all") {
             if (this.auth_check()) {
               return;
@@ -730,7 +735,7 @@ define(["jquery", "underscore", "backbone", "config", 'alertify', 'nprogress', "
     },
     home: function() {},
     reset: function() {
-      this.order_model.unstream();
+      this.in_order_list = false;
       if (typeof this.user !== "undefined" && typeof this.user.reset !== "undefined") {
         return this.user.reset();
       }
