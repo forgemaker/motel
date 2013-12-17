@@ -312,7 +312,7 @@ class OrderController extends \BaseController
      */
     public function _notify($data = array())
     {
-        $elephant = new ElephantIOClient('http://localhost:443', 'socket.io', 1, false, true, true);
+        $elephant = new ElephantIOClient('http://www.moteline.com:443', 'socket.io', 1, false, true, true);
 
         $elephant->init();
         $elephant->send(
