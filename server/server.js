@@ -1,4 +1,4 @@
-var io = require('socket.io').listen(443);
+var io = require('socket.io').listen(443, {log: false});
 
 io.sockets.on('connection', function (socket) {
     socket.emit('welcome message', { title: 'Welcome Motel Socket Server.' });
