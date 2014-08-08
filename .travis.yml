@@ -7,6 +7,8 @@ php:
   - hhvm
 
 before_script:
+  - mysql -e 'create database app_test;'
+  - cp app/config/database.travis.php app/config/testing/database.php
   - travis_retry composer self-update
   - travis_retry composer install --prefer-source --no-interaction --dev
 
