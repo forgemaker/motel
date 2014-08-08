@@ -9,10 +9,9 @@ class ExampleTest extends TestCase {
      */
     public function testBasicExample()
     {
-        $response = $this->call('GET', '/user/logout');
-        $responseText = json_decode($response->getContent());
-        $this->assertEquals('ok', $responseText->success_text);
-        $this->assertResponseOk();
+        $crawler = $this->client->request('GET', '/');
+
+        $this->assertTrue($this->client->getResponse()->isOk());
     }
 
 }
