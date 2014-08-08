@@ -2,6 +2,8 @@
 
 class ExampleTest extends TestCase {
 
+    protected $useDatabase = true;
+
     /**
      * A basic functional test example.
      *
